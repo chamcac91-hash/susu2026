@@ -1,0 +1,48 @@
+{
+  "start": "2026-08-31",
+  "end": "2026-09-04",
+  "source": "用户提供掌上煤焦竞拍日报截图底部汇总（2026-08-31至2026-09-04）",
+  "suppress_stale_detail": true,
+  "daily": [
+    {
+      "date": "2026-08-31",
+      "listed_ton": 128500,
+      "deal_ton": 128500,
+      "failed_ton": 0,
+      "deal_rate": "100%",
+      "fail_rate": "0%"
+    },
+    {
+      "date": "2026-09-01",
+      "listed_ton": 216300,
+      "deal_ton": 195300,
+      "failed_ton": 21000,
+      "deal_rate": "90%",
+      "fail_rate": "10%"
+    },
+    {
+      "date": "2026-09-02",
+      "listed_ton": 379000,
+      "deal_ton": 368000,
+      "failed_ton": 11000,
+      "deal_rate": "97%",
+      "fail_rate": "3%"
+    },
+    {
+      "date": "2026-09-03",
+      "listed_ton": 91000,
+      "deal_ton": 89000,
+      "failed_ton": 2000,
+      "deal_rate": "98%",
+      "fail_rate": "2%"
+    },
+    {
+      "date": "2026-09-04",
+      "listed_ton": 52500,
+      "deal_ton": 42500,
+      "failed_ton": 10000,
+      "deal_rate": "81%",
+      "fail_rate": "19%"
+    }
+  ]
+}
