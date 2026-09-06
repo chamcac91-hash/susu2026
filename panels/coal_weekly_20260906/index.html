@@ -214,9 +214,10 @@
       z-index: 90;
       height: auto;
       max-height: none;
-      overflow-x: auto;
-      overflow-y: hidden;
+      overflow-x: hidden;
+      overflow-y: visible;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       gap: 6px;
       padding: 8px;
@@ -227,7 +228,7 @@
     }
 
     .side-toc .toc-title {
-      flex: 0 0 auto;
+      flex: 1 0 100%;
       margin: 0 8px 0 0;
       font-size: 14px;
       white-space: nowrap;
@@ -279,9 +280,9 @@
     .panel-tabs {
       top: 0;
       z-index: 80;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       gap: 6px;
-      overflow-x: auto;
+      overflow-x: hidden;
       padding: 8px 0;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
@@ -293,12 +294,13 @@
     }
 
     .panel-tab {
-      flex: 0 0 auto;
-      min-width: 6.5rem;
+      flex: 1 1 calc(50% - 6px);
+      min-width: 0;
       min-height: 36px;
       padding: 7px 10px;
-      font-size: 14px;
-      white-space: nowrap;
+      font-size: 13px;
+      white-space: normal;
+      overflow-wrap: anywhere;
     }
 
     .report-panel {
@@ -336,12 +338,17 @@
     .interactive-data-block,
     .data-block,
     .table-scroll,
-    .editable-table-wrap,
-    .thermal-summary-wrap {
+    .editable-table-wrap {
       max-width: 100%;
       overflow-x: auto !important;
       overflow-y: visible;
       -webkit-overflow-scrolling: touch;
+    }
+
+    .thermal-summary-wrap {
+      max-width: 100%;
+      overflow-x: hidden !important;
+      overflow-y: visible;
     }
 
     .interactive-data-block .table-scroll {
@@ -359,10 +366,32 @@
 
     .editable-table,
     .thermal-summary-table {
-      min-width: 640px;
+      min-width: 0 !important;
+      width: 100% !important;
       table-layout: fixed;
-      font-size: 13px;
-      line-height: 1.55;
+      font-size: 12.5px;
+      line-height: 1.58;
+    }
+
+    .thermal-summary-table col:first-child,
+    .editable-table col:first-child {
+      width: 24% !important;
+    }
+
+    .thermal-summary-table col:last-child,
+    .editable-table col:last-child {
+      width: 76% !important;
+    }
+
+    .thermal-summary-table th,
+    .thermal-summary-table td,
+    .editable-table th,
+    .editable-table td {
+      min-width: 0;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      white-space: normal;
     }
 
     .thermal-summary-table .thermal-summary-title th,
