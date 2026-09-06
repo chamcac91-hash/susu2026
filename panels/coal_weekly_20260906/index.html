@@ -214,10 +214,10 @@
       z-index: 90;
       height: auto;
       max-height: none;
-      overflow-x: hidden;
-      overflow-y: visible;
+      overflow-x: auto;
+      overflow-y: hidden;
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       align-items: center;
       gap: 6px;
       padding: 8px;
@@ -228,7 +228,7 @@
     }
 
     .side-toc .toc-title {
-      flex: 1 0 100%;
+      flex: 0 0 auto;
       margin: 0 8px 0 0;
       font-size: 14px;
       white-space: nowrap;
@@ -280,9 +280,9 @@
     .panel-tabs {
       top: 0;
       z-index: 80;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       gap: 6px;
-      overflow-x: hidden;
+      overflow-x: auto;
       padding: 8px 0;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
@@ -294,13 +294,12 @@
     }
 
     .panel-tab {
-      flex: 1 1 calc(50% - 6px);
-      min-width: 0;
+      flex: 0 0 auto;
+      min-width: 6.5rem;
       min-height: 36px;
       padding: 7px 10px;
-      font-size: 13px;
-      white-space: normal;
-      overflow-wrap: anywhere;
+      font-size: 14px;
+      white-space: nowrap;
     }
 
     .report-panel {
@@ -388,7 +387,7 @@
     .editable-table th,
     .editable-table td {
       min-width: 0;
-      overflow: hidden;
+      overflow: visible;
       overflow-wrap: anywhere;
       word-break: break-word;
       white-space: normal;
