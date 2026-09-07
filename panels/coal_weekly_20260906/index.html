@@ -524,6 +524,37 @@
         border-color: var(--accent);
         color: #fff;
       }
+      .section-page-nav {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        padding: 8px 0 10px;
+        margin: -2px 0 8px;
+        scrollbar-width: none;
+      }
+      .section-page-nav::-webkit-scrollbar { display: none; }
+      .section-link {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 32px;
+        max-width: 78vw;
+        padding: 6px 9px;
+        border: 1px solid #d7dee9;
+        border-radius: 4px;
+        background: #fff;
+        color: #42526b;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .section-link.active {
+        color: #fff;
+        background: #183a6b;
+        border-color: #183a6b;
+      }
       @media (max-width: 760px) {
         .side-toc {
           max-height: 56px;
@@ -536,7 +567,7 @@
     </style></head>
 <body>
 <div class="layout">
-<nav aria-label="总目录" class="side-toc"><div class="toc-title">煤焦周报总目录</div><a class="toc-level-1 toc-group" href="index.html#overview">1. 汇总+平衡表</a><a class="toc-level-3" href="index.html#summary-jm">1.1.1 焦煤汇总</a><a class="toc-level-3" href="index.html#summary-coke">1.1.2 焦炭汇总</a><a class="toc-level-3" href="index.html#summary-thermal">1.1.3 动力煤汇总</a><a class="toc-level-3" href="index.html#balance-jm">1.2.1 焦煤平衡表</a><a class="toc-level-3" href="index.html#balance-coke">1.2.2 焦炭平衡表</a><a class="toc-level-3" href="index.html#balance-thermal">1.2.3 动力煤平衡表</a><a class="toc-level-3" href="index.html#balance-weekly">1.2.4 周度平衡</a><a class="toc-level-3" href="index.html#balance-offbalance-inventory">1.2.5 表外库存</a><a class="toc-level-1 toc-group" href="jm.html#jm">2. 焦煤</a><a class="toc-level-2" href="jm.html#jm-warrant">2.1 仓单</a><a class="toc-level-2" href="jm.html#jm-overseas-heading">2.2 海外煤</a><a class="toc-level-3" href="jm.html#jm-mm">2.2.1 蒙煤</a><a class="toc-level-3" href="jm.html#jm-aus">2.2.2 澳煤</a><a class="toc-level-3" href="jm.html#jm-russia">2.2.3 俄煤</a><a class="toc-level-3" href="jm.html#jm-canada">2.2.4 加拿大煤</a><a class="toc-level-3" href="jm.html#jm-seaborne-flow">2.2.5 海煤发运</a><a class="toc-level-2" href="jm.html#jm-shanxi-heading">2.3 山西煤</a><a class="toc-level-3" href="jm.html#jm-shanxi-price">2.3.1 山西煤价格及竞拍</a><a class="toc-level-3" href="jm.html#jm-ms-supply">2.3.2 焦煤供给</a><a class="toc-level-4" href="jm.html#jm-ms-supply">2.3.2.1 MS供应</a><a class="toc-level-4" href="jm.html#jm-fw-supply">2.3.2.2 汾渭供应</a><a class="toc-level-3" href="jm.html#jm-ms-inv">2.3.3 焦煤库存</a><a class="toc-level-4" href="jm.html#jm-ms-inv">2.3.3.1 MS总库存</a><a class="toc-level-4" href="jm.html#jm-cjh-inv">2.3.3.2 煤炭江湖港口库存</a><a class="toc-level-4" href="jm.html#jm-fw-inv">2.3.3.3 汾渭库存</a><a class="toc-level-4" href="jm.html#jm-cokeplant-coal-inv">2.3.3.4 焦化厂焦煤库存可用天数</a><a class="toc-level-3" href="jm.html#jm-profit">2.3.4 焦煤利润</a><a class="toc-level-1 toc-group" href="coke.html#coke">3. 焦炭</a><a class="toc-level-2" href="coke.html#coke-heading">3.焦炭</a><a class="toc-level-3" href="coke.html#coke-profit">3.1.1 提涨+提降预期</a><a class="toc-level-3" href="coke.html#coke-fenwei-profit">3.1.2 焦企利润</a><a class="toc-level-2" href="coke.html#coke-supply-heading">3.2 焦炭供给</a><a class="toc-level-3" href="coke.html#coke-ms-supply">3.2.1 MS焦炭供给</a><a class="toc-level-3" href="coke.html#coke-research-supply">3.2.3 调研焦炭供给</a><a class="toc-level-3" href="coke.html#coke-fw-supply">3.2.2 汾渭焦炭供给</a><a class="toc-level-2" href="coke.html#coke-inventory-heading">3.3 焦炭库存</a><a class="toc-level-3" href="coke.html#coke-ms-inv">3.3.1 MS焦炭总库存</a><a class="toc-level-3" href="coke.html#coke-research-inv">3.3.3 乌海焦炭库存</a><a class="toc-level-3" href="coke.html#coke-fw-inv">3.3.2 汾渭焦炭库存</a><a class="toc-level-3" href="coke.html#coke-steel-coke-inv">3.3.4 样本钢厂焦炭库存可用天数</a><a class="toc-level-2" href="coke.html#coke-hotmetal">3.4 铁水预期</a><a class="toc-level-1 toc-group" href="thermal.html#thermal">4. 动力煤</a><a class="toc-level-2" href="thermal.html#thermal-price-heading">4.1 价格</a><a class="toc-level-3" href="thermal.html#thermal-policy">4.1.1 政策指导价</a><a class="toc-level-3" href="thermal.html#thermal-overseas-price">4.1.2 海外价格</a><a class="toc-level-3" href="thermal.html#thermal-domestic-price">4.1.3 国内价格</a><a class="toc-level-3" href="thermal.html#thermal-import-profit">4.1.4 进口利润</a><a class="toc-level-3" href="thermal.html#thermal-port-profit">4.1.5 集港利润</a><a class="toc-level-3" href="thermal.html#thermal-freight">4.1.6 运费</a><a class="toc-level-2" href="thermal.html#thermal-supply-heading">4.2 供给</a><a class="toc-level-3" href="thermal.html#thermal-overseas-supply">4.2.1 海外供给</a><a class="toc-level-3" href="thermal.html#thermal-domestic-supply">4.2.2 国内供给</a><a class="toc-level-2" href="thermal.html#thermal-demand-heading">4.3 需求</a><a class="toc-level-3" href="thermal.html#thermal-overseas-demand">4.3.1 海外需求</a><a class="toc-level-3" href="thermal.html#thermal-domestic-power">4.3.2 国内电力</a><a class="toc-level-3" href="thermal.html#thermal-chemical">4.3.3 国内化工</a><a class="toc-level-3" href="thermal.html#thermal-building">4.3.4 国内建材</a><a class="toc-level-2" href="thermal.html#thermal-inventory-heading">4.4 库存+运输</a><a class="toc-level-3" href="thermal.html#thermal-origin-inv">4.4.1 产地库存</a><a class="toc-level-3" href="thermal.html#thermal-port-inv-own">4.4.2 港口库存（日度）</a><a class="toc-level-3" href="thermal.html#thermal-port-inv-cjh">4.4.3 煤炭江湖港口库存</a><a class="toc-level-3" href="thermal.html#thermal-port-dispatch">4.4.4 港口调度</a><a class="toc-level-3" href="thermal.html#thermal-railway">4.4.5 铁路运输</a><a class="toc-level-2" href="thermal.html#thermal-weather">4.5 天气</a></nav>
+<nav aria-label="总目录" class="side-toc"><div class="toc-title">煤焦周报总目录</div><a class="toc-level-1 toc-group" href="index.html#overview">1. 汇总+平衡表</a><a class="toc-level-3" href="index.html#summary-jm">1.1.1 焦煤汇总</a><a class="toc-level-3" href="index.html#summary-coke">1.1.2 焦炭汇总</a><a class="toc-level-3" href="index.html#summary-thermal">1.1.3 动力煤汇总</a><a class="toc-level-3" href="index.html#balance-jm">1.2.1 焦煤平衡表</a><a class="toc-level-3" href="index.html#balance-coke">1.2.2 焦炭平衡表</a><a class="toc-level-3" href="index.html#balance-thermal">1.2.3 动力煤平衡表</a><a class="toc-level-3" href="index.html#balance-weekly">1.2.4 周度平衡</a><a class="toc-level-3" href="index.html#balance-offbalance-inventory">1.2.5 表外库存</a><a class="toc-level-1 toc-group" href="jm.html#jm">2. 焦煤</a><a class="toc-level-2" href="jm.html#jm-warrant">2.1 仓单</a><a class="toc-level-2" href="jm-jm-overseas-heading.html#jm-overseas-heading">2.2 海外煤</a><a class="toc-level-3" href="jm-jm-mm.html#jm-mm">2.2.1 蒙煤</a><a class="toc-level-3" href="jm-jm-aus.html#jm-aus">2.2.2 澳煤</a><a class="toc-level-3" href="jm-jm-russia.html#jm-russia">2.2.3 俄煤</a><a class="toc-level-3" href="jm-jm-canada.html#jm-canada">2.2.4 加拿大煤</a><a class="toc-level-3" href="jm-jm-seaborne-flow.html#jm-seaborne-flow">2.2.5 海煤发运</a><a class="toc-level-2" href="jm-jm-shanxi-heading.html#jm-shanxi-heading">2.3 山西煤</a><a class="toc-level-3" href="jm-jm-shanxi-price.html#jm-shanxi-price">2.3.1 山西煤价格及竞拍</a><a class="toc-level-3" href="jm-jm-ms-supply.html#jm-ms-supply">2.3.2 焦煤供给</a><a class="toc-level-4" href="jm-jm-ms-supply.html#jm-ms-supply">2.3.2.1 MS供应</a><a class="toc-level-4" href="jm-jm-fw-supply.html#jm-fw-supply">2.3.2.2 汾渭供应</a><a class="toc-level-3" href="jm-jm-ms-inv.html#jm-ms-inv">2.3.3 焦煤库存</a><a class="toc-level-4" href="jm-jm-ms-inv.html#jm-ms-inv">2.3.3.1 MS总库存</a><a class="toc-level-4" href="jm-jm-cjh-inv.html#jm-cjh-inv">2.3.3.2 煤炭江湖港口库存</a><a class="toc-level-4" href="jm-jm-fw-inv.html#jm-fw-inv">2.3.3.3 汾渭库存</a><a class="toc-level-4" href="jm-jm-cokeplant-coal-inv.html#jm-cokeplant-coal-inv">2.3.3.4 焦化厂焦煤库存可用天数</a><a class="toc-level-3" href="jm-jm-profit.html#jm-profit">2.3.4 焦煤利润</a><a class="toc-level-1 toc-group" href="coke.html#coke">3. 焦炭</a><a class="toc-level-2" href="coke.html#coke-heading">3.焦炭</a><a class="toc-level-3" href="coke-coke-profit.html#coke-profit">3.1.1 提涨+提降预期</a><a class="toc-level-3" href="coke-coke-fenwei-profit.html#coke-fenwei-profit">3.1.2 焦企利润</a><a class="toc-level-2" href="coke-coke-supply-heading.html#coke-supply-heading">3.2 焦炭供给</a><a class="toc-level-3" href="coke-coke-ms-supply.html#coke-ms-supply">3.2.1 MS焦炭供给</a><a class="toc-level-3" href="coke-coke-research-supply.html#coke-research-supply">3.2.3 调研焦炭供给</a><a class="toc-level-3" href="coke-coke-fw-supply.html#coke-fw-supply">3.2.2 汾渭焦炭供给</a><a class="toc-level-2" href="coke-coke-inventory-heading.html#coke-inventory-heading">3.3 焦炭库存</a><a class="toc-level-3" href="coke-coke-ms-inv.html#coke-ms-inv">3.3.1 MS焦炭总库存</a><a class="toc-level-3" href="coke-coke-research-inv.html#coke-research-inv">3.3.3 乌海焦炭库存</a><a class="toc-level-3" href="coke-coke-fw-inv.html#coke-fw-inv">3.3.2 汾渭焦炭库存</a><a class="toc-level-3" href="coke-coke-steel-coke-inv.html#coke-steel-coke-inv">3.3.4 样本钢厂焦炭库存可用天数</a><a class="toc-level-2" href="coke-coke-hotmetal.html#coke-hotmetal">3.4 铁水预期</a><a class="toc-level-1 toc-group" href="thermal.html#thermal">4. 动力煤</a><a class="toc-level-2" href="thermal.html#thermal-price-heading">4.1 价格</a><a class="toc-level-3" href="thermal-thermal-policy.html#thermal-policy">4.1.1 政策指导价</a><a class="toc-level-3" href="thermal-thermal-overseas-price.html#thermal-overseas-price">4.1.2 海外价格</a><a class="toc-level-3" href="thermal-thermal-domestic-price.html#thermal-domestic-price">4.1.3 国内价格</a><a class="toc-level-3" href="thermal-thermal-import-profit.html#thermal-import-profit">4.1.4 进口利润</a><a class="toc-level-3" href="thermal-thermal-port-profit.html#thermal-port-profit">4.1.5 集港利润</a><a class="toc-level-3" href="thermal-thermal-freight.html#thermal-freight">4.1.6 运费</a><a class="toc-level-2" href="thermal-thermal-supply-heading.html#thermal-supply-heading">4.2 供给</a><a class="toc-level-3" href="thermal-thermal-overseas-supply.html#thermal-overseas-supply">4.2.1 海外供给</a><a class="toc-level-3" href="thermal-thermal-domestic-supply.html#thermal-domestic-supply">4.2.2 国内供给</a><a class="toc-level-2" href="thermal-thermal-demand-heading.html#thermal-demand-heading">4.3 需求</a><a class="toc-level-3" href="thermal-thermal-overseas-demand.html#thermal-overseas-demand">4.3.1 海外需求</a><a class="toc-level-3" href="thermal-thermal-domestic-power.html#thermal-domestic-power">4.3.2 国内电力</a><a class="toc-level-3" href="thermal-thermal-chemical.html#thermal-chemical">4.3.3 国内化工</a><a class="toc-level-3" href="thermal-thermal-building.html#thermal-building">4.3.4 国内建材</a><a class="toc-level-2" href="thermal-thermal-inventory-heading.html#thermal-inventory-heading">4.4 库存+运输</a><a class="toc-level-3" href="thermal-thermal-origin-inv.html#thermal-origin-inv">4.4.1 产地库存</a><a class="toc-level-3" href="thermal-thermal-port-inv-own.html#thermal-port-inv-own">4.4.2 港口库存（日度）</a><a class="toc-level-3" href="thermal-thermal-port-inv-cjh.html#thermal-port-inv-cjh">4.4.3 煤炭江湖港口库存</a><a class="toc-level-3" href="thermal-thermal-port-dispatch.html#thermal-port-dispatch">4.4.4 港口调度</a><a class="toc-level-3" href="thermal-thermal-railway.html#thermal-railway">4.4.5 铁路运输</a><a class="toc-level-2" href="thermal-thermal-weather.html#thermal-weather">4.5 天气</a></nav>
 <main>
 <header>
 <h1>煤焦周报20260906</h1>
@@ -686,7 +717,7 @@
       const ctx = canvas.getContext('2d');
       const w = Number(canvas.getAttribute('width')) || 760;
       const h = Number(canvas.getAttribute('height')) || 420;
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 760 ? 1.25 : 2);
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       canvas.style.aspectRatio = `${w} / ${h}`;
@@ -843,8 +874,11 @@
       }
       canvas._hoverPoints = hoverPoints;
     }
+
     function bindCanvasCharts(root = document) {
-      root.querySelectorAll('.chart-canvas:not([data-rendered])').forEach(canvas => {
+      const canvases = Array.from(root.querySelectorAll('.chart-canvas:not([data-rendered])'));
+      const bindOne = canvas => {
+        if (canvas.dataset.rendered === '1') return;
         canvas.dataset.rendered = '1';
         drawCanvasChart(canvas);
         canvas.addEventListener('mousemove', event => {
@@ -853,6 +887,7 @@
           const x = (event.clientX - rect.left) * w / rect.width;
           const points = canvas._hoverPoints || [];
           if (!points.length) return;
+          const data = JSON.parse(canvas.dataset.chart || '{}');
           if (points[0].type === 'seasonal') {
             const grouped = new Map();
             points.forEach(point => {
@@ -882,7 +917,8 @@
               });
               return nearest ? `${nearest.year} ${nearest.date}：${formatPointValue(nearest)}` : '';
             }).filter(Boolean);
-            chartTip.textContent = [points[0].title || '', ...lines].filter(Boolean).join('\n');
+            chartTip.textContent = [points[0].title || '', ...lines].filter(Boolean).join('
+');
           } else {
             let nearest = points[0];
             points.forEach(point => { if (Math.abs(point.x - x) < Math.abs(nearest.x - x)) nearest = point; });
@@ -893,7 +929,20 @@
           chartTip.style.top = (event.clientY + 12) + 'px';
         });
         canvas.addEventListener('mouseleave', () => chartTip.style.display = 'none');
-      });
+      };
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            bindOne(entry.target);
+            observer.unobserve(entry.target);
+          });
+        }, {rootMargin: '360px 0px'});
+        canvases.forEach(canvas => observer.observe(canvas));
+      } else {
+        canvases.slice(0, 8).forEach(bindOne);
+        canvases.slice(8).forEach((canvas, idx) => window.setTimeout(() => bindOne(canvas), 160 * (idx + 1)));
+      }
     }
     function bindChartInteractions(root = document) {
       bindCanvasCharts(root);

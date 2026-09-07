@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>煤焦周报20260906 焦煤</title>
+<style>
+    :root { --ink:#0b2f66; --accent:#b4493f; --bg:#fffdf9; --panel:#fbfcff; --line:#d7dde8; --muted:#667085; --soft:#f2f5f9; --font:"Times New Roman","KaiTi","STKaiti","SimKai",serif; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:var(--font); background:var(--bg); color:#1f2937; }
+    .layout { display:grid; grid-template-columns:188px minmax(0,1fr); min-height:100vh; }
+    .side-toc { position:sticky; top:0; height:100vh; overflow:auto; border-right:1px solid var(--line); background:#f5f7fb; padding:14px 8px; scrollbar-width:thin; }
+    .side-toc .toc-title { color:var(--ink); font-size:17px; font-weight:800; margin:2px 4px 12px; line-height:1.25; }
+    .side-toc a { display:block; color:#344054; text-decoration:none; padding:6px 6px 6px 8px; margin:1px 0; border-radius:4px; font-size:12.5px; line-height:1.24; border-left:2px solid transparent; word-break:break-word; }
+    .side-toc a.toc-level-1 { padding-left:8px; font-size:13px; font-weight:850; color:var(--ink); margin-top:5px; }
+    .side-toc a.toc-level-2 { padding-left:18px; }
+    .side-toc a.toc-level-3 { padding-left:30px; font-size:12px; color:#475467; }
+    .side-toc a.toc-level-4 { padding-left:42px; font-size:11.5px; color:#667085; }
+    .side-toc a:hover, .side-toc a.active { background:#fff; color:var(--ink); border-left-color:var(--accent); box-shadow:0 1px 4px rgba(15,23,42,.06); }
+    main { padding:0 24px 30px; min-width:0; }
+    header { padding:18px 0 10px; border-bottom:1px solid var(--line); }
+    h1 { color:var(--ink); font-size:28px; margin:0 0 6px; letter-spacing:0; }
+    .subtitle { color:var(--muted); line-height:1.55; font-size:14px; }
+    .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:7px; padding:12px 0 9px; border-bottom:1px solid var(--line); background:rgba(255,253,249,.97); backdrop-filter:blur(8px); }
+    .panel-tab { border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:7px 15px; min-height:38px; border-radius:4px; font-family:inherit; font-size:16px; font-weight:750; cursor:pointer; }
+    .panel-tab.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .report-panel { display:none; padding:12px 0 22px; }
+    .report-panel.active { display:block; }
+    h2 { color:var(--ink); margin:10px 0 12px; font-size:23px; }
+    .subpanel { scroll-margin-top:70px; margin:11px 0 16px; padding:12px 13px; border:1px solid var(--line); background:var(--panel); border-radius:4px; box-shadow:0 1px 6px rgba(15,23,42,.03); }
+    .subpanel > h3 { margin:-12px -13px 10px; font-size:19px; color:var(--ink); background:#e7ecf4; border-left:4px solid var(--ink); border-bottom:1px solid #cbd5e1; padding:8px 12px 8px 14px; letter-spacing:0; }
+    .node-meta { display:flex; flex-wrap:wrap; gap:7px; color:var(--muted); font-size:13px; margin:0 0 10px; line-height:1.5; }
+    .tag { display:inline-flex; align-items:center; min-height:22px; padding:1px 7px; border-radius:3px; font-weight:700; color:#fff; }
+    .tag.ok { background:#357f63; } .tag.data { background:#0b2f66; } .tag.report { background:#7a4b1f; } .tag.ppt { background:#b4493f; }
+    .table-toolbar { display:flex; justify-content:flex-end; align-items:center; gap:8px; margin:4px 0 8px; color:var(--muted); }
+    .table-toolbar span { display:none; }
+    .table-toolbar button { border:1px solid var(--line); background:#fff; padding:6px 10px; border-radius:3px; cursor:pointer; }
+    .table-scroll { overflow:auto; border:1px solid var(--line); background:#fff; margin:8px 0 12px; max-height:460px; border-radius:3px; }
+    .editable-table-wrap { overflow:visible; border:1px solid #b9c4d6; background:#fff; margin:8px 0 12px; max-height:none; border-radius:3px; }
+    table { border-collapse:collapse; min-width:720px; width:100%; font-size:13.5px; }
+    th, td { border:1px solid #e2e8f0; padding:6px 8px; vertical-align:top; }
+    th { background:#e9eef7; color:var(--ink); position:sticky; top:0; z-index:1; }
+    .editable-table { min-width:0; table-layout:fixed; font-size:15px; line-height:1.6; }
+    .editable-table th, .editable-table td { border-color:#cfd7e6; white-space:normal; overflow-wrap:anywhere; word-break:break-word; }
+    .editable-table th { position:static; }
+    .editable-table .editable-title th { background:#d8e0ef; color:var(--ink); text-align:center; font-size:18px; font-weight:800; padding:9px 10px 6px; }
+    .editable-table .editable-head th { background:#edf2f8; color:var(--ink); text-align:center; font-weight:800; }
+    .editable-table tr:not(.editable-title):not(.editable-head):not(.editable-merged-row) td:first-child { text-align:center; font-weight:800; color:#1f2937; vertical-align:middle; }
+    .editable-table tr:not(.editable-title):not(.editable-head):not(.editable-merged-row) td:not(:last-child) { text-align:center; vertical-align:middle; }
+    .editable-table .editable-merged-row td { background:#fffdf5; border-top:2px solid #9aa8bc; color:#1f2937; font-weight:700; }
+    .thermal-summary-wrap { border:1px solid #b9c4d6; border-radius:3px; }
+    .thermal-summary-table { font-size:15px; line-height:1.6; }
+    .thermal-summary-table th, .thermal-summary-table td { border-color:#cfd7e6; padding:6px 8px; }
+    .thermal-summary-table .thermal-summary-title th { background:#d8e0ef; color:var(--ink); text-align:center; font-size:18px; font-weight:800; padding:9px 10px 6px; }
+    .thermal-summary-table .thermal-summary-head th { background:#edf2f8; color:var(--ink); text-align:center; font-size:15px; font-weight:800; }
+    .thermal-summary-table .thermal-summary-metric { text-align:center; vertical-align:middle; font-weight:800; color:#1f2937; }
+    .thermal-summary-table .thermal-summary-change { text-align:left; vertical-align:top; color:var(--ink); }
+    .thermal-summary-table .thermal-summary-valuation td { background:#fffdf5; border-top:2px solid #9aa8bc; color:#1f2937; text-align:left; font-weight:700; }
+    .thermal-summary-table .thermal-summary-valuation td mark { background:#ffff00; padding:0 3px; }
+    .editable-table td:focus, .editable-table th:focus { outline:2px solid var(--accent); background:#fff7ed; }
+    .edit-toolbar { position:fixed; z-index:180; display:none; align-items:center; gap:6px; padding:6px; border:1px solid #cbd5e1; background:#fff; box-shadow:0 8px 22px rgba(15,23,42,.16); border-radius:4px; }
+    .edit-toolbar.active { display:flex; }
+    .edit-toolbar button { border:1px solid #cbd5e1; background:#f8fafc; color:#0b2f66; padding:5px 9px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:13px; font-weight:800; }
+    .edit-toolbar button:hover { background:#eef3fb; }
+    .edit-toolbar .red-btn { color:#b00000; }
+    .edit-toolbar .save-btn { color:#357f63; }
+    .edit-save-hint { font-size:12px; color:#667085; padding:0 3px; }
+    .data-block { border:1px solid var(--line); background:#fff; padding:10px; margin:9px 0; border-radius:4px; }
+    .data-block.featured { border-color:#c98d4e; background:#fffaf3; }
+    .data-block.missing { color:var(--muted); display:flex; gap:12px; }
+    .interactive-data-block { border:1px solid #cfd7e6; background:#fff; padding:10px 11px; margin:9px 0 12px; border-radius:4px; }
+    .interactive-data-block .table-scroll { max-height:none; overflow:visible; }
+    .data-head { display:flex; justify-content:space-between; gap:12px; color:var(--ink); margin-bottom:8px; }
+    .file-list { display:flex; flex-wrap:wrap; gap:6px; list-style:none; padding:0; margin:0 0 8px; }
+    .file-list li { display:flex; gap:6px; align-items:center; border:1px solid #e2e8f0; background:#f8fafc; padding:4px 7px; border-radius:3px; color:var(--muted); font-size:12px; }
+    .json-summary { display:flex; flex-wrap:wrap; gap:6px; }
+    .json-summary span { background:#eef4ff; color:var(--ink); padding:4px 8px; border-radius:3px; }
+    .svg-card, .freight-svg { width:100%; max-width:980px; display:block; margin:8px 0; background:#fff; border:1px solid #e5e7eb; }
+    .svg-card svg { width:100%; display:block; }
+    .chart-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:11px; margin:10px 0; }
+    .chart-card { border:1px solid #dde5f0; background:#fff; border-radius:4px; padding:7px; min-width:0; }
+    .chart-card svg { width:100%; display:block; }
+    .chart-canvas { width:100%; height:auto; display:block; }
+    .seasonal-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .aussie-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .mongolian-grid, .overseas-profit-grid, .coal-jianghu-grid, .fenwei-inventory-grid, .fenwei-profit-grid, .available-days-grid, .coke-data-grid, .fenwei-coke-grid, .wuhai-coke-grid, .thermal-price-grid, .thermal-port-inventory-grid, .thermal-dispatch-grid, .thermal-power-grid, .thermal-demand-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .thermal-power-compact-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .weather-temperature-grid, .thermal-building-grid, .thermal-origin-grid, .raw-coal-grid { grid-template-columns:repeat(4, minmax(0, 1fr)); }
+    .hotmetal-grid, .offbalance-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .seaborne-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .auction-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .supply-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .auction-price-table { min-width:1180px; font-size:12.5px; }
+    .auction-price-table-block .table-scroll { overflow:auto; max-height:620px; }
+    .seasonal-card { padding:6px 7px; }
+    .mongolian-subsection { margin:12px 0 16px; border:1px solid var(--line); background:#fff; border-radius:4px; overflow:hidden; }
+    .mongolian-subsection > h4 { margin:0; padding:9px 13px; background:#e7ecf4; color:var(--ink); border-left:4px solid var(--ink); border-bottom:1px solid #cbd5e1; font-size:18px; font-weight:800; }
+    .mongolian-subsection .interactive-data-block { border:0; border-radius:0; margin:0; }
+    .chart-title { font-size:14px; font-weight:800; fill:var(--ink); }
+    .hover-dot { cursor:crosshair; }
+    .seasonal-hover-zone { fill:transparent; cursor:crosshair; }
+    .seasonal-guide { display:none; stroke:#111827; stroke-width:1.2; stroke-dasharray:3 3; pointer-events:none; }
+    .chart-tip { position:fixed; display:none; pointer-events:none; z-index:300; background:#0f172a; color:#fff; padding:7px 9px; border-radius:3px; font-size:12px; line-height:1.5; white-space:pre-line; max-width:320px; box-shadow:0 8px 22px rgba(15,23,42,.2); }
+    .summary-table th, .summary-table td { text-align:center; vertical-align:middle; }
+    .summary-table td:last-child { font-weight:800; }
+    .grouped-category-table .category-cell { text-align:center; vertical-align:middle; font-weight:800; color:var(--ink); background:#f3f6fb; min-width:58px; }
+    .grid { stroke:#d7dce5; stroke-dasharray:4 4; }
+    .axis { font-size:11px; fill:#667085; }
+    .legend { display:flex; flex-wrap:wrap; gap:5px 8px; color:#475467; font-size:10.5px; line-height:1.15; margin:2px 0 0; }
+    .legend span { display:inline-flex; align-items:center; gap:3px; }
+    .legend i { display:inline-block; width:8px; height:8px; }
+    .chg-pos { background:#f6c7cd !important; color:#8b0000; font-weight:800; }
+    .chg-neg { background:#c6efce !important; color:#006100; font-weight:800; }
+    .slide-grid { display:grid; grid-template-columns:1fr; gap:14px; margin-top:10px; }
+    .slide-card { margin:0; border:1px solid var(--line); background:#fff; border-radius:4px; overflow:hidden; }
+    .slide-card figcaption { border-top:0; border-bottom:1px solid var(--line); background:#f2f5fa; color:var(--ink); font-size:15px; font-weight:750; }
+    .slide-card button { display:block; border:0; padding:0; background:transparent; width:100%; cursor:zoom-in; }
+    .slide-card img { display:block; width:100%; height:auto; }
+    .report-image-list { display:grid; grid-template-columns:1fr; gap:12px; margin:10px 0 12px; }
+    .asset-gallery.cols-2 { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .asset-gallery.cols-3 { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .asset-gallery.cols-4 { grid-template-columns:repeat(4, minmax(0, 1fr)); }
+    .lightweight-assets .data-head span { font-size:12px; color:#8a94a6; font-weight:400; }
+    .section-note-line { margin:8px 0 4px; padding:8px 10px; border:1px solid #d9e1ec; background:#f8fafc; color:#475467; border-radius:4px; font-size:14px; line-height:1.6; }
+    .report-card { margin:0; border:1px solid var(--line); background:#fff; border-radius:4px; overflow:hidden; }
+    .report-card button { display:block; border:0; padding:0; background:transparent; width:100%; cursor:zoom-in; }
+    .report-card img { display:block; width:100%; height:auto; }
+    figcaption { display:flex; justify-content:space-between; gap:10px; padding:8px 10px; color:#475467; font-size:13px; border-top:1px solid var(--line); }
+    figcaption span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .source-note { display:none; }
+    .empty { color:var(--muted); line-height:1.7; }
+    .modal { position:fixed; inset:0; background:rgba(15,23,42,.82); z-index:200; display:none; align-items:center; justify-content:center; padding:22px; }
+    .modal.active { display:flex; }
+    .modal img { max-width:96vw; max-height:92vh; background:#fff; }
+    .modal button { position:absolute; top:16px; right:18px; border:1px solid #fff; color:#fff; background:transparent; padding:8px 12px; font-size:16px; cursor:pointer; }
+    @media (max-width: 1400px) { .auction-grid, .supply-grid, .seaborne-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 1180px) { .seasonal-grid, .aussie-grid, .auction-grid, .supply-grid, .seaborne-grid, .mongolian-grid, .overseas-profit-grid, .coal-jianghu-grid, .fenwei-inventory-grid, .fenwei-profit-grid, .available-days-grid, .coke-data-grid, .fenwei-coke-grid, .wuhai-coke-grid, .thermal-price-grid, .thermal-building-grid, .thermal-origin-grid, .raw-coal-grid, .thermal-port-inventory-grid, .thermal-dispatch-grid, .thermal-power-grid, .thermal-demand-grid, .weather-temperature-grid, .hotmetal-grid, .offbalance-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 1180px) { .asset-gallery.cols-3, .asset-gallery.cols-4 { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 900px) { .layout { grid-template-columns:1fr; } .side-toc { position:relative; height:auto; max-height:42vh; border-right:0; border-bottom:1px solid var(--line); } main { padding:0 12px 24px; } .panel-tab { flex:1 1 calc(50% - 8px); } .seasonal-grid, .auction-grid, .supply-grid, .seaborne-grid, .mongolian-grid, .overseas-profit-grid, .coal-jianghu-grid, .fenwei-inventory-grid, .fenwei-profit-grid, .available-days-grid, .coke-data-grid, .fenwei-coke-grid, .wuhai-coke-grid, .thermal-price-grid, .thermal-building-grid, .thermal-origin-grid, .raw-coal-grid, .thermal-port-inventory-grid, .thermal-dispatch-grid, .thermal-power-grid, .thermal-power-compact-grid, .thermal-demand-grid, .weather-temperature-grid, .hotmetal-grid, .offbalance-grid, .asset-gallery.cols-2, .asset-gallery.cols-3, .asset-gallery.cols-4 { grid-template-columns:1fr; } }
+  </style>
+<style>
+.cjh-gallery, .cjh-gallery.cols-3, .raw-coal-static-block .cols-3, .ms-inventory-block .chart-grid-live { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.thermal-power-compact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 900px) { .thermal-power-compact-grid { grid-template-columns: 1fr; } }
+.cjh-card img { width: 100%; height: auto; display: block; }
+.full-width-image-card img { width: 100%; height: auto; display: block; }
+.shanxi-daily-tracker-block .full-width-image-card { margin: 0; }
+    .auction-title-band { text-align: center; font-size: 24px; font-weight: 800; color: #0b2f66; background: #dbeaf7; padding: 12px 10px; margin: 18px 0 12px; }
+    .auction-kpi-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+    .auction-kpi-card { border: 1px solid #d5dfed; border-radius: 6px; background: #fff; padding: 9px 12px; }
+    .auction-kpi-card span { display: block; color: #5f6c7c; font-size: 13px; margin-bottom: 3px; }
+    .auction-kpi-card strong { display: block; color: #0b2f66; font-size: 20px; line-height: 1.25; }
+    .auction-kpi-card em { display: block; color: #6d7786; font-size: 12px; font-style: normal; margin-top: 2px; }
+    .auction-daily-summary-wrap { margin: 10px 0 14px; }
+    .auction-daily-summary th, .auction-daily-summary td { text-align: center; }
+    .auction-source-gallery { margin-top: 12px; border: 1px solid #d5dfed; border-radius: 8px; background: #f8fbff; padding: 10px 12px; }
+    .auction-source-gallery summary { cursor: pointer; color: #0b2f66; font-weight: 700; }
+    .auction-source-gallery > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+    .auction-source-shot { margin: 0; background: #fff; border: 1px solid #d5dfed; border-radius: 6px; padding: 6px; }
+    .auction-source-shot img { width: 100%; height: auto; display: block; }
+    .auction-source-shot figcaption { margin-top: 4px; color: #5f6c7c; font-size: 12px; text-align: center; }
+    .zhangshang-weekly-auction-block .auction-price-table th, .zhangshang-weekly-auction-block .auction-price-table td { text-align: center; white-space: nowrap; }
+    .zhangshang-weekly-auction-block .auction-price-table td:nth-child(5), .zhangshang-weekly-auction-block .auction-price-table td:nth-child(13) { text-align: left; white-space: normal; min-width: 150px; }
+    .jm-spread-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .freight-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .freight-subhead { margin-top: 22px; }
+    .jm-spread-summary-table th, .jm-spread-summary-table td { text-align: center; }
+.jm-spread-summary-table .metric-name { font-weight: 700; color: #0b2f66; }
+.jm-spread-summary-table .latest-col { background: #e8f8e8; }
+.cjh-static-table th, .cjh-static-table td, .raw-coal-top5-table th, .raw-coal-top5-table td { text-align: center; }
+.cjh-static-table .divider td { border-top: 2px solid #9aa8bf; font-weight: 700; }
+.hotmetal-expectation-table th, .hotmetal-expectation-table td { text-align: center; white-space: nowrap; }
+.hotmetal-expectation-table .metric-name { font-weight: 700; color: #0b2f66; min-width: 120px; }
+.hotmetal-expectation-svg-wrap { margin-top: 14px; border: 1px solid #d8e0ee; border-radius: 10px; background: #fff; padding: 10px; }
+.hotmetal-expectation-chart { display: block; width: 100%; height: auto; }
+.weather-prompt-image-block img { display: block; width: min(100%, 1180px); height: auto; margin: 0 auto; border: 1px solid #d7dfea; }
+@media print { .side-toc, .tabs, .table-toolbar, .node-meta .tag.ok { display: none !important; } .subpanel, .shanxi-price-extra-block { break-inside: avoid; page-break-inside: avoid; } body { background: #fff; } }
+</style>
+<style id="mobile-publish-overrides">
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  img,
+  svg,
+  canvas {
+    max-width: 100%;
+  }
+
+  .chart-canvas {
+    touch-action: pan-y;
+  }
+
+  @media (max-width: 760px) {
+    body {
+      background: #f8fafc;
+    }
+
+    .layout {
+      display: block;
+      min-height: 100svh;
+    }
+
+    .side-toc {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      height: auto;
+      max-height: none;
+      overflow-x: auto;
+      overflow-y: hidden;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 6px;
+      padding: 8px;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(245, 247, 251, .98);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .side-toc .toc-title {
+      flex: 0 0 auto;
+      margin: 0 8px 0 0;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .side-toc a,
+    .side-toc a.toc-level-1,
+    .side-toc a.toc-level-2,
+    .side-toc a.toc-level-3,
+    .side-toc a.toc-level-4 {
+      flex: 0 0 auto;
+      white-space: nowrap;
+      padding: 7px 9px;
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.2;
+      border-left: 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    .side-toc a:hover,
+    .side-toc a.active {
+      border-left-color: transparent;
+      border-bottom-color: var(--accent);
+    }
+
+    main {
+      padding: 0 8px 18px;
+    }
+
+    header {
+      padding: 10px 0 7px;
+    }
+
+    h1 {
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin: 9px 0;
+    }
+
+    .subtitle {
+      font-size: 12.5px;
+    }
+
+    .panel-tabs {
+      top: 0;
+      z-index: 80;
+      flex-wrap: nowrap;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 8px 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .panel-tabs::-webkit-scrollbar,
+    .side-toc::-webkit-scrollbar {
+      display: none;
+    }
+
+    .panel-tab {
+      flex: 0 0 auto;
+      min-width: 6.5rem;
+      min-height: 36px;
+      padding: 7px 10px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .report-panel {
+      padding: 8px 0 18px;
+    }
+
+    .subpanel {
+      margin: 8px 0 12px;
+      padding: 8px;
+      border-radius: 4px;
+      box-shadow: none;
+      overflow: hidden;
+      scroll-margin-top: 92px;
+    }
+
+    .subpanel > h3 {
+      margin: -8px -8px 8px;
+      padding: 8px 10px;
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    .node-meta,
+    .data-head,
+    .table-toolbar {
+      font-size: 12px;
+    }
+
+    .data-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    .interactive-data-block,
+    .data-block,
+    .table-scroll,
+    .editable-table-wrap {
+      max-width: 100%;
+      overflow-x: auto !important;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .thermal-summary-wrap {
+      max-width: 100%;
+      overflow-x: hidden !important;
+      overflow-y: visible;
+    }
+
+    .interactive-data-block .table-scroll {
+      overflow-x: auto !important;
+      overflow-y: visible;
+    }
+
+    table {
+      font-size: 12.5px;
+    }
+
+    table:not(.editable-table):not(.thermal-summary-table) {
+      min-width: 720px;
+    }
+
+    .editable-table,
+    .thermal-summary-table {
+      min-width: 0 !important;
+      width: 100% !important;
+      table-layout: fixed;
+      font-size: 12.5px;
+      line-height: 1.58;
+    }
+
+    .thermal-summary-table col:first-child,
+    .editable-table col:first-child {
+      width: 24% !important;
+    }
+
+    .thermal-summary-table col:last-child,
+    .editable-table col:last-child {
+      width: 76% !important;
+    }
+
+    .thermal-summary-table th,
+    .thermal-summary-table td,
+    .editable-table th,
+    .editable-table td {
+      min-width: 0;
+      overflow: visible;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      white-space: normal;
+    }
+
+    .thermal-summary-table .thermal-summary-title th,
+    .editable-table .editable-title th {
+      font-size: 16px;
+    }
+
+    th,
+    td {
+      padding: 5px 6px;
+    }
+
+    .seasonal-grid,
+    .auction-grid,
+    .supply-grid,
+    .seaborne-grid,
+    .mongolian-grid,
+    .overseas-profit-grid,
+    .coal-jianghu-grid,
+    .fenwei-inventory-grid,
+    .fenwei-profit-grid,
+    .available-days-grid,
+    .coke-data-grid,
+    .fenwei-coke-grid,
+    .wuhai-coke-grid,
+    .thermal-price-grid,
+    .thermal-building-grid,
+    .thermal-origin-grid,
+    .raw-coal-grid,
+    .thermal-port-inventory-grid,
+    .thermal-dispatch-grid,
+    .thermal-power-grid,
+    .thermal-power-compact-grid,
+    .thermal-demand-grid,
+    .weather-temperature-grid,
+    .hotmetal-grid,
+    .offbalance-grid,
+    .asset-gallery.cols-2,
+    .asset-gallery.cols-3,
+    .asset-gallery.cols-4 {
+      grid-template-columns: 1fr !important;
+    }
+
+    .report-card,
+    .chart-card,
+    .card,
+    .wide-card {
+      min-width: 0;
+    }
+
+    .report-card img,
+    .asset-card img,
+    .interactive-data-block img {
+      width: 100%;
+      height: auto;
+    }
+
+    .svg-card,
+    .freight-svg {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .chart-canvas {
+      width: 100% !important;
+      height: auto !important;
+      max-height: 72svh;
+    }
+
+    .chart-tip {
+      max-width: calc(100vw - 18px);
+      font-size: 12.5px;
+      line-height: 1.45;
+      z-index: 1000;
+      white-space: pre-wrap;
+    }
+
+    .modal {
+      padding: 10px;
+      align-items: flex-start;
+      overflow: auto;
+    }
+
+    .modal img {
+      max-width: 96vw;
+      max-height: 86svh;
+      margin-top: 42px;
+    }
+
+    .modal button {
+      top: 8px;
+      right: 8px;
+      background: rgba(15, 23, 42, .72);
+    }
+  }
+</style>
+<style id="wechat-split-overrides">
+      .split-page-tabs {
+        position: sticky;
+        top: 0;
+        z-index: 95;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 6px;
+        overflow-x: auto;
+        padding: 8px 0;
+        background: rgba(255,253,249,.98);
+        border-bottom: 1px solid var(--line);
+        scrollbar-width: none;
+      }
+      .split-page-tabs::-webkit-scrollbar { display: none; }
+      .split-tab {
+        flex: 0 0 auto;
+        min-width: 6.5rem;
+        min-height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #cbd5e1;
+        background: #f8fafc;
+        color: #344054;
+        padding: 7px 10px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 750;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .split-tab.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .section-page-nav {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        padding: 8px 0 10px;
+        margin: -2px 0 8px;
+        scrollbar-width: none;
+      }
+      .section-page-nav::-webkit-scrollbar { display: none; }
+      .section-link {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 32px;
+        max-width: 78vw;
+        padding: 6px 9px;
+        border: 1px solid #d7dee9;
+        border-radius: 4px;
+        background: #fff;
+        color: #42526b;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .section-link.active {
+        color: #fff;
+        background: #183a6b;
+        border-color: #183a6b;
+      }
+      @media (max-width: 760px) {
+        .side-toc {
+          max-height: 56px;
+          align-content: center;
+        }
+        main {
+          min-width: 0;
+        }
+      }
+    </style></head>
+<body>
+<div class="layout">
+<nav aria-label="总目录" class="side-toc"><div class="toc-title">煤焦周报总目录</div><a class="toc-level-1 toc-group" href="index.html#overview">1. 汇总+平衡表</a><a class="toc-level-3" href="index.html#summary-jm">1.1.1 焦煤汇总</a><a class="toc-level-3" href="index.html#summary-coke">1.1.2 焦炭汇总</a><a class="toc-level-3" href="index.html#summary-thermal">1.1.3 动力煤汇总</a><a class="toc-level-3" href="index.html#balance-jm">1.2.1 焦煤平衡表</a><a class="toc-level-3" href="index.html#balance-coke">1.2.2 焦炭平衡表</a><a class="toc-level-3" href="index.html#balance-thermal">1.2.3 动力煤平衡表</a><a class="toc-level-3" href="index.html#balance-weekly">1.2.4 周度平衡</a><a class="toc-level-3" href="index.html#balance-offbalance-inventory">1.2.5 表外库存</a><a class="toc-level-1 toc-group" href="jm.html#jm">2. 焦煤</a><a class="toc-level-2" href="jm.html#jm-warrant">2.1 仓单</a><a class="toc-level-2" href="jm-jm-overseas-heading.html#jm-overseas-heading">2.2 海外煤</a><a class="toc-level-3" href="jm-jm-mm.html#jm-mm">2.2.1 蒙煤</a><a class="toc-level-3" href="jm-jm-aus.html#jm-aus">2.2.2 澳煤</a><a class="toc-level-3" href="jm-jm-russia.html#jm-russia">2.2.3 俄煤</a><a class="toc-level-3" href="jm-jm-canada.html#jm-canada">2.2.4 加拿大煤</a><a class="toc-level-3" href="jm-jm-seaborne-flow.html#jm-seaborne-flow">2.2.5 海煤发运</a><a class="toc-level-2" href="jm-jm-shanxi-heading.html#jm-shanxi-heading">2.3 山西煤</a><a class="toc-level-3" href="jm-jm-shanxi-price.html#jm-shanxi-price">2.3.1 山西煤价格及竞拍</a><a class="toc-level-3" href="jm-jm-ms-supply.html#jm-ms-supply">2.3.2 焦煤供给</a><a class="toc-level-4" href="jm-jm-ms-supply.html#jm-ms-supply">2.3.2.1 MS供应</a><a class="toc-level-4" href="jm-jm-fw-supply.html#jm-fw-supply">2.3.2.2 汾渭供应</a><a class="toc-level-3" href="jm-jm-ms-inv.html#jm-ms-inv">2.3.3 焦煤库存</a><a class="toc-level-4" href="jm-jm-ms-inv.html#jm-ms-inv">2.3.3.1 MS总库存</a><a class="toc-level-4" href="jm-jm-cjh-inv.html#jm-cjh-inv">2.3.3.2 煤炭江湖港口库存</a><a class="toc-level-4" href="jm-jm-fw-inv.html#jm-fw-inv">2.3.3.3 汾渭库存</a><a class="toc-level-4" href="jm-jm-cokeplant-coal-inv.html#jm-cokeplant-coal-inv">2.3.3.4 焦化厂焦煤库存可用天数</a><a class="toc-level-3" href="jm-jm-profit.html#jm-profit">2.3.4 焦煤利润</a><a class="toc-level-1 toc-group" href="coke.html#coke">3. 焦炭</a><a class="toc-level-2" href="coke.html#coke-heading">3.焦炭</a><a class="toc-level-3" href="coke-coke-profit.html#coke-profit">3.1.1 提涨+提降预期</a><a class="toc-level-3" href="coke-coke-fenwei-profit.html#coke-fenwei-profit">3.1.2 焦企利润</a><a class="toc-level-2" href="coke-coke-supply-heading.html#coke-supply-heading">3.2 焦炭供给</a><a class="toc-level-3" href="coke-coke-ms-supply.html#coke-ms-supply">3.2.1 MS焦炭供给</a><a class="toc-level-3" href="coke-coke-research-supply.html#coke-research-supply">3.2.3 调研焦炭供给</a><a class="toc-level-3" href="coke-coke-fw-supply.html#coke-fw-supply">3.2.2 汾渭焦炭供给</a><a class="toc-level-2" href="coke-coke-inventory-heading.html#coke-inventory-heading">3.3 焦炭库存</a><a class="toc-level-3" href="coke-coke-ms-inv.html#coke-ms-inv">3.3.1 MS焦炭总库存</a><a class="toc-level-3" href="coke-coke-research-inv.html#coke-research-inv">3.3.3 乌海焦炭库存</a><a class="toc-level-3" href="coke-coke-fw-inv.html#coke-fw-inv">3.3.2 汾渭焦炭库存</a><a class="toc-level-3" href="coke-coke-steel-coke-inv.html#coke-steel-coke-inv">3.3.4 样本钢厂焦炭库存可用天数</a><a class="toc-level-2" href="coke-coke-hotmetal.html#coke-hotmetal">3.4 铁水预期</a><a class="toc-level-1 toc-group" href="thermal.html#thermal">4. 动力煤</a><a class="toc-level-2" href="thermal.html#thermal-price-heading">4.1 价格</a><a class="toc-level-3" href="thermal-thermal-policy.html#thermal-policy">4.1.1 政策指导价</a><a class="toc-level-3" href="thermal-thermal-overseas-price.html#thermal-overseas-price">4.1.2 海外价格</a><a class="toc-level-3" href="thermal-thermal-domestic-price.html#thermal-domestic-price">4.1.3 国内价格</a><a class="toc-level-3" href="thermal-thermal-import-profit.html#thermal-import-profit">4.1.4 进口利润</a><a class="toc-level-3" href="thermal-thermal-port-profit.html#thermal-port-profit">4.1.5 集港利润</a><a class="toc-level-3" href="thermal-thermal-freight.html#thermal-freight">4.1.6 运费</a><a class="toc-level-2" href="thermal-thermal-supply-heading.html#thermal-supply-heading">4.2 供给</a><a class="toc-level-3" href="thermal-thermal-overseas-supply.html#thermal-overseas-supply">4.2.1 海外供给</a><a class="toc-level-3" href="thermal-thermal-domestic-supply.html#thermal-domestic-supply">4.2.2 国内供给</a><a class="toc-level-2" href="thermal-thermal-demand-heading.html#thermal-demand-heading">4.3 需求</a><a class="toc-level-3" href="thermal-thermal-overseas-demand.html#thermal-overseas-demand">4.3.1 海外需求</a><a class="toc-level-3" href="thermal-thermal-domestic-power.html#thermal-domestic-power">4.3.2 国内电力</a><a class="toc-level-3" href="thermal-thermal-chemical.html#thermal-chemical">4.3.3 国内化工</a><a class="toc-level-3" href="thermal-thermal-building.html#thermal-building">4.3.4 国内建材</a><a class="toc-level-2" href="thermal-thermal-inventory-heading.html#thermal-inventory-heading">4.4 库存+运输</a><a class="toc-level-3" href="thermal-thermal-origin-inv.html#thermal-origin-inv">4.4.1 产地库存</a><a class="toc-level-3" href="thermal-thermal-port-inv-own.html#thermal-port-inv-own">4.4.2 港口库存（日度）</a><a class="toc-level-3" href="thermal-thermal-port-inv-cjh.html#thermal-port-inv-cjh">4.4.3 煤炭江湖港口库存</a><a class="toc-level-3" href="thermal-thermal-port-dispatch.html#thermal-port-dispatch">4.4.4 港口调度</a><a class="toc-level-3" href="thermal-thermal-railway.html#thermal-railway">4.4.5 铁路运输</a><a class="toc-level-2" href="thermal-thermal-weather.html#thermal-weather">4.5 天气</a></nav>
+<main>
+<header>
+<h1>煤焦周报20260906</h1>
+</header>
+<div class="panel-tabs split-page-tabs" role="navigation"><a class="split-tab" href="index.html">汇总+平衡表</a><a class="split-tab active" href="jm.html">焦煤</a><a class="split-tab" href="coke.html">焦炭</a><a class="split-tab" href="thermal.html">动力煤</a></div>
+<section class="report-panel active" id="jm"><h2>焦煤</h2><nav aria-label="子面板" class="section-page-nav"><a class="section-link" href="jm.html#jm-warrant">2.1 仓单</a><a class="section-link" href="jm-jm-overseas-heading.html#jm-overseas-heading">2.2 海外煤</a><a class="section-link" href="jm-jm-mm.html#jm-mm">2.2.1 蒙煤</a><a class="section-link" href="jm-jm-aus.html#jm-aus">2.2.2 澳煤</a><a class="section-link" href="jm-jm-russia.html#jm-russia">2.2.3 俄煤</a><a class="section-link active" href="jm-jm-canada.html#jm-canada">2.2.4 加拿大煤</a><a class="section-link" href="jm-jm-seaborne-flow.html#jm-seaborne-flow">2.2.5 海煤发运</a><a class="section-link" href="jm-jm-shanxi-heading.html#jm-shanxi-heading">2.3 山西煤</a><a class="section-link" href="jm-jm-shanxi-price.html#jm-shanxi-price">2.3.1 山西煤价格及竞拍</a><a class="section-link" href="jm-jm-ms-supply.html#jm-ms-supply">2.3.2.1 MS供应</a><a class="section-link" href="jm-jm-fw-supply.html#jm-fw-supply">2.3.2.2 汾渭供应</a><a class="section-link" href="jm-jm-ms-inv.html#jm-ms-inv">2.3.3.1 MS总库存</a><a class="section-link" href="jm-jm-cjh-inv.html#jm-cjh-inv">2.3.3.2 煤炭江湖港口库存（炼焦煤，国联民生）</a><a class="section-link" href="jm-jm-fw-inv.html#jm-fw-inv">2.3.3.3 汾渭库存</a><a class="section-link" href="jm-jm-cokeplant-coal-inv.html#jm-cokeplant-coal-inv">2.3.3.4 焦化厂焦煤库存可用天数</a><a class="section-link" href="jm-jm-profit.html#jm-profit">2.3.4 焦煤利润</a></nav><section class="subpanel" id="jm-canada"><h3>2.2.4 加拿大煤</h3><div class="node-meta"><span class="tag data">图表</span><span>最新：2026/09/04；汇总表 + Canvas季节性图</span></div><div class="interactive-data-block overseas-coal-block"><div class="data-head"><strong>加拿大煤进口价格及利润汇总</strong><span>最新本地宽表重算，不贴旧图</span></div><div class="table-scroll"><table class="data-table compact jm-spread-summary-table"><thead><tr><th>指标</th><th>2026/09/04</th><th>2026/09/03</th><th>2026/08/28</th><th>2026/08/04</th><th>2025/09/04</th><th>日变化</th><th>周变化</th><th>月变化</th><th>年变化</th></tr></thead><tbody><tr><td class="metric-name">鹿景CFR</td><td>295.5</td><td>293</td><td>282</td><td>230</td><td>185</td><td class="chg-pos">+2.5</td><td class="chg-pos">+13.5</td><td class="chg-pos">+65.5</td><td class="chg-pos">+110.5</td></tr><tr><td class="metric-name">斯坦达CFR</td><td>296.5</td><td>294</td><td>283</td><td>231</td><td>187</td><td class="chg-pos">+2.5</td><td class="chg-pos">+13.5</td><td class="chg-pos">+65.5</td><td class="chg-pos">+109.5</td></tr><tr><td class="metric-name">克努玛CFR</td><td>258</td><td>255</td><td>246</td><td>199</td><td>170</td><td class="chg-pos">+3.0</td><td class="chg-pos">+12.0</td><td class="chg-pos">+59.0</td><td class="chg-pos">+88.0</td></tr><tr><td class="metric-name">温特CFR</td><td>258</td><td>255</td><td>246</td><td>199</td><td>173</td><td class="chg-pos">+3.0</td><td class="chg-pos">+12.0</td><td class="chg-pos">+59.0</td><td class="chg-pos">+85.0</td></tr><tr><td class="metric-name">温特折算到港价</td><td>2036.6</td><td>2014.2</td><td>1944.1</td><td>1583.8</td><td>1455.8</td><td class="chg-pos">+22.4</td><td class="chg-pos">+92.5</td><td class="chg-pos">+452.8</td><td class="chg-pos">+580.8</td></tr><tr><td class="metric-name">鹿景贸易利润</td><td>-659.7</td><td>-641.4</td><td>-555.6</td><td>-157.4</td><td>-155.4</td><td class="chg-neg">-18.3</td><td class="chg-neg">-104.1</td><td class="chg-neg">-502.3</td><td class="chg-neg">-504.3</td></tr><tr><td class="metric-name">斯坦达贸易利润</td><td>12.5</td><td>30.7</td><td>-83.5</td><td>-15.3</td><td>-122</td><td class="chg-neg">-18.3</td><td class="chg-pos">+95.9</td><td class="chg-pos">+27.8</td><td class="chg-pos">+134.5</td></tr><tr><td class="metric-name">克努玛贸易利润</td><td>143.4</td><td>135.8</td><td>35.9</td><td>16.2</td><td>14.1</td><td class="chg-pos">+7.6</td><td class="chg-pos">+107.5</td><td class="chg-pos">+127.2</td><td class="chg-pos">+129.3</td></tr></tbody></table></div><div class="chart-grid seasonal-grid jm-spread-grid chart-grid-live"><article class="chart-card seasonal-card overseas-coal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"鹿景CFR","axisMin":100,"axisMax":400,"ticks":[100,200,300,400],"series":[{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[2.0,"01-03",317.0],[3.0,"01-04",317.0],[4.0,"01-05",317.0],[5.0,"01-06",317.0],[8.0,"01-09",320.0],[9.0,"01-10",325.0],[10.0,"01-11",330.0],[11.0,"01-12",330.0],[12.0,"01-13",330.0],[15.0,"01-16",330.0],[16.0,"01-17",330.0],[17.0,"01-18",330.0],[18.0,"01-19",330.0],[19.0,"01-20",330.0],[27.0,"01-28",330.0],[28.0,"01-29",330.0],[29.0,"01-30",330.0],[30.0,"01-31",330.0],[31.0,"02-01",330.0],[32.0,"02-02",340.0],[33.0,"02-03",340.0],[36.0,"02-06",340.0],[37.0,"02-07",345.0],[38.0,"02-08",345.0],[39.0,"02-09",345.0],[40.0,"02-10",345.0],[43.0,"02-13",345.0],[44.0,"02-14",345.0],[45.0,"02-15",345.0],[46.0,"02-16",345.0],[47.0,"02-17",345.0],[50.0,"02-20",345.0],[51.0,"02-21",345.0],[52.0,"02-22",345.0],[53.0,"02-23",345.0],[54.0,"02-24",345.0],[57.0,"02-27",345.0],[58.0,"02-28",345.0],[59.0,"03-01",345.0],[60.0,"03-02",345.0],[61.0,"03-03",345.0],[64.0,"03-06",345.0],[65.0,"03-07",345.0],[66.0,"03-08",345.0],[67.0,"03-09",345.0],[68.0,"03-10",345.0],[71.0,"03-13",345.0],[72.0,"03-14",345.0],[73.0,"03-15",345.0],[74.0,"03-16",345.0],[75.0,"03-17",345.0],[78.0,"03-20",345.0],[79.0,"03-21",345.0],[80.0,"03-22",345.0],[81.0,"03-23",345.0],[82.0,"03-24",345.0],[85.0,"03-27",345.0],[86.0,"03-28",345.0],[87.0,"03-29",345.0],[88.0,"03-30",345.0],[89.0,"03-31",345.0],[92.0,"04-03",345.0],[93.0,"04-04",345.0],[95.0,"04-06",345.0],[96.0,"04-07",345.0],[99.0,"04-10",345.0],[100.0,"04-11",345.0],[101.0,"04-12",345.0],[102.0,"04-13",340.0],[103.0,"04-14",340.0],[106.0,"04-17",340.0],[107.0,"04-18",340.0],[108.0,"04-19",340.0],[109.0,"04-20",340.0],[110.0,"04-21",340.0],[112.0,"04-23",340.0],[113.0,"04-24",340.0],[114.0,"04-25",340.0],[115.0,"04-26",340.0],[116.0,"04-27",340.0],[117.0,"04-28",340.0],[123.0,"05-04",340.0],[124.0,"05-05",340.0],[125.0,"05-06",325.0],[127.0,"05-08",253.0],[128.0,"05-09",253.0],[129.0,"05-10",253.0],[130.0,"05-11",253.0],[131.0,"05-12",254.0],[134.0,"05-15",254.0],[135.0,"05-16",250.0],[136.0,"05-17",249.0],[137.0,"05-18",246.0],[138.0,"05-19",239.0],[141.0,"05-22",237.0],[142.0,"05-23",229.0],[143.0,"05-24",224.0],[144.0,"05-25",224.0],[145.0,"05-26",224.0],[148.0,"05-29",224.0],[149.0,"05-30",224.0],[150.0,"05-31",224.0],[151.0,"06-01",226.0],[152.0,"06-02",226.0],[155.0,"06-05",227.0],[156.0,"06-06",229.0],[157.0,"06-07",229.0],[158.0,"06-08",229.0],[159.0,"06-09",229.0],[162.0,"06-12",229.0],[163.0,"06-13",229.0],[164.0,"06-14",224.0],[165.0,"06-15",227.0],[166.0,"06-16",227.0],[169.0,"06-19",228.0],[170.0,"06-20",228.0],[171.0,"06-21",228.0],[175.0,"06-25",228.0],[176.0,"06-26",228.0],[177.0,"06-27",228.0],[178.0,"06-28",228.0],[179.0,"06-29",228.0],[180.0,"06-30",228.0],[183.0,"07-03",228.0],[184.0,"07-04",225.0],[185.0,"07-05",215.0],[186.0,"07-06",218.0],[187.0,"07-07",228.0],[190.0,"07-10",228.0],[191.0,"07-11",228.0],[192.0,"07-12",228.0],[193.0,"07-13",235.0],[194.0,"07-14",235.0],[197.0,"07-17",235.0],[198.0,"07-18",235.0],[199.0,"07-19",235.0],[200.0,"07-20",235.0],[201.0,"07-21",235.0],[204.0,"07-24",235.0],[205.0,"07-25",235.0],[206.0,"07-26",235.0],[207.0,"07-27",235.0],[208.0,"07-28",235.0],[211.0,"07-31",235.0],[212.0,"08-01",235.0],[213.0,"08-02",240.0],[214.0,"08-03",240.0],[215.0,"08-04",240.0],[218.0,"08-07",240.0],[219.0,"08-08",240.0],[220.0,"08-09",240.0],[221.0,"08-10",240.0],[222.0,"08-11",240.0],[225.0,"08-14",244.0],[226.0,"08-15",244.0],[227.0,"08-16",244.0],[228.0,"08-17",248.0],[229.0,"08-18",248.0],[232.0,"08-21",248.0],[233.0,"08-22",248.0],[234.0,"08-23",248.0],[235.0,"08-24",248.0],[236.0,"08-25",251.0],[239.0,"08-28",254.0],[240.0,"08-29",254.0],[241.0,"08-30",259.0],[242.0,"08-31",259.0],[243.0,"09-01",259.0],[246.0,"09-04",259.0],[247.0,"09-05",259.0],[248.0,"09-06",259.0],[249.0,"09-07",259.0],[250.0,"09-08",259.0],[253.0,"09-11",259.0],[254.0,"09-12",265.0],[255.0,"09-13",265.0],[256.0,"09-14",267.0],[257.0,"09-15",269.0],[260.0,"09-18",269.0],[261.0,"09-19",284.0],[262.0,"09-20",284.0],[263.0,"09-21",284.0],[264.0,"09-22",284.0],[267.0,"09-25",284.0],[268.0,"09-26",294.0],[269.0,"09-27",294.0],[270.0,"09-28",294.0],[271.0,"09-29",294.0],[274.0,"10-02",294.0],[275.0,"10-03",304.0],[276.0,"10-04",304.0],[277.0,"10-05",304.0],[278.0,"10-06",304.0],[279.0,"10-07",304.0],[280.0,"10-08",304.0],[281.0,"10-09",304.0],[282.0,"10-10",304.0],[283.0,"10-11",304.0],[284.0,"10-12",304.0],[285.0,"10-13",304.0],[288.0,"10-16",304.0],[289.0,"10-17",304.0],[290.0,"10-18",300.0],[291.0,"10-19",300.0],[292.0,"10-20",300.0],[295.0,"10-23",300.0],[296.0,"10-24",300.0],[297.0,"10-25",300.0],[298.0,"10-26",300.0],[299.0,"10-27",300.0],[302.0,"10-30",300.0],[303.0,"10-31",300.0],[304.0,"11-01",300.0],[305.0,"11-02",300.0],[306.0,"11-03",300.0],[309.0,"11-06",300.0],[310.0,"11-07",300.0],[311.0,"11-08",295.0],[312.0,"11-09",295.0],[313.0,"11-10",295.0],[316.0,"11-13",295.0],[317.0,"11-14",295.0],[318.0,"11-15",295.0],[319.0,"11-16",295.0],[320.0,"11-17",295.0],[323.0,"11-20",295.0],[324.0,"11-21",295.0],[325.0,"11-22",295.0],[326.0,"11-23",315.0],[327.0,"11-24",315.0],[330.0,"11-27",315.0],[331.0,"11-28",315.0],[332.0,"11-29",315.0],[333.0,"11-30",315.0],[334.0,"12-01",315.0],[337.0,"12-04",320.0],[338.0,"12-05",320.0],[339.0,"12-06",320.0],[340.0,"12-07",320.0],[341.0,"12-08",320.0],[344.0,"12-11",320.0],[345.0,"12-12",320.0],[346.0,"12-13",320.0],[347.0,"12-14",320.0],[348.0,"12-15",320.0],[351.0,"12-18",320.0],[352.0,"12-19",320.0],[353.0,"12-20",320.0],[354.0,"12-21",320.0],[355.0,"12-22",320.0],[358.0,"12-25",320.0],[359.0,"12-26",320.0],[360.0,"12-27",315.0],[361.0,"12-28",315.0],[362.0,"12-29",320.0]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[1.0,"01-02",320.0],[2.0,"01-03",320.0],[3.0,"01-04",320.0],[4.0,"01-05",320.0],[7.0,"01-08",320.0],[8.0,"01-09",320.0],[9.0,"01-10",320.0],[10.0,"01-11",320.0],[11.0,"01-12",320.0],[14.0,"01-15",320.0],[15.0,"01-16",320.0],[16.0,"01-17",320.0],[17.0,"01-18",320.0],[18.0,"01-19",320.0],[21.0,"01-22",320.0],[22.0,"01-23",320.0],[23.0,"01-24",320.0],[24.0,"01-25",320.0],[25.0,"01-26",320.0],[28.0,"01-29",318.0],[29.0,"01-30",313.0],[30.0,"01-31",313.0],[31.0,"02-01",313.0],[32.0,"02-02",313.0],[34.0,"02-04",313.0],[35.0,"02-05",313.0],[36.0,"02-06",313.0],[37.0,"02-07",310.0],[38.0,"02-08",310.0],[39.0,"02-09",310.0],[43.0,"02-13",310.0],[44.0,"02-14",310.0],[45.0,"02-15",310.0],[46.0,"02-16",310.0],[47.0,"02-17",310.0],[48.0,"02-18",310.0],[49.0,"02-19",310.0],[50.0,"02-20",310.0],[51.0,"02-21",310.0],[52.0,"02-22",310.0],[53.0,"02-23",310.0],[56.0,"02-26",310.0],[57.0,"02-27",310.0],[58.0,"02-28",310.0],[59.0,"02-29",310.0],[60.0,"03-01",310.0],[63.0,"03-04",310.0],[64.0,"03-05",310.0],[65.0,"03-06",310.0],[66.0,"03-07",306.0],[67.0,"03-08",306.0],[70.0,"03-11",303.0],[71.0,"03-12",303.0],[72.0,"03-13",300.0],[73.0,"03-14",286.0],[74.0,"03-15",281.0],[77.0,"03-18",281.0],[78.0,"03-19",276.0],[79.0,"03-20",270.0],[80.0,"03-21",270.0],[81.0,"03-22",263.0],[84.0,"03-25",263.0],[85.0,"03-26",263.0],[86.0,"03-27",263.0],[87.0,"03-28",263.0],[88.0,"03-29",263.0],[91.0,"04-01",263.0],[92.0,"04-02",263.0],[93.0,"04-03",263.0],[95.0,"04-05",252.0],[97.0,"04-07",242.0],[98.0,"04-08",237.0],[99.0,"04-09",237.0],[100.0,"04-10",237.0],[101.0,"04-11",237.0],[102.0,"04-12",237.0],[105.0,"04-15",239.0],[106.0,"04-16",247.0],[107.0,"04-17",247.0],[108.0,"04-18",247.0],[109.0,"04-19",251.0],[112.0,"04-22",251.0],[113.0,"04-23",247.0],[114.0,"04-24",247.0],[115.0,"04-25",249.0],[116.0,"04-26",249.0],[118.0,"04-28",249.0],[119.0,"04-29",249.0],[120.0,"04-30",249.0],[122.0,"05-02",249.0],[123.0,"05-03",249.0],[126.0,"05-06",246.0],[127.0,"05-07",246.0],[128.0,"05-08",246.0],[129.0,"05-09",246.0],[130.0,"05-10",246.0],[131.0,"05-11",250.0],[133.0,"05-13",250.0],[134.0,"05-14",250.0],[135.0,"05-15",248.0],[136.0,"05-16",248.0],[137.0,"05-17",248.0],[140.0,"05-20",248.0],[141.0,"05-21",250.0],[142.0,"05-22",250.0],[143.0,"05-23",250.0],[144.0,"05-24",250.0],[147.0,"05-27",250.0],[148.0,"05-28",250.0],[149.0,"05-29",250.0],[150.0,"05-30",250.0],[151.0,"05-31",250.0],[154.0,"06-03",252.0],[155.0,"06-04",254.0],[156.0,"06-05",254.0],[157.0,"06-06",254.0],[158.0,"06-07",254.0],[161.0,"06-10",254.0],[162.0,"06-11",254.0],[163.0,"06-12",254.0],[164.0,"06-13",254.0],[165.0,"06-14",251.0],[168.0,"06-17",251.0],[169.0,"06-18",251.0],[170.0,"06-19",251.0],[171.0,"06-20",249.0],[172.0,"06-21",249.0],[175.0,"06-24",249.0],[176.0,"06-25",249.0],[177.0,"06-26",249.0],[178.0,"06-27",249.0],[179.0,"06-28",249.0],[182.0,"07-01",249.0],[183.0,"07-02",247.0],[184.0,"07-03",244.0],[185.0,"07-04",244.0],[186.0,"07-05",244.0],[189.0,"07-08",244.0],[190.0,"07-09",244.0],[191.0,"07-10",243.0],[192.0,"07-11",243.0],[193.0,"07-12",243.0],[196.0,"07-15",240.0],[197.0,"07-16",240.0],[198.0,"07-17",240.0],[199.0,"07-18",240.0],[200.0,"07-19",240.0],[203.0,"07-22",240.0],[204.0,"07-23",240.0],[205.0,"07-24",239.0],[206.0,"07-25",234.0],[207.0,"07-26",233.0],[210.0,"07-29",232.0],[211.0,"07-30",232.0],[212.0,"07-31",227.0],[213.0,"08-01",230.0],[214.0,"08-02",228.0],[217.0,"08-05",228.0],[218.0,"08-06",227.0],[219.0,"08-07",226.0],[220.0,"08-08",226.0],[221.0,"08-09",226.0],[224.0,"08-12",225.0],[225.0,"08-13",220.0],[226.0,"08-14",217.0],[227.0,"08-15",217.0],[228.0,"08-16",215.0],[231.0,"08-19",214.0],[232.0,"08-20",212.0],[233.0,"08-21",212.0],[234.0,"08-22",211.0],[235.0,"08-23",209.0],[238.0,"08-26",208.0],[239.0,"08-27",206.0],[240.0,"08-28",206.0],[241.0,"08-29",208.0],[242.0,"08-30",208.0],[245.0,"09-02",208.0],[246.0,"09-03",208.0],[247.0,"09-04",208.0],[248.0,"09-05",207.0],[249.0,"09-06",200.0],[252.0,"09-09",196.0],[253.0,"09-10",194.0],[254.0,"09-11",192.0],[255.0,"09-12",197.0],[256.0,"09-13",197.0],[257.0,"09-14",197.0],[259.0,"09-16",197.0],[260.0,"09-17",197.0],[261.0,"09-18",195.0],[262.0,"09-19",195.0],[263.0,"09-20",200.0],[266.0,"09-23",200.0],[267.0,"09-24",200.0],[268.0,"09-25",202.0],[269.0,"09-26",202.0],[270.0,"09-27",215.0],[272.0,"09-29",215.0],[273.0,"09-30",215.0],[274.0,"10-01",215.0],[275.0,"10-02",215.0],[276.0,"10-03",215.0],[277.0,"10-04",215.0],[280.0,"10-07",215.0],[281.0,"10-08",215.0],[282.0,"10-09",216.0],[283.0,"10-10",216.0],[284.0,"10-11",216.0],[285.0,"10-12",216.0],[287.0,"10-14",216.0],[288.0,"10-15",216.0],[289.0,"10-16",224.0],[290.0,"10-17",221.0],[291.0,"10-18",216.0],[294.0,"10-21",215.0],[295.0,"10-22",215.0],[296.0,"10-23",212.0],[297.0,"10-24",210.0],[298.0,"10-25",210.0],[301.0,"10-28",210.0],[302.0,"10-29",210.0],[303.0,"10-30",210.0],[304.0,"10-31",210.0],[305.0,"11-01",210.0],[308.0,"11-04",210.0],[309.0,"11-05",210.0],[310.0,"11-06",209.0],[311.0,"11-07",210.0],[312.0,"11-08",213.0],[315.0,"11-11",213.0],[316.0,"11-12",213.0],[317.0,"11-13",213.0],[318.0,"11-14",213.0],[319.0,"11-15",213.0],[322.0,"11-18",211.0],[323.0,"11-19",211.0],[324.0,"11-20",211.0],[325.0,"11-21",209.0],[326.0,"11-22",209.0],[329.0,"11-25",209.0],[330.0,"11-26",209.0],[331.0,"11-27",209.0],[332.0,"11-28",208.0],[333.0,"11-29",208.0],[336.0,"12-02",208.0],[337.0,"12-03",207.0],[338.0,"12-04",207.0],[339.0,"12-05",207.0],[340.0,"12-06",207.0],[343.0,"12-09",207.0],[344.0,"12-10",207.0],[345.0,"12-11",207.0],[346.0,"12-12",207.0],[347.0,"12-13",207.0],[350.0,"12-16",207.0],[351.0,"12-17",207.0],[352.0,"12-18",207.0],[353.0,"12-19",206.1],[354.0,"12-20",200.5],[357.0,"12-23",195.7],[358.0,"12-24",192.85],[359.0,"12-25",192.9],[360.0,"12-26",194.9],[361.0,"12-27",194.9],[364.0,"12-30",194.0],[365.0,"12-31",199.3]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[1.0,"01-02",207.9],[2.0,"01-03",207.5],[5.0,"01-06",207.5],[6.0,"01-07",206.6],[7.0,"01-08",203.7],[8.0,"01-09",201.7],[9.0,"01-10",201.7],[12.0,"01-13",201.7],[13.0,"01-14",198.8],[14.0,"01-15",198.8],[15.0,"01-16",196.0],[16.0,"01-17",194.0],[19.0,"01-20",194.0],[20.0,"01-21",194.0],[21.0,"01-22",194.0],[22.0,"01-23",194.4],[23.0,"01-24",192.0],[25.0,"01-26",192.0],[26.0,"01-27",192.0],[27.0,"01-28",191.0],[30.0,"01-31",191.0],[33.0,"02-03",191.0],[34.0,"02-04",191.0],[35.0,"02-05",191.0],[36.0,"02-06",191.0],[37.0,"02-07",191.0],[38.0,"02-08",191.0],[40.0,"02-10",191.0],[41.0,"02-11",191.0],[42.0,"02-12",193.0],[43.0,"02-13",193.0],[44.0,"02-14",193.0],[47.0,"02-17",193.0],[48.0,"02-18",190.0],[49.0,"02-19",189.0],[50.0,"02-20",189.0],[51.0,"02-21",174.0],[54.0,"02-24",174.0],[55.0,"02-25",174.0],[56.0,"02-26",174.0],[57.0,"02-27",173.0],[58.0,"02-28",173.0],[61.0,"03-03",172.0],[62.0,"03-04",172.0],[63.0,"03-05",172.0],[64.0,"03-06",171.0],[65.0,"03-07",171.0],[68.0,"03-10",171.0],[69.0,"03-11",171.0],[70.0,"03-12",171.0],[71.0,"03-13",170.0],[72.0,"03-14",169.0],[75.0,"03-17",169.0],[76.0,"03-18",169.0],[77.0,"03-19",169.0],[78.0,"03-20",169.0],[79.0,"03-21",169.0],[82.0,"03-24",171.0],[83.0,"03-25",171.0],[84.0,"03-26",171.0],[85.0,"03-27",171.0],[86.0,"03-28",171.0],[89.0,"03-31",171.0],[90.0,"04-01",171.0],[91.0,"04-02",171.0],[92.0,"04-03",171.0],[93.0,"04-04",173.0],[96.0,"04-07",173.0],[97.0,"04-08",173.0],[98.0,"04-09",173.0],[99.0,"04-10",173.0],[100.0,"04-11",173.0],[103.0,"04-14",173.0],[104.0,"04-15",172.0],[105.0,"04-16",172.0],[106.0,"04-17",172.0],[107.0,"04-18",172.0],[110.0,"04-21",172.0],[111.0,"04-22",172.0],[112.0,"04-23",173.0],[113.0,"04-24",173.0],[114.0,"04-25",173.0],[116.0,"04-27",173.0],[117.0,"04-28",173.0],[118.0,"04-29",171.5],[119.0,"04-30",171.5],[121.0,"05-02",171.5],[124.0,"05-05",171.5],[125.0,"05-06",171.0],[126.0,"05-07",171.0],[127.0,"05-08",171.0],[128.0,"05-09",171.0],[131.0,"05-12",171.0],[132.0,"05-13",171.0],[133.0,"05-14",171.0],[134.0,"05-15",171.0],[135.0,"05-16",171.0],[138.0,"05-19",171.0],[139.0,"05-20",171.0],[140.0,"05-21",171.0],[141.0,"05-22",168.0],[142.0,"05-23",166.0],[145.0,"05-26",165.0],[146.0,"05-27",165.0],[147.0,"05-28",165.0],[148.0,"05-29",164.0],[149.0,"05-30",164.0],[153.0,"06-03",161.0],[154.0,"06-04",161.0],[155.0,"06-05",161.0],[156.0,"06-06",160.0],[159.0,"06-09",160.0],[160.0,"06-10",160.0],[161.0,"06-11",160.0],[162.0,"06-12",160.0],[163.0,"06-13",160.0],[166.0,"06-16",159.0],[167.0,"06-17",159.0],[168.0,"06-18",159.0],[169.0,"06-19",159.0],[170.0,"06-20",159.0],[173.0,"06-23",157.0],[174.0,"06-24",157.0],[175.0,"06-25",153.0],[176.0,"06-26",153.0],[177.0,"06-27",153.0],[180.0,"06-30",153.0],[181.0,"07-01",153.0],[182.0,"07-02",155.0],[183.0,"07-03",155.0],[184.0,"07-04",155.0],[187.0,"07-07",155.0],[188.0,"07-08",155.0],[189.0,"07-09",155.0],[190.0,"07-10",155.0],[191.0,"07-11",155.0],[194.0,"07-14",155.0],[195.0,"07-15",156.0],[196.0,"07-16",157.0],[197.0,"07-17",157.0],[198.0,"07-18",157.0],[201.0,"07-21",157.0],[202.0,"07-22",159.0],[203.0,"07-23",161.0],[204.0,"07-24",163.0],[205.0,"07-25",163.0],[208.0,"07-28",163.0],[209.0,"07-29",163.0],[210.0,"07-30",163.0],[211.0,"07-31",163.0],[212.0,"08-01",170.0],[215.0,"08-04",170.0],[216.0,"08-05",170.0],[217.0,"08-06",170.0],[218.0,"08-07",170.0],[219.0,"08-08",170.0],[222.0,"08-11",170.0],[223.0,"08-12",173.0],[224.0,"08-13",175.0],[225.0,"08-14",175.0],[226.0,"08-15",175.0],[229.0,"08-18",177.0],[230.0,"08-19",182.0],[231.0,"08-20",182.0],[232.0,"08-21",182.0],[233.0,"08-22",182.0],[236.0,"08-25",182.0],[237.0,"08-26",185.0],[238.0,"08-27",185.0],[239.0,"08-28",185.0],[240.0,"08-29",185.0],[243.0,"09-01",185.0],[244.0,"09-02",185.0],[245.0,"09-03",185.0],[246.0,"09-04",185.0],[247.0,"09-05",185.0],[250.0,"09-08",185.0],[251.0,"09-09",185.0],[252.0,"09-10",185.0],[253.0,"09-11",185.0],[254.0,"09-12",185.0],[257.0,"09-15",185.0],[258.0,"09-16",185.0],[259.0,"09-17",186.0],[260.0,"09-18",185.0],[261.0,"09-19",185.0],[264.0,"09-22",185.0],[265.0,"09-23",185.0],[266.0,"09-24",185.0],[267.0,"09-25",185.0],[268.0,"09-26",185.0],[270.0,"09-28",185.0],[271.0,"09-29",185.0],[272.0,"09-30",185.0],[273.0,"10-01",185.0],[274.0,"10-02",185.0],[275.0,"10-03",185.0],[278.0,"10-06",185.0],[279.0,"10-07",185.0],[280.0,"10-08",185.0],[281.0,"10-09",185.0],[282.0,"10-10",185.0],[283.0,"10-11",186.0],[285.0,"10-13",187.0],[286.0,"10-14",187.0],[287.0,"10-15",187.0],[288.0,"10-16",187.0],[289.0,"10-17",187.0],[292.0,"10-20",189.0],[293.0,"10-21",189.0],[294.0,"10-22",189.0],[295.0,"10-23",191.0],[296.0,"10-24",193.0],[299.0,"10-27",195.0],[300.0,"10-28",195.0],[301.0,"10-29",197.0],[302.0,"10-30",197.0],[303.0,"10-31",197.0],[306.0,"11-03",209.0],[307.0,"11-04",209.0],[308.0,"11-05",209.0],[309.0,"11-06",209.0],[310.0,"11-07",210.0],[313.0,"11-10",211.0],[314.0,"11-11",211.0],[315.0,"11-12",210.0],[316.0,"11-13",209.0],[317.0,"11-14",208.0],[320.0,"11-17",208.0],[321.0,"11-18",208.0],[322.0,"11-19",206.0],[323.0,"11-20",206.0],[324.0,"11-21",205.0],[327.0,"11-24",205.0],[328.0,"11-25",204.0],[329.0,"11-26",204.0],[330.0,"11-27",204.0],[331.0,"11-28",204.0],[334.0,"12-01",204.0],[335.0,"12-02",204.0],[336.0,"12-03",205.0],[337.0,"12-04",205.0],[338.0,"12-05",205.0],[341.0,"12-08",205.0],[342.0,"12-09",205.0],[343.0,"12-10",205.0],[344.0,"12-11",205.0],[345.0,"12-12",205.0],[348.0,"12-15",205.0],[349.0,"12-16",204.0],[350.0,"12-17",204.0],[351.0,"12-18",204.0],[352.0,"12-19",204.0],[355.0,"12-22",204.0],[356.0,"12-23",204.0],[357.0,"12-24",204.0],[358.0,"12-25",204.0],[359.0,"12-26",204.0],[362.0,"12-29",204.0],[363.0,"12-30",204.0],[364.0,"12-31",204.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",204.0],[3.0,"01-04",204.0],[4.0,"01-05",204.0],[5.0,"01-06",204.0],[6.0,"01-07",204.0],[7.0,"01-08",204.5],[8.0,"01-09",204.5],[11.0,"01-12",206.0],[12.0,"01-13",206.0],[13.0,"01-14",207.0],[14.0,"01-15",212.0],[15.0,"01-16",214.0],[18.0,"01-19",215.0],[19.0,"01-20",216.0],[20.0,"01-21",216.0],[21.0,"01-22",217.0],[22.0,"01-23",218.0],[25.0,"01-26",220.0],[26.0,"01-27",220.0],[27.0,"01-28",220.0],[28.0,"01-29",220.0],[29.0,"01-30",220.0],[32.0,"02-02",220.0],[33.0,"02-03",220.0],[34.0,"02-04",220.0],[35.0,"02-05",221.0],[36.0,"02-06",221.0],[39.0,"02-09",221.0],[40.0,"02-10",221.0],[41.0,"02-11",221.0],[42.0,"02-12",219.0],[43.0,"02-13",218.0],[44.0,"02-14",218.0],[46.0,"02-16",218.0],[49.0,"02-19",218.0],[50.0,"02-20",218.0],[53.0,"02-23",218.0],[54.0,"02-24",218.0],[55.0,"02-25",218.0],[56.0,"02-26",217.0],[57.0,"02-27",217.0],[58.0,"02-28",217.0],[60.0,"03-02",214.0],[61.0,"03-03",214.0],[62.0,"03-04",214.0],[63.0,"03-05",214.0],[64.0,"03-06",214.0],[67.0,"03-09",214.0],[68.0,"03-10",214.5],[69.0,"03-11",214.5],[70.0,"03-12",214.5],[71.0,"03-13",215.0],[74.0,"03-16",215.0],[75.0,"03-17",215.5],[76.0,"03-18",215.5],[77.0,"03-19",216.0],[78.0,"03-20",217.0],[81.0,"03-23",219.0],[82.0,"03-24",223.0],[83.0,"03-25",223.0],[84.0,"03-26",222.0],[85.0,"03-27",222.0],[88.0,"03-30",222.0],[89.0,"03-31",221.0],[90.0,"04-01",220.0],[91.0,"04-02",219.0],[92.0,"04-03",219.0],[95.0,"04-06",219.0],[96.0,"04-07",219.0],[97.0,"04-08",219.0],[98.0,"04-09",219.0],[99.0,"04-10",219.0],[102.0,"04-13",218.0],[103.0,"04-14",218.0],[104.0,"04-15",217.0],[105.0,"04-16",217.0],[106.0,"04-17",217.0],[109.0,"04-20",217.0],[110.0,"04-21",217.0],[111.0,"04-22",217.0],[112.0,"04-23",217.5],[113.0,"04-24",217.5],[116.0,"04-27",217.5],[117.0,"04-28",217.5],[118.0,"04-29",217.5],[119.0,"04-30",218.0],[123.0,"05-04",218.0],[124.0,"05-05",218.0],[125.0,"05-06",218.0],[126.0,"05-07",220.0],[127.0,"05-08",220.0],[128.0,"05-09",220.0],[130.0,"05-11",221.0],[131.0,"05-12",221.0],[132.0,"05-13",221.0],[133.0,"05-14",221.0],[134.0,"05-15",220.5],[137.0,"05-18",220.0],[138.0,"05-19",220.0],[139.0,"05-20",220.0],[140.0,"05-21",219.0],[141.0,"05-22",219.0],[144.0,"05-25",234.0],[145.0,"05-26",229.0],[146.0,"05-27",229.0],[147.0,"05-28",229.0],[148.0,"05-29",227.0],[151.0,"06-01",227.0],[152.0,"06-02",227.0],[153.0,"06-03",232.0],[154.0,"06-04",232.0],[155.0,"06-05",244.0],[158.0,"06-08",249.0],[159.0,"06-09",249.0],[160.0,"06-10",254.0],[161.0,"06-11",254.0],[162.0,"06-12",259.0],[165.0,"06-15",259.0],[166.0,"06-16",259.0],[167.0,"06-17",260.0],[168.0,"06-18",260.0],[169.0,"06-19",260.0],[172.0,"06-22",260.0],[173.0,"06-23",264.0],[174.0,"06-24",264.0],[175.0,"06-25",264.0],[176.0,"06-26",264.0],[179.0,"06-29",264.0],[180.0,"06-30",264.0],[181.0,"07-01",263.0],[182.0,"07-02",262.0],[183.0,"07-03",261.0],[186.0,"07-06",260.0],[187.0,"07-07",259.0],[188.0,"07-08",259.0],[189.0,"07-09",259.0],[190.0,"07-10",257.0],[193.0,"07-13",254.0],[194.0,"07-14",251.0],[195.0,"07-15",249.0],[196.0,"07-16",249.0],[197.0,"07-17",248.0],[200.0,"07-20",246.0],[201.0,"07-21",243.0],[202.0,"07-22",243.0],[203.0,"07-23",241.0],[204.0,"07-24",241.0],[207.0,"07-27",238.0],[208.0,"07-28",237.0],[209.0,"07-29",237.0],[210.0,"07-30",236.0],[211.0,"07-31",234.0],[214.0,"08-03",232.0],[215.0,"08-04",230.0],[216.0,"08-05",230.0],[217.0,"08-06",230.0],[218.0,"08-07",232.0],[221.0,"08-10",232.0],[222.0,"08-11",232.0],[223.0,"08-12",237.0],[224.0,"08-13",241.0],[225.0,"08-14",243.0],[228.0,"08-17",245.0],[229.0,"08-18",245.0],[230.0,"08-19",263.0],[231.0,"08-20",263.0],[232.0,"08-21",267.0],[235.0,"08-24",269.0],[236.0,"08-25",278.0],[237.0,"08-26",278.0],[238.0,"08-27",282.0],[239.0,"08-28",282.0],[242.0,"08-31",282.0],[243.0,"09-01",287.0],[244.0,"09-02",290.0],[245.0,"09-03",293.0],[246.0,"09-04",295.5]]}],"latestAnnotation":{"text":"最新 295.5","color":"#e00000"}}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card overseas-coal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"斯坦达CFR","axisMin":100,"axisMax":350,"ticks":[100,150,200,250,300,350],"series":[{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[2.0,"01-03",315.0],[3.0,"01-04",315.0],[4.0,"01-05",315.0],[5.0,"01-06",315.0],[8.0,"01-09",318.0],[9.0,"01-10",323.0],[10.0,"01-11",328.0],[11.0,"01-12",328.0],[12.0,"01-13",328.0],[15.0,"01-16",328.0],[16.0,"01-17",328.0],[17.0,"01-18",328.0],[18.0,"01-19",328.0],[19.0,"01-20",328.0],[27.0,"01-28",328.0],[28.0,"01-29",328.0],[29.0,"01-30",328.0],[30.0,"01-31",328.0],[31.0,"02-01",328.0],[32.0,"02-02",338.0],[33.0,"02-03",338.0],[36.0,"02-06",338.0],[37.0,"02-07",343.0],[38.0,"02-08",343.0],[39.0,"02-09",343.0],[40.0,"02-10",343.0],[43.0,"02-13",343.0],[44.0,"02-14",343.0],[45.0,"02-15",343.0],[46.0,"02-16",343.0],[47.0,"02-17",343.0],[50.0,"02-20",343.0],[51.0,"02-21",343.0],[52.0,"02-22",343.0],[53.0,"02-23",343.0],[54.0,"02-24",343.0],[57.0,"02-27",343.0],[58.0,"02-28",343.0],[59.0,"03-01",343.0],[60.0,"03-02",343.0],[61.0,"03-03",343.0],[64.0,"03-06",343.0],[65.0,"03-07",343.0],[66.0,"03-08",343.0],[67.0,"03-09",343.0],[68.0,"03-10",343.0],[71.0,"03-13",343.0],[72.0,"03-14",343.0],[73.0,"03-15",343.0],[74.0,"03-16",343.0],[75.0,"03-17",343.0],[78.0,"03-20",343.0],[79.0,"03-21",343.0],[80.0,"03-22",343.0],[81.0,"03-23",343.0],[82.0,"03-24",343.0],[85.0,"03-27",343.0],[86.0,"03-28",343.0],[87.0,"03-29",343.0],[88.0,"03-30",343.0],[89.0,"03-31",343.0],[92.0,"04-03",343.0],[93.0,"04-04",343.0],[95.0,"04-06",343.0],[96.0,"04-07",343.0],[99.0,"04-10",343.0],[100.0,"04-11",343.0],[101.0,"04-12",343.0],[102.0,"04-13",338.0],[103.0,"04-14",338.0],[106.0,"04-17",338.0],[107.0,"04-18",338.0],[108.0,"04-19",338.0],[109.0,"04-20",338.0],[110.0,"04-21",338.0],[112.0,"04-23",338.0],[113.0,"04-24",338.0],[114.0,"04-25",338.0],[115.0,"04-26",338.0],[116.0,"04-27",338.0],[117.0,"04-28",338.0],[123.0,"05-04",338.0],[124.0,"05-05",338.0],[125.0,"05-06",323.0],[127.0,"05-08",251.0],[128.0,"05-09",251.0],[129.0,"05-10",251.0],[130.0,"05-11",251.0],[131.0,"05-12",252.0],[134.0,"05-15",252.0],[135.0,"05-16",248.0],[136.0,"05-17",247.0],[137.0,"05-18",244.0],[138.0,"05-19",237.0],[141.0,"05-22",235.0],[142.0,"05-23",227.0],[143.0,"05-24",222.0],[144.0,"05-25",222.0],[145.0,"05-26",222.0],[148.0,"05-29",222.0],[149.0,"05-30",222.0],[150.0,"05-31",222.0],[151.0,"06-01",224.0],[152.0,"06-02",224.0],[155.0,"06-05",225.0],[156.0,"06-06",227.0],[157.0,"06-07",227.0],[158.0,"06-08",227.0],[159.0,"06-09",227.0],[162.0,"06-12",227.0],[163.0,"06-13",227.0],[164.0,"06-14",222.0],[165.0,"06-15",225.0],[166.0,"06-16",225.0],[169.0,"06-19",225.0],[170.0,"06-20",225.0],[171.0,"06-21",225.0],[175.0,"06-25",225.0],[176.0,"06-26",225.0],[177.0,"06-27",225.0],[178.0,"06-28",225.0],[179.0,"06-29",225.0],[180.0,"06-30",225.0],[183.0,"07-03",225.0],[184.0,"07-04",222.0],[185.0,"07-05",212.0],[186.0,"07-06",215.0],[187.0,"07-07",225.0],[190.0,"07-10",225.0],[191.0,"07-11",225.0],[192.0,"07-12",225.0],[193.0,"07-13",235.0],[194.0,"07-14",235.0],[197.0,"07-17",235.0],[198.0,"07-18",235.0],[199.0,"07-19",235.0],[200.0,"07-20",235.0],[201.0,"07-21",235.0],[204.0,"07-24",235.0],[205.0,"07-25",235.0],[206.0,"07-26",235.0],[207.0,"07-27",235.0],[208.0,"07-28",235.0],[211.0,"07-31",235.0],[212.0,"08-01",235.0],[213.0,"08-02",240.0],[214.0,"08-03",240.0],[215.0,"08-04",240.0],[218.0,"08-07",240.0],[219.0,"08-08",240.0],[220.0,"08-09",240.0],[221.0,"08-10",240.0],[222.0,"08-11",240.0],[225.0,"08-14",244.0],[226.0,"08-15",244.0],[227.0,"08-16",244.0],[228.0,"08-17",248.0],[229.0,"08-18",248.0],[232.0,"08-21",248.0],[233.0,"08-22",248.0],[234.0,"08-23",248.0],[235.0,"08-24",248.0],[236.0,"08-25",251.0],[239.0,"08-28",254.0],[240.0,"08-29",254.0],[241.0,"08-30",259.0],[242.0,"08-31",259.0],[243.0,"09-01",259.0],[246.0,"09-04",259.0],[247.0,"09-05",259.0],[248.0,"09-06",259.0],[249.0,"09-07",259.0],[250.0,"09-08",259.0],[253.0,"09-11",259.0],[254.0,"09-12",265.0],[255.0,"09-13",265.0],[256.0,"09-14",267.0],[257.0,"09-15",269.0],[260.0,"09-18",269.0],[261.0,"09-19",284.0],[262.0,"09-20",284.0],[263.0,"09-21",284.0],[264.0,"09-22",284.0],[267.0,"09-25",284.0],[268.0,"09-26",294.0],[269.0,"09-27",294.0],[270.0,"09-28",294.0],[271.0,"09-29",294.0],[274.0,"10-02",294.0],[275.0,"10-03",304.0],[276.0,"10-04",304.0],[277.0,"10-05",304.0],[278.0,"10-06",304.0],[279.0,"10-07",304.0],[280.0,"10-08",304.0],[281.0,"10-09",304.0],[282.0,"10-10",304.0],[283.0,"10-11",304.0],[284.0,"10-12",304.0],[285.0,"10-13",304.0],[288.0,"10-16",304.0],[289.0,"10-17",304.0],[290.0,"10-18",300.0],[291.0,"10-19",300.0],[292.0,"10-20",300.0],[295.0,"10-23",300.0],[296.0,"10-24",300.0],[297.0,"10-25",300.0],[298.0,"10-26",300.0],[299.0,"10-27",300.0],[302.0,"10-30",300.0],[303.0,"10-31",300.0],[304.0,"11-01",300.0],[305.0,"11-02",300.0],[306.0,"11-03",300.0],[309.0,"11-06",300.0],[310.0,"11-07",300.0],[311.0,"11-08",294.0],[312.0,"11-09",294.0],[313.0,"11-10",294.0],[316.0,"11-13",294.0],[317.0,"11-14",294.0],[318.0,"11-15",294.0],[319.0,"11-16",294.0],[320.0,"11-17",294.0],[323.0,"11-20",294.0],[324.0,"11-21",294.0],[325.0,"11-22",294.0],[326.0,"11-23",314.0],[327.0,"11-24",314.0],[330.0,"11-27",314.0],[331.0,"11-28",314.0],[332.0,"11-29",314.0],[333.0,"11-30",314.0],[334.0,"12-01",314.0],[337.0,"12-04",319.0],[338.0,"12-05",319.0],[339.0,"12-06",319.0],[340.0,"12-07",319.0],[341.0,"12-08",319.0],[344.0,"12-11",319.0],[345.0,"12-12",319.0],[346.0,"12-13",319.0],[347.0,"12-14",319.0],[348.0,"12-15",319.0],[351.0,"12-18",319.0],[352.0,"12-19",319.0],[353.0,"12-20",319.0],[354.0,"12-21",319.0],[355.0,"12-22",319.0],[358.0,"12-25",319.0],[359.0,"12-26",319.0],[360.0,"12-27",314.0],[361.0,"12-28",314.0],[362.0,"12-29",319.0]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[1.0,"01-02",319.0],[2.0,"01-03",319.0],[3.0,"01-04",319.0],[4.0,"01-05",319.0],[7.0,"01-08",319.0],[8.0,"01-09",319.0],[9.0,"01-10",319.0],[10.0,"01-11",319.0],[11.0,"01-12",319.0],[14.0,"01-15",319.0],[15.0,"01-16",319.0],[16.0,"01-17",319.0],[17.0,"01-18",319.0],[18.0,"01-19",319.0],[21.0,"01-22",319.0],[22.0,"01-23",319.0],[23.0,"01-24",319.0],[24.0,"01-25",319.0],[25.0,"01-26",319.0],[28.0,"01-29",315.0],[29.0,"01-30",315.0],[30.0,"01-31",315.0],[31.0,"02-01",315.0],[32.0,"02-02",315.0],[34.0,"02-04",315.0],[35.0,"02-05",315.0],[36.0,"02-06",315.0],[37.0,"02-07",315.0],[38.0,"02-08",315.0],[39.0,"02-09",315.0],[43.0,"02-13",315.0],[44.0,"02-14",315.0],[45.0,"02-15",315.0],[46.0,"02-16",315.0],[47.0,"02-17",315.0],[48.0,"02-18",315.0],[49.0,"02-19",315.0],[50.0,"02-20",315.0],[51.0,"02-21",315.0],[52.0,"02-22",315.0],[53.0,"02-23",315.0],[56.0,"02-26",315.0],[57.0,"02-27",315.0],[58.0,"02-28",315.0],[59.0,"02-29",315.0],[60.0,"03-01",315.0],[63.0,"03-04",315.0],[64.0,"03-05",315.0],[65.0,"03-06",315.0],[66.0,"03-07",315.0],[67.0,"03-08",315.0],[70.0,"03-11",312.0],[71.0,"03-12",312.0],[72.0,"03-13",309.0],[73.0,"03-14",309.0],[74.0,"03-15",300.0],[77.0,"03-18",295.0],[78.0,"03-19",290.0],[79.0,"03-20",283.0],[80.0,"03-21",283.0],[81.0,"03-22",275.0],[84.0,"03-25",275.0],[85.0,"03-26",275.0],[86.0,"03-27",275.0],[87.0,"03-28",275.0],[88.0,"03-29",275.0],[91.0,"04-01",275.0],[92.0,"04-02",275.0],[93.0,"04-03",275.0],[95.0,"04-05",265.0],[97.0,"04-07",255.0],[98.0,"04-08",250.0],[99.0,"04-09",250.0],[100.0,"04-10",250.0],[101.0,"04-11",250.0],[102.0,"04-12",250.0],[105.0,"04-15",252.0],[106.0,"04-16",260.0],[107.0,"04-17",260.0],[108.0,"04-18",260.0],[109.0,"04-19",260.0],[112.0,"04-22",260.0],[113.0,"04-23",256.0],[114.0,"04-24",256.0],[115.0,"04-25",258.0],[116.0,"04-26",258.0],[118.0,"04-28",258.0],[119.0,"04-29",258.0],[120.0,"04-30",258.0],[122.0,"05-02",258.0],[123.0,"05-03",258.0],[126.0,"05-06",253.0],[127.0,"05-07",253.0],[128.0,"05-08",253.0],[129.0,"05-09",253.0],[130.0,"05-10",253.0],[131.0,"05-11",256.0],[133.0,"05-13",256.0],[134.0,"05-14",256.0],[135.0,"05-15",254.0],[136.0,"05-16",252.0],[137.0,"05-17",250.0],[140.0,"05-20",250.0],[141.0,"05-21",254.0],[142.0,"05-22",254.0],[143.0,"05-23",254.0],[144.0,"05-24",254.0],[147.0,"05-27",254.0],[148.0,"05-28",254.0],[149.0,"05-29",254.0],[150.0,"05-30",254.0],[151.0,"05-31",254.0],[154.0,"06-03",254.0],[155.0,"06-04",256.0],[156.0,"06-05",256.0],[157.0,"06-06",256.0],[158.0,"06-07",256.0],[161.0,"06-10",256.0],[162.0,"06-11",256.0],[163.0,"06-12",256.0],[164.0,"06-13",256.0],[165.0,"06-14",253.0],[168.0,"06-17",253.0],[169.0,"06-18",253.0],[170.0,"06-19",253.0],[171.0,"06-20",252.0],[172.0,"06-21",252.0],[175.0,"06-24",252.0],[176.0,"06-25",252.0],[177.0,"06-26",252.0],[178.0,"06-27",252.0],[179.0,"06-28",252.0],[182.0,"07-01",252.0],[183.0,"07-02",247.0],[184.0,"07-03",243.0],[185.0,"07-04",243.0],[186.0,"07-05",243.0],[189.0,"07-08",243.0],[190.0,"07-09",243.0],[191.0,"07-10",242.0],[192.0,"07-11",242.0],[193.0,"07-12",242.0],[196.0,"07-15",240.0],[197.0,"07-16",240.0],[198.0,"07-17",240.0],[199.0,"07-18",240.0],[200.0,"07-19",240.0],[203.0,"07-22",240.0],[204.0,"07-23",240.0],[205.0,"07-24",239.0],[206.0,"07-25",234.0],[207.0,"07-26",233.0],[210.0,"07-29",232.0],[211.0,"07-30",232.0],[212.0,"07-31",227.0],[213.0,"08-01",230.0],[214.0,"08-02",228.0],[217.0,"08-05",228.0],[218.0,"08-06",227.0],[219.0,"08-07",226.0],[220.0,"08-08",226.0],[221.0,"08-09",226.0],[224.0,"08-12",225.0],[225.0,"08-13",220.0],[226.0,"08-14",217.0],[227.0,"08-15",217.0],[228.0,"08-16",217.0],[231.0,"08-19",216.0],[232.0,"08-20",214.0],[233.0,"08-21",214.0],[234.0,"08-22",212.0],[235.0,"08-23",210.0],[238.0,"08-26",209.0],[239.0,"08-27",207.0],[240.0,"08-28",207.0],[241.0,"08-29",210.0],[242.0,"08-30",210.0],[245.0,"09-02",210.0],[246.0,"09-03",210.0],[247.0,"09-04",210.0],[248.0,"09-05",207.0],[249.0,"09-06",201.0],[252.0,"09-09",195.0],[253.0,"09-10",193.0],[254.0,"09-11",192.0],[255.0,"09-12",197.0],[256.0,"09-13",197.0],[257.0,"09-14",197.0],[259.0,"09-16",197.0],[260.0,"09-17",197.0],[261.0,"09-18",195.0],[262.0,"09-19",195.0],[263.0,"09-20",200.0],[266.0,"09-23",200.0],[267.0,"09-24",200.0],[268.0,"09-25",202.0],[269.0,"09-26",202.0],[270.0,"09-27",215.0],[272.0,"09-29",215.0],[273.0,"09-30",215.0],[274.0,"10-01",215.0],[275.0,"10-02",215.0],[276.0,"10-03",215.0],[277.0,"10-04",215.0],[280.0,"10-07",215.0],[281.0,"10-08",215.0],[282.0,"10-09",217.0],[283.0,"10-10",217.0],[284.0,"10-11",217.0],[285.0,"10-12",217.0],[287.0,"10-14",217.0],[288.0,"10-15",217.0],[289.0,"10-16",225.0],[290.0,"10-17",221.0],[291.0,"10-18",216.0],[294.0,"10-21",215.0],[295.0,"10-22",215.0],[296.0,"10-23",212.0],[297.0,"10-24",212.0],[298.0,"10-25",212.0],[301.0,"10-28",212.0],[302.0,"10-29",212.0],[303.0,"10-30",212.0],[304.0,"10-31",212.0],[305.0,"11-01",212.0],[308.0,"11-04",212.0],[309.0,"11-05",212.0],[310.0,"11-06",211.0],[311.0,"11-07",212.0],[312.0,"11-08",215.0],[315.0,"11-11",215.0],[316.0,"11-12",215.0],[317.0,"11-13",215.0],[318.0,"11-14",215.0],[319.0,"11-15",215.0],[322.0,"11-18",213.0],[323.0,"11-19",213.0],[324.0,"11-20",213.0],[325.0,"11-21",211.0],[326.0,"11-22",211.0],[329.0,"11-25",211.0],[330.0,"11-26",211.0],[331.0,"11-27",211.0],[332.0,"11-28",210.0],[333.0,"11-29",210.0],[336.0,"12-02",210.0],[337.0,"12-03",209.0],[338.0,"12-04",209.0],[339.0,"12-05",209.0],[340.0,"12-06",209.0],[343.0,"12-09",209.0],[344.0,"12-10",209.0],[345.0,"12-11",209.0],[346.0,"12-12",209.0],[347.0,"12-13",209.0],[350.0,"12-16",215.0],[351.0,"12-17",215.0],[352.0,"12-18",215.0],[353.0,"12-19",214.8],[354.0,"12-20",208.9],[357.0,"12-23",203.9],[358.0,"12-24",200.9],[359.0,"12-25",200.9],[360.0,"12-26",198.9],[361.0,"12-27",198.9],[364.0,"12-30",198.0],[365.0,"12-31",203.4]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[1.0,"01-02",212.2],[2.0,"01-03",211.8],[5.0,"01-06",211.8],[6.0,"01-07",210.8],[7.0,"01-08",207.9],[8.0,"01-09",205.9],[9.0,"01-10",205.9],[12.0,"01-13",205.9],[13.0,"01-14",203.0],[14.0,"01-15",203.0],[15.0,"01-16",199.0],[16.0,"01-17",198.0],[19.0,"01-20",198.0],[20.0,"01-21",198.0],[21.0,"01-22",198.0],[22.0,"01-23",198.5],[23.0,"01-24",195.0],[25.0,"01-26",195.0],[26.0,"01-27",195.0],[27.0,"01-28",194.0],[30.0,"01-31",194.0],[33.0,"02-03",194.0],[34.0,"02-04",194.0],[35.0,"02-05",194.0],[36.0,"02-06",194.0],[37.0,"02-07",194.0],[38.0,"02-08",194.0],[40.0,"02-10",194.0],[41.0,"02-11",194.0],[42.0,"02-12",196.0],[43.0,"02-13",199.0],[44.0,"02-14",199.0],[47.0,"02-17",199.0],[48.0,"02-18",196.0],[49.0,"02-19",195.0],[50.0,"02-20",195.0],[51.0,"02-21",175.0],[54.0,"02-24",175.0],[55.0,"02-25",175.0],[56.0,"02-26",175.0],[57.0,"02-27",175.0],[58.0,"02-28",175.0],[61.0,"03-03",175.0],[62.0,"03-04",175.0],[63.0,"03-05",175.0],[64.0,"03-06",174.0],[65.0,"03-07",174.0],[68.0,"03-10",174.0],[69.0,"03-11",174.0],[70.0,"03-12",174.0],[71.0,"03-13",174.0],[72.0,"03-14",173.0],[75.0,"03-17",173.0],[76.0,"03-18",173.0],[77.0,"03-19",173.0],[78.0,"03-20",173.0],[79.0,"03-21",173.0],[82.0,"03-24",173.0],[83.0,"03-25",173.0],[84.0,"03-26",173.0],[85.0,"03-27",173.0],[86.0,"03-28",173.0],[89.0,"03-31",173.0],[90.0,"04-01",173.0],[91.0,"04-02",173.0],[92.0,"04-03",173.0],[93.0,"04-04",175.0],[96.0,"04-07",175.0],[97.0,"04-08",175.0],[98.0,"04-09",175.0],[99.0,"04-10",175.0],[100.0,"04-11",175.0],[103.0,"04-14",175.0],[104.0,"04-15",174.0],[105.0,"04-16",174.0],[106.0,"04-17",174.0],[107.0,"04-18",174.0],[110.0,"04-21",174.0],[111.0,"04-22",174.0],[112.0,"04-23",175.0],[113.0,"04-24",175.0],[114.0,"04-25",175.0],[116.0,"04-27",175.0],[117.0,"04-28",175.0],[118.0,"04-29",173.0],[119.0,"04-30",173.0],[121.0,"05-02",173.0],[124.0,"05-05",173.0],[125.0,"05-06",172.0],[126.0,"05-07",172.0],[127.0,"05-08",172.0],[128.0,"05-09",172.0],[131.0,"05-12",172.0],[132.0,"05-13",172.0],[133.0,"05-14",172.0],[134.0,"05-15",172.0],[135.0,"05-16",172.0],[138.0,"05-19",172.0],[139.0,"05-20",172.0],[140.0,"05-21",172.0],[141.0,"05-22",170.0],[142.0,"05-23",168.0],[145.0,"05-26",167.0],[146.0,"05-27",167.0],[147.0,"05-28",167.0],[148.0,"05-29",166.0],[149.0,"05-30",166.0],[153.0,"06-03",163.0],[154.0,"06-04",162.0],[155.0,"06-05",162.0],[156.0,"06-06",161.0],[159.0,"06-09",161.0],[160.0,"06-10",161.0],[161.0,"06-11",161.0],[162.0,"06-12",161.0],[163.0,"06-13",161.0],[166.0,"06-16",160.0],[167.0,"06-17",160.0],[168.0,"06-18",160.0],[169.0,"06-19",160.0],[170.0,"06-20",160.0],[173.0,"06-23",160.0],[174.0,"06-24",160.0],[175.0,"06-25",160.0],[176.0,"06-26",160.0],[177.0,"06-27",160.0],[180.0,"06-30",158.0],[181.0,"07-01",158.0],[182.0,"07-02",158.0],[183.0,"07-03",158.0],[184.0,"07-04",158.0],[187.0,"07-07",158.0],[188.0,"07-08",158.0],[189.0,"07-09",158.0],[190.0,"07-10",158.0],[191.0,"07-11",158.0],[194.0,"07-14",158.0],[195.0,"07-15",160.0],[196.0,"07-16",160.0],[197.0,"07-17",160.0],[198.0,"07-18",160.0],[201.0,"07-21",160.0],[202.0,"07-22",162.0],[203.0,"07-23",164.0],[204.0,"07-24",164.0],[205.0,"07-25",166.0],[208.0,"07-28",166.0],[209.0,"07-29",166.0],[210.0,"07-30",166.0],[211.0,"07-31",166.0],[212.0,"08-01",171.0],[215.0,"08-04",171.0],[216.0,"08-05",171.0],[217.0,"08-06",171.0],[218.0,"08-07",171.0],[219.0,"08-08",171.0],[222.0,"08-11",171.0],[223.0,"08-12",175.0],[224.0,"08-13",177.0],[225.0,"08-14",177.0],[226.0,"08-15",177.0],[229.0,"08-18",179.0],[230.0,"08-19",184.0],[231.0,"08-20",184.0],[232.0,"08-21",184.0],[233.0,"08-22",184.0],[236.0,"08-25",184.0],[237.0,"08-26",187.0],[238.0,"08-27",187.0],[239.0,"08-28",187.0],[240.0,"08-29",187.0],[243.0,"09-01",187.0],[244.0,"09-02",187.0],[245.0,"09-03",187.0],[246.0,"09-04",187.0],[247.0,"09-05",187.0],[250.0,"09-08",187.0],[251.0,"09-09",186.0],[252.0,"09-10",186.0],[253.0,"09-11",186.0],[254.0,"09-12",186.0],[257.0,"09-15",186.0],[258.0,"09-16",186.0],[259.0,"09-17",187.0],[260.0,"09-18",186.0],[261.0,"09-19",186.0],[264.0,"09-22",186.0],[265.0,"09-23",186.0],[266.0,"09-24",186.0],[267.0,"09-25",186.0],[268.0,"09-26",186.0],[270.0,"09-28",186.0],[271.0,"09-29",186.0],[272.0,"09-30",186.0],[273.0,"10-01",186.0],[274.0,"10-02",186.0],[275.0,"10-03",186.0],[278.0,"10-06",186.0],[279.0,"10-07",186.0],[280.0,"10-08",186.0],[281.0,"10-09",186.0],[282.0,"10-10",186.0],[283.0,"10-11",187.0],[285.0,"10-13",188.0],[286.0,"10-14",188.0],[287.0,"10-15",188.0],[288.0,"10-16",188.0],[289.0,"10-17",188.0],[292.0,"10-20",190.0],[293.0,"10-21",190.0],[294.0,"10-22",190.0],[295.0,"10-23",192.0],[296.0,"10-24",194.0],[299.0,"10-27",196.0],[300.0,"10-28",196.0],[301.0,"10-29",198.0],[302.0,"10-30",198.0],[303.0,"10-31",198.0],[306.0,"11-03",210.0],[307.0,"11-04",210.0],[308.0,"11-05",210.0],[309.0,"11-06",210.0],[310.0,"11-07",211.0],[313.0,"11-10",211.5],[314.0,"11-11",211.5],[315.0,"11-12",211.0],[316.0,"11-13",210.0],[317.0,"11-14",209.0],[320.0,"11-17",209.0],[321.0,"11-18",209.0],[322.0,"11-19",207.0],[323.0,"11-20",207.0],[324.0,"11-21",206.0],[327.0,"11-24",206.0],[328.0,"11-25",205.0],[329.0,"11-26",205.0],[330.0,"11-27",205.0],[331.0,"11-28",205.0],[334.0,"12-01",205.0],[335.0,"12-02",205.0],[336.0,"12-03",206.0],[337.0,"12-04",206.0],[338.0,"12-05",206.0],[341.0,"12-08",206.0],[342.0,"12-09",206.0],[343.0,"12-10",206.0],[344.0,"12-11",206.0],[345.0,"12-12",206.0],[348.0,"12-15",206.0],[349.0,"12-16",205.0],[350.0,"12-17",205.0],[351.0,"12-18",205.0],[352.0,"12-19",205.0],[355.0,"12-22",205.0],[356.0,"12-23",205.0],[357.0,"12-24",205.0],[358.0,"12-25",205.0],[359.0,"12-26",205.0],[362.0,"12-29",205.0],[363.0,"12-30",205.0],[364.0,"12-31",205.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",205.0],[3.0,"01-04",205.0],[4.0,"01-05",205.0],[5.0,"01-06",205.0],[6.0,"01-07",205.0],[7.0,"01-08",205.5],[8.0,"01-09",205.5],[11.0,"01-12",207.0],[12.0,"01-13",207.0],[13.0,"01-14",208.0],[14.0,"01-15",213.0],[15.0,"01-16",215.0],[18.0,"01-19",216.0],[19.0,"01-20",217.0],[20.0,"01-21",217.0],[21.0,"01-22",218.0],[22.0,"01-23",219.0],[25.0,"01-26",221.0],[26.0,"01-27",221.0],[27.0,"01-28",221.0],[28.0,"01-29",221.0],[29.0,"01-30",221.0],[32.0,"02-02",221.0],[33.0,"02-03",221.0],[34.0,"02-04",221.0],[35.0,"02-05",222.0],[36.0,"02-06",222.0],[39.0,"02-09",222.0],[40.0,"02-10",222.0],[41.0,"02-11",222.0],[42.0,"02-12",220.0],[43.0,"02-13",219.0],[44.0,"02-14",219.0],[46.0,"02-16",219.0],[49.0,"02-19",219.0],[50.0,"02-20",219.0],[53.0,"02-23",219.0],[54.0,"02-24",219.0],[55.0,"02-25",219.0],[56.0,"02-26",218.0],[57.0,"02-27",218.0],[58.0,"02-28",218.0],[60.0,"03-02",215.0],[61.0,"03-03",215.0],[62.0,"03-04",215.0],[63.0,"03-05",215.0],[64.0,"03-06",215.0],[67.0,"03-09",215.0],[68.0,"03-10",215.5],[69.0,"03-11",215.5],[70.0,"03-12",215.5],[71.0,"03-13",216.0],[74.0,"03-16",216.0],[75.0,"03-17",216.5],[76.0,"03-18",216.5],[77.0,"03-19",217.0],[78.0,"03-20",218.0],[81.0,"03-23",220.0],[82.0,"03-24",224.0],[83.0,"03-25",224.0],[84.0,"03-26",223.0],[85.0,"03-27",223.0],[88.0,"03-30",223.0],[89.0,"03-31",222.0],[90.0,"04-01",221.0],[91.0,"04-02",220.0],[92.0,"04-03",220.0],[95.0,"04-06",220.0],[96.0,"04-07",220.0],[97.0,"04-08",220.0],[98.0,"04-09",220.0],[99.0,"04-10",220.0],[102.0,"04-13",218.0],[103.0,"04-14",218.0],[104.0,"04-15",218.0],[105.0,"04-16",218.0],[106.0,"04-17",218.0],[109.0,"04-20",218.0],[110.0,"04-21",218.0],[111.0,"04-22",218.0],[112.0,"04-23",218.5],[113.0,"04-24",218.5],[116.0,"04-27",218.5],[117.0,"04-28",218.5],[118.0,"04-29",218.5],[119.0,"04-30",219.0],[123.0,"05-04",219.0],[124.0,"05-05",219.0],[125.0,"05-06",219.0],[126.0,"05-07",221.0],[127.0,"05-08",221.0],[128.0,"05-09",221.0],[130.0,"05-11",222.0],[131.0,"05-12",222.0],[132.0,"05-13",222.0],[133.0,"05-14",222.0],[134.0,"05-15",221.5],[137.0,"05-18",221.0],[138.0,"05-19",221.0],[139.0,"05-20",221.0],[140.0,"05-21",220.0],[141.0,"05-22",220.0],[144.0,"05-25",235.0],[145.0,"05-26",230.0],[146.0,"05-27",230.0],[147.0,"05-28",230.0],[148.0,"05-29",228.0],[151.0,"06-01",228.0],[152.0,"06-02",228.0],[153.0,"06-03",233.0],[154.0,"06-04",233.0],[155.0,"06-05",245.0],[158.0,"06-08",250.0],[159.0,"06-09",250.0],[160.0,"06-10",255.0],[161.0,"06-11",255.0],[162.0,"06-12",260.0],[165.0,"06-15",260.0],[166.0,"06-16",260.0],[167.0,"06-17",261.0],[168.0,"06-18",261.0],[169.0,"06-19",261.0],[172.0,"06-22",261.0],[173.0,"06-23",265.0],[174.0,"06-24",265.0],[175.0,"06-25",265.0],[176.0,"06-26",265.0],[179.0,"06-29",265.0],[180.0,"06-30",265.0],[181.0,"07-01",264.0],[182.0,"07-02",263.0],[183.0,"07-03",262.0],[186.0,"07-06",261.0],[187.0,"07-07",260.0],[188.0,"07-08",260.0],[189.0,"07-09",260.0],[190.0,"07-10",258.0],[193.0,"07-13",255.0],[194.0,"07-14",252.0],[195.0,"07-15",250.0],[196.0,"07-16",250.0],[197.0,"07-17",249.0],[200.0,"07-20",247.0],[201.0,"07-21",244.0],[202.0,"07-22",244.0],[203.0,"07-23",242.0],[204.0,"07-24",242.0],[207.0,"07-27",239.0],[208.0,"07-28",238.0],[209.0,"07-29",238.0],[210.0,"07-30",237.0],[211.0,"07-31",235.0],[214.0,"08-03",233.0],[215.0,"08-04",231.0],[216.0,"08-05",231.0],[217.0,"08-06",231.0],[218.0,"08-07",233.5],[221.0,"08-10",233.5],[222.0,"08-11",233.5],[223.0,"08-12",238.0],[224.0,"08-13",242.0],[225.0,"08-14",244.0],[228.0,"08-17",246.0],[229.0,"08-18",246.0],[230.0,"08-19",264.0],[231.0,"08-20",264.0],[232.0,"08-21",268.0],[235.0,"08-24",270.0],[236.0,"08-25",279.0],[237.0,"08-26",279.0],[238.0,"08-27",283.0],[239.0,"08-28",283.0],[242.0,"08-31",283.0],[243.0,"09-01",288.0],[244.0,"09-02",291.0],[245.0,"09-03",294.0],[246.0,"09-04",296.5]]}],"latestAnnotation":{"text":"最新 296.5","color":"#e00000"}}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card overseas-coal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"克努玛CFR","axisMin":100,"axisMax":300,"ticks":[100,150,200,250,300],"series":[{"year":2025,"color":"#0b2f66","width":2.0,"points":[[173.0,"06-23",136.0],[174.0,"06-24",136.0],[175.0,"06-25",136.0],[176.0,"06-26",136.0],[177.0,"06-27",136.0],[180.0,"06-30",136.0],[181.0,"07-01",136.0],[182.0,"07-02",138.0],[183.0,"07-03",139.0],[184.0,"07-04",140.0],[187.0,"07-07",140.0],[188.0,"07-08",140.0],[189.0,"07-09",140.0],[190.0,"07-10",140.0],[191.0,"07-11",140.0],[194.0,"07-14",141.0],[195.0,"07-15",143.0],[196.0,"07-16",145.0],[197.0,"07-17",145.0],[198.0,"07-18",145.0],[201.0,"07-21",145.0],[202.0,"07-22",148.0],[203.0,"07-23",151.0],[204.0,"07-24",153.0],[205.0,"07-25",158.0],[208.0,"07-28",158.0],[209.0,"07-29",157.0],[210.0,"07-30",157.0],[211.0,"07-31",157.0],[212.0,"08-01",163.0],[215.0,"08-04",163.0],[216.0,"08-05",163.0],[217.0,"08-06",165.0],[218.0,"08-07",165.0],[219.0,"08-08",165.0],[222.0,"08-11",165.0],[223.0,"08-12",165.0],[224.0,"08-13",166.0],[225.0,"08-14",166.0],[226.0,"08-15",166.0],[229.0,"08-18",168.0],[230.0,"08-19",168.0],[231.0,"08-20",168.0],[232.0,"08-21",168.0],[233.0,"08-22",170.0],[236.0,"08-25",170.0],[237.0,"08-26",170.0],[238.0,"08-27",170.0],[239.0,"08-28",170.0],[240.0,"08-29",170.0],[243.0,"09-01",170.0],[244.0,"09-02",170.0],[245.0,"09-03",170.0],[246.0,"09-04",170.0],[247.0,"09-05",170.0],[250.0,"09-08",170.0],[251.0,"09-09",173.4],[252.0,"09-10",173.4],[253.0,"09-11",173.4],[254.0,"09-12",173.4],[257.0,"09-15",173.4],[258.0,"09-16",173.4],[259.0,"09-17",173.5],[260.0,"09-18",172.0],[261.0,"09-19",172.0],[264.0,"09-22",172.0],[265.0,"09-23",176.0],[266.0,"09-24",178.0],[267.0,"09-25",178.0],[268.0,"09-26",178.0],[270.0,"09-28",178.0],[271.0,"09-29",178.0],[272.0,"09-30",178.0],[273.0,"10-01",178.0],[274.0,"10-02",178.0],[275.0,"10-03",178.0],[278.0,"10-06",178.0],[279.0,"10-07",178.0],[280.0,"10-08",178.0],[281.0,"10-09",178.0],[282.0,"10-10",178.0],[283.0,"10-11",178.0],[285.0,"10-13",178.0],[286.0,"10-14",178.0],[287.0,"10-15",178.0],[288.0,"10-16",178.0],[289.0,"10-17",180.0],[292.0,"10-20",181.0],[293.0,"10-21",181.0],[294.0,"10-22",181.0],[295.0,"10-23",182.0],[296.0,"10-24",182.0],[299.0,"10-27",183.0],[300.0,"10-28",183.0],[301.0,"10-29",183.0],[302.0,"10-30",183.0],[303.0,"10-31",187.0],[306.0,"11-03",195.0],[307.0,"11-04",196.0],[308.0,"11-05",198.0],[309.0,"11-06",198.0],[310.0,"11-07",199.0],[313.0,"11-10",199.0],[314.0,"11-11",199.0],[315.0,"11-12",198.0],[316.0,"11-13",196.0],[317.0,"11-14",195.0],[320.0,"11-17",195.0],[321.0,"11-18",194.0],[322.0,"11-19",194.0],[323.0,"11-20",194.0],[324.0,"11-21",193.0],[327.0,"11-24",193.0],[328.0,"11-25",192.0],[329.0,"11-26",190.0],[330.0,"11-27",190.0],[331.0,"11-28",190.0],[334.0,"12-01",189.0],[335.0,"12-02",189.0],[336.0,"12-03",189.0],[337.0,"12-04",189.0],[338.0,"12-05",189.0],[341.0,"12-08",188.0],[342.0,"12-09",188.0],[343.0,"12-10",187.0],[344.0,"12-11",187.0],[345.0,"12-12",187.0],[348.0,"12-15",187.0],[349.0,"12-16",187.0],[350.0,"12-17",187.0],[351.0,"12-18",186.0],[352.0,"12-19",186.0],[355.0,"12-22",186.0],[356.0,"12-23",186.0],[357.0,"12-24",185.0],[358.0,"12-25",185.0],[359.0,"12-26",185.0],[362.0,"12-29",185.0],[363.0,"12-30",183.0],[364.0,"12-31",183.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",183.0],[3.0,"01-04",183.0],[4.0,"01-05",183.0],[5.0,"01-06",183.0],[6.0,"01-07",183.0],[7.0,"01-08",187.0],[8.0,"01-09",187.0],[11.0,"01-12",187.0],[12.0,"01-13",187.0],[13.0,"01-14",188.0],[14.0,"01-15",189.0],[15.0,"01-16",190.0],[18.0,"01-19",192.0],[19.0,"01-20",194.0],[20.0,"01-21",194.0],[21.0,"01-22",194.0],[22.0,"01-23",196.0],[25.0,"01-26",201.0],[26.0,"01-27",201.0],[27.0,"01-28",201.0],[28.0,"01-29",201.0],[29.0,"01-30",201.0],[32.0,"02-02",201.0],[33.0,"02-03",201.0],[34.0,"02-04",200.0],[35.0,"02-05",200.0],[36.0,"02-06",199.0],[39.0,"02-09",199.0],[40.0,"02-10",199.0],[41.0,"02-11",199.0],[42.0,"02-12",195.0],[43.0,"02-13",195.0],[44.0,"02-14",195.0],[46.0,"02-16",195.0],[49.0,"02-19",195.0],[50.0,"02-20",195.0],[53.0,"02-23",195.0],[54.0,"02-24",195.0],[55.0,"02-25",195.0],[56.0,"02-26",193.0],[57.0,"02-27",192.0],[58.0,"02-28",191.0],[60.0,"03-02",191.0],[61.0,"03-03",191.0],[62.0,"03-04",190.0],[63.0,"03-05",190.0],[64.0,"03-06",190.0],[67.0,"03-09",190.0],[68.0,"03-10",190.0],[69.0,"03-11",190.0],[70.0,"03-12",190.0],[71.0,"03-13",192.0],[74.0,"03-16",192.0],[75.0,"03-17",194.0],[76.0,"03-18",194.0],[77.0,"03-19",195.0],[78.0,"03-20",196.0],[81.0,"03-23",198.0],[82.0,"03-24",202.0],[83.0,"03-25",202.0],[84.0,"03-26",202.0],[85.0,"03-27",204.0],[88.0,"03-30",204.0],[89.0,"03-31",204.0],[90.0,"04-01",204.0],[91.0,"04-02",203.0],[92.0,"04-03",203.0],[95.0,"04-06",203.0],[96.0,"04-07",203.0],[97.0,"04-08",202.0],[98.0,"04-09",202.0],[99.0,"04-10",202.0],[102.0,"04-13",200.0],[103.0,"04-14",200.0],[104.0,"04-15",199.0],[105.0,"04-16",199.0],[106.0,"04-17",199.0],[109.0,"04-20",199.0],[110.0,"04-21",197.0],[111.0,"04-22",197.0],[112.0,"04-23",197.0],[113.0,"04-24",197.0],[116.0,"04-27",198.0],[117.0,"04-28",198.0],[118.0,"04-29",199.0],[119.0,"04-30",199.0],[123.0,"05-04",199.0],[124.0,"05-05",199.0],[125.0,"05-06",200.0],[126.0,"05-07",202.0],[127.0,"05-08",203.0],[128.0,"05-09",203.0],[130.0,"05-11",204.0],[131.0,"05-12",206.0],[132.0,"05-13",204.0],[133.0,"05-14",203.0],[134.0,"05-15",203.0],[137.0,"05-18",203.0],[138.0,"05-19",202.0],[139.0,"05-20",202.0],[140.0,"05-21",201.0],[141.0,"05-22",200.0],[144.0,"05-25",215.0],[145.0,"05-26",210.0],[146.0,"05-27",210.0],[147.0,"05-28",210.0],[148.0,"05-29",208.0],[151.0,"06-01",209.0],[152.0,"06-02",210.0],[153.0,"06-03",215.0],[154.0,"06-04",219.0],[155.0,"06-05",229.0],[158.0,"06-08",234.0],[159.0,"06-09",230.0],[160.0,"06-10",226.0],[161.0,"06-11",226.0],[162.0,"06-12",221.0],[165.0,"06-15",221.0],[166.0,"06-16",221.0],[167.0,"06-17",221.0],[168.0,"06-18",221.0],[169.0,"06-19",221.0],[172.0,"06-22",221.0],[173.0,"06-23",221.0],[174.0,"06-24",220.0],[175.0,"06-25",219.0],[176.0,"06-26",218.0],[179.0,"06-29",216.0],[180.0,"06-30",216.0],[181.0,"07-01",216.0],[182.0,"07-02",216.0],[183.0,"07-03",215.0],[186.0,"07-06",214.0],[187.0,"07-07",213.0],[188.0,"07-08",210.0],[189.0,"07-09",210.0],[190.0,"07-10",210.0],[193.0,"07-13",208.0],[194.0,"07-14",206.0],[195.0,"07-15",206.0],[196.0,"07-16",208.0],[197.0,"07-17",208.0],[200.0,"07-20",208.0],[201.0,"07-21",208.0],[202.0,"07-22",207.0],[203.0,"07-23",206.0],[204.0,"07-24",206.0],[207.0,"07-27",206.0],[208.0,"07-28",206.0],[209.0,"07-29",205.0],[210.0,"07-30",205.0],[211.0,"07-31",203.0],[214.0,"08-03",201.0],[215.0,"08-04",199.0],[216.0,"08-05",199.0],[217.0,"08-06",200.0],[218.0,"08-07",202.0],[221.0,"08-10",204.0],[222.0,"08-11",210.0],[223.0,"08-12",215.0],[224.0,"08-13",215.0],[225.0,"08-14",217.0],[228.0,"08-17",219.0],[229.0,"08-18",219.0],[230.0,"08-19",225.0],[231.0,"08-20",225.0],[232.0,"08-21",233.0],[235.0,"08-24",243.0],[236.0,"08-25",246.0],[237.0,"08-26",246.0],[238.0,"08-27",246.0],[239.0,"08-28",246.0],[242.0,"08-31",248.0],[243.0,"09-01",251.0],[244.0,"09-02",253.0],[245.0,"09-03",255.0],[246.0,"09-04",258.0]]}],"latestAnnotation":{"text":"最新 258","color":"#e00000"}}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card overseas-coal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"温特CFR","axisMin":100,"axisMax":300,"ticks":[100,150,200,250,300],"series":[{"year":2025,"color":"#0b2f66","width":2.0,"points":[[173.0,"06-23",154.0],[174.0,"06-24",154.0],[175.0,"06-25",154.0],[176.0,"06-26",154.0],[177.0,"06-27",154.0],[180.0,"06-30",154.0],[181.0,"07-01",154.0],[182.0,"07-02",156.0],[183.0,"07-03",156.0],[184.0,"07-04",156.0],[187.0,"07-07",156.0],[188.0,"07-08",156.0],[189.0,"07-09",156.0],[190.0,"07-10",156.0],[191.0,"07-11",156.0],[194.0,"07-14",156.0],[195.0,"07-15",158.0],[196.0,"07-16",159.0],[197.0,"07-17",159.0],[198.0,"07-18",159.0],[201.0,"07-21",159.0],[202.0,"07-22",161.0],[203.0,"07-23",163.0],[204.0,"07-24",165.0],[205.0,"07-25",165.0],[208.0,"07-28",165.0],[209.0,"07-29",164.0],[210.0,"07-30",164.0],[211.0,"07-31",164.0],[212.0,"08-01",164.0],[215.0,"08-04",164.0],[216.0,"08-05",164.0],[217.0,"08-06",166.0],[218.0,"08-07",166.0],[219.0,"08-08",166.0],[222.0,"08-11",166.0],[223.0,"08-12",166.0],[224.0,"08-13",168.0],[225.0,"08-14",168.0],[226.0,"08-15",168.0],[229.0,"08-18",170.0],[230.0,"08-19",173.0],[231.0,"08-20",173.0],[232.0,"08-21",173.0],[233.0,"08-22",173.0],[236.0,"08-25",173.0],[237.0,"08-26",173.0],[238.0,"08-27",173.0],[239.0,"08-28",173.0],[240.0,"08-29",173.0],[243.0,"09-01",173.0],[244.0,"09-02",173.0],[245.0,"09-03",173.0],[246.0,"09-04",173.0],[247.0,"09-05",173.0],[250.0,"09-08",173.0],[251.0,"09-09",173.0],[252.0,"09-10",173.0],[253.0,"09-11",173.0],[254.0,"09-12",173.0],[257.0,"09-15",173.0],[258.0,"09-16",173.0],[259.0,"09-17",173.0],[260.0,"09-18",173.0],[261.0,"09-19",173.0],[264.0,"09-22",173.0],[265.0,"09-23",176.0],[266.0,"09-24",178.0],[267.0,"09-25",178.0],[268.0,"09-26",178.0],[270.0,"09-28",178.0],[271.0,"09-29",178.0],[272.0,"09-30",178.0],[273.0,"10-01",178.0],[274.0,"10-02",178.0],[275.0,"10-03",178.0],[278.0,"10-06",178.0],[279.0,"10-07",178.0],[280.0,"10-08",178.0],[281.0,"10-09",178.0],[282.0,"10-10",178.0],[283.0,"10-11",179.0],[285.0,"10-13",179.0],[286.0,"10-14",179.0],[287.0,"10-15",179.0],[288.0,"10-16",179.0],[289.0,"10-17",179.0],[292.0,"10-20",180.0],[293.0,"10-21",180.0],[294.0,"10-22",180.0],[295.0,"10-23",181.0],[296.0,"10-24",182.0],[299.0,"10-27",182.0],[300.0,"10-28",182.0],[301.0,"10-29",182.0],[302.0,"10-30",182.0],[303.0,"10-31",187.0],[306.0,"11-03",195.0],[307.0,"11-04",196.0],[308.0,"11-05",197.0],[309.0,"11-06",197.0],[310.0,"11-07",198.0],[313.0,"11-10",198.0],[314.0,"11-11",198.0],[315.0,"11-12",197.0],[316.0,"11-13",196.0],[317.0,"11-14",195.0],[320.0,"11-17",195.0],[321.0,"11-18",194.0],[322.0,"11-19",193.0],[323.0,"11-20",193.0],[324.0,"11-21",192.0],[327.0,"11-24",192.0],[328.0,"11-25",190.0],[329.0,"11-26",189.0],[330.0,"11-27",189.0],[331.0,"11-28",189.0],[334.0,"12-01",188.0],[335.0,"12-02",188.0],[336.0,"12-03",188.0],[337.0,"12-04",188.0],[338.0,"12-05",188.0],[341.0,"12-08",187.0],[342.0,"12-09",187.0],[343.0,"12-10",186.0],[344.0,"12-11",186.0],[345.0,"12-12",186.0],[348.0,"12-15",186.0],[349.0,"12-16",186.0],[350.0,"12-17",186.0],[351.0,"12-18",185.0],[352.0,"12-19",185.0],[355.0,"12-22",185.0],[356.0,"12-23",185.0],[357.0,"12-24",184.0],[358.0,"12-25",184.0],[359.0,"12-26",184.0],[362.0,"12-29",184.0],[363.0,"12-30",182.0],[364.0,"12-31",182.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",182.0],[3.0,"01-04",182.0],[4.0,"01-05",182.0],[5.0,"01-06",182.0],[6.0,"01-07",182.0],[7.0,"01-08",186.0],[8.0,"01-09",186.0],[11.0,"01-12",186.0],[12.0,"01-13",186.0],[13.0,"01-14",187.0],[14.0,"01-15",188.0],[15.0,"01-16",189.0],[18.0,"01-19",191.0],[19.0,"01-20",193.0],[20.0,"01-21",193.0],[21.0,"01-22",193.0],[22.0,"01-23",195.0],[25.0,"01-26",200.0],[26.0,"01-27",200.0],[27.0,"01-28",200.0],[28.0,"01-29",200.0],[29.0,"01-30",200.0],[32.0,"02-02",200.0],[33.0,"02-03",200.0],[34.0,"02-04",200.0],[35.0,"02-05",199.0],[36.0,"02-06",198.0],[39.0,"02-09",198.0],[40.0,"02-10",198.0],[41.0,"02-11",198.0],[42.0,"02-12",194.0],[43.0,"02-13",194.0],[44.0,"02-14",194.0],[46.0,"02-16",194.0],[49.0,"02-19",194.0],[50.0,"02-20",194.0],[53.0,"02-23",194.0],[54.0,"02-24",194.0],[55.0,"02-25",194.0],[56.0,"02-26",192.0],[57.0,"02-27",191.0],[58.0,"02-28",190.0],[60.0,"03-02",190.0],[61.0,"03-03",190.0],[62.0,"03-04",189.0],[63.0,"03-05",189.0],[64.0,"03-06",189.0],[67.0,"03-09",189.0],[68.0,"03-10",189.0],[69.0,"03-11",189.0],[70.0,"03-12",189.0],[71.0,"03-13",191.6],[74.0,"03-16",191.6],[75.0,"03-17",193.0],[76.0,"03-18",193.0],[77.0,"03-19",194.0],[78.0,"03-20",195.0],[81.0,"03-23",197.0],[82.0,"03-24",201.0],[83.0,"03-25",201.0],[84.0,"03-26",201.0],[85.0,"03-27",204.0],[88.0,"03-30",204.0],[89.0,"03-31",204.0],[90.0,"04-01",204.0],[91.0,"04-02",203.0],[92.0,"04-03",203.0],[95.0,"04-06",203.0],[96.0,"04-07",203.0],[97.0,"04-08",202.0],[98.0,"04-09",202.0],[99.0,"04-10",202.0],[102.0,"04-13",200.0],[103.0,"04-14",200.0],[104.0,"04-15",199.0],[105.0,"04-16",199.0],[106.0,"04-17",199.0],[109.0,"04-20",199.0],[110.0,"04-21",197.0],[111.0,"04-22",197.0],[112.0,"04-23",197.0],[113.0,"04-24",197.0],[116.0,"04-27",198.0],[117.0,"04-28",198.0],[118.0,"04-29",199.0],[119.0,"04-30",199.0],[123.0,"05-04",199.0],[124.0,"05-05",199.0],[125.0,"05-06",200.0],[126.0,"05-07",202.0],[127.0,"05-08",203.0],[128.0,"05-09",203.0],[130.0,"05-11",204.0],[131.0,"05-12",206.0],[132.0,"05-13",204.0],[133.0,"05-14",203.0],[134.0,"05-15",203.0],[137.0,"05-18",203.0],[138.0,"05-19",202.0],[139.0,"05-20",202.0],[140.0,"05-21",201.0],[141.0,"05-22",200.0],[144.0,"05-25",215.0],[145.0,"05-26",210.0],[146.0,"05-27",210.0],[147.0,"05-28",210.0],[148.0,"05-29",208.0],[151.0,"06-01",209.0],[152.0,"06-02",210.0],[153.0,"06-03",215.0],[154.0,"06-04",219.0],[155.0,"06-05",229.0],[158.0,"06-08",234.0],[159.0,"06-09",230.0],[160.0,"06-10",226.0],[161.0,"06-11",226.0],[162.0,"06-12",221.0],[165.0,"06-15",221.0],[166.0,"06-16",221.0],[167.0,"06-17",221.0],[168.0,"06-18",221.0],[169.0,"06-19",221.0],[172.0,"06-22",221.0],[173.0,"06-23",221.0],[174.0,"06-24",220.0],[175.0,"06-25",219.0],[176.0,"06-26",218.0],[179.0,"06-29",216.0],[180.0,"06-30",216.0],[181.0,"07-01",216.0],[182.0,"07-02",216.0],[183.0,"07-03",215.0],[186.0,"07-06",214.0],[187.0,"07-07",213.0],[188.0,"07-08",210.0],[189.0,"07-09",210.0],[190.0,"07-10",210.0],[193.0,"07-13",208.0],[194.0,"07-14",206.0],[195.0,"07-15",206.0],[196.0,"07-16",208.0],[197.0,"07-17",208.0],[200.0,"07-20",208.0],[201.0,"07-21",208.0],[202.0,"07-22",207.0],[203.0,"07-23",206.0],[204.0,"07-24",206.0],[207.0,"07-27",206.0],[208.0,"07-28",206.0],[209.0,"07-29",205.0],[210.0,"07-30",205.0],[211.0,"07-31",203.0],[214.0,"08-03",201.0],[215.0,"08-04",199.0],[216.0,"08-05",199.0],[217.0,"08-06",200.0],[218.0,"08-07",202.0],[221.0,"08-10",204.0],[222.0,"08-11",210.0],[223.0,"08-12",215.0],[224.0,"08-13",215.0],[225.0,"08-14",217.0],[228.0,"08-17",219.0],[229.0,"08-18",219.0],[230.0,"08-19",225.0],[231.0,"08-20",225.0],[232.0,"08-21",233.0],[235.0,"08-24",243.0],[236.0,"08-25",246.0],[237.0,"08-26",246.0],[238.0,"08-27",246.0],[239.0,"08-28",246.0],[242.0,"08-31",248.0],[243.0,"09-01",251.0],[244.0,"09-02",253.0],[245.0,"09-03",255.0],[246.0,"09-04",258.0]]}],"latestAnnotation":{"text":"最新 258","color":"#e00000"}}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card overseas-coal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"温特折算到港价","axisMin":1000,"axisMax":2250,"ticks":[1000,1250,1500,1750,2000,2250],"series":[{"year":2025,"color":"#0b2f66","width":2.0,"points":[[173.0,"06-23",1307.2163689],[174.0,"06-24",1305.45981102],[175.0,"06-25",1306.37393808],[176.0,"06-26",1304.81454486],[177.0,"06-27",1305.83621628],[180.0,"06-30",1304.06173434],[181.0,"07-01",1304.09758246],[182.0,"07-02",1321.08284072],[183.0,"07-03",1321.7001732799995],[184.0,"07-04",1320.99205652],[187.0,"07-07",1322.73511316],[188.0,"07-08",1322.73511316],[189.0,"07-09",1323.69742568],[190.0,"07-10",1322.73511316],[191.0,"07-11",1321.64570276],[194.0,"07-14",1321.59123224],[195.0,"07-15",1339.0874426],[196.0,"07-16",1347.4360973],[197.0,"07-17",1348.5464579],[198.0,"07-18",1349.4162403699995],[201.0,"07-21",1348.06530164],[202.0,"07-22",1364.6955704],[203.0,"07-23",1380.1287680100002],[204.0,"07-24",1393.9752207499996],[205.0,"07-25",1396.62542105],[208.0,"07-28",1396.5101949499997],[209.0,"07-29",1390.11468084],[210.0,"07-30",1393.22601832],[211.0,"07-31",1394.4858236799998],[212.0,"08-01",1396.5854992799998],[215.0,"08-04",1390.26738452],[216.0,"08-05",1391.29813436],[217.0,"08-06",1408.02128234],[218.0,"08-07",1407.48030162],[219.0,"08-08",1407.9826408600002],[222.0,"08-11",1408.85207416],[223.0,"08-12",1408.9293571199998],[224.0,"08-13",1424.64666272],[225.0,"08-14",1423.61032616],[226.0,"08-15",1424.35335992],[229.0,"08-18",1441.6258686999995],[230.0,"08-19",1465.86769429],[231.0,"08-20",1464.84078532],[232.0,"08-21",1464.9615981399998],[233.0,"08-22",1464.29712763],[236.0,"08-25",1462.84737379],[237.0,"08-26",1460.87409773],[238.0,"08-27",1461.699652],[239.0,"08-28",1455.6791464699998],[240.0,"08-29",1455.7999592899998],[243.0,"09-01",1455.82009476],[244.0,"09-02",1455.82009476],[245.0,"09-03",1455.82009476],[246.0,"09-04",1455.82009476],[247.0,"09-05",1455.82009476],[250.0,"09-08",1455.82009476],[251.0,"09-09",1453.9474960500002],[252.0,"09-10",1453.9474960500002],[253.0,"09-11",1453.40383836],[254.0,"09-12",1454.3703409199998],[257.0,"09-15",1453.68573494],[258.0,"09-16",1452.55814862],[259.0,"09-17",1450.36338239],[260.0,"09-18",1451.97421999],[261.0,"09-19",1452.69909691],[264.0,"09-22",1452.3970648599998],[265.0,"09-23",1476.7446889599996],[266.0,"09-24",1493.4643452399998],[267.0,"09-25",1497.75285118],[268.0,"09-26",1498.14648216],[270.0,"09-28",1497.93930796],[271.0,"09-29",1494.9767168999997],[272.0,"09-30",1494.99743432],[273.0,"10-01",1494.9767168999997],[274.0,"10-02",1494.99743432],[275.0,"10-03",1494.99743432],[278.0,"10-06",1494.9767168999997],[279.0,"10-07",1494.9767168999997],[280.0,"10-08",1494.99743432],[281.0,"10-09",1494.9767168999997],[282.0,"10-10",1495.7018266],[283.0,"10-11",1504.4089625],[285.0,"10-13",1505.88816301],[286.0,"10-14",1507.22152685],[287.0,"10-15",1507.3256959],[288.0,"10-16",1504.2631258299998],[289.0,"10-17",1504.2006243999997],[292.0,"10-20",1511.8637419999998],[293.0,"10-21",1511.9056423999998],[294.0,"10-22",1512.1570447999998],[295.0,"10-23",1520.5100059299998],[296.0,"10-24",1528.80011646],[299.0,"10-27",1526.2369758799998],[300.0,"10-28",1523.9492140399998],[301.0,"10-29",1523.80093318],[302.0,"10-30",1523.6738352999998],[303.0,"10-31",1567.57358272],[306.0,"11-03",1635.1417021999996],[307.0,"11-04",1646.4129098],[308.0,"11-05",1654.41286006],[309.0,"11-06",1654.09185644],[310.0,"11-07",1661.48797538],[313.0,"11-10",1660.8657544399996],[314.0,"11-11",1660.26657872],[315.0,"11-12",1651.9136175899998],[316.0,"11-13",1638.81636728],[317.0,"11-14",1630.48901195],[320.0,"11-17",1633.2806260999998],[321.0,"11-18",1625.1880293999998],[322.0,"11-19",1617.2283500799997],[323.0,"11-20",1617.49790932],[324.0,"11-21",1610.29336832],[327.0,"11-24",1607.90225216],[328.0,"11-25",1586.7618708999998],[329.0,"11-26",1578.47176037],[330.0,"11-27",1577.76783365],[331.0,"11-28",1576.31598479],[334.0,"12-01",1567.4031877599998],[335.0,"12-02",1567.07496796],[336.0,"12-03",1565.67456348],[337.0,"12-04",1567.38130644],[338.0,"12-05",1567.38130644],[341.0,"12-08",1558.71525621],[342.0,"12-09",1557.3875954799998],[343.0,"12-10",1549.16627144],[344.0,"12-11",1547.9756017399998],[345.0,"12-12",1547.23955138],[348.0,"12-15",1545.59426234],[349.0,"12-16",1544.42524118],[350.0,"12-17",1544.83656344],[351.0,"12-18",1536.6815817000002],[352.0,"12-19",1536.2509386999998],[355.0,"12-22",1535.2389276499998],[356.0,"12-23",1535.2173955],[357.0,"12-24",1525.2066916],[358.0,"12-25",1524.2429823999998],[359.0,"12-26",1520.3667298399998],[362.0,"12-29",1520.43097712],[363.0,"12-30",1501.4528892799997],[364.0,"12-31",1500.4361062399998]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",1501.47407226],[3.0,"01-04",1501.5164382199998],[4.0,"01-05",1499.71588492],[5.0,"01-06",1499.2922253199995],[6.0,"01-07",1501.41052332],[7.0,"01-08",1534.81328942],[8.0,"01-09",1531.63095404],[11.0,"01-12",1529.59599128],[12.0,"01-13",1529.92071938],[13.0,"01-14",1538.7568153999998],[14.0,"01-15",1545.9594941599998],[15.0,"01-16",1552.5804556999997],[18.0,"01-19",1568.15355409],[19.0,"01-20",1583.6682246999997],[20.0,"01-21",1584.5667554999998],[21.0,"01-22",1584.31965953],[22.0,"01-23",1602.7317428],[25.0,"01-26",1640.916974],[26.0,"01-27",1638.8452319999997],[27.0,"01-28",1638.915066],[28.0,"01-29",1636.982992],[29.0,"01-30",1637.4485519999998],[32.0,"02-02",1636.3312079999998],[33.0,"02-03",1637.00627],[34.0,"02-04",1635.9122039999995],[35.0,"02-05",1627.8326429799995],[36.0,"02-06",1619.1078157999998],[39.0,"02-09",1615.32839972],[40.0,"02-10",1612.63210898],[41.0,"02-11",1613.18519426],[42.0,"02-12",1580.99963478],[43.0,"02-13",1579.9609704199995],[44.0,"02-14",1579.9609704199995],[46.0,"02-16",1579.9609704199995],[49.0,"02-19",1579.9158111],[50.0,"02-20",1579.98355008],[53.0,"02-23",1579.98355008],[54.0,"02-24",1579.98355008],[55.0,"02-25",1574.40637406],[56.0,"02-26",1548.81710144],[57.0,"02-27",1544.61146518],[60.0,"03-02",1536.6292062],[61.0,"03-03",1542.0029324999998],[62.0,"03-04",1541.6695915399998],[63.0,"03-05",1535.97218465],[64.0,"03-06",1539.7557907699995],[67.0,"03-09",1541.6475938299998],[68.0,"03-10",1539.44782283],[69.0,"03-11",1532.7825167],[70.0,"03-12",1531.0226999],[71.0,"03-13",1551.80925556],[74.0,"03-16",1557.874943688],[75.0,"03-17",1569.1120257399998],[76.0,"03-18",1563.8780838299997],[77.0,"03-19",1578.1094383],[78.0,"03-20",1586.14093025],[81.0,"03-23",1600.1861771099998],[82.0,"03-24",1633.25374001],[83.0,"03-25",1635.1486856],[84.0,"03-26",1634.56382585],[85.0,"03-27",1661.3685592399995],[88.0,"03-30",1661.13112364],[89.0,"03-31",1661.1548672],[90.0,"04-01",1657.0472313199998],[91.0,"04-02",1648.95160848],[92.0,"04-03",1645.9037035499998],[95.0,"04-06",1646.1872295899998],[96.0,"04-07",1646.1636024199995],[97.0,"04-08",1632.22822772],[98.0,"04-09",1625.8097847799995],[99.0,"04-10",1626.2329788199995],[102.0,"04-13",1609.42184],[103.0,"04-14",1606.605202],[104.0,"04-15",1598.71849921],[105.0,"04-16",1600.3861351299995],[106.0,"04-17",1599.0890849700002],[109.0,"04-20",1599.0890849700002],[110.0,"04-21",1583.21884291],[111.0,"04-22",1584.84678984],[112.0,"04-23",1585.03022048],[113.0,"04-24",1587.4836052899998],[116.0,"04-27",1592.42145104],[117.0,"04-28",1595.6016913999997],[118.0,"04-29",1603.67508375],[119.0,"04-30",1603.8603766299998],[123.0,"05-04",1601.5442156299998],[124.0,"05-05",1602.00744783],[125.0,"05-06",1609.980512],[126.0,"05-07",1619.1797448199998],[127.0,"05-08",1626.8129501899998],[130.0,"05-11",1634.6831721559995],[131.0,"05-12",1648.998094646],[132.0,"05-13",1632.9807589039997],[133.0,"05-14",1624.8873358350002],[134.0,"05-15",1623.181454161],[137.0,"05-18",1628.72675096],[138.0,"05-19",1618.5825710079998],[139.0,"05-20",1622.3419447299998],[140.0,"05-21",1610.5190718080005],[141.0,"05-22",1603.5581117999998],[144.0,"05-25",1720.157904775],[145.0,"05-26",1680.8515469],[146.0,"05-27",1678.77154121],[147.0,"05-28",1676.90662424],[148.0,"05-29",1661.216134896],[151.0,"06-01",1666.39916782],[152.0,"06-02",1673.5092001399998],[153.0,"06-03",1712.3980088899998],[154.0,"06-04",1745.487767363],[155.0,"06-05",1824.991471841],[158.0,"06-08",1862.639644664],[159.0,"06-09",1836.2170662],[160.0,"06-10",1801.545206818],[161.0,"06-11",1801.3821211499996],[162.0,"06-12",1763.239116242],[165.0,"06-15",1761.8655512959997],[166.0,"06-16",1758.9718049209996],[167.0,"06-17",1758.053522738],[168.0,"06-18",1758.328750171],[169.0,"06-19",1761.2353576409996],[172.0,"06-22",1760.463691941],[173.0,"06-23",1762.4880282939998],[174.0,"06-24",1758.7388037799997],[175.0,"06-25",1750.8889733419996],[176.0,"06-26",1746.46908637],[179.0,"06-29",1729.1089359199998],[180.0,"06-30",1728.136008632],[181.0,"07-01",1727.7890733199995],[182.0,"07-02",1727.796615392],[183.0,"07-03",1718.8566645749995],[186.0,"07-06",1710.927607464],[187.0,"07-07",1704.781284344],[188.0,"07-08",1680.5582441],[189.0,"07-09",1682.9046664999998],[190.0,"07-10",1680.17450627],[193.0,"07-13",1660.719847936],[194.0,"07-14",1645.65579285],[195.0,"07-15",1643.41400506],[196.0,"07-16",1658.766171952],[197.0,"07-17",1659.6715930399998],[200.0,"07-20",1659.6885394239998],[201.0,"07-21",1659.715169456],[202.0,"07-22",1650.1550694409998],[203.0,"07-23",1643.7784454279997],[204.0,"07-24",1643.0543599599998],[207.0,"07-27",1643.5578630999996],[208.0,"07-28",1642.2847194459996],[209.0,"07-29",1635.8435339],[210.0,"07-30",1634.85095998],[211.0,"07-31",1616.095665878],[214.0,"08-03",1599.469901411],[215.0,"08-04",1583.8348486239995],[216.0,"08-05",1584.409256552],[217.0,"08-06",1591.3301783999998],[218.0,"08-07",1606.711978186],[221.0,"08-10",1622.1560699],[222.0,"08-11",1669.2831956299997],[223.0,"08-12",1707.871194425],[224.0,"08-13",1707.585922535],[225.0,"08-14",1722.9762653469998],[228.0,"08-17",1738.8171887659998],[229.0,"08-18",1738.1850513979998],[230.0,"08-19",1785.8085572],[231.0,"08-20",1782.13703465],[232.0,"08-21",1843.334512563],[235.0,"08-24",1920.958506902],[236.0,"08-25",1944.908147036],[237.0,"08-26",1944.444309608],[238.0,"08-27",1944.89669426],[239.0,"08-28",1944.063504806],[242.0,"08-31",1961.77301148],[243.0,"09-01",1983.103294664],[244.0,"09-02",1999.116580034],[245.0,"09-03",2014.248315905],[246.0,"09-04",2036.611013306]]}],"latestAnnotation":{"text":"最新 2036.6","color":"#e00000"}}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card overseas-coal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"鹿景贸易利润","axisMin":-750,"axisMax":250,"ticks":[-750,-500,-250,0,250],"series":[{"year":2025,"color":"#0b2f66","width":2.0,"points":[[86.0,"03-28",-216.01003926],[89.0,"03-31",-213.64161915],[90.0,"04-01",-213.64161915],[91.0,"04-02",-216.4478984399998],[92.0,"04-03",-222.4585108199999],[96.0,"04-07",-242.14448264],[97.0,"04-08",-247.56092406999983],[98.0,"04-09",-249.93690952999987],[99.0,"04-10",-242.80895314999972],[100.0,"04-11",-238.98321385000008],[103.0,"04-14",-238.31874333999983],[104.0,"04-15",-234.29560659999996],[105.0,"04-16",-232.65404203999992],[106.0,"04-17",-230.55203863999984],[107.0,"04-18",-230.55203863999984],[110.0,"04-21",-229.13068396000017],[111.0,"04-22",-229.87138991999973],[112.0,"04-23",-242.36597280999968],[113.0,"04-24",-237.27169889999985],[114.0,"04-25",-237.27169889999985],[116.0,"04-27",-237.41264718999992],[117.0,"04-28",-237.41264718999992],[118.0,"04-29",-226.14656074999996],[119.0,"04-30",-226.14656074999996],[125.0,"05-06",-221.90123549999976],[126.0,"05-07",-208.04896325999997],[127.0,"05-08",-208.04896325999997],[128.0,"05-09",-208.04896325999997],[131.0,"05-12",-208.04896325999997],[132.0,"05-13",-203.65046876999963],[133.0,"05-14",-203.65046876999963],[134.0,"05-15",-204.44657637],[135.0,"05-16",-204.72521402999973],[138.0,"05-19",-206.09849964],[139.0,"05-20",-206.95431531000008],[140.0,"05-21",-203.49124725],[141.0,"05-22",-178.69424135999998],[142.0,"05-23",-157.34505644],[145.0,"05-26",-147.12473415],[146.0,"05-27",-149.8709561999999],[147.0,"05-28",-151.71457379999993],[148.0,"05-29",-141.6417176399998],[149.0,"05-30",-141.6417176399998],[153.0,"06-03",-119.15540241999976],[154.0,"06-04",-216.96296399000016],[155.0,"06-05",-214.69557039999995],[156.0,"06-06",-208.85744799999972],[159.0,"06-09",-207.2931663999998],[160.0,"06-10",-208.52224480000015],[161.0,"06-11",-207.2186767999999],[162.0,"06-12",-205.8406192],[163.0,"06-13",-207.38627840000004],[166.0,"06-16",-199.02761416],[167.0,"06-17",-199.6753245100001],[168.0,"06-18",-200.47108293999983],[169.0,"06-19",-200.28602284],[170.0,"06-20",-200.30452885],[173.0,"06-23",-182.2920124499999],[174.0,"06-24",-180.50123590999988],[175.0,"06-25",-148.02086055999985],[176.0,"06-26",-146.47159326999986],[177.0,"06-27",-147.48663046],[180.0,"06-30",-145.72367113000018],[181.0,"07-01",-145.75928647],[182.0,"07-02",-162.74256609999998],[183.0,"07-03",-163.3559413999999],[184.0,"07-04",-162.6523638499998],[187.0,"07-07",-164.38424704999989],[188.0,"07-08",-164.38424704999989],[189.0,"07-09",-165.3403909000001],[190.0,"07-10",-164.38424704999989],[191.0,"07-11",-163.30182004999983],[194.0,"07-14",-113.2476987],[195.0,"07-15",-122.39013320000004],[196.0,"07-16",-130.7387878999998],[197.0,"07-17",-131.83518170000002],[198.0,"07-18",-52.69402350999985],[201.0,"07-21",18.639922280000064],[202.0,"07-22",2.0087224000001243],[203.0,"07-23",-13.440071469999792],[204.0,"07-24",22.67902435000019],[205.0,"07-25",20.060947690000148],[208.0,"07-28",20.17477711000015],[209.0,"07-29",18.23967696999989],[210.0,"07-30",15.147311059999993],[211.0,"07-31",13.8951874400002],[212.0,"08-01",-46.94838340000001],[215.0,"08-04",-40.399118099999896],[216.0,"08-05",-41.467578300000014],[217.0,"08-06",-41.467578300000014],[218.0,"08-07",-40.9135619000001],[219.0,"08-08",-41.428005700000085],[222.0,"08-11",-42.31838919999996],[223.0,"08-12",-67.4986673599999],[224.0,"08-13",-83.17360700000017],[225.0,"08-14",-82.09408974999997],[226.0,"08-15",-82.86808324999993],[229.0,"08-18",-100.16340446999992],[230.0,"08-19",-141.08624486000008],[231.0,"08-20",-140.0059128800001],[232.0,"08-21",-140.1330107599997],[233.0,"08-22",-139.43397241999992],[236.0,"08-25",-137.90879786000005],[237.0,"08-26",-160.8191218500001],[238.0,"08-27",-161.70194000000015],[239.0,"08-28",-155.26382714999977],[240.0,"08-29",-155.3930200499999],[243.0,"09-01",-155.41455219999966],[244.0,"09-02",-155.41455219999966],[245.0,"09-03",-155.41455219999966],[246.0,"09-04",-155.41455219999966],[247.0,"09-05",-155.41455219999966],[250.0,"09-08",-155.41455219999966],[251.0,"09-09",-153.41206224999996],[252.0,"09-10",-153.41206224999996],[253.0,"09-11",-152.83069420000015],[254.0,"09-12",-153.8642373999999],[257.0,"09-15",-153.1321442999997],[258.0,"09-16",-101.92634389999988],[259.0,"09-17",-107.8473359799998],[260.0,"09-18",-101.30191155000011],[261.0,"09-19",-102.07706894999978],[264.0,"09-22",-101.75408670000002],[265.0,"09-23",-101.2373150999997],[266.0,"09-24",-101.4095722999998],[267.0,"09-25",-105.86672735000002],[268.0,"09-26",-106.27583819999997],[270.0,"09-28",-106.06051669999988],[271.0,"09-29",-102.98141925000004],[272.0,"09-30",-103.0029513999998],[281.0,"10-09",-102.98141925000004],[282.0,"10-10",-103.73504449999996],[283.0,"10-11",-112.45847499999992],[285.0,"10-13",-122.29657252999982],[286.0,"10-14",-123.6895280499998],[287.0,"10-15",-123.79835269999968],[288.0,"10-16",-120.59890798999982],[289.0,"10-17",-120.53361319999976],[292.0,"10-20",-136.45692910000002],[293.0,"10-21",-136.5009245199999],[294.0,"10-22",-136.76489703999982],[295.0,"10-23",-23.41111122999996],[296.0,"10-24",-39.991332289999946],[299.0,"10-27",-53.825331300000016],[300.0,"10-28",-51.3741579],[301.0,"10-29",-17.740570529999786],[302.0,"10-30",-17.602997549999827],[303.0,"10-31",-20.33152831999996],[306.0,"11-03",-121.10059363999972],[307.0,"11-04",-124.2872354499998],[308.0,"11-05",-123.97100381999962],[309.0,"11-06",-123.63044667999998],[310.0,"11-07",-130.9720950999997],[313.0,"11-10",-138.59936457999993],[314.0,"11-11",-137.96084904000008],[315.0,"11-12",-129.60334869999997],[316.0,"11-13",-116.18684061999966],[317.0,"11-14",-107.85494608],[320.0,"11-17",-110.83266783999989],[321.0,"11-18",-141.02634079999984],[322.0,"11-19",-124.81367935999992],[323.0,"11-20",-125.10139544000003],[324.0,"11-21",-117.9694817999998],[327.0,"11-24",-115.4164671499998],[328.0,"11-25",-102.20748243999992],[329.0,"11-26",-102.15999531999978],[330.0,"11-27",-101.4002013999998],[331.0,"11-28",-149.8331264399999],[334.0,"12-01",-149.09707607999962],[335.0,"12-02",-148.7409226799998],[336.0,"12-03",-155.4430080499999],[337.0,"12-04",-157.30408414999988],[338.0,"12-05",-157.30408414999988],[341.0,"12-08",-206.82688514999995],[342.0,"12-09",-205.37142819999983],[343.0,"12-10",-205.37142819999983],[344.0,"12-11",-204.05913094999983],[345.0,"12-12",-203.24789265000004],[348.0,"12-15",-201.43453645],[349.0,"12-16",-191.9502645199998],[350.0,"12-17",-192.4013921599997],[351.0,"12-18",-192.44887928000003],[352.0,"12-19",-191.97400808],[355.0,"12-22",-190.8580607599997],[356.0,"12-23",-190.8343172],[357.0,"12-24",-188.8161146],[358.0,"12-25",-187.74765439999965],[359.0,"12-26",-183.45007003999967],[362.0,"12-29",-183.52130072],[363.0,"12-30",-180.5296121599997],[364.0,"12-31",-179.38992127999995]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[3.0,"01-04",-180.60084284000004],[4.0,"01-05",-178.58264024000005],[5.0,"01-06",-178.10776904],[6.0,"01-07",-180.4821250399998],[7.0,"01-08",-185.48020261499985],[8.0,"01-09",-181.9813446299997],[11.0,"01-12",-141.91814088],[12.0,"01-13",-142.27778597999986],[13.0,"01-14",-151.19069939999986],[14.0,"01-15",-190.76283384],[15.0,"01-16",-205.3027381999998],[18.0,"01-19",-212.68593785000007],[19.0,"01-20",-220.01210639999977],[20.0,"01-21",-221.0177160000001],[21.0,"01-22",-228.84645656999965],[22.0,"01-23",-239.41292271999987],[25.0,"01-26",-253.0086713999999],[26.0,"01-27",-250.72975519999977],[27.0,"01-28",-250.80657259999973],[28.0,"01-29",-248.6812911999998],[29.0,"01-30",-249.1934071999999],[32.0,"02-02",-247.9643288],[33.0,"02-03",-248.70689700000003],[34.0,"02-04",-247.50342439999963],[35.0,"02-05",-255.5829854199999],[36.0,"02-06",-254.86276410000005],[39.0,"02-09",-250.64432493999996],[40.0,"02-10",-247.63482871],[41.0,"02-11",-248.25216126999976],[42.0,"02-12",-232.1593815299998],[43.0,"02-13",-222.9458327399998],[44.0,"02-14",-222.9458327399998],[54.0,"02-24",-222.97120576],[55.0,"02-25",-216.70406981999983],[56.0,"02-26",-197.88182819000008],[57.0,"02-27",-202.1501986599997],[60.0,"03-02",-178.20342171999982],[61.0,"03-03",-184.2559345],[62.0,"03-04",-192.94863803999988],[63.0,"03-05",-186.49760589999983],[64.0,"03-06",-190.78168901999948],[67.0,"03-09",-92.92373057999998],[68.0,"03-10",-144.452687815],[69.0,"03-11",-136.88809434999985],[70.0,"03-12",-134.89084194999987],[71.0,"03-13",-138.8882564999999],[74.0,"03-16",-145.6947436999999],[75.0,"03-17",-149.7079872899999],[76.0,"03-18",-143.8638708049998],[77.0,"03-19",-154.80226119999975],[78.0,"03-20",-162.8337531499999],[81.0,"03-23",-176.6536689699999],[82.0,"03-24",-209.8287762299999],[83.0,"03-25",-211.93112879999967],[84.0,"03-26",-203.2495987],[85.0,"03-27",-206.19519681999964],[88.0,"03-30",-205.93681102000005],[89.0,"03-31",-197.9177727999997],[90.0,"04-01",-185.4430926],[91.0,"04-02",-177.34188304000008],[92.0,"04-03",-174.0537491499997],[96.0,"04-07",-174.33413266000002],[97.0,"04-08",-167.9108013399998],[98.0,"04-09",-160.95219240999972],[99.0,"04-10",-161.41100179],[102.0,"04-13",-152.4698056000002],[103.0,"04-14",-149.39967017999993],[104.0,"04-15",-141.51715742999977],[105.0,"04-16",-143.33563478999963],[106.0,"04-17",-141.9212635099998],[109.0,"04-20",-141.9212635099998],[110.0,"04-21",-141.9212635099998],[111.0,"04-22",-143.71448423999982],[112.0,"04-23",-147.8886951999998],[113.0,"04-24",-150.59738147499957],[116.0,"04-27",-147.2811393999998],[117.0,"04-28",-150.77458524999997],[118.0,"04-29",-150.9011593749999],[119.0,"04-30",-155.08322666000004],[125.0,"05-06",-153.07875807999994],[126.0,"05-07",-161.68091019999997],[127.0,"05-08",-161.37364060000004],[130.0,"05-11",-169.2401031689999],[131.0,"05-12",-167.61446076099992],[132.0,"05-13",-167.39582214599977],[133.0,"05-14",-167.19261684499975],[134.0,"05-15",-161.38675193350014],[137.0,"05-18",-163.44771039999978],[138.0,"05-19",-161.03052288000004],[139.0,"05-20",-165.12489029999983],[140.0,"05-21",-152.95361555199975],[141.0,"05-22",-153.99613242099986],[144.0,"05-25",-170.40441729000008],[145.0,"05-26",-161.1190678099997],[146.0,"05-27",-158.8508711290001],[147.0,"05-28",-156.81722357599983],[148.0,"05-29",-141.13491644899975],[151.0,"06-01",-138.19431145999988],[152.0,"06-02",-137.36470681799983],[153.0,"06-03",-176.21552587199994],[154.0,"06-04",-177.91398186399988],[155.0,"06-05",-273.2223542759998],[158.0,"06-08",-310.75757060399974],[159.0,"06-09",-316.25238906000004],[160.0,"06-10",-352.2676218219999],[161.0,"06-11",-352.0843308499998],[162.0,"06-12",-392.9815887180002],[165.0,"06-15",-391.371845184],[166.0,"06-16",-387.98053155900016],[167.0,"06-17",-394.7688502799997],[168.0,"06-18",-395.09264725999947],[172.0,"06-22",-397.60434345999965],[173.0,"06-23",-431.5241604959997],[174.0,"06-24",-436.4865645359996],[175.0,"06-25",-436.5510911519996],[176.0,"06-26",-440.76990276000015],[179.0,"06-29",-438.9109216799998],[180.0,"06-30",-437.721788328],[181.0,"07-01",-429.3913253850001],[182.0,"07-02",-421.49404274399967],[183.0,"07-03",-412.332974205],[186.0,"07-06",-404.3980277599999],[187.0,"07-07",-398.63076359199977],[188.0,"07-08",-398.0218343899997],[189.0,"07-09",-400.9157553499999],[190.0,"07-10",-381.7373719589996],[193.0,"07-13",-353.571352768],[194.0,"07-14",-330.7747767249998],[195.0,"07-15",-312.28197698999975],[196.0,"07-16",-311.79219623099993],[197.0,"07-17",-304.9930532399999],[200.0,"07-20",-289.24702258799994],[201.0,"07-21",-265.628779701],[202.0,"07-22",-263.66029890899995],[203.0,"07-23",-249.66313275800007],[204.0,"07-24",-248.8160230599999],[207.0,"07-27",-225.7610262999999],[208.0,"07-28",-216.41494421699963],[209.0,"07-29",-218.07276845999968],[210.0,"07-30",-209.04793441599983],[211.0,"07-31",-189.8344128839999],[214.0,"08-03",-173.06973695199986],[215.0,"08-04",-157.44731247999994],[216.0,"08-05",-158.11120103999974],[217.0,"08-06",-157.02970515999982],[218.0,"08-07",-172.36227197599987],[221.0,"08-10",-172.05984419999982],[222.0,"08-11",-172.0652446959998],[223.0,"08-12",-210.58359571499977],[224.0,"08-13",-241.6660806089997],[225.0,"08-14",-257.0195045129997],[228.0,"08-17",-272.8776769299998],[229.0,"08-18",-272.17049128999975],[230.0,"08-19",-414.034002416],[231.0,"08-20",-409.7424005019998],[232.0,"08-21",-439.4004929369999],[235.0,"08-24",-454.3532442659998],[236.0,"08-25",-525.3027027480002],[237.0,"08-26",-524.7785287440001],[238.0,"08-27",-556.5888934199997],[239.0,"08-28",-555.6337738020002],[242.0,"08-31",-557.9838275699999],[243.0,"09-01",-594.6639265679996],[244.0,"09-02",-618.5526016199997],[245.0,"09-03",-641.4304178829998],[246.0,"09-04",-659.7230791934999]]}],"latestAnnotation":{"text":"最新 -659.7","color":"#e00000"}}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card overseas-coal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"斯坦达贸易利润","axisMin":-400,"axisMax":200,"ticks":[-400,-200,0,200],"series":[{"year":2025,"color":"#0b2f66","width":2.0,"points":[[86.0,"03-28",-102.9224373799998],[89.0,"03-31",-100.52631644999974],[90.0,"04-01",-100.52631644999974],[91.0,"04-02",-103.36541771999988],[92.0,"04-03",-109.44632965999972],[96.0,"04-07",-129.16349400000013],[97.0,"04-08",-134.64255324999976],[98.0,"04-09",-167.04600674999983],[99.0,"04-10",-159.83564624999983],[100.0,"04-11",-155.96567874999982],[103.0,"04-14",-155.29352649999987],[104.0,"04-15",-151.3222996999998],[105.0,"04-16",-149.66164717999982],[106.0,"04-17",-147.53520187999993],[107.0,"04-18",-147.53520187999993],[110.0,"04-21",-146.0973198199997],[111.0,"04-22",-146.84663864000004],[112.0,"04-23",-179.38754474999973],[113.0,"04-24",-174.2343774999997],[114.0,"04-25",-174.2343774999997],[116.0,"04-27",-174.37695525000004],[117.0,"04-28",-174.37695525000004],[118.0,"04-29",-158.8825365],[119.0,"04-30",-158.8825365],[125.0,"05-06",-150.3918859999999],[126.0,"05-07",-136.45860631999972],[127.0,"05-08",-136.45860631999972],[128.0,"05-09",-136.45860631999972],[131.0,"05-12",-136.45860631999972],[132.0,"05-13",-132.03438963999997],[133.0,"05-14",-132.03438963999997],[134.0,"05-15",-152.83515283999986],[135.0,"05-16",-153.11541996000005],[138.0,"05-19",-154.49673647999998],[139.0,"05-20",-155.35755691999975],[140.0,"05-21",-151.87423699999977],[141.0,"05-22",-135.46441089999985],[142.0,"05-23",-114.06005711999978],[145.0,"05-26",-103.81715516999977],[146.0,"05-27",-106.59666475999984],[147.0,"05-28",-108.46262923999984],[148.0,"05-29",-108.36905565999996],[149.0,"05-30",-108.36905565999996],[153.0,"06-03",-85.91509685999972],[154.0,"06-04",-75.32919358000004],[155.0,"06-05",-73.04771679999999],[156.0,"06-06",-67.22530704999986],[159.0,"06-09",-65.65124868999987],[160.0,"06-10",-66.88800882999999],[161.0,"06-11",-65.57629352999993],[162.0,"06-12",-64.18962306999993],[163.0,"06-13",-65.74494264000009],[166.0,"06-16",-57.38627840000004],[167.0,"06-17",-78.03806239999994],[168.0,"06-18",-78.83882559999984],[169.0,"06-19",-78.6526015999998],[170.0,"06-20",-78.67122399999994],[173.0,"06-23",-77.3676559999999],[174.0,"06-24",-75.5426607999998],[175.0,"06-25",-156.4924031999999],[176.0,"06-26",-154.87225439999995],[177.0,"06-27",-155.93373119999978],[180.0,"06-30",-137.41398717999982],[181.0,"07-01",-137.45076642000004],[182.0,"07-02",-137.76338996000004],[183.0,"07-03",-138.38863703999982],[184.0,"07-04",-137.6714418600002],[187.0,"07-07",-139.4368453799998],[188.0,"07-08",-139.4368453799998],[189.0,"07-09",-140.41149524000002],[190.0,"07-10",-139.4368453799998],[191.0,"07-11",-138.33346817999995],[194.0,"07-14",-138.27829931999986],[195.0,"07-15",-155.78475200000003],[196.0,"07-16",-155.78475200000003],[197.0,"07-17",-156.90209600000003],[198.0,"07-18",-87.77734880000003],[201.0,"07-21",-6.4179135999997925],[202.0,"07-22",-23.04771679999999],[203.0,"07-23",-38.473116279999886],[204.0,"07-24",14.351901800000178],[205.0,"07-25",-4.968605420000131],[208.0,"07-28",-4.852680979999832],[209.0,"07-29",-6.823396459999913],[210.0,"07-30",-9.97267708000004],[211.0,"07-31",-11.24784591999969],[212.0,"08-01",-55.34219742000005],[215.0,"08-04",-48.75440703000004],[216.0,"08-05",-49.82915228999991],[217.0,"08-06",-49.82915228999991],[218.0,"08-07",-49.27187697],[219.0,"08-08",-49.78934691000018],[222.0,"08-11",-50.68496796],[223.0,"08-12",-84.23275599999988],[224.0,"08-13",-99.8955910799998],[225.0,"08-14",-98.80373648999966],[226.0,"08-15",-49.58657562999997],[229.0,"08-18",-66.88841468999999],[230.0,"08-19",-107.80147831999987],[231.0,"08-20",-106.70927456000004],[232.0,"08-21",-106.83776911999962],[233.0,"08-22",-106.13104903999988],[236.0,"08-25",-104.58911431999992],[237.0,"08-26",-127.4766258699999],[238.0,"08-27",-128.36898799999994],[239.0,"08-28",-121.86127392999992],[240.0,"08-29",-121.99186351000004],[243.0,"09-01",-122.01362843999982],[244.0,"09-02",-122.01362843999982],[245.0,"09-03",-122.01362843999982],[246.0,"09-04",-122.01362843999982],[247.0,"09-05",-122.01362843999982],[250.0,"09-08",-122.01362843999982],[251.0,"09-09",-111.70077609999976],[252.0,"09-10",-111.70077609999976],[253.0,"09-11",-111.11626552000008],[254.0,"09-12",-112.15539543999968],[257.0,"09-15",-111.41934507999964],[258.0,"09-16",-10.207026840000026],[259.0,"09-17",-16.115332409999837],[260.0,"09-18",-9.579219179999882],[261.0,"09-19",-10.35856661999992],[264.0,"09-22",39.96616148000021],[265.0,"09-23",40.48572644000001],[266.0,"09-24",40.31253812000045],[267.0,"09-25",35.83129034000035],[268.0,"09-26",35.41996807999976],[270.0,"09-28",35.63645348000023],[271.0,"09-29",38.73219469999981],[272.0,"09-30",38.71054616000015],[281.0,"10-09",38.73219469999981],[282.0,"10-10",37.97449580000034],[283.0,"10-11",29.24873750000029],[285.0,"10-13",19.40237628],[286.0,"10-14",18.001971800000092],[287.0,"10-15",17.892565200000035],[288.0,"10-16",21.109119240000155],[289.0,"10-17",21.174763200000143],[292.0,"10-20",35.25493900000015],[293.0,"10-21",35.21071080000024],[294.0,"10-22",34.94534160000035],[295.0,"10-23",18.298778240000274],[296.0,"10-24",1.7185571800000616],[299.0,"10-27",7.898641360000056],[300.0,"10-28",10.362384880000263],[301.0,"10-29",23.99678698000025],[302.0,"10-30",24.13505830000008],[303.0,"10-31",21.392677120000144],[306.0,"11-03",-79.38337159999992],[307.0,"11-04",-82.58526049999978],[308.0,"11-05",-82.26751579999996],[309.0,"11-06",-81.92532920000008],[310.0,"11-07",-89.26243840999973],[313.0,"11-10",-92.74296496999978],[314.0,"11-11",-92.10293635999984],[315.0,"11-12",-87.88717416999998],[316.0,"11-13",-74.44610779999994],[317.0,"11-14",-96.11386408999988],[320.0,"11-17",-99.1059018200001],[321.0,"11-18",-129.30050589999996],[322.0,"11-19",-113.08947392000005],[323.0,"11-20",-113.3785866799999],[324.0,"11-21",-106.2522597599998],[327.0,"11-24",-123.6867913799997],[328.0,"11-25",-110.45359755000004],[329.0,"11-26",-130.4058776499999],[330.0,"11-27",-129.64235925000003],[331.0,"11-28",-158.06760255000015],[334.0,"12-01",-157.32794409999974],[335.0,"12-02",-156.9700448499998],[336.0,"12-03",-163.66468126000018],[337.0,"12-04",-165.53483577999987],[338.0,"12-05",-165.53483577999987],[341.0,"12-08",-215.0553089800001],[342.0,"12-09",-213.59275224],[343.0,"12-10",-213.59275224],[344.0,"12-11",-212.27405353999984],[345.0,"12-12",-251.45885797999995],[348.0,"12-15",-229.63665614],[349.0,"12-16",-220.14609914999983],[350.0,"12-17",-220.5994381999999],[351.0,"12-18",-220.64715809999984],[352.0,"12-19",-220.16995909999991],[355.0,"12-22",-219.0485414499999],[356.0,"12-23",-219.02468150000004],[357.0,"12-24",-196.9965857499999],[358.0,"12-25",-195.92288800000009],[359.0,"12-26",-191.60423704999997],[362.0,"12-29",-191.67581689999972],[363.0,"12-30",-188.66946319999988],[364.0,"12-31",-187.5241856]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[3.0,"01-04",-188.7410430499997],[4.0,"01-05",-186.7129473],[5.0,"01-06",-196.23574829999984],[6.0,"01-07",-198.62174330000016],[7.0,"01-08",-203.62436008500003],[8.0,"01-09",-200.1083927699999],[11.0,"01-12",-150.03424836],[12.0,"01-13",-150.3956393100002],[13.0,"01-14",-159.31239359999995],[14.0,"01-15",-198.87963965999984],[15.0,"01-16",-213.4116294999999],[18.0,"01-19",-220.7914538399998],[19.0,"01-20",-228.1140143],[20.0,"01-21",-179.12427949999983],[21.0,"01-22",-186.95173978000005],[22.0,"01-23",-197.52949575999992],[25.0,"01-26",-211.11325627],[26.0,"01-27",-208.8239813599996],[27.0,"01-28",-208.90114792999972],[28.0,"01-29",-206.76620615999968],[29.0,"01-30",-207.2806499599999],[32.0,"02-02",-206.04598483999985],[33.0,"02-03",-206.79192835000003],[34.0,"02-04",-155.5829854199999],[35.0,"02-05",-163.66254643999991],[36.0,"02-06",-162.93906619999984],[39.0,"02-09",-158.70153907999998],[40.0,"02-10",-155.67842521999955],[41.0,"02-11",-156.29855113999952],[42.0,"02-12",-140.20577139999978],[43.0,"02-13",-130.9868686699997],[44.0,"02-14",-130.9868686699997],[54.0,"02-24",-131.0123580799998],[55.0,"02-25",-174.7164738099998],[56.0,"02-26",-165.84441726],[57.0,"02-27",-170.13245763999998],[60.0,"03-02",-146.1856806999997],[61.0,"03-03",-152.26647624999964],[62.0,"03-04",-160.99979989999974],[63.0,"03-05",-154.51862274999985],[64.0,"03-06",-158.82272494999984],[67.0,"03-09",-115.97477604999972],[68.0,"03-10",-152.4920942849999],[69.0,"03-11",-144.89223464999986],[70.0,"03-12",-142.8856710499997],[71.0,"03-13",-146.88308559999996],[74.0,"03-16",-153.72123088000012],[75.0,"03-17",-157.7344744699999],[76.0,"03-18",-151.86323911499971],[77.0,"03-19",-162.8337531499999],[78.0,"03-20",-170.8652450999998],[81.0,"03-23",-34.674918599999955],[82.0,"03-24",-67.85491423999997],[83.0,"03-25",-69.96669439999982],[84.0,"03-26",-61.28225454999984],[85.0,"03-27",-64.24112112999956],[88.0,"03-30",-63.98157143000003],[89.0,"03-31",-115.96264959999984],[90.0,"04-01",-113.4678339300001],[91.0,"04-02",-105.3662751999998],[92.0,"04-03",-102.06312700000012],[96.0,"04-07",-102.34479079999984],[97.0,"04-08",-95.89212919999976],[98.0,"04-09",-88.90174579999984],[99.0,"04-10",-89.36265019999996],[102.0,"04-13",-102.4698056000002],[103.0,"04-14",-119.39967017999992],[104.0,"04-15",-109.45041621999984],[105.0,"04-16",-111.27727366],[106.0,"04-17",-109.85638453999992],[109.0,"04-20",-79.85638453999991],[110.0,"04-21",-79.85638453999991],[111.0,"04-22",-81.65786895999986],[112.0,"04-23",-85.83301103999975],[113.0,"04-24",-88.5541510449998],[116.0,"04-27",-85.22266188000003],[117.0,"04-28",-88.73216954999975],[118.0,"04-29",-88.85932562499988],[119.0,"04-30",-93.04232402999992],[125.0,"05-06",-41.02866064],[126.0,"05-07",-49.59764160999998],[127.0,"05-08",-49.28897532999986],[130.0,"05-11",-57.155216757999824],[131.0,"05-12",-55.52221850199999],[132.0,"05-13",-55.30259057199987],[133.0,"05-14",-55.09846578999986],[134.0,"05-15",-49.2841975204999],[137.0,"05-18",-51.37247271999968],[138.0,"05-19",-48.94429798399983],[139.0,"05-20",-113.05727616499962],[140.0,"05-21",-100.86664575999998],[141.0,"05-22",-101.91392298000004],[144.0,"05-25",-118.312128475],[145.0,"05-26",-109.02788469999972],[146.0,"05-27",-106.74978323000003],[147.0,"05-28",-104.70725511999969],[148.0,"05-29",-89.02537863599991],[151.0,"06-01",-36.0718194399999],[152.0,"06-02",-35.23856015199999],[153.0,"06-03",-74.08714451799983],[154.0,"06-04",-5.792921440999862],[155.0,"06-05",-101.10441310499982],[158.0,"06-08",-138.63209899999993],[159.0,"06-09",-144.14898500000004],[160.0,"06-10",-180.15056521499992],[161.0,"06-11",-179.96655262499985],[162.0,"06-12",-220.86954852000008],[165.0,"06-15",-219.25358976000007],[166.0,"06-16",-215.8491822599999],[167.0,"06-17",-222.63334585799976],[168.0,"06-18",-242.95838821100008],[172.0,"06-22",-245.4797447810001],[173.0,"06-23",-279.40872170999955],[174.0,"06-24",-284.3899227349998],[175.0,"06-25",-284.4546937699997],[176.0,"06-26",-288.68948572499994],[179.0,"06-29",-276.82346304999965],[180.0,"06-30",-275.6298254049998],[181.0,"07-01",-267.2977562799997],[182.0,"07-02",-259.4005085559997],[183.0,"07-03",-250.23463310999975],[186.0,"07-06",-242.2995586359998],[187.0,"07-07",-236.54053488],[188.0,"07-08",-235.9292545999997],[189.0,"07-09",-238.83434899999972],[190.0,"07-10",-239.6429648459998],[193.0,"07-13",-211.45942896],[194.0,"07-14",-188.66630969999983],[195.0,"07-15",-170.1626275000001],[196.0,"07-16",-169.6708797499998],[197.0,"07-17",-162.87608974499972],[200.0,"07-20",-147.13014056599968],[201.0,"07-21",-123.512025708],[202.0,"07-22",-121.53544417199988],[203.0,"07-23",-107.54555239599996],[204.0,"07-24",-106.6949277199999],[207.0,"07-27",-83.6423751499999],[208.0,"07-28",-74.29011275799985],[209.0,"07-29",-75.9549320399999],[210.0,"07-30",-66.92525617199999],[211.0,"07-31",-47.696953110000095],[214.0,"08-03",-30.92779616299981],[215.0,"08-04",-15.305779055999665],[216.0,"08-05",-15.972554087999924],[217.0,"08-06",-14.886356051999885],[218.0,"08-07",-34.14478666550008],[221.0,"08-10",-33.840403537499924],[222.0,"08-11",-33.84583895049991],[223.0,"08-12",-68.43415940999989],[224.0,"08-13",-99.51531745800004],[225.0,"08-14",-114.86732140399975],[228.0,"08-17",-130.72615724399975],[229.0,"08-18",-130.01608513199994],[230.0,"08-19",-271.8820404480002],[231.0,"08-20",-267.57412065599965],[232.0,"08-21",-117.22596294799996],[235.0,"08-24",17.823881220000203],[236.0,"08-25",-53.12753261399985],[237.0,"08-26",-52.601473092000106],[238.0,"08-27",-84.41367672999968],[239.0,"08-28",-83.45517016300028],[242.0,"08-31",114.18644254500032],[243.0,"09-01",77.51494476800008],[244.0,"09-02",53.62480320200029],[245.0,"09-03",30.749000486000117],[246.0,"09-04",12.46059904950016]]}],"latestAnnotation":{"text":"最新 12.5","color":"#e00000"}}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card overseas-coal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"克努玛贸易利润","axisMin":-400,"axisMax":400,"ticks":[-400,-200,0,200,400],"series":[{"year":2025,"color":"#0b2f66","width":2.0,"points":[[173.0,"06-23",73.23749240000029],[174.0,"06-24",74.78873832],[175.0,"06-25",23.98145728000009],[176.0,"06-26",25.3585837600001],[177.0,"06-27",24.45632848000014],[180.0,"06-30",26.02340344000004],[181.0,"07-01",25.991745359999868],[182.0,"07-02",9.042102440000008],[183.0,"07-03",0.1517686800000319],[184.0,"07-04",22.44302620000008],[187.0,"07-07",20.87874460000012],[188.0,"07-08",20.87874460000012],[189.0,"07-09",20.01513080000018],[190.0,"07-10",20.87874460000012],[191.0,"07-11",21.85642060000009],[194.0,"07-14",13.561770860000252],[195.0,"07-15",-3.857622099999844],[196.0,"07-16",-20.55493149999984],[197.0,"07-17",-21.567524499999763],[198.0,"07-18",17.63927764999994],[201.0,"07-21",68.87126579999995],[202.0,"07-22",43.882332800000086],[203.0,"07-23",20.00341123000021],[204.0,"07-24",85.95024984999986],[205.0,"07-25",41.77686954000001],[208.0,"07-28",41.8872072600002],[209.0,"07-29",48.36582383000018],[210.0,"07-30",45.38728733999983],[211.0,"07-31",64.18125416000021],[212.0,"08-01",11.808314740000014],[215.0,"08-04",-1.912095589999808],[216.0,"08-05",-2.9365603699998246],[217.0,"08-06",30.340291649999926],[218.0,"08-07",30.878013450000022],[219.0,"08-08",70.37870034999992],[222.0,"08-11",69.51450460000024],[223.0,"08-12",119.43768720000004],[224.0,"08-13",112.07532136000007],[225.0,"08-14",113.09932058000004],[226.0,"08-15",92.36513246000028],[229.0,"08-18",75.0991415200001],[230.0,"08-19",75.92038935999994],[231.0,"08-20",26.917618879999964],[232.0,"08-21",21.80029776000015],[233.0,"08-22",5.748487300000079],[236.0,"08-25",7.1731009000000086],[237.0,"08-26",9.112158300000146],[238.0,"08-27",8.300920000000133],[239.0,"08-28",14.217023700000029],[240.0,"08-29",14.098305900000014],[243.0,"09-01",14.07851960000039],[244.0,"09-02",14.07851960000039],[245.0,"09-03",14.07851960000039],[246.0,"09-04",14.07851960000039],[247.0,"09-05",14.07851960000039],[250.0,"09-08",14.07851960000039],[251.0,"09-09",-12.262981590000209],[252.0,"09-10",-12.262981590000209],[253.0,"09-11",-11.718066888000068],[254.0,"09-12",-12.686804136000092],[257.0,"09-15",-12.00061525199976],[258.0,"09-16",44.12957820400016],[259.0,"09-17",75.50261939500001],[260.0,"09-18",86.30308764000029],[261.0,"09-19",85.58240076000016],[264.0,"09-22",85.88268696],[265.0,"09-23",53.25531104000038],[266.0,"09-24",36.53565476000017],[267.0,"09-25",32.24714881999989],[268.0,"09-26",31.853517839999995],[270.0,"09-28",12.060692040000047],[271.0,"09-29",-4.976716899999701],[272.0,"09-30",-4.997434319999911],[281.0,"10-09",-4.976716899999701],[282.0,"10-10",-5.701826600000004],[283.0,"10-11",-6.116174999999885],[285.0,"10-13",-7.587111819999791],[286.0,"10-14",-8.913026699999818],[287.0,"10-15",-9.01661379999996],[288.0,"10-16",-25.97115305999978],[289.0,"10-17",-42.49224799999979],[292.0,"10-20",29.848126099999945],[293.0,"10-21",19.805992920000108],[294.0,"10-22",19.553193840000404],[295.0,"10-23",11.199883539999972],[296.0,"10-24",11.199883539999972],[299.0,"10-27",45.48699678000003],[300.0,"10-28",47.78732874000002],[301.0,"10-29",47.936424330000136],[302.0,"10-30",48.06422055000007],[303.0,"10-31",12.426417280000123],[306.0,"11-03",-35.1417021999996],[307.0,"11-04",-46.41290979999985],[308.0,"11-05",-62.70937203999984],[309.0,"11-06",-62.38673896],[310.0,"11-07",-69.77831868999965],[313.0,"11-10",-69.15295521999974],[314.0,"11-11",-68.55075336000027],[315.0,"11-12",-60.19744305999984],[316.0,"11-13",-38.816367279999895],[317.0,"11-14",-40.48901195000008],[320.0,"11-17",-43.28062609999984],[321.0,"11-18",-85.18802939999978],[322.0,"11-19",-85.50414463999982],[323.0,"11-20",-85.77510055999983],[324.0,"11-21",-118.57614627999988],[327.0,"11-24",-136.17257638999968],[328.0,"11-25",-133.25410111999986],[329.0,"11-26",-116.71764269999971],[330.0,"11-27",-116.00999150000008],[331.0,"11-28",-134.55046089999996],[334.0,"12-01",-125.6340557799997],[335.0,"12-02",-125.30409012999962],[336.0,"12-03",-123.8962366899998],[337.0,"12-04",-125.61205806999988],[338.0,"12-05",-125.61205806999988],[341.0,"12-08",-166.9436800399999],[342.0,"12-09",-185.60891952],[343.0,"12-10",-177.38759547999985],[344.0,"12-11",-176.1905243299998],[345.0,"12-12",-175.45051670999987],[348.0,"12-15",-153.79638203000013],[349.0,"12-16",-152.6210758099999],[350.0,"12-17",-143.03460947999974],[351.0,"12-18",-114.87986051999974],[352.0,"12-19",-114.44688972000016],[355.0,"12-22",-113.42940834],[356.0,"12-23",-113.40775980000012],[357.0,"12-24",-63.38716274999979],[358.0,"12-25",-62.41821600000003],[359.0,"12-26",-58.52089684999987],[362.0,"12-29",-58.5854932999996],[363.0,"12-30",-39.59274031999985],[364.0,"12-31",-38.57037056000013]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[3.0,"01-04",-39.65663843000016],[4.0,"01-05",-37.846191980000185],[5.0,"01-06",-37.42020457999979],[6.0,"01-07",-39.550141579999945],[7.0,"01-08",-22.95744689000003],[8.0,"01-09",-19.75800217999995],[11.0,"01-12",12.28790124000011],[12.0,"01-13",11.961427290000074],[13.0,"01-14",3.1214904000000843],[14.0,"01-15",-4.076299979999703],[15.0,"01-16",-10.689346999999998],[18.0,"01-19",-26.259070079999677],[19.0,"01-20",-41.7701325999999],[20.0,"01-21",-42.67331899999999],[21.0,"01-22",-62.42494273999978],[22.0,"01-23",-80.84831584000017],[25.0,"01-26",-119.0215588699998],[26.0,"01-27",-116.93945815999972],[27.0,"01-28",-117.00964133000002],[28.0,"01-29",-115.06790695999985],[29.0,"01-30",-115.53579475999982],[32.0,"02-02",-114.41286404000016],[33.0,"02-03",-95.09130134999988],[34.0,"02-04",-45.91220399999975],[35.0,"02-05",-45.91220399999975],[36.0,"02-06",-37.18411790000005],[39.0,"02-09",-33.38561386000015],[40.0,"02-10",-30.6757054899997],[41.0,"02-11",-31.231584129999877],[42.0,"02-12",0.9539753500000644],[43.0,"02-13",1.9979936500001256],[44.0,"02-14",1.9979936500001256],[54.0,"02-24",-18.024702400000024],[55.0,"02-25",-12.4187780499999],[56.0,"02-26",-16.779690510000137],[57.0,"02-27",-12.593724159999963],[60.0,"03-02",-24.611465180000096],[61.0,"03-03",-30.013474249999945],[62.0,"03-04",-29.72075339999992],[63.0,"03-05",-23.99320149999994],[64.0,"03-06",-27.796826699999883],[67.0,"03-09",50.30136070000003],[68.0,"03-10",12.512770700000146],[69.0,"03-11",19.213343000000123],[70.0,"03-12",40.98247100000026],[71.0,"03-13",44.99281280000014],[74.0,"03-16",38.91446143999997],[75.0,"03-17",22.86148707999996],[76.0,"03-18",28.122547860000168],[77.0,"03-19",13.85906974999989],[78.0,"03-20",5.827577800000199],[81.0,"03-23",71.79257325999993],[82.0,"03-24",58.72012198000016],[83.0,"03-25",56.815748800000165],[84.0,"03-26",7.403518300000087],[85.0,"03-27",-11.36855923999974],[88.0,"03-30",-26.13112363999994],[89.0,"03-31",-66.1548671999999],[90.0,"04-01",-67.04723131999981],[91.0,"04-02",-58.95160848],[92.0,"04-03",-55.90370354999982],[96.0,"04-07",-86.16360241999973],[97.0,"04-08",-77.22822771999995],[98.0,"04-09",-70.80978477999975],[99.0,"04-10",-71.23297881999974],[102.0,"04-13",-54.421839999999975],[103.0,"04-14",-51.60520199999996],[104.0,"04-15",-43.71849920999989],[105.0,"04-16",-45.38613512999973],[106.0,"04-17",-29.08908497000016],[109.0,"04-20",-9.089084970000158],[110.0,"04-21",6.781157090000079],[111.0,"04-22",5.153210160000072],[112.0,"04-23",4.969779519999975],[113.0,"04-24",2.5163947100002133],[116.0,"04-27",-2.4214510399999654],[117.0,"04-28",-5.601691399999709],[118.0,"04-29",-13.675083749999883],[119.0,"04-30",-13.860376629999791],[125.0,"05-06",30.019488000000138],[126.0,"05-07",20.82025518000023],[127.0,"05-08",13.18704981000019],[130.0,"05-11",5.316827844000272],[131.0,"05-12",-8.998094646000027],[132.0,"05-13",-32.980758903999686],[133.0,"05-14",-4.887335835000158],[134.0,"05-15",-3.18145416099992],[137.0,"05-18",-8.72675095999989],[138.0,"05-19",1.4174289920001684],[139.0,"05-20",-22.3419447299998],[140.0,"05-21",-30.519071808000263],[141.0,"05-22",-23.55811179999978],[144.0,"05-25",-70.1579047749999],[145.0,"05-26",-30.851546899999903],[146.0,"05-27",-28.771541209999896],[147.0,"05-28",-36.90662423999993],[148.0,"05-29",-21.216134895999858],[151.0,"06-01",33.60083218],[152.0,"06-02",66.49079986000015],[153.0,"06-03",27.6019911100002],[154.0,"06-04",54.512232637000125],[155.0,"06-05",-24.991471840999797],[158.0,"06-08",-62.63964466399989],[159.0,"06-09",-66.21706620000009],[160.0,"06-10",-31.545206818],[161.0,"06-11",-31.382121149999648],[162.0,"06-12",6.760883758000091],[165.0,"06-15",8.134448704000306],[166.0,"06-16",11.028195079000398],[167.0,"06-17",-8.053522737999856],[168.0,"06-18",-58.32875017099991],[172.0,"06-22",-60.46369194099998],[173.0,"06-23",-92.48802829399985],[174.0,"06-24",-88.73880377999967],[175.0,"06-25",-100.88897334199964],[176.0,"06-26",-116.46908637],[179.0,"06-29",-79.1089359199998],[180.0,"06-30",-78.13600863199986],[181.0,"07-01",-77.78907331999972],[182.0,"07-02",-77.79661539199992],[183.0,"07-03",-68.85666457499974],[186.0,"07-06",-60.92760746399995],[187.0,"07-07",-54.78128434399992],[188.0,"07-08",-10.55824409999991],[189.0,"07-09",-12.904666499999848],[190.0,"07-10",-50.17450626999994],[193.0,"07-13",-30.71984793599995],[194.0,"07-14",-15.655792849999898],[195.0,"07-15",6.5859949400000914],[196.0,"07-16",-8.766171951999922],[197.0,"07-17",-9.671593039999834],[200.0,"07-20",-9.688539423999828],[201.0,"07-21",-9.715169456000012],[202.0,"07-22",-0.1550694409997959],[203.0,"07-23",16.221554572000286],[204.0,"07-24",16.94564004000017],[207.0,"07-27",16.442136900000378],[208.0,"07-28",17.7152805540004],[209.0,"07-29",24.15646609999999],[210.0,"07-30",25.14904002000003],[211.0,"07-31",3.9043341220001366],[214.0,"08-03",0.5300985889998628],[215.0,"08-04",16.165151376000267],[216.0,"08-05",45.59074344800001],[217.0,"08-06",38.669821600000205],[218.0,"08-07",53.28802181399988],[221.0,"08-10",57.84393010000008],[222.0,"08-11",50.71680437000032],[223.0,"08-12",12.128805575000117],[224.0,"08-13",12.414077464999991],[225.0,"08-14",47.02373465300025],[228.0,"08-17",41.18281123400016],[229.0,"08-18",41.814948602000186],[230.0,"08-19",14.191442800000004],[231.0,"08-20",97.86296534999995],[232.0,"08-21",56.66548743700014],[235.0,"08-24",39.041493098000046],[236.0,"08-25",15.091852963999829],[237.0,"08-26",15.55569039199986],[238.0,"08-27",35.10330574],[239.0,"08-28",35.936495194000145],[242.0,"08-31",188.22698852000008],[243.0,"09-01",166.89670533599997],[244.0,"09-02",150.88341996600025],[245.0,"09-03",135.7516840950002],[246.0,"09-04",143.3889866940001]]}],"latestAnnotation":{"text":"最新 143.4","color":"#e00000"}}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article></div><p class="source-note">来源：ms_canadian_coal_all_indicators_wide.csv</p></div></section></section>
+</main>
+</div>
+<div class="modal" id="image-modal"><button type="button">关闭</button><img alt="放大预览"/></div>
+<div aria-label="可编辑文字工具条" class="edit-toolbar" id="edit-toolbar">
+<button data-cmd="bold" type="button">加粗</button>
+<button class="red-btn" data-cmd="foreColor" data-value="#c00000" type="button">标红</button>
+<button data-cmd="removeFormat" type="button">清格式</button>
+<button class="save-btn" id="save-edits" title="保存当前所有可编辑文字" type="button">保存文字</button>
+<span class="edit-save-hint">自动保存</span>
+</div>
+<div class="chart-tip" id="chart-tip"></div>
+<script>
+    const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+    const panels = Array.from(document.querySelectorAll('.report-panel'));
+    const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+    function activatePanel(target) {
+      tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.target === target));
+      panels.forEach(panel => panel.classList.toggle('active', panel.id === target));
+    }
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      activatePanel(tab.dataset.target);
+      history.replaceState(null, '', '#' + tab.dataset.target);
+    }));
+    tocLinks.forEach(link => link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const id = link.getAttribute('href').slice(1);
+      activatePanel(link.dataset.panel);
+      document.getElementById(id)?.scrollIntoView({behavior:'smooth', block:'start'});
+      history.replaceState(null, '', '#' + id);
+      tocLinks.forEach(a => a.classList.toggle('active', a === link));
+    }));
+    const initial = location.hash.replace('#', '');
+    const initialLink = tocLinks.find(link => link.getAttribute('href') === '#' + initial);
+    if (initialLink) {
+      activatePanel(initialLink.dataset.panel);
+      setTimeout(() => document.getElementById(initial)?.scrollIntoView({block:'start'}), 0);
+    } else if (tabs.some(tab => tab.dataset.target === initial)) activatePanel(initial);
+    document.querySelectorAll('.copy-table').forEach(button => button.addEventListener('click', () => {
+      const table = button.closest('.subpanel').querySelector('table');
+      const text = Array.from(table.rows).map(row => Array.from(row.cells).map(cell => cell.innerText.trim()).join('\t')).join('\n');
+      navigator.clipboard?.writeText(text);
+      button.textContent = '已复制';
+      setTimeout(() => button.textContent = '复制表格', 1200);
+    }));
+    const editToolbar = document.getElementById('edit-toolbar');
+    const editStoragePrefix = 'coal-weekly-dashboard-portable-fixed-20260816:';
+    let activeEditable = null;
+    function positionEditToolbar(target) {
+      const rect = target.getBoundingClientRect();
+      editToolbar.style.left = Math.min(window.innerWidth - 280, Math.max(8, rect.left)) + 'px';
+      editToolbar.style.top = Math.max(8, rect.top - 46) + 'px';
+      editToolbar.classList.add('active');
+    }
+    function persistEditable(target) {
+      if (!target?.dataset?.editId) return;
+      try {
+        localStorage.setItem(editStoragePrefix + target.dataset.editId, target.innerHTML);
+      } catch (err) {}
+    }
+    function stableEditId(el, idx) {
+      const section = el.closest('section[id]');
+      const table = el.closest('table');
+      const row = el.closest('tr');
+      const cell = el.closest('th,td');
+      const rowIndex = row ? Array.from(row.parentElement.children).indexOf(row) : -1;
+      const cellIndex = cell && row ? Array.from(row.children).indexOf(cell) : -1;
+      const tag = el.tagName.toLowerCase();
+      return [section?.id || 'page', table?.className || 'note', tag, rowIndex, cellIndex, idx].join(':');
+    }
+    function persistAllEditables() {
+      document.querySelectorAll('[contenteditable="true"]').forEach(el => persistEditable(el));
+      const btn = document.getElementById('save-edits');
+      if (btn) {
+        btn.textContent = '已保存';
+        setTimeout(() => btn.textContent = '保存文字', 1200);
+      }
+    }
+    document.querySelectorAll('[contenteditable="true"]').forEach((el, idx) => {
+      el.dataset.editId = stableEditId(el, idx);
+      try {
+        const saved = localStorage.getItem(editStoragePrefix + el.dataset.editId) ?? localStorage.getItem(editStoragePrefix + String(idx));
+        if (saved !== null) el.innerHTML = saved;
+      } catch (err) {}
+      el.addEventListener('focus', () => {
+        activeEditable = el;
+        positionEditToolbar(el);
+      });
+      el.addEventListener('input', () => persistEditable(el));
+      el.addEventListener('mouseup', () => positionEditToolbar(el));
+      el.addEventListener('keyup', () => positionEditToolbar(el));
+    });
+    editToolbar.querySelectorAll('button[data-cmd]').forEach(button => button.addEventListener('mousedown', event => {
+      event.preventDefault();
+      if (!activeEditable) return;
+      activeEditable.focus();
+      document.execCommand(button.dataset.cmd, false, button.dataset.value || null);
+      persistEditable(activeEditable);
+    }));
+    document.getElementById('save-edits')?.addEventListener('mousedown', event => {
+      event.preventDefault();
+      persistAllEditables();
+    });
+    document.addEventListener('mousedown', event => {
+      if (event.target.closest('[contenteditable="true"]') || event.target.closest('#edit-toolbar')) return;
+      editToolbar.classList.remove('active');
+    });
+    window.addEventListener('scroll', () => {
+      if (activeEditable && document.activeElement === activeEditable) positionEditToolbar(activeEditable);
+    }, { passive:true });
+    const modal = document.getElementById('image-modal');
+    const modalImg = modal.querySelector('img');
+    document.querySelectorAll('.image-zoom').forEach(btn => btn.addEventListener('click', () => {
+      const embeddedImg = btn.querySelector('img');
+      modalImg.src = embeddedImg?.currentSrc || embeddedImg?.src || btn.dataset.src;
+      modal.classList.add('active');
+    }));
+    modal.querySelector('button').addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', event => { if (event.target === modal) modal.classList.remove('active'); });
+    const chartTip = document.getElementById('chart-tip');
+    function fmtChartValue(value) {
+      if (!Number.isFinite(value)) return '';
+      if (Math.abs(value) >= 100) return value.toFixed(0);
+      if (Math.abs(value) >= 10) return value.toFixed(1);
+      return value.toFixed(2).replace(/\.00$/, '').replace(/0$/, '');
+    }
+    function fmtDisplayValue(value, format) {
+      if (!Number.isFinite(value)) return '';
+      if (format === 'percent') {
+        const percentValue = value * 100;
+        const label = Math.abs(percentValue - Math.round(percentValue)) < 1e-9 ? String(Math.round(percentValue)) : percentValue.toFixed(1).replace(/\.0$/, '');
+        return `${label}%`;
+      }
+      return fmtChartValue(value);
+    }
+    function cleanTick(value, format) {
+      if (format === 'percent') return `${Math.round(value * 100)}%`;
+      return Math.abs(value - Math.round(value)) < 1e-9 ? String(Math.round(value)) : fmtChartValue(value);
+    }
+    function drawCanvasChart(canvas) {
+      const data = JSON.parse(canvas.dataset.chart || '{}');
+      const ctx = canvas.getContext('2d');
+      const w = Number(canvas.getAttribute('width')) || 760;
+      const h = Number(canvas.getAttribute('height')) || 420;
+      const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 760 ? 1.25 : 2);
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      canvas.style.aspectRatio = `${w} / ${h}`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      const left = data.type === 'seasonal' ? 66 : 56;
+      const top = data.type === 'seasonal' ? 34 : 30;
+      const right = 24;
+      const bottom = data.type === 'seasonal' ? 46 : 40;
+      const pw = w - left - right;
+      const ph = h - top - bottom;
+      ctx.fillStyle = '#0b2f66';
+      ctx.font = '800 16px "Times New Roman", KaiTi, STKaiti, SimKai, serif';
+      ctx.fillText(data.title || '', left, 23);
+      ctx.font = '13px "Times New Roman", KaiTi, STKaiti, SimKai, serif';
+      ctx.strokeStyle = '#d7dce5';
+      ctx.setLineDash([4, 4]);
+      ctx.fillStyle = '#667085';
+      const hoverPoints = [];
+      if (data.type === 'seasonal') {
+        const mn = Number(data.axisMin);
+        const mx = Number(data.axisMax);
+        const valueFormat = data.valueFormat || '';
+        const chartKind = data.chartKind || 'line';
+        (data.ticks || []).slice().reverse().forEach(value => {
+          const y = top + ph * (mx - value) / (mx - mn);
+          ctx.beginPath();
+          ctx.moveTo(left, y);
+          ctx.lineTo(w - right, y);
+          ctx.stroke();
+          ctx.fillText(cleanTick(value, valueFormat), left - 54, y + 4);
+        });
+        if (mn < 0 && mx > 0) {
+          const y0 = top + ph * mx / (mx - mn);
+          ctx.save();
+          ctx.setLineDash([]);
+          ctx.strokeStyle = '#475467';
+          ctx.lineWidth = 2.2;
+          ctx.beginPath();
+          ctx.moveTo(left, y0);
+          ctx.lineTo(w - right, y0);
+          ctx.stroke();
+          ctx.restore();
+          ctx.strokeStyle = '#d7dce5';
+          ctx.setLineDash([4, 4]);
+        }
+        [['1月',0], ['3月',59], ['5月',120], ['7月',181], ['9月',243], ['11月',304]].forEach(([label, day]) => {
+          const x = left + pw * day / 364;
+          ctx.beginPath();
+          ctx.moveTo(x, top);
+          ctx.lineTo(x, top + ph);
+          ctx.stroke();
+          ctx.textAlign = 'center';
+          ctx.fillText(label, x, h - 18);
+          ctx.textAlign = 'left';
+        });
+        ctx.setLineDash([]);
+        const seriesList = data.series || [];
+        seriesList.forEach((s, seriesIdx) => {
+          const pts = (s.points || []).filter(p => Number.isFinite(Number(p[2])));
+          if (!pts.length) return;
+          if (chartKind === 'bar') {
+            const count = Math.max(1, seriesList.length);
+            const slot = Math.max(3, Math.min(8, pw / 140));
+            const barWidth = Math.max(2, slot * 0.78);
+            const baseValue = Math.max(mn, Math.min(mx, 0));
+            const baseY = top + ph * (mx - baseValue) / (mx - mn);
+            ctx.fillStyle = s.color || '#0b2f66';
+            pts.forEach(p => {
+              const x = left + pw * Number(p[0]) / 364 + (seriesIdx - (count - 1) / 2) * slot;
+              const rawValue = Number(p[2]);
+              const cappedValue = Math.max(mn, Math.min(mx, rawValue));
+              const y = top + ph * (mx - cappedValue) / (mx - mn);
+              const barTop = Math.min(y, baseY);
+              const barHeight = Math.max(1, Math.abs(baseY - y));
+              ctx.globalAlpha = Number(s.year) === Number((seriesList[seriesList.length - 1] || {}).year) ? 0.9 : 0.45;
+              ctx.fillRect(x - barWidth / 2, barTop, barWidth, barHeight);
+              ctx.globalAlpha = 1;
+              hoverPoints.push({type:'seasonal', year:s.year, date:p[1], value:rawValue, format:valueFormat, x, y, title:data.title});
+            });
+          } else {
+            ctx.strokeStyle = s.color || '#0b2f66';
+            ctx.lineWidth = Number(s.width) || 2.2;
+            ctx.beginPath();
+            pts.forEach((p, idx) => {
+              const x = left + pw * Number(p[0]) / 364;
+              const y = top + ph * (mx - Number(p[2])) / (mx - mn);
+              if (idx === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+              hoverPoints.push({type:'seasonal', year:s.year, date:p[1], value:Number(p[2]), format:valueFormat, x, y, title:data.title});
+            });
+            ctx.stroke();
+            const last = pts[pts.length - 1];
+            const lx = left + pw * Number(last[0]) / 364;
+            const ly = top + ph * (mx - Number(last[2])) / (mx - mn);
+            ctx.fillStyle = s.color || '#0b2f66';
+            ctx.beginPath();
+            ctx.arc(lx, ly, 3.8, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+        ctx.restore();
+        if (data.latestAnnotation) {
+          ctx.save();
+          ctx.textAlign = 'right';
+          ctx.fillStyle = data.latestAnnotation.color || '#e00000';
+          ctx.font = '700 17px KaiTi, "Microsoft YaHei", sans-serif';
+          ctx.fillText(data.latestAnnotation.text || '', w - right, top - 10);
+          ctx.restore();
+        }
+      } else {
+        const pairs = (data.pairs || []).filter(p => Number.isFinite(Number(p[1])));
+        const vals = pairs.map(p => Number(p[1]));
+        let mn = Math.min(...vals);
+        let mx = Math.max(...vals);
+        if (Math.abs(mx - mn) < 1e-9) { mn -= 1; mx += 1; }
+        const pad = (mx - mn) * 0.08;
+        mn -= pad; mx += pad;
+        for (let t = 0; t < 5; t += 1) {
+          const y = top + ph * t / 4;
+          const val = mx - (mx - mn) * t / 4;
+          ctx.beginPath();
+          ctx.moveTo(left, y);
+          ctx.lineTo(w - right, y);
+          ctx.stroke();
+          ctx.fillText(cleanTick(val), left - 42, y + 4);
+        }
+        ctx.setLineDash([]);
+        ctx.strokeStyle = data.color || '#0b2f66';
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        pairs.forEach((p, idx) => {
+          const x = left + pw * idx / Math.max(1, pairs.length - 1);
+          const y = top + ph * (mx - Number(p[1])) / (mx - mn);
+          if (idx === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          hoverPoints.push({type:'line', date:p[0], value:Number(p[1]), x, y, title:data.title});
+        });
+        ctx.stroke();
+        ctx.fillStyle = data.color || '#0b2f66';
+        const last = hoverPoints[hoverPoints.length - 1];
+        if (last) {
+          ctx.beginPath();
+          ctx.arc(last.x, last.y, 4.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.fillStyle = '#667085';
+        if (pairs[0]) ctx.fillText(pairs[0][0], left, h - 10);
+        if (pairs[pairs.length - 1]) {
+          ctx.textAlign = 'right';
+          ctx.fillText(pairs[pairs.length - 1][0], w - right, h - 10);
+          ctx.textAlign = 'left';
+        }
+      }
+      canvas._hoverPoints = hoverPoints;
+    }
+
+    function bindCanvasCharts(root = document) {
+      const canvases = Array.from(root.querySelectorAll('.chart-canvas:not([data-rendered])'));
+      const bindOne = canvas => {
+        if (canvas.dataset.rendered === '1') return;
+        canvas.dataset.rendered = '1';
+        drawCanvasChart(canvas);
+        canvas.addEventListener('mousemove', event => {
+          const rect = canvas.getBoundingClientRect();
+          const w = Number(canvas.getAttribute('width')) || 620;
+          const x = (event.clientX - rect.left) * w / rect.width;
+          const points = canvas._hoverPoints || [];
+          if (!points.length) return;
+          const data = JSON.parse(canvas.dataset.chart || '{}');
+          if (points[0].type === 'seasonal') {
+            const grouped = new Map();
+            points.forEach(point => {
+              if (!grouped.has(point.year)) grouped.set(point.year, []);
+              grouped.get(point.year).push(point);
+            });
+            const years = Array.from(grouped.keys()).sort((a, b) => Number(b) - Number(a));
+            const anchorYear = years[0];
+            const anchorCandidates = grouped.get(anchorYear) || [];
+            let anchor = anchorCandidates[0];
+            anchorCandidates.forEach(point => {
+              if (!anchor || Math.abs(point.x - x) < Math.abs(anchor.x - x)) anchor = point;
+            });
+            const anchorX = anchor ? anchor.x : x;
+            const formatPointValue = point => {
+              if (point.format === 'percent' || data.yFormat === 'percent') {
+                const pct = Math.abs(point.value) <= 1.5 ? point.value * 100 : point.value;
+                return `${Number.isInteger(pct) ? pct.toFixed(0) : pct.toFixed(1)}%`;
+              }
+              return fmtChartValue(point.value);
+            };
+            const lines = years.map(year => {
+              const yearPoints = grouped.get(year) || [];
+              let nearest = yearPoints[0];
+              yearPoints.forEach(point => {
+                if (!nearest || Math.abs(point.x - anchorX) < Math.abs(nearest.x - anchorX)) nearest = point;
+              });
+              return nearest ? `${nearest.year} ${nearest.date}：${formatPointValue(nearest)}` : '';
+            }).filter(Boolean);
+            chartTip.textContent = [points[0].title || '', ...lines].filter(Boolean).join('
+');
+          } else {
+            let nearest = points[0];
+            points.forEach(point => { if (Math.abs(point.x - x) < Math.abs(nearest.x - x)) nearest = point; });
+            chartTip.textContent = `${nearest.title} ${nearest.date}：${fmtChartValue(nearest.value)}`;
+          }
+          chartTip.style.display = 'block';
+          chartTip.style.left = Math.min(window.innerWidth - 340, event.clientX + 12) + 'px';
+          chartTip.style.top = (event.clientY + 12) + 'px';
+        });
+        canvas.addEventListener('mouseleave', () => chartTip.style.display = 'none');
+      };
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            bindOne(entry.target);
+            observer.unobserve(entry.target);
+          });
+        }, {rootMargin: '360px 0px'});
+        canvases.forEach(canvas => observer.observe(canvas));
+      } else {
+        canvases.slice(0, 8).forEach(bindOne);
+        canvases.slice(8).forEach((canvas, idx) => window.setTimeout(() => bindOne(canvas), 160 * (idx + 1)));
+      }
+    }
+    function bindChartInteractions(root = document) {
+      bindCanvasCharts(root);
+      root.querySelectorAll('.hover-dot:not([data-bound])').forEach(dot => {
+        dot.dataset.bound = '1';
+        dot.addEventListener('mouseenter', () => {
+          chartTip.textContent = dot.dataset.tip || '';
+          chartTip.style.display = 'block';
+        });
+        dot.addEventListener('mousemove', event => {
+          chartTip.style.left = Math.min(window.innerWidth - 280, event.clientX + 12) + 'px';
+          chartTip.style.top = (event.clientY + 12) + 'px';
+        });
+        dot.addEventListener('mouseleave', () => chartTip.style.display = 'none');
+      });
+      root.querySelectorAll('.seasonal-hover-zone:not([data-bound])').forEach(zone => {
+        zone.dataset.bound = '1';
+        zone.addEventListener('mousemove', event => {
+          const svg = zone.closest('svg');
+          const guide = svg?.querySelector('.seasonal-guide');
+          const rect = svg.getBoundingClientRect();
+          const viewBox = svg.viewBox.baseVal;
+          const x = (event.clientX - rect.left) * viewBox.width / rect.width;
+          if (guide) {
+            guide.setAttribute('x1', x.toFixed(1));
+            guide.setAttribute('x2', x.toFixed(1));
+            guide.style.display = 'block';
+          }
+          const points = zone._points || (zone._points = JSON.parse(zone.dataset.points || '[]'));
+          const byYear = new Map();
+          points.forEach(point => {
+            const prev = byYear.get(point.year);
+            if (!prev || Math.abs(point.x - x) < Math.abs(prev.x - x)) byYear.set(point.year, point);
+          });
+          const lines = Array.from(byYear.values())
+            .sort((a, b) => Number(b.year) - Number(a.year))
+            .map(point => `${point.year} ${point.date}：${point.value}`);
+          chartTip.textContent = [zone.dataset.title || '', ...lines].filter(Boolean).join('\n');
+          chartTip.style.display = 'block';
+          chartTip.style.left = Math.min(window.innerWidth - 340, event.clientX + 12) + 'px';
+          chartTip.style.top = (event.clientY + 12) + 'px';
+        });
+        zone.addEventListener('mouseleave', () => {
+          const guide = zone.closest('svg')?.querySelector('.seasonal-guide');
+          if (guide) guide.style.display = 'none';
+          chartTip.style.display = 'none';
+        });
+      });
+    }
+    bindChartInteractions();
+  </script>
+<script id="mobile-touch-overrides">
+  (() => {
+    const tip = () => {
+      let node = document.getElementById('chart-tip');
+      if (!node) {
+        node = document.createElement('div');
+        node.id = 'chart-tip';
+        node.className = 'chart-tip';
+        document.body.appendChild(node);
+      }
+      return node;
+    };
+
+    const fmt = value => {
+      const num = Number(value);
+      if (!Number.isFinite(num)) return String(value ?? '');
+      if (Math.abs(num) >= 100) return num.toFixed(0);
+      if (Math.abs(num) >= 10) return num.toFixed(1);
+      return num.toFixed(2).replace(/\.00$/, '').replace(/0$/, '');
+    };
+
+    const placeTip = (event, content) => {
+      const node = tip();
+      node.textContent = content;
+      node.style.display = 'block';
+      const pointer = event.touches ? event.touches[0] : event;
+      const x = pointer.clientX || 12;
+      const y = pointer.clientY || 12;
+      const width = Math.min(340, window.innerWidth - 18);
+      node.style.maxWidth = width + 'px';
+      node.style.left = Math.max(8, Math.min(window.innerWidth - width - 8, x + 10)) + 'px';
+      node.style.top = Math.max(8, Math.min(window.innerHeight - 96, y + 12)) + 'px';
+    };
+
+    const bindCanvasTouch = canvas => {
+      if (canvas.dataset.mobileTouchBound === '1') return;
+      canvas.dataset.mobileTouchBound = '1';
+      const show = event => {
+        const rect = canvas.getBoundingClientRect();
+        const width = Number(canvas.getAttribute('width')) || 760;
+        const pointer = event.touches ? event.touches[0] : event;
+        const x = (pointer.clientX - rect.left) * width / Math.max(1, rect.width);
+        const points = canvas._hoverPoints || [];
+        if (!points.length) return;
+        let content = '';
+        if (points[0].type === 'seasonal') {
+          const grouped = new Map();
+          points.forEach(point => {
+            if (!grouped.has(point.year)) grouped.set(point.year, []);
+            grouped.get(point.year).push(point);
+          });
+          const years = Array.from(grouped.keys()).sort((a, b) => Number(b) - Number(a));
+          const anchorYear = years[0];
+          const anchorPoints = grouped.get(anchorYear) || [];
+          let anchor = anchorPoints[0];
+          anchorPoints.forEach(point => {
+            if (!anchor || Math.abs(point.x - x) < Math.abs(anchor.x - x)) anchor = point;
+          });
+          const anchorX = anchor ? anchor.x : x;
+          const lines = years.map(year => {
+            let nearest = (grouped.get(year) || [])[0];
+            (grouped.get(year) || []).forEach(point => {
+              if (!nearest || Math.abs(point.x - anchorX) < Math.abs(nearest.x - anchorX)) nearest = point;
+            });
+            if (!nearest) return '';
+            const rawValue = nearest.format === 'percent' || points[0].yFormat === 'percent'
+              ? `${fmt(Math.abs(nearest.value) <= 1.5 ? nearest.value * 100 : nearest.value)}%`
+              : fmt(nearest.value);
+            return `${nearest.year} ${nearest.date}: ${rawValue}`;
+          }).filter(Boolean);
+          content = [points[0].title || '', ...lines].filter(Boolean).join('\n');
+        } else {
+          let nearest = points[0];
+          points.forEach(point => {
+            if (Math.abs(point.x - x) < Math.abs(nearest.x - x)) nearest = point;
+          });
+          content = `${nearest.title} ${nearest.date}: ${fmt(nearest.value)}`;
+        }
+        if (content) placeTip(event, content);
+      };
+      canvas.addEventListener('pointerdown', show, { passive: true });
+      canvas.addEventListener('pointermove', show, { passive: true });
+      canvas.addEventListener('touchstart', show, { passive: true });
+      canvas.addEventListener('touchmove', show, { passive: true });
+    };
+
+    const bindSvgTouch = node => {
+      if (node.dataset.mobileTouchBound === '1') return;
+      node.dataset.mobileTouchBound = '1';
+      const show = event => {
+        const content = node.dataset.tip || node.dataset.title || '';
+        if (content) placeTip(event, content);
+      };
+      node.addEventListener('pointerdown', show, { passive: true });
+      node.addEventListener('pointermove', show, { passive: true });
+      node.addEventListener('touchstart', show, { passive: true });
+      node.addEventListener('touchmove', show, { passive: true });
+    };
+
+    const bindAll = () => {
+      document.querySelectorAll('.chart-canvas').forEach(bindCanvasTouch);
+      document.querySelectorAll('[data-tip], .hover-dot, .seasonal-hover-zone').forEach(bindSvgTouch);
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      bindAll();
+      window.setTimeout(bindAll, 500);
+      window.setTimeout(bindAll, 1500);
+    });
+
+    document.addEventListener('pointerdown', event => {
+      if (!event.target.closest('.chart-canvas, [data-tip], .hover-dot, .seasonal-hover-zone')) {
+        const node = document.getElementById('chart-tip');
+        if (node) node.style.display = 'none';
+      }
+    });
+  })();
+</script>
+</body>
+</html>

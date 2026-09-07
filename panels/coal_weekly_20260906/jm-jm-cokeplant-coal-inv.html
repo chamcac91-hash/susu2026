@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>煤焦周报20260906 焦煤</title>
+<style>
+    :root { --ink:#0b2f66; --accent:#b4493f; --bg:#fffdf9; --panel:#fbfcff; --line:#d7dde8; --muted:#667085; --soft:#f2f5f9; --font:"Times New Roman","KaiTi","STKaiti","SimKai",serif; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:var(--font); background:var(--bg); color:#1f2937; }
+    .layout { display:grid; grid-template-columns:188px minmax(0,1fr); min-height:100vh; }
+    .side-toc { position:sticky; top:0; height:100vh; overflow:auto; border-right:1px solid var(--line); background:#f5f7fb; padding:14px 8px; scrollbar-width:thin; }
+    .side-toc .toc-title { color:var(--ink); font-size:17px; font-weight:800; margin:2px 4px 12px; line-height:1.25; }
+    .side-toc a { display:block; color:#344054; text-decoration:none; padding:6px 6px 6px 8px; margin:1px 0; border-radius:4px; font-size:12.5px; line-height:1.24; border-left:2px solid transparent; word-break:break-word; }
+    .side-toc a.toc-level-1 { padding-left:8px; font-size:13px; font-weight:850; color:var(--ink); margin-top:5px; }
+    .side-toc a.toc-level-2 { padding-left:18px; }
+    .side-toc a.toc-level-3 { padding-left:30px; font-size:12px; color:#475467; }
+    .side-toc a.toc-level-4 { padding-left:42px; font-size:11.5px; color:#667085; }
+    .side-toc a:hover, .side-toc a.active { background:#fff; color:var(--ink); border-left-color:var(--accent); box-shadow:0 1px 4px rgba(15,23,42,.06); }
+    main { padding:0 24px 30px; min-width:0; }
+    header { padding:18px 0 10px; border-bottom:1px solid var(--line); }
+    h1 { color:var(--ink); font-size:28px; margin:0 0 6px; letter-spacing:0; }
+    .subtitle { color:var(--muted); line-height:1.55; font-size:14px; }
+    .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:7px; padding:12px 0 9px; border-bottom:1px solid var(--line); background:rgba(255,253,249,.97); backdrop-filter:blur(8px); }
+    .panel-tab { border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:7px 15px; min-height:38px; border-radius:4px; font-family:inherit; font-size:16px; font-weight:750; cursor:pointer; }
+    .panel-tab.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .report-panel { display:none; padding:12px 0 22px; }
+    .report-panel.active { display:block; }
+    h2 { color:var(--ink); margin:10px 0 12px; font-size:23px; }
+    .subpanel { scroll-margin-top:70px; margin:11px 0 16px; padding:12px 13px; border:1px solid var(--line); background:var(--panel); border-radius:4px; box-shadow:0 1px 6px rgba(15,23,42,.03); }
+    .subpanel > h3 { margin:-12px -13px 10px; font-size:19px; color:var(--ink); background:#e7ecf4; border-left:4px solid var(--ink); border-bottom:1px solid #cbd5e1; padding:8px 12px 8px 14px; letter-spacing:0; }
+    .node-meta { display:flex; flex-wrap:wrap; gap:7px; color:var(--muted); font-size:13px; margin:0 0 10px; line-height:1.5; }
+    .tag { display:inline-flex; align-items:center; min-height:22px; padding:1px 7px; border-radius:3px; font-weight:700; color:#fff; }
+    .tag.ok { background:#357f63; } .tag.data { background:#0b2f66; } .tag.report { background:#7a4b1f; } .tag.ppt { background:#b4493f; }
+    .table-toolbar { display:flex; justify-content:flex-end; align-items:center; gap:8px; margin:4px 0 8px; color:var(--muted); }
+    .table-toolbar span { display:none; }
+    .table-toolbar button { border:1px solid var(--line); background:#fff; padding:6px 10px; border-radius:3px; cursor:pointer; }
+    .table-scroll { overflow:auto; border:1px solid var(--line); background:#fff; margin:8px 0 12px; max-height:460px; border-radius:3px; }
+    .editable-table-wrap { overflow:visible; border:1px solid #b9c4d6; background:#fff; margin:8px 0 12px; max-height:none; border-radius:3px; }
+    table { border-collapse:collapse; min-width:720px; width:100%; font-size:13.5px; }
+    th, td { border:1px solid #e2e8f0; padding:6px 8px; vertical-align:top; }
+    th { background:#e9eef7; color:var(--ink); position:sticky; top:0; z-index:1; }
+    .editable-table { min-width:0; table-layout:fixed; font-size:15px; line-height:1.6; }
+    .editable-table th, .editable-table td { border-color:#cfd7e6; white-space:normal; overflow-wrap:anywhere; word-break:break-word; }
+    .editable-table th { position:static; }
+    .editable-table .editable-title th { background:#d8e0ef; color:var(--ink); text-align:center; font-size:18px; font-weight:800; padding:9px 10px 6px; }
+    .editable-table .editable-head th { background:#edf2f8; color:var(--ink); text-align:center; font-weight:800; }
+    .editable-table tr:not(.editable-title):not(.editable-head):not(.editable-merged-row) td:first-child { text-align:center; font-weight:800; color:#1f2937; vertical-align:middle; }
+    .editable-table tr:not(.editable-title):not(.editable-head):not(.editable-merged-row) td:not(:last-child) { text-align:center; vertical-align:middle; }
+    .editable-table .editable-merged-row td { background:#fffdf5; border-top:2px solid #9aa8bc; color:#1f2937; font-weight:700; }
+    .thermal-summary-wrap { border:1px solid #b9c4d6; border-radius:3px; }
+    .thermal-summary-table { font-size:15px; line-height:1.6; }
+    .thermal-summary-table th, .thermal-summary-table td { border-color:#cfd7e6; padding:6px 8px; }
+    .thermal-summary-table .thermal-summary-title th { background:#d8e0ef; color:var(--ink); text-align:center; font-size:18px; font-weight:800; padding:9px 10px 6px; }
+    .thermal-summary-table .thermal-summary-head th { background:#edf2f8; color:var(--ink); text-align:center; font-size:15px; font-weight:800; }
+    .thermal-summary-table .thermal-summary-metric { text-align:center; vertical-align:middle; font-weight:800; color:#1f2937; }
+    .thermal-summary-table .thermal-summary-change { text-align:left; vertical-align:top; color:var(--ink); }
+    .thermal-summary-table .thermal-summary-valuation td { background:#fffdf5; border-top:2px solid #9aa8bc; color:#1f2937; text-align:left; font-weight:700; }
+    .thermal-summary-table .thermal-summary-valuation td mark { background:#ffff00; padding:0 3px; }
+    .editable-table td:focus, .editable-table th:focus { outline:2px solid var(--accent); background:#fff7ed; }
+    .edit-toolbar { position:fixed; z-index:180; display:none; align-items:center; gap:6px; padding:6px; border:1px solid #cbd5e1; background:#fff; box-shadow:0 8px 22px rgba(15,23,42,.16); border-radius:4px; }
+    .edit-toolbar.active { display:flex; }
+    .edit-toolbar button { border:1px solid #cbd5e1; background:#f8fafc; color:#0b2f66; padding:5px 9px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:13px; font-weight:800; }
+    .edit-toolbar button:hover { background:#eef3fb; }
+    .edit-toolbar .red-btn { color:#b00000; }
+    .edit-toolbar .save-btn { color:#357f63; }
+    .edit-save-hint { font-size:12px; color:#667085; padding:0 3px; }
+    .data-block { border:1px solid var(--line); background:#fff; padding:10px; margin:9px 0; border-radius:4px; }
+    .data-block.featured { border-color:#c98d4e; background:#fffaf3; }
+    .data-block.missing { color:var(--muted); display:flex; gap:12px; }
+    .interactive-data-block { border:1px solid #cfd7e6; background:#fff; padding:10px 11px; margin:9px 0 12px; border-radius:4px; }
+    .interactive-data-block .table-scroll { max-height:none; overflow:visible; }
+    .data-head { display:flex; justify-content:space-between; gap:12px; color:var(--ink); margin-bottom:8px; }
+    .file-list { display:flex; flex-wrap:wrap; gap:6px; list-style:none; padding:0; margin:0 0 8px; }
+    .file-list li { display:flex; gap:6px; align-items:center; border:1px solid #e2e8f0; background:#f8fafc; padding:4px 7px; border-radius:3px; color:var(--muted); font-size:12px; }
+    .json-summary { display:flex; flex-wrap:wrap; gap:6px; }
+    .json-summary span { background:#eef4ff; color:var(--ink); padding:4px 8px; border-radius:3px; }
+    .svg-card, .freight-svg { width:100%; max-width:980px; display:block; margin:8px 0; background:#fff; border:1px solid #e5e7eb; }
+    .svg-card svg { width:100%; display:block; }
+    .chart-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:11px; margin:10px 0; }
+    .chart-card { border:1px solid #dde5f0; background:#fff; border-radius:4px; padding:7px; min-width:0; }
+    .chart-card svg { width:100%; display:block; }
+    .chart-canvas { width:100%; height:auto; display:block; }
+    .seasonal-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .aussie-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .mongolian-grid, .overseas-profit-grid, .coal-jianghu-grid, .fenwei-inventory-grid, .fenwei-profit-grid, .available-days-grid, .coke-data-grid, .fenwei-coke-grid, .wuhai-coke-grid, .thermal-price-grid, .thermal-port-inventory-grid, .thermal-dispatch-grid, .thermal-power-grid, .thermal-demand-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .thermal-power-compact-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .weather-temperature-grid, .thermal-building-grid, .thermal-origin-grid, .raw-coal-grid { grid-template-columns:repeat(4, minmax(0, 1fr)); }
+    .hotmetal-grid, .offbalance-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .seaborne-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .auction-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .supply-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .auction-price-table { min-width:1180px; font-size:12.5px; }
+    .auction-price-table-block .table-scroll { overflow:auto; max-height:620px; }
+    .seasonal-card { padding:6px 7px; }
+    .mongolian-subsection { margin:12px 0 16px; border:1px solid var(--line); background:#fff; border-radius:4px; overflow:hidden; }
+    .mongolian-subsection > h4 { margin:0; padding:9px 13px; background:#e7ecf4; color:var(--ink); border-left:4px solid var(--ink); border-bottom:1px solid #cbd5e1; font-size:18px; font-weight:800; }
+    .mongolian-subsection .interactive-data-block { border:0; border-radius:0; margin:0; }
+    .chart-title { font-size:14px; font-weight:800; fill:var(--ink); }
+    .hover-dot { cursor:crosshair; }
+    .seasonal-hover-zone { fill:transparent; cursor:crosshair; }
+    .seasonal-guide { display:none; stroke:#111827; stroke-width:1.2; stroke-dasharray:3 3; pointer-events:none; }
+    .chart-tip { position:fixed; display:none; pointer-events:none; z-index:300; background:#0f172a; color:#fff; padding:7px 9px; border-radius:3px; font-size:12px; line-height:1.5; white-space:pre-line; max-width:320px; box-shadow:0 8px 22px rgba(15,23,42,.2); }
+    .summary-table th, .summary-table td { text-align:center; vertical-align:middle; }
+    .summary-table td:last-child { font-weight:800; }
+    .grouped-category-table .category-cell { text-align:center; vertical-align:middle; font-weight:800; color:var(--ink); background:#f3f6fb; min-width:58px; }
+    .grid { stroke:#d7dce5; stroke-dasharray:4 4; }
+    .axis { font-size:11px; fill:#667085; }
+    .legend { display:flex; flex-wrap:wrap; gap:5px 8px; color:#475467; font-size:10.5px; line-height:1.15; margin:2px 0 0; }
+    .legend span { display:inline-flex; align-items:center; gap:3px; }
+    .legend i { display:inline-block; width:8px; height:8px; }
+    .chg-pos { background:#f6c7cd !important; color:#8b0000; font-weight:800; }
+    .chg-neg { background:#c6efce !important; color:#006100; font-weight:800; }
+    .slide-grid { display:grid; grid-template-columns:1fr; gap:14px; margin-top:10px; }
+    .slide-card { margin:0; border:1px solid var(--line); background:#fff; border-radius:4px; overflow:hidden; }
+    .slide-card figcaption { border-top:0; border-bottom:1px solid var(--line); background:#f2f5fa; color:var(--ink); font-size:15px; font-weight:750; }
+    .slide-card button { display:block; border:0; padding:0; background:transparent; width:100%; cursor:zoom-in; }
+    .slide-card img { display:block; width:100%; height:auto; }
+    .report-image-list { display:grid; grid-template-columns:1fr; gap:12px; margin:10px 0 12px; }
+    .asset-gallery.cols-2 { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .asset-gallery.cols-3 { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .asset-gallery.cols-4 { grid-template-columns:repeat(4, minmax(0, 1fr)); }
+    .lightweight-assets .data-head span { font-size:12px; color:#8a94a6; font-weight:400; }
+    .section-note-line { margin:8px 0 4px; padding:8px 10px; border:1px solid #d9e1ec; background:#f8fafc; color:#475467; border-radius:4px; font-size:14px; line-height:1.6; }
+    .report-card { margin:0; border:1px solid var(--line); background:#fff; border-radius:4px; overflow:hidden; }
+    .report-card button { display:block; border:0; padding:0; background:transparent; width:100%; cursor:zoom-in; }
+    .report-card img { display:block; width:100%; height:auto; }
+    figcaption { display:flex; justify-content:space-between; gap:10px; padding:8px 10px; color:#475467; font-size:13px; border-top:1px solid var(--line); }
+    figcaption span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .source-note { display:none; }
+    .empty { color:var(--muted); line-height:1.7; }
+    .modal { position:fixed; inset:0; background:rgba(15,23,42,.82); z-index:200; display:none; align-items:center; justify-content:center; padding:22px; }
+    .modal.active { display:flex; }
+    .modal img { max-width:96vw; max-height:92vh; background:#fff; }
+    .modal button { position:absolute; top:16px; right:18px; border:1px solid #fff; color:#fff; background:transparent; padding:8px 12px; font-size:16px; cursor:pointer; }
+    @media (max-width: 1400px) { .auction-grid, .supply-grid, .seaborne-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 1180px) { .seasonal-grid, .aussie-grid, .auction-grid, .supply-grid, .seaborne-grid, .mongolian-grid, .overseas-profit-grid, .coal-jianghu-grid, .fenwei-inventory-grid, .fenwei-profit-grid, .available-days-grid, .coke-data-grid, .fenwei-coke-grid, .wuhai-coke-grid, .thermal-price-grid, .thermal-building-grid, .thermal-origin-grid, .raw-coal-grid, .thermal-port-inventory-grid, .thermal-dispatch-grid, .thermal-power-grid, .thermal-demand-grid, .weather-temperature-grid, .hotmetal-grid, .offbalance-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 1180px) { .asset-gallery.cols-3, .asset-gallery.cols-4 { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 900px) { .layout { grid-template-columns:1fr; } .side-toc { position:relative; height:auto; max-height:42vh; border-right:0; border-bottom:1px solid var(--line); } main { padding:0 12px 24px; } .panel-tab { flex:1 1 calc(50% - 8px); } .seasonal-grid, .auction-grid, .supply-grid, .seaborne-grid, .mongolian-grid, .overseas-profit-grid, .coal-jianghu-grid, .fenwei-inventory-grid, .fenwei-profit-grid, .available-days-grid, .coke-data-grid, .fenwei-coke-grid, .wuhai-coke-grid, .thermal-price-grid, .thermal-building-grid, .thermal-origin-grid, .raw-coal-grid, .thermal-port-inventory-grid, .thermal-dispatch-grid, .thermal-power-grid, .thermal-power-compact-grid, .thermal-demand-grid, .weather-temperature-grid, .hotmetal-grid, .offbalance-grid, .asset-gallery.cols-2, .asset-gallery.cols-3, .asset-gallery.cols-4 { grid-template-columns:1fr; } }
+  </style>
+<style>
+.cjh-gallery, .cjh-gallery.cols-3, .raw-coal-static-block .cols-3, .ms-inventory-block .chart-grid-live { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.thermal-power-compact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 900px) { .thermal-power-compact-grid { grid-template-columns: 1fr; } }
+.cjh-card img { width: 100%; height: auto; display: block; }
+.full-width-image-card img { width: 100%; height: auto; display: block; }
+.shanxi-daily-tracker-block .full-width-image-card { margin: 0; }
+    .auction-title-band { text-align: center; font-size: 24px; font-weight: 800; color: #0b2f66; background: #dbeaf7; padding: 12px 10px; margin: 18px 0 12px; }
+    .auction-kpi-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+    .auction-kpi-card { border: 1px solid #d5dfed; border-radius: 6px; background: #fff; padding: 9px 12px; }
+    .auction-kpi-card span { display: block; color: #5f6c7c; font-size: 13px; margin-bottom: 3px; }
+    .auction-kpi-card strong { display: block; color: #0b2f66; font-size: 20px; line-height: 1.25; }
+    .auction-kpi-card em { display: block; color: #6d7786; font-size: 12px; font-style: normal; margin-top: 2px; }
+    .auction-daily-summary-wrap { margin: 10px 0 14px; }
+    .auction-daily-summary th, .auction-daily-summary td { text-align: center; }
+    .auction-source-gallery { margin-top: 12px; border: 1px solid #d5dfed; border-radius: 8px; background: #f8fbff; padding: 10px 12px; }
+    .auction-source-gallery summary { cursor: pointer; color: #0b2f66; font-weight: 700; }
+    .auction-source-gallery > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+    .auction-source-shot { margin: 0; background: #fff; border: 1px solid #d5dfed; border-radius: 6px; padding: 6px; }
+    .auction-source-shot img { width: 100%; height: auto; display: block; }
+    .auction-source-shot figcaption { margin-top: 4px; color: #5f6c7c; font-size: 12px; text-align: center; }
+    .zhangshang-weekly-auction-block .auction-price-table th, .zhangshang-weekly-auction-block .auction-price-table td { text-align: center; white-space: nowrap; }
+    .zhangshang-weekly-auction-block .auction-price-table td:nth-child(5), .zhangshang-weekly-auction-block .auction-price-table td:nth-child(13) { text-align: left; white-space: normal; min-width: 150px; }
+    .jm-spread-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .freight-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .freight-subhead { margin-top: 22px; }
+    .jm-spread-summary-table th, .jm-spread-summary-table td { text-align: center; }
+.jm-spread-summary-table .metric-name { font-weight: 700; color: #0b2f66; }
+.jm-spread-summary-table .latest-col { background: #e8f8e8; }
+.cjh-static-table th, .cjh-static-table td, .raw-coal-top5-table th, .raw-coal-top5-table td { text-align: center; }
+.cjh-static-table .divider td { border-top: 2px solid #9aa8bf; font-weight: 700; }
+.hotmetal-expectation-table th, .hotmetal-expectation-table td { text-align: center; white-space: nowrap; }
+.hotmetal-expectation-table .metric-name { font-weight: 700; color: #0b2f66; min-width: 120px; }
+.hotmetal-expectation-svg-wrap { margin-top: 14px; border: 1px solid #d8e0ee; border-radius: 10px; background: #fff; padding: 10px; }
+.hotmetal-expectation-chart { display: block; width: 100%; height: auto; }
+.weather-prompt-image-block img { display: block; width: min(100%, 1180px); height: auto; margin: 0 auto; border: 1px solid #d7dfea; }
+@media print { .side-toc, .tabs, .table-toolbar, .node-meta .tag.ok { display: none !important; } .subpanel, .shanxi-price-extra-block { break-inside: avoid; page-break-inside: avoid; } body { background: #fff; } }
+</style>
+<style id="mobile-publish-overrides">
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  img,
+  svg,
+  canvas {
+    max-width: 100%;
+  }
+
+  .chart-canvas {
+    touch-action: pan-y;
+  }
+
+  @media (max-width: 760px) {
+    body {
+      background: #f8fafc;
+    }
+
+    .layout {
+      display: block;
+      min-height: 100svh;
+    }
+
+    .side-toc {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      height: auto;
+      max-height: none;
+      overflow-x: auto;
+      overflow-y: hidden;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 6px;
+      padding: 8px;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(245, 247, 251, .98);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .side-toc .toc-title {
+      flex: 0 0 auto;
+      margin: 0 8px 0 0;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .side-toc a,
+    .side-toc a.toc-level-1,
+    .side-toc a.toc-level-2,
+    .side-toc a.toc-level-3,
+    .side-toc a.toc-level-4 {
+      flex: 0 0 auto;
+      white-space: nowrap;
+      padding: 7px 9px;
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.2;
+      border-left: 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    .side-toc a:hover,
+    .side-toc a.active {
+      border-left-color: transparent;
+      border-bottom-color: var(--accent);
+    }
+
+    main {
+      padding: 0 8px 18px;
+    }
+
+    header {
+      padding: 10px 0 7px;
+    }
+
+    h1 {
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin: 9px 0;
+    }
+
+    .subtitle {
+      font-size: 12.5px;
+    }
+
+    .panel-tabs {
+      top: 0;
+      z-index: 80;
+      flex-wrap: nowrap;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 8px 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .panel-tabs::-webkit-scrollbar,
+    .side-toc::-webkit-scrollbar {
+      display: none;
+    }
+
+    .panel-tab {
+      flex: 0 0 auto;
+      min-width: 6.5rem;
+      min-height: 36px;
+      padding: 7px 10px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .report-panel {
+      padding: 8px 0 18px;
+    }
+
+    .subpanel {
+      margin: 8px 0 12px;
+      padding: 8px;
+      border-radius: 4px;
+      box-shadow: none;
+      overflow: hidden;
+      scroll-margin-top: 92px;
+    }
+
+    .subpanel > h3 {
+      margin: -8px -8px 8px;
+      padding: 8px 10px;
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    .node-meta,
+    .data-head,
+    .table-toolbar {
+      font-size: 12px;
+    }
+
+    .data-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    .interactive-data-block,
+    .data-block,
+    .table-scroll,
+    .editable-table-wrap {
+      max-width: 100%;
+      overflow-x: auto !important;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .thermal-summary-wrap {
+      max-width: 100%;
+      overflow-x: hidden !important;
+      overflow-y: visible;
+    }
+
+    .interactive-data-block .table-scroll {
+      overflow-x: auto !important;
+      overflow-y: visible;
+    }
+
+    table {
+      font-size: 12.5px;
+    }
+
+    table:not(.editable-table):not(.thermal-summary-table) {
+      min-width: 720px;
+    }
+
+    .editable-table,
+    .thermal-summary-table {
+      min-width: 0 !important;
+      width: 100% !important;
+      table-layout: fixed;
+      font-size: 12.5px;
+      line-height: 1.58;
+    }
+
+    .thermal-summary-table col:first-child,
+    .editable-table col:first-child {
+      width: 24% !important;
+    }
+
+    .thermal-summary-table col:last-child,
+    .editable-table col:last-child {
+      width: 76% !important;
+    }
+
+    .thermal-summary-table th,
+    .thermal-summary-table td,
+    .editable-table th,
+    .editable-table td {
+      min-width: 0;
+      overflow: visible;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      white-space: normal;
+    }
+
+    .thermal-summary-table .thermal-summary-title th,
+    .editable-table .editable-title th {
+      font-size: 16px;
+    }
+
+    th,
+    td {
+      padding: 5px 6px;
+    }
+
+    .seasonal-grid,
+    .auction-grid,
+    .supply-grid,
+    .seaborne-grid,
+    .mongolian-grid,
+    .overseas-profit-grid,
+    .coal-jianghu-grid,
+    .fenwei-inventory-grid,
+    .fenwei-profit-grid,
+    .available-days-grid,
+    .coke-data-grid,
+    .fenwei-coke-grid,
+    .wuhai-coke-grid,
+    .thermal-price-grid,
+    .thermal-building-grid,
+    .thermal-origin-grid,
+    .raw-coal-grid,
+    .thermal-port-inventory-grid,
+    .thermal-dispatch-grid,
+    .thermal-power-grid,
+    .thermal-power-compact-grid,
+    .thermal-demand-grid,
+    .weather-temperature-grid,
+    .hotmetal-grid,
+    .offbalance-grid,
+    .asset-gallery.cols-2,
+    .asset-gallery.cols-3,
+    .asset-gallery.cols-4 {
+      grid-template-columns: 1fr !important;
+    }
+
+    .report-card,
+    .chart-card,
+    .card,
+    .wide-card {
+      min-width: 0;
+    }
+
+    .report-card img,
+    .asset-card img,
+    .interactive-data-block img {
+      width: 100%;
+      height: auto;
+    }
+
+    .svg-card,
+    .freight-svg {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .chart-canvas {
+      width: 100% !important;
+      height: auto !important;
+      max-height: 72svh;
+    }
+
+    .chart-tip {
+      max-width: calc(100vw - 18px);
+      font-size: 12.5px;
+      line-height: 1.45;
+      z-index: 1000;
+      white-space: pre-wrap;
+    }
+
+    .modal {
+      padding: 10px;
+      align-items: flex-start;
+      overflow: auto;
+    }
+
+    .modal img {
+      max-width: 96vw;
+      max-height: 86svh;
+      margin-top: 42px;
+    }
+
+    .modal button {
+      top: 8px;
+      right: 8px;
+      background: rgba(15, 23, 42, .72);
+    }
+  }
+</style>
+<style id="wechat-split-overrides">
+      .split-page-tabs {
+        position: sticky;
+        top: 0;
+        z-index: 95;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 6px;
+        overflow-x: auto;
+        padding: 8px 0;
+        background: rgba(255,253,249,.98);
+        border-bottom: 1px solid var(--line);
+        scrollbar-width: none;
+      }
+      .split-page-tabs::-webkit-scrollbar { display: none; }
+      .split-tab {
+        flex: 0 0 auto;
+        min-width: 6.5rem;
+        min-height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #cbd5e1;
+        background: #f8fafc;
+        color: #344054;
+        padding: 7px 10px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 750;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .split-tab.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .section-page-nav {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        padding: 8px 0 10px;
+        margin: -2px 0 8px;
+        scrollbar-width: none;
+      }
+      .section-page-nav::-webkit-scrollbar { display: none; }
+      .section-link {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 32px;
+        max-width: 78vw;
+        padding: 6px 9px;
+        border: 1px solid #d7dee9;
+        border-radius: 4px;
+        background: #fff;
+        color: #42526b;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .section-link.active {
+        color: #fff;
+        background: #183a6b;
+        border-color: #183a6b;
+      }
+      @media (max-width: 760px) {
+        .side-toc {
+          max-height: 56px;
+          align-content: center;
+        }
+        main {
+          min-width: 0;
+        }
+      }
+    </style></head>
+<body>
+<div class="layout">
+<nav aria-label="总目录" class="side-toc"><div class="toc-title">煤焦周报总目录</div><a class="toc-level-1 toc-group" href="index.html#overview">1. 汇总+平衡表</a><a class="toc-level-3" href="index.html#summary-jm">1.1.1 焦煤汇总</a><a class="toc-level-3" href="index.html#summary-coke">1.1.2 焦炭汇总</a><a class="toc-level-3" href="index.html#summary-thermal">1.1.3 动力煤汇总</a><a class="toc-level-3" href="index.html#balance-jm">1.2.1 焦煤平衡表</a><a class="toc-level-3" href="index.html#balance-coke">1.2.2 焦炭平衡表</a><a class="toc-level-3" href="index.html#balance-thermal">1.2.3 动力煤平衡表</a><a class="toc-level-3" href="index.html#balance-weekly">1.2.4 周度平衡</a><a class="toc-level-3" href="index.html#balance-offbalance-inventory">1.2.5 表外库存</a><a class="toc-level-1 toc-group" href="jm.html#jm">2. 焦煤</a><a class="toc-level-2" href="jm.html#jm-warrant">2.1 仓单</a><a class="toc-level-2" href="jm-jm-overseas-heading.html#jm-overseas-heading">2.2 海外煤</a><a class="toc-level-3" href="jm-jm-mm.html#jm-mm">2.2.1 蒙煤</a><a class="toc-level-3" href="jm-jm-aus.html#jm-aus">2.2.2 澳煤</a><a class="toc-level-3" href="jm-jm-russia.html#jm-russia">2.2.3 俄煤</a><a class="toc-level-3" href="jm-jm-canada.html#jm-canada">2.2.4 加拿大煤</a><a class="toc-level-3" href="jm-jm-seaborne-flow.html#jm-seaborne-flow">2.2.5 海煤发运</a><a class="toc-level-2" href="jm-jm-shanxi-heading.html#jm-shanxi-heading">2.3 山西煤</a><a class="toc-level-3" href="jm-jm-shanxi-price.html#jm-shanxi-price">2.3.1 山西煤价格及竞拍</a><a class="toc-level-3" href="jm-jm-ms-supply.html#jm-ms-supply">2.3.2 焦煤供给</a><a class="toc-level-4" href="jm-jm-ms-supply.html#jm-ms-supply">2.3.2.1 MS供应</a><a class="toc-level-4" href="jm-jm-fw-supply.html#jm-fw-supply">2.3.2.2 汾渭供应</a><a class="toc-level-3" href="jm-jm-ms-inv.html#jm-ms-inv">2.3.3 焦煤库存</a><a class="toc-level-4" href="jm-jm-ms-inv.html#jm-ms-inv">2.3.3.1 MS总库存</a><a class="toc-level-4" href="jm-jm-cjh-inv.html#jm-cjh-inv">2.3.3.2 煤炭江湖港口库存</a><a class="toc-level-4" href="jm-jm-fw-inv.html#jm-fw-inv">2.3.3.3 汾渭库存</a><a class="toc-level-4" href="jm-jm-cokeplant-coal-inv.html#jm-cokeplant-coal-inv">2.3.3.4 焦化厂焦煤库存可用天数</a><a class="toc-level-3" href="jm-jm-profit.html#jm-profit">2.3.4 焦煤利润</a><a class="toc-level-1 toc-group" href="coke.html#coke">3. 焦炭</a><a class="toc-level-2" href="coke.html#coke-heading">3.焦炭</a><a class="toc-level-3" href="coke-coke-profit.html#coke-profit">3.1.1 提涨+提降预期</a><a class="toc-level-3" href="coke-coke-fenwei-profit.html#coke-fenwei-profit">3.1.2 焦企利润</a><a class="toc-level-2" href="coke-coke-supply-heading.html#coke-supply-heading">3.2 焦炭供给</a><a class="toc-level-3" href="coke-coke-ms-supply.html#coke-ms-supply">3.2.1 MS焦炭供给</a><a class="toc-level-3" href="coke-coke-research-supply.html#coke-research-supply">3.2.3 调研焦炭供给</a><a class="toc-level-3" href="coke-coke-fw-supply.html#coke-fw-supply">3.2.2 汾渭焦炭供给</a><a class="toc-level-2" href="coke-coke-inventory-heading.html#coke-inventory-heading">3.3 焦炭库存</a><a class="toc-level-3" href="coke-coke-ms-inv.html#coke-ms-inv">3.3.1 MS焦炭总库存</a><a class="toc-level-3" href="coke-coke-research-inv.html#coke-research-inv">3.3.3 乌海焦炭库存</a><a class="toc-level-3" href="coke-coke-fw-inv.html#coke-fw-inv">3.3.2 汾渭焦炭库存</a><a class="toc-level-3" href="coke-coke-steel-coke-inv.html#coke-steel-coke-inv">3.3.4 样本钢厂焦炭库存可用天数</a><a class="toc-level-2" href="coke-coke-hotmetal.html#coke-hotmetal">3.4 铁水预期</a><a class="toc-level-1 toc-group" href="thermal.html#thermal">4. 动力煤</a><a class="toc-level-2" href="thermal.html#thermal-price-heading">4.1 价格</a><a class="toc-level-3" href="thermal-thermal-policy.html#thermal-policy">4.1.1 政策指导价</a><a class="toc-level-3" href="thermal-thermal-overseas-price.html#thermal-overseas-price">4.1.2 海外价格</a><a class="toc-level-3" href="thermal-thermal-domestic-price.html#thermal-domestic-price">4.1.3 国内价格</a><a class="toc-level-3" href="thermal-thermal-import-profit.html#thermal-import-profit">4.1.4 进口利润</a><a class="toc-level-3" href="thermal-thermal-port-profit.html#thermal-port-profit">4.1.5 集港利润</a><a class="toc-level-3" href="thermal-thermal-freight.html#thermal-freight">4.1.6 运费</a><a class="toc-level-2" href="thermal-thermal-supply-heading.html#thermal-supply-heading">4.2 供给</a><a class="toc-level-3" href="thermal-thermal-overseas-supply.html#thermal-overseas-supply">4.2.1 海外供给</a><a class="toc-level-3" href="thermal-thermal-domestic-supply.html#thermal-domestic-supply">4.2.2 国内供给</a><a class="toc-level-2" href="thermal-thermal-demand-heading.html#thermal-demand-heading">4.3 需求</a><a class="toc-level-3" href="thermal-thermal-overseas-demand.html#thermal-overseas-demand">4.3.1 海外需求</a><a class="toc-level-3" href="thermal-thermal-domestic-power.html#thermal-domestic-power">4.3.2 国内电力</a><a class="toc-level-3" href="thermal-thermal-chemical.html#thermal-chemical">4.3.3 国内化工</a><a class="toc-level-3" href="thermal-thermal-building.html#thermal-building">4.3.4 国内建材</a><a class="toc-level-2" href="thermal-thermal-inventory-heading.html#thermal-inventory-heading">4.4 库存+运输</a><a class="toc-level-3" href="thermal-thermal-origin-inv.html#thermal-origin-inv">4.4.1 产地库存</a><a class="toc-level-3" href="thermal-thermal-port-inv-own.html#thermal-port-inv-own">4.4.2 港口库存（日度）</a><a class="toc-level-3" href="thermal-thermal-port-inv-cjh.html#thermal-port-inv-cjh">4.4.3 煤炭江湖港口库存</a><a class="toc-level-3" href="thermal-thermal-port-dispatch.html#thermal-port-dispatch">4.4.4 港口调度</a><a class="toc-level-3" href="thermal-thermal-railway.html#thermal-railway">4.4.5 铁路运输</a><a class="toc-level-2" href="thermal-thermal-weather.html#thermal-weather">4.5 天气</a></nav>
+<main>
+<header>
+<h1>煤焦周报20260906</h1>
+</header>
+<div class="panel-tabs split-page-tabs" role="navigation"><a class="split-tab" href="index.html">汇总+平衡表</a><a class="split-tab active" href="jm.html">焦煤</a><a class="split-tab" href="coke.html">焦炭</a><a class="split-tab" href="thermal.html">动力煤</a></div>
+<section class="report-panel active" id="jm"><h2>焦煤</h2><nav aria-label="子面板" class="section-page-nav"><a class="section-link" href="jm.html#jm-warrant">2.1 仓单</a><a class="section-link" href="jm-jm-overseas-heading.html#jm-overseas-heading">2.2 海外煤</a><a class="section-link" href="jm-jm-mm.html#jm-mm">2.2.1 蒙煤</a><a class="section-link" href="jm-jm-aus.html#jm-aus">2.2.2 澳煤</a><a class="section-link" href="jm-jm-russia.html#jm-russia">2.2.3 俄煤</a><a class="section-link" href="jm-jm-canada.html#jm-canada">2.2.4 加拿大煤</a><a class="section-link" href="jm-jm-seaborne-flow.html#jm-seaborne-flow">2.2.5 海煤发运</a><a class="section-link" href="jm-jm-shanxi-heading.html#jm-shanxi-heading">2.3 山西煤</a><a class="section-link" href="jm-jm-shanxi-price.html#jm-shanxi-price">2.3.1 山西煤价格及竞拍</a><a class="section-link" href="jm-jm-ms-supply.html#jm-ms-supply">2.3.2.1 MS供应</a><a class="section-link" href="jm-jm-fw-supply.html#jm-fw-supply">2.3.2.2 汾渭供应</a><a class="section-link" href="jm-jm-ms-inv.html#jm-ms-inv">2.3.3.1 MS总库存</a><a class="section-link" href="jm-jm-cjh-inv.html#jm-cjh-inv">2.3.3.2 煤炭江湖港口库存（炼焦煤，国联民生）</a><a class="section-link" href="jm-jm-fw-inv.html#jm-fw-inv">2.3.3.3 汾渭库存</a><a class="section-link active" href="jm-jm-cokeplant-coal-inv.html#jm-cokeplant-coal-inv">2.3.3.4 焦化厂焦煤库存可用天数</a><a class="section-link" href="jm-jm-profit.html#jm-profit">2.3.4 焦煤利润</a></nav><section class="subpanel" id="jm-cokeplant-coal-inv"><h3>2.3.3.4 焦化厂焦煤库存可用天数</h3><div class="node-meta"><span>已接入数据驱动图。</span></div><div class="interactive-data-block available-days-block"><div class="data-head"><strong>汾渭焦企焦煤库存可用天数</strong><span>汇总表 + Canvas季节性图；单位：天</span></div><div class="table-scroll"><table class="data-table compact summary-table period-summary-table"><thead><tr><th>指标</th><th>2026/08/13</th><th>2026/08/20</th><th>2026/08/27</th><th>2026/09/03</th><th>周变动</th><th>月变动</th><th>年变动</th></tr></thead><tbody><tr><td>全国</td><td>6.97</td><td>7.27</td><td>7.53</td><td>7.77</td><td class="chg-pos">+0.2</td><td class="chg-pos">+1.3</td><td class="chg-pos">+1.2</td></tr><tr><td>山西</td><td>6.61</td><td>6.99</td><td>7.28</td><td>7.49</td><td class="chg-pos">+0.2</td><td class="chg-pos">+1.4</td><td class="chg-pos">+1.3</td></tr><tr><td>河北</td><td>6.95</td><td>7.18</td><td>7.37</td><td>7.58</td><td class="chg-pos">+0.2</td><td class="chg-pos">+1.1</td><td class="chg-pos">+0.8</td></tr><tr><td>山东</td><td>8</td><td>8.2</td><td>8.48</td><td>8.84</td><td class="chg-pos">+0.4</td><td class="chg-pos">+1.2</td><td class="chg-pos">+1.8</td></tr></tbody></table></div><div class="chart-grid seasonal-grid available-days-grid chart-grid-live"><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"全国（天）","axisMin":0,"axisMax":20,"ticks":[0.0,5,10,15,20],"series":[{"year":2020,"color":"#9aa4b2","width":2.0,"points":[[1.0,"01-02",15.615385],[8.0,"01-09",15.602564],[15.0,"01-16",16.384615],[21.0,"01-22",17.25641],[43.0,"02-13",10.025641],[50.0,"02-20",10.435897],[57.0,"02-27",10.769231],[63.0,"03-05",11.333333],[70.0,"03-12",11.410256],[77.0,"03-19",11.179487],[84.0,"03-26",10.25641],[91.0,"04-02",10.153846],[98.0,"04-09",9.974359],[105.0,"04-16",9.923077],[112.0,"04-23",9.910256],[119.0,"04-30",10.564103],[126.0,"05-07",10.461538],[133.0,"05-14",10.564103],[140.0,"05-21",10.871795],[147.0,"05-28",11.346154],[154.0,"06-04",11.564103],[161.0,"06-11",11.897436],[168.0,"06-18",12.282051],[178.0,"06-28",12.471795],[182.0,"07-02",12.871795],[189.0,"07-09",12.858974],[196.0,"07-16",12.551282],[203.0,"07-23",12.076923],[210.0,"07-30",11.987179],[217.0,"08-06",11.833333],[224.0,"08-13",11.717949],[231.0,"08-20",12.064103],[238.0,"08-27",12.628205],[245.0,"09-03",13.307692],[252.0,"09-10",13.769231],[259.0,"09-17",13.987179],[266.0,"09-24",14.205128],[272.0,"09-30",14.346154],[288.0,"10-16",15.051282],[294.0,"10-22",15.282051],[301.0,"10-29",15.269231],[308.0,"11-05",15.251282],[315.0,"11-12",15.225641],[322.0,"11-19",15.174359],[329.0,"11-26",15.210256],[336.0,"12-03",15.3],[343.0,"12-10",15.576923],[350.0,"12-17",15.833333],[357.0,"12-24",16.064103],[364.0,"12-31",16.153846]]},{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[6.0,"01-07",16.525641],[13.0,"01-14",16.448718],[20.0,"01-21",16.602564],[27.0,"01-28",17.335897],[34.0,"02-04",19.294872],[40.0,"02-10",19.820513],[48.0,"02-18",16.089744],[55.0,"02-25",15.141026],[62.0,"03-04",14.010256],[69.0,"03-11",13.946154],[76.0,"03-18",14.0],[83.0,"03-25",14.076923],[90.0,"04-01",14.110256],[97.0,"04-08",14.135897],[104.0,"04-15",14.153846],[111.0,"04-22",14.179487],[118.0,"04-29",14.382051],[125.0,"05-06",14.028205],[132.0,"05-13",11.410256],[139.0,"05-20",11.666667],[146.0,"05-27",12.089744],[153.0,"06-03",12.379487],[160.0,"06-10",13.069231],[167.0,"06-17",11.974359],[174.0,"06-24",10.871795],[181.0,"07-01",9.861538],[188.0,"07-08",10.197436],[195.0,"07-15",9.982051],[202.0,"07-22",9.630769],[209.0,"07-29",9.676923],[216.0,"08-05",9.576923],[223.0,"08-12",9.538462],[230.0,"08-19",9.55641],[237.0,"08-26",9.620513],[244.0,"09-02",10.0],[251.0,"09-09",10.166667],[258.0,"09-16",10.693333],[265.0,"09-23",11.143333],[272.0,"09-30",12.183333],[280.0,"10-08",10.512667],[286.0,"10-14",11.333333],[293.0,"10-21",11.966667],[300.0,"10-28",12.466667],[307.0,"11-04",12.05],[314.0,"11-11",11.033333],[321.0,"11-18",10.53],[328.0,"11-25",10.966667],[335.0,"12-02",11.433333],[342.0,"12-09",13.846154],[349.0,"12-16",15.25641],[356.0,"12-23",15.948718],[363.0,"12-30",16.917949]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[5.0,"01-06",17.62],[12.0,"01-13",18.67],[19.0,"01-20",19.876923],[26.0,"01-27",21.320513],[40.0,"02-10",14.115385],[47.0,"02-17",11.705128],[54.0,"02-24",11.610256],[61.0,"03-03",11.476923],[68.0,"03-10",11.435897],[75.0,"03-17",11.358974],[82.0,"03-24",10.994872],[89.0,"03-31",11.282051],[96.0,"04-07",10.684615],[103.0,"04-14",9.666667],[110.0,"04-21",9.307692],[117.0,"04-28",9.816667],[124.0,"05-05",10.417949],[131.0,"05-12",10.102564],[138.0,"05-19",9.974359],[145.0,"05-26",9.912821],[152.0,"06-02",10.015385],[159.0,"06-09",10.148718],[166.0,"06-16",10.579487],[173.0,"06-23",9.897436],[180.0,"06-30",9.758974],[187.0,"07-07",8.641026],[194.0,"07-14",8.502564],[201.0,"07-21",8.128205],[208.0,"07-28",7.615385],[215.0,"08-04",7.769231],[222.0,"08-11",7.99],[229.0,"08-18",8.153846],[236.0,"08-25",8.251282],[243.0,"09-01",8.110256],[250.0,"09-08",8.0],[257.0,"09-15",8.135897],[264.0,"09-22",8.37],[271.0,"09-29",8.58],[281.0,"10-09",8.41],[285.0,"10-13",7.653846],[292.0,"10-20",7.117949],[299.0,"10-27",7.24359],[306.0,"11-03",7.076923],[313.0,"11-10",6.961538],[320.0,"11-17",7.2],[327.0,"11-24",7.615385],[334.0,"12-01",7.082051],[341.0,"12-08",7.487179],[348.0,"12-15",8.410256],[355.0,"12-22",10.794872],[362.0,"12-29",12.057692]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[4.0,"01-05",12.292308],[11.0,"01-12",13.012821],[18.0,"01-19",13.479487],[28.0,"01-29",9.269231],[32.0,"02-02",8.333333],[39.0,"02-09",8.269231],[46.0,"02-16",7.95641],[53.0,"02-23",8.158974],[60.0,"03-02",8.766667],[67.0,"03-09",8.884615],[74.0,"03-16",8.628205],[81.0,"03-23",7.764103],[88.0,"03-30",7.166667],[95.0,"04-06",6.910256],[102.0,"04-13",6.728205],[109.0,"04-20",6.633333],[116.0,"04-27",6.484615],[123.0,"05-04",5.871795],[130.0,"05-11",5.910256],[137.0,"05-18",6.435897],[144.0,"05-25",6.812821],[151.0,"06-01",6.769231],[158.0,"06-08",6.487179],[165.0,"06-15",6.846154],[171.0,"06-21",7.358974],[179.0,"06-29",7.166667],[186.0,"07-06",7.064103],[193.0,"07-13",7.515385],[200.0,"07-20",7.846154],[207.0,"07-27",7.971795],[214.0,"08-03",7.871795],[221.0,"08-10",8.053846],[228.0,"08-17",7.776923],[235.0,"08-24",7.54359],[242.0,"08-31",7.358974],[249.0,"09-07",7.520513],[256.0,"09-14",7.730769],[263.0,"09-21",8.058974],[270.0,"09-28",8.417949],[280.0,"10-08",8.153846],[284.0,"10-12",7.848718],[291.0,"10-19",7.520513],[298.0,"10-26",7.120513],[305.0,"11-02",6.884615],[312.0,"11-09",7.030769],[319.0,"11-16",7.428205],[326.0,"11-23",7.820513],[333.0,"11-30",7.512821],[340.0,"12-07",7.764103],[347.0,"12-14",7.558974],[354.0,"12-21",7.410256],[361.0,"12-28",7.74359]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[3.0,"01-04",7.666667],[10.0,"01-11",7.564103],[17.0,"01-18",8.212821],[24.0,"01-25",9.512821],[31.0,"02-01",11.641026],[38.0,"02-08",13.038462],[48.0,"02-18",9.538462],[52.0,"02-22",8.75641],[58.0,"02-29",7.615385],[65.0,"03-07",6.602564],[72.0,"03-14",5.692308],[79.0,"03-21",5.307692],[86.0,"03-28",5.512821],[92.0,"04-03",5.358974],[100.0,"04-11",5.661538],[107.0,"04-18",5.879487],[114.0,"04-25",6.679487],[120.0,"05-01",7.025641],[127.0,"05-08",7.102564],[134.0,"05-15",6.897436],[141.0,"05-22",6.769231],[148.0,"05-29",7.033333],[155.0,"06-05",6.782051],[162.0,"06-12",6.294872],[169.0,"06-19",5.974359],[176.0,"06-26",6.19],[183.0,"07-03",6.43],[190.0,"07-10",6.2],[197.0,"07-17",6.03],[204.0,"07-24",5.89],[211.0,"07-31",5.66],[218.0,"08-07",5.392593],[225.0,"08-14",5.111111],[232.0,"08-21",4.93],[239.0,"08-28",5.214815],[246.0,"09-04",5.59],[253.0,"09-11",5.644444],[260.0,"09-18",5.97037],[267.0,"09-25",6.61],[281.0,"10-09",8.681481],[288.0,"10-16",7.72],[295.0,"10-23",6.22963],[302.0,"10-30",6.414815],[309.0,"11-06",6.24],[316.0,"11-13",6.16],[323.0,"11-20",6.34],[330.0,"11-27",6.56],[337.0,"12-04",7.186567],[344.0,"12-11",7.69],[351.0,"12-18",8.19],[358.0,"12-25",8.09]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[1.0,"01-02",8.41],[8.0,"01-09",8.79],[15.0,"01-16",10.77],[22.0,"01-23",13.63],[36.0,"02-06",7.52],[43.0,"02-13",6.98],[50.0,"02-20",6.54],[57.0,"02-27",6.66],[64.0,"03-06",6.67],[71.0,"03-13",6.85],[78.0,"03-20",6.98],[85.0,"03-27",7.21],[92.0,"04-03",7.58],[99.0,"04-10",7.75],[106.0,"04-17",7.59],[113.0,"04-24",7.4],[119.0,"04-30",7.43],[127.0,"05-08",6.87],[134.0,"05-15",6.53],[141.0,"05-22",6.36],[148.0,"05-29",5.76],[155.0,"06-05",5.65],[162.0,"06-12",5.84],[169.0,"06-19",6.0],[176.0,"06-26",6.25],[183.0,"07-03",6.55],[190.0,"07-10",6.75],[197.0,"07-17",6.84],[204.0,"07-24",7.04],[211.0,"07-31",7.38],[218.0,"08-07",7.17],[225.0,"08-14",7.06],[232.0,"08-21",6.79],[239.0,"08-28",6.52],[246.0,"09-04",6.39],[253.0,"09-11",6.29],[260.0,"09-18",6.64],[267.0,"09-25",7.43],[272.0,"09-30",8.25],[281.0,"10-09",7.17],[288.0,"10-16",7.14],[295.0,"10-23",6.75],[302.0,"10-30",7.09],[309.0,"11-06",7.27],[316.0,"11-13",7.14],[323.0,"11-20",7.09],[330.0,"11-27",6.81],[337.0,"12-04",6.48],[344.0,"12-11",6.7],[351.0,"12-18",6.47],[358.0,"12-25",6.86],[364.0,"12-31",6.6]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[7.0,"01-08",6.19],[14.0,"01-15",6.58],[21.0,"01-22",7.78],[28.0,"01-29",9.01],[35.0,"02-05",10.95],[42.0,"02-12",14.63],[56.0,"02-26",8.19],[63.0,"03-05",7.08],[70.0,"03-12",7.36],[77.0,"03-19",8.23],[84.0,"03-26",8.58],[91.0,"04-02",9.22],[98.0,"04-09",8.15],[105.0,"04-16",7.86],[112.0,"04-23",8.22],[119.0,"04-30",8.45],[126.0,"05-07",7.46],[133.0,"05-14",7.34],[140.0,"05-21",7.08],[147.0,"05-28",6.61],[154.0,"06-04",5.99],[161.0,"06-11",5.88],[167.0,"06-17",5.79],[175.0,"06-25",5.91],[182.0,"07-02",5.8],[189.0,"07-09",5.7],[196.0,"07-16",5.7],[203.0,"07-23",6.01],[210.0,"07-30",6.47],[217.0,"08-06",6.82],[224.0,"08-13",6.97],[231.0,"08-20",7.27],[238.0,"08-27",7.53],[245.0,"09-03",7.77]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2020</span><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山西（天）","axisMin":0,"axisMax":20,"ticks":[0.0,5,10,15,20],"series":[{"year":2020,"color":"#9aa4b2","width":2.0,"points":[[1.0,"01-02",14.526316],[8.0,"01-09",14.657895],[15.0,"01-16",15.368421],[21.0,"01-22",16.473684],[43.0,"02-13",8.578947],[50.0,"02-20",9.105263],[57.0,"02-27",9.526316],[63.0,"03-05",10.210526],[70.0,"03-12",10.368421],[77.0,"03-19",10.105263],[84.0,"03-26",9.052632],[91.0,"04-02",9.157895],[98.0,"04-09",9.052632],[105.0,"04-16",8.894737],[112.0,"04-23",8.710526],[119.0,"04-30",9.263158],[126.0,"05-07",9.421053],[133.0,"05-14",9.473684],[140.0,"05-21",9.868421],[147.0,"05-28",10.421053],[154.0,"06-04",10.578947],[161.0,"06-11",11.052632],[168.0,"06-18",11.684211],[178.0,"06-28",11.947368],[182.0,"07-02",12.368421],[189.0,"07-09",12.236842],[196.0,"07-16",11.921053],[203.0,"07-23",11.526316],[210.0,"07-30",11.473684],[217.0,"08-06",11.368421],[224.0,"08-13",11.263158],[231.0,"08-20",11.684211],[238.0,"08-27",12.263158],[245.0,"09-03",13.0],[252.0,"09-10",13.473684],[259.0,"09-17",13.710526],[266.0,"09-24",14.131579],[272.0,"09-30",14.263158],[288.0,"10-16",14.894737],[294.0,"10-22",15.105263],[301.0,"10-29",15.147368],[308.0,"11-05",15.105263],[315.0,"11-12",15.0],[322.0,"11-19",14.921053],[329.0,"11-26",14.989474],[336.0,"12-03",15.078947],[343.0,"12-10",15.263158],[350.0,"12-17",15.552632],[357.0,"12-24",16.0],[364.0,"12-31",15.973684]]},{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[6.0,"01-07",16.5],[13.0,"01-14",16.657895],[20.0,"01-21",16.842105],[27.0,"01-28",17.763158],[34.0,"02-04",19.026316],[40.0,"02-10",19.473684],[48.0,"02-18",15.394737],[55.0,"02-25",14.526316],[62.0,"03-04",13.815789],[69.0,"03-11",13.684211],[76.0,"03-18",13.789474],[83.0,"03-25",13.947368],[90.0,"04-01",14.094737],[97.0,"04-08",14.157895],[104.0,"04-15",14.2],[111.0,"04-22",14.184211],[118.0,"04-29",14.447368],[125.0,"05-06",14.115789],[132.0,"05-13",10.157895],[139.0,"05-20",10.473684],[146.0,"05-27",11.052632],[153.0,"06-03",11.447368],[160.0,"06-10",12.242105],[167.0,"06-17",11.315789],[174.0,"06-24",10.236842],[181.0,"07-01",9.215789],[188.0,"07-08",9.615789],[195.0,"07-15",9.415789],[202.0,"07-22",9.468421],[209.0,"07-29",9.394737],[216.0,"08-05",9.315789],[223.0,"08-12",9.157895],[230.0,"08-19",9.236842],[237.0,"08-26",9.310526],[244.0,"09-02",9.763158],[251.0,"09-09",9.947368],[258.0,"09-16",10.357895],[265.0,"09-23",10.752632],[272.0,"09-30",11.578947],[280.0,"10-08",9.526316],[286.0,"10-14",10.473684],[293.0,"10-21",11.263158],[300.0,"10-28",11.842105],[307.0,"11-04",11.368421],[314.0,"11-11",10.0],[321.0,"11-18",9.42],[328.0,"11-25",9.947368],[335.0,"12-02",10.368421],[342.0,"12-09",11.5],[349.0,"12-16",13.052632],[356.0,"12-23",13.789474],[363.0,"12-30",14.778947]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[5.0,"01-06",15.63],[12.0,"01-13",17.16],[19.0,"01-20",18.789474],[26.0,"01-27",20.263158],[40.0,"02-10",12.631579],[47.0,"02-17",9.973684],[54.0,"02-24",10.042105],[61.0,"03-03",9.736842],[68.0,"03-10",10.052632],[75.0,"03-17",10.578947],[82.0,"03-24",10.963158],[89.0,"03-31",11.763158],[96.0,"04-07",11.126316],[103.0,"04-14",9.947368],[110.0,"04-21",9.736842],[117.0,"04-28",10.052632],[124.0,"05-05",10.368421],[131.0,"05-12",10.0],[138.0,"05-19",9.473684],[145.0,"05-26",9.189474],[152.0,"06-02",9.426316],[159.0,"06-09",9.621053],[166.0,"06-16",10.042105],[173.0,"06-23",9.184211],[180.0,"06-30",9.0],[187.0,"07-07",7.736842],[194.0,"07-14",7.663158],[201.0,"07-21",7.263158],[208.0,"07-28",6.684211],[215.0,"08-04",6.789474],[222.0,"08-11",6.95],[229.0,"08-18",7.078947],[236.0,"08-25",7.147368],[243.0,"09-01",6.989474],[250.0,"09-08",6.921053],[257.0,"09-15",7.157895],[264.0,"09-22",7.35],[271.0,"09-29",7.55],[281.0,"10-09",7.39],[285.0,"10-13",6.684211],[292.0,"10-20",6.189474],[299.0,"10-27",6.078947],[306.0,"11-03",5.921053],[313.0,"11-10",5.789474],[320.0,"11-17",5.989474],[327.0,"11-24",6.368421],[334.0,"12-01",5.915789],[341.0,"12-08",6.315789],[348.0,"12-15",7.368421],[355.0,"12-22",9.894737],[362.0,"12-29",11.118421]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[4.0,"01-05",11.342105],[11.0,"01-12",12.184211],[18.0,"01-19",12.684211],[28.0,"01-29",7.842105],[32.0,"02-02",6.684211],[39.0,"02-09",6.894737],[46.0,"02-16",6.631579],[53.0,"02-23",6.821053],[60.0,"03-02",7.515789],[67.0,"03-09",7.621053],[74.0,"03-16",7.331579],[81.0,"03-23",6.278947],[88.0,"03-30",5.657895],[95.0,"04-06",5.5],[102.0,"04-13",5.4],[109.0,"04-20",5.321053],[116.0,"04-27",5.110526],[123.0,"05-04",4.605263],[130.0,"05-11",4.842105],[137.0,"05-18",5.552632],[144.0,"05-25",6.089474],[151.0,"06-01",5.931579],[158.0,"06-08",5.578947],[165.0,"06-15",6.105263],[171.0,"06-21",6.789474],[179.0,"06-29",6.578947],[186.0,"07-06",6.473684],[193.0,"07-13",7.0],[200.0,"07-20",7.289474],[207.0,"07-27",7.394737],[214.0,"08-03",7.263158],[221.0,"08-10",7.763158],[228.0,"08-17",7.421053],[235.0,"08-24",7.163158],[242.0,"08-31",6.947368],[249.0,"09-07",7.131579],[256.0,"09-14",7.368421],[263.0,"09-21",7.621053],[270.0,"09-28",7.963158],[280.0,"10-08",7.763158],[284.0,"10-12",7.447368],[291.0,"10-19",7.094737],[298.0,"10-26",6.657895],[305.0,"11-02",6.368421],[312.0,"11-09",6.563158],[319.0,"11-16",6.989474],[326.0,"11-23",7.394737],[333.0,"11-30",7.052632],[340.0,"12-07",7.263158],[347.0,"12-14",7.073684],[354.0,"12-21",6.973684],[361.0,"12-28",7.289474]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[3.0,"01-04",7.157895],[10.0,"01-11",7.052632],[17.0,"01-18",7.673684],[24.0,"01-25",8.842105],[31.0,"02-01",10.789474],[38.0,"02-08",12.052632],[48.0,"02-18",7.789474],[52.0,"02-22",7.0],[58.0,"02-29",6.052632],[65.0,"03-07",5.131579],[72.0,"03-14",4.421053],[79.0,"03-21",4.105263],[86.0,"03-28",4.315789],[92.0,"04-03",4.210526],[100.0,"04-11",4.526316],[107.0,"04-18",4.805263],[114.0,"04-25",5.657895],[120.0,"05-01",6.026316],[127.0,"05-08",6.157895],[134.0,"05-15",6.0],[141.0,"05-22",5.894737],[148.0,"05-29",6.173684],[155.0,"06-05",5.947368],[162.0,"06-12",5.473684],[169.0,"06-19",5.131579],[176.0,"06-26",5.38],[183.0,"07-03",5.64],[190.0,"07-10",5.42],[197.0,"07-17",5.22],[204.0,"07-24",5.09],[211.0,"07-31",4.93],[218.0,"08-07",4.521739],[225.0,"08-14",4.231884],[232.0,"08-21",4.1],[239.0,"08-28",4.289855],[246.0,"09-04",4.7],[253.0,"09-11",4.782609],[260.0,"09-18",5.188406],[267.0,"09-25",5.86],[281.0,"10-09",8.0],[288.0,"10-16",7.35],[295.0,"10-23",5.942029],[302.0,"10-30",6.304348],[309.0,"11-06",6.0],[316.0,"11-13",6.1],[323.0,"11-20",6.32],[330.0,"11-27",6.48],[337.0,"12-04",6.985507],[344.0,"12-11",7.36],[351.0,"12-18",7.8],[358.0,"12-25",7.72]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[1.0,"01-02",8.23],[8.0,"01-09",8.55],[15.0,"01-16",10.55],[22.0,"01-23",13.19],[36.0,"02-06",7.0],[43.0,"02-13",6.51],[50.0,"02-20",6.13],[57.0,"02-27",6.28],[64.0,"03-06",6.38],[71.0,"03-13",6.59],[78.0,"03-20",6.74],[85.0,"03-27",6.91],[92.0,"04-03",7.36],[99.0,"04-10",7.57],[106.0,"04-17",7.41],[113.0,"04-24",7.23],[119.0,"04-30",7.2],[127.0,"05-08",6.64],[134.0,"05-15",6.26],[141.0,"05-22",6.06],[148.0,"05-29",5.33],[155.0,"06-05",5.23],[162.0,"06-12",5.41],[169.0,"06-19",5.61],[176.0,"06-26",5.96],[183.0,"07-03",6.33],[190.0,"07-10",6.58],[197.0,"07-17",6.72],[204.0,"07-24",6.94],[211.0,"07-31",7.36],[218.0,"08-07",7.07],[225.0,"08-14",6.8],[232.0,"08-21",6.46],[239.0,"08-28",6.17],[246.0,"09-04",6.06],[253.0,"09-11",5.97],[260.0,"09-18",6.39],[267.0,"09-25",7.2],[272.0,"09-30",8.01],[281.0,"10-09",6.94],[288.0,"10-16",6.9],[295.0,"10-23",6.54],[302.0,"10-30",6.94],[309.0,"11-06",7.16],[316.0,"11-13",6.96],[323.0,"11-20",7.03],[330.0,"11-27",6.77],[337.0,"12-04",6.38],[344.0,"12-11",6.62],[351.0,"12-18",6.35],[358.0,"12-25",6.61],[364.0,"12-31",6.32]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[7.0,"01-08",5.87],[14.0,"01-15",6.29],[21.0,"01-22",7.35],[28.0,"01-29",8.45],[35.0,"02-05",10.36],[42.0,"02-12",14.2],[56.0,"02-26",7.49],[63.0,"03-05",6.55],[70.0,"03-12",6.88],[77.0,"03-19",7.86],[84.0,"03-26",8.16],[91.0,"04-02",8.71],[98.0,"04-09",7.61],[105.0,"04-16",7.33],[112.0,"04-23",7.71],[119.0,"04-30",8.0],[126.0,"05-07",6.94],[133.0,"05-14",6.81],[140.0,"05-21",6.57],[147.0,"05-28",6.06],[154.0,"06-04",5.38],[161.0,"06-11",5.09],[167.0,"06-17",5.04],[175.0,"06-25",5.19],[182.0,"07-02",5.06],[189.0,"07-09",4.97],[196.0,"07-16",5.13],[203.0,"07-23",5.55],[210.0,"07-30",6.06],[217.0,"08-06",6.43],[224.0,"08-13",6.61],[231.0,"08-20",6.99],[238.0,"08-27",7.28],[245.0,"09-03",7.49]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2020</span><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"河北（天）","axisMin":0,"axisMax":20,"ticks":[0.0,5,10,15,20],"series":[{"year":2020,"color":"#9aa4b2","width":2.0,"points":[[1.0,"01-02",17.181818],[8.0,"01-09",17.090909],[15.0,"01-16",17.909091],[21.0,"01-22",18.545455],[43.0,"02-13",12.0],[50.0,"02-20",12.363636],[57.0,"02-27",12.636364],[63.0,"03-05",12.909091],[70.0,"03-12",12.727273],[77.0,"03-19",12.545455],[84.0,"03-26",11.818182],[91.0,"04-02",11.727273],[98.0,"04-09",11.363636],[105.0,"04-16",11.272727],[112.0,"04-23",11.454545],[119.0,"04-30",12.090909],[126.0,"05-07",11.818182],[133.0,"05-14",11.954545],[140.0,"05-21",12.136364],[147.0,"05-28",12.5],[154.0,"06-04",12.727273],[161.0,"06-11",12.909091],[168.0,"06-18",13.090909],[178.0,"06-28",13.181818],[182.0,"07-02",13.727273],[189.0,"07-09",13.818182],[196.0,"07-16",13.545455],[203.0,"07-23",12.909091],[210.0,"07-30",12.772727],[217.0,"08-06",12.5],[224.0,"08-13",12.363636],[231.0,"08-20",12.590909],[238.0,"08-27",13.045455],[245.0,"09-03",13.636364],[252.0,"09-10",14.090909],[259.0,"09-17",14.272727],[266.0,"09-24",14.545455],[272.0,"09-30",14.636364],[288.0,"10-16",15.363636],[294.0,"10-22",15.636364],[301.0,"10-29",15.5],[308.0,"11-05",15.527273],[315.0,"11-12",15.572727],[322.0,"11-19",15.545455],[329.0,"11-26",15.527273],[336.0,"12-03",15.590909],[343.0,"12-10",15.863636],[350.0,"12-17",16.136364],[357.0,"12-24",16.454545],[364.0,"12-31",16.590909]]},{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[6.0,"01-07",16.545455],[13.0,"01-14",15.909091],[20.0,"01-21",15.954545],[27.0,"01-28",16.236364],[34.0,"02-04",19.272727],[40.0,"02-10",20.0],[48.0,"02-18",16.954545],[55.0,"02-25",15.772727],[62.0,"03-04",13.763636],[69.0,"03-11",13.845455],[76.0,"03-18",13.818182],[83.0,"03-25",13.681818],[90.0,"04-01",13.590909],[97.0,"04-08",13.545455],[104.0,"04-15",13.5],[111.0,"04-22",13.563636],[118.0,"04-29",13.654545],[125.0,"05-06",13.181818],[132.0,"05-13",12.363636],[139.0,"05-20",12.590909],[146.0,"05-27",13.0],[153.0,"06-03",13.136364],[160.0,"06-10",13.772727],[167.0,"06-17",12.909091],[174.0,"06-24",11.727273],[181.0,"07-01",10.636364],[188.0,"07-08",10.954545],[195.0,"07-15",11.036364],[202.0,"07-22",10.536364],[209.0,"07-29",10.354545],[216.0,"08-05",10.090909],[223.0,"08-12",10.136364],[230.0,"08-19",9.954545],[237.0,"08-26",9.981818],[244.0,"09-02",10.5],[251.0,"09-09",10.545455],[258.0,"09-16",11.272727],[265.0,"09-23",11.818182],[272.0,"09-30",13.227273],[280.0,"10-08",12.216364],[286.0,"10-14",12.818182],[293.0,"10-21",13.181818],[300.0,"10-28",13.545455],[307.0,"11-04",13.227273],[314.0,"11-11",12.818182],[321.0,"11-18",12.45],[328.0,"11-25",12.727273],[335.0,"12-02",13.272727],[342.0,"12-09",13.772727],[349.0,"12-16",15.727273],[356.0,"12-23",16.727273],[363.0,"12-30",18.0]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[5.0,"01-06",18.64],[12.0,"01-13",19.45],[19.0,"01-20",20.818182],[26.0,"01-27",22.363636],[40.0,"02-10",15.636364],[47.0,"02-17",13.636364],[54.0,"02-24",13.454545],[61.0,"03-03",13.545455],[68.0,"03-10",12.909091],[75.0,"03-17",12.090909],[82.0,"03-24",10.181818],[89.0,"03-31",9.636364],[96.0,"04-07",9.027273],[103.0,"04-14",8.636364],[110.0,"04-21",8.0],[117.0,"04-28",8.363636],[124.0,"05-05",9.409091],[131.0,"05-12",9.363636],[138.0,"05-19",9.545455],[145.0,"05-26",9.636364],[152.0,"06-02",9.681818],[159.0,"06-09",9.954545],[166.0,"06-16",10.5],[173.0,"06-23",9.954545],[180.0,"06-30",10.045455],[187.0,"07-07",9.181818],[194.0,"07-14",9.0],[201.0,"07-21",8.909091],[208.0,"07-28",8.454545],[215.0,"08-04",8.636364],[222.0,"08-11",8.86],[229.0,"08-18",9.045455],[236.0,"08-25",9.181818],[243.0,"09-01",9.045455],[250.0,"09-08",8.954545],[257.0,"09-15",9.118182],[264.0,"09-22",9.39],[271.0,"09-29",9.59],[281.0,"10-09",9.41],[285.0,"10-13",8.636364],[292.0,"10-20",8.045455],[299.0,"10-27",8.318182],[306.0,"11-03",8.181818],[313.0,"11-10",8.090909],[320.0,"11-17",8.363636],[327.0,"11-24",8.818182],[334.0,"12-01",8.163636],[341.0,"12-08",8.590909],[348.0,"12-15",9.363636],[355.0,"12-22",11.454545],[362.0,"12-29",12.772727]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[4.0,"01-05",13.045455],[11.0,"01-12",13.681818],[18.0,"01-19",14.136364],[28.0,"01-29",10.454545],[32.0,"02-02",9.772727],[39.0,"02-09",9.5],[46.0,"02-16",9.118182],[53.0,"02-23",9.372727],[60.0,"03-02",9.918182],[67.0,"03-09",10.018182],[74.0,"03-16",9.790909],[81.0,"03-23",9.090909],[88.0,"03-30",8.545455],[95.0,"04-06",8.272727],[102.0,"04-13",7.981818],[109.0,"04-20",7.890909],[116.0,"04-27",7.636364],[123.0,"05-04",6.909091],[130.0,"05-11",6.772727],[137.0,"05-18",7.136364],[144.0,"05-25",7.363636],[151.0,"06-01",7.436364],[158.0,"06-08",7.227273],[165.0,"06-15",7.454545],[171.0,"06-21",7.818182],[179.0,"06-29",7.681818],[186.0,"07-06",7.6],[193.0,"07-13",8.0],[200.0,"07-20",8.363636],[207.0,"07-27",8.5],[214.0,"08-03",8.272727],[221.0,"08-10",8.118182],[228.0,"08-17",7.909091],[235.0,"08-24",7.681818],[242.0,"08-31",7.545455],[249.0,"09-07",7.709091],[256.0,"09-14",7.909091],[263.0,"09-21",8.318182],[270.0,"09-28",8.636364],[280.0,"10-08",8.363636],[284.0,"10-12",8.054545],[291.0,"10-19",7.727273],[298.0,"10-26",7.363636],[305.0,"11-02",7.136364],[312.0,"11-09",7.272727],[319.0,"11-16",7.672727],[326.0,"11-23",8.045455],[333.0,"11-30",7.727273],[340.0,"12-07",8.027273],[347.0,"12-14",7.8],[354.0,"12-21",7.590909],[361.0,"12-28",7.954545]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[3.0,"01-04",8.0],[10.0,"01-11",7.909091],[17.0,"01-18",8.545455],[24.0,"01-25",10.090909],[31.0,"02-01",12.363636],[38.0,"02-08",13.909091],[48.0,"02-18",11.181818],[52.0,"02-22",10.454545],[58.0,"02-29",9.090909],[65.0,"03-07",7.954545],[72.0,"03-14",6.818182],[79.0,"03-21",6.454545],[86.0,"03-28",6.636364],[92.0,"04-03",6.454545],[100.0,"04-11",6.727273],[107.0,"04-18",6.909091],[114.0,"04-25",7.636364],[120.0,"05-01",7.909091],[127.0,"05-08",7.818182],[134.0,"05-15",7.545455],[141.0,"05-22",7.363636],[148.0,"05-29",7.636364],[155.0,"06-05",7.363636],[162.0,"06-12",6.909091],[169.0,"06-19",6.590909],[176.0,"06-26",6.81],[183.0,"07-03",7.04],[190.0,"07-10",6.79],[197.0,"07-17",6.69],[204.0,"07-24",6.59],[211.0,"07-31",6.13],[218.0,"08-07",5.897436],[225.0,"08-14",5.589744],[232.0,"08-21",5.4],[239.0,"08-28",5.717949],[246.0,"09-04",6.05],[253.0,"09-11",6.153846],[260.0,"09-18",6.410256],[267.0,"09-25",7.02],[281.0,"10-09",8.641026],[288.0,"10-16",7.49],[295.0,"10-23",6.25641],[302.0,"10-30",6.153846],[309.0,"11-06",6.13],[316.0,"11-13",6.05],[323.0,"11-20",6.23],[330.0,"11-27",6.53],[337.0,"12-04",7.289474],[344.0,"12-11",7.87],[351.0,"12-18",8.42],[358.0,"12-25",8.21]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[1.0,"01-02",8.66],[8.0,"01-09",8.95],[15.0,"01-16",10.71],[22.0,"01-23",13.79],[36.0,"02-06",7.63],[43.0,"02-13",7.05],[50.0,"02-20",6.74],[57.0,"02-27",6.82],[64.0,"03-06",6.87],[71.0,"03-13",7.0],[78.0,"03-20",7.11],[85.0,"03-27",7.39],[92.0,"04-03",7.63],[99.0,"04-10",7.74],[106.0,"04-17",7.61],[113.0,"04-24",7.39],[119.0,"04-30",7.45],[127.0,"05-08",6.92],[134.0,"05-15",6.61],[141.0,"05-22",6.5],[148.0,"05-29",6.03],[155.0,"06-05",5.92],[162.0,"06-12",6.16],[169.0,"06-19",6.32],[176.0,"06-26",6.42],[183.0,"07-03",6.58],[190.0,"07-10",6.76],[197.0,"07-17",6.89],[204.0,"07-24",7.08],[211.0,"07-31",7.34],[218.0,"08-07",7.18],[225.0,"08-14",7.24],[232.0,"08-21",7.08],[239.0,"08-28",6.82],[246.0,"09-04",6.68],[253.0,"09-11",6.58],[260.0,"09-18",6.87],[267.0,"09-25",7.61],[272.0,"09-30",8.42],[281.0,"10-09",7.37],[288.0,"10-16",7.34],[295.0,"10-23",6.84],[302.0,"10-30",7.13],[309.0,"11-06",7.26],[316.0,"11-13",7.29],[323.0,"11-20",7.18],[330.0,"11-27",6.87],[337.0,"12-04",6.61],[344.0,"12-11",6.76],[351.0,"12-18",6.53],[358.0,"12-25",7.05],[364.0,"12-31",6.82]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[7.0,"01-08",6.45],[14.0,"01-15",6.82],[21.0,"01-22",8.11],[28.0,"01-29",9.26],[35.0,"02-05",11.24],[42.0,"02-12",14.92],[56.0,"02-26",8.5],[63.0,"03-05",7.34],[70.0,"03-12",7.58],[77.0,"03-19",8.34],[84.0,"03-26",8.71],[91.0,"04-02",9.39],[98.0,"04-09",8.37],[105.0,"04-16",8.08],[112.0,"04-23",8.39],[119.0,"04-30",8.55],[126.0,"05-07",7.66],[133.0,"05-14",7.55],[140.0,"05-21",7.29],[147.0,"05-28",6.89],[154.0,"06-04",6.34],[161.0,"06-11",6.11],[167.0,"06-17",6.05],[175.0,"06-25",6.16],[182.0,"07-02",6.11],[189.0,"07-09",6.0],[196.0,"07-16",5.89],[203.0,"07-23",6.11],[210.0,"07-30",6.47],[217.0,"08-06",6.82],[224.0,"08-13",6.95],[231.0,"08-20",7.18],[238.0,"08-27",7.37],[245.0,"09-03",7.58]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2020</span><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山东（天）","axisMin":5,"axisMax":20,"ticks":[5,10,15,20],"series":[{"year":2020,"color":"#9aa4b2","width":2.0,"points":[[1.0,"01-02",16.0],[8.0,"01-09",15.777778],[15.0,"01-16",16.666667],[21.0,"01-22",17.333333],[43.0,"02-13",10.666667],[50.0,"02-20",10.888889],[57.0,"02-27",11.111111],[63.0,"03-05",11.777778],[70.0,"03-12",12.0],[77.0,"03-19",11.777778],[84.0,"03-26",10.888889],[91.0,"04-02",10.333333],[98.0,"04-09",10.222222],[105.0,"04-16",10.444444],[112.0,"04-23",10.555556],[119.0,"04-30",11.444444],[126.0,"05-07",11.0],[133.0,"05-14",11.166667],[140.0,"05-21",11.444444],[147.0,"05-28",11.888889],[154.0,"06-04",12.222222],[161.0,"06-11",12.444444],[168.0,"06-18",12.555556],[178.0,"06-28",12.711111],[182.0,"07-02",12.888889],[189.0,"07-09",13.0],[196.0,"07-16",12.666667],[203.0,"07-23",12.222222],[210.0,"07-30",12.111111],[217.0,"08-06",12.0],[224.0,"08-13",11.888889],[231.0,"08-20",12.222222],[238.0,"08-27",12.888889],[245.0,"09-03",13.555556],[252.0,"09-10",14.0],[259.0,"09-17",14.222222],[266.0,"09-24",13.944444],[272.0,"09-30",14.166667],[288.0,"10-16",15.0],[294.0,"10-22",15.222222],[301.0,"10-29",15.244444],[308.0,"11-05",15.222222],[315.0,"11-12",15.277778],[322.0,"11-19",15.255556],[329.0,"11-26",15.288889],[336.0,"12-03",15.411111],[343.0,"12-10",15.888889],[350.0,"12-17",16.055556],[357.0,"12-24",15.722222],[364.0,"12-31",16.0]]},{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[6.0,"01-07",16.555556],[13.0,"01-14",16.666667],[20.0,"01-21",16.888889],[27.0,"01-28",17.777778],[34.0,"02-04",19.888889],[40.0,"02-10",20.333333],[48.0,"02-18",16.5],[55.0,"02-25",15.666667],[62.0,"03-04",14.722222],[69.0,"03-11",14.622222],[76.0,"03-18",14.666667],[83.0,"03-25",14.833333],[90.0,"04-01",14.777778],[97.0,"04-08",14.811111],[104.0,"04-15",14.855556],[111.0,"04-22",14.922222],[118.0,"04-29",15.133333],[125.0,"05-06",14.877778],[132.0,"05-13",12.888889],[139.0,"05-20",13.055556],[146.0,"05-27",13.166667],[153.0,"06-03",13.422222],[160.0,"06-10",13.955556],[167.0,"06-17",12.222222],[174.0,"06-24",11.166667],[181.0,"07-01",10.277778],[188.0,"07-08",10.5],[195.0,"07-15",9.888889],[202.0,"07-22",8.866667],[209.0,"07-29",9.444444],[216.0,"08-05",9.5],[223.0,"08-12",9.611111],[230.0,"08-19",9.744444],[237.0,"08-26",9.833333],[244.0,"09-02",9.888889],[251.0,"09-09",13.222222],[258.0,"09-16",13.777778],[265.0,"09-23",14.222222],[272.0,"09-30",16.777778],[280.0,"10-08",15.888889],[286.0,"10-14",17.777778],[293.0,"10-21",18.888889],[300.0,"10-28",19.444444],[307.0,"11-04",20.333333],[314.0,"11-11",19.666667],[321.0,"11-18",19.11],[328.0,"11-25",18.444444],[335.0,"12-02",18.722222],[342.0,"12-09",18.888889],[349.0,"12-16",19.333333],[356.0,"12-23",19.555556],[363.0,"12-30",20.111111]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[5.0,"01-06",20.56],[12.0,"01-13",20.91],[19.0,"01-20",21.022222],[26.0,"01-27",22.277778],[40.0,"02-10",15.388889],[47.0,"02-17",13.0],[54.0,"02-24",12.666667],[61.0,"03-03",12.622222],[68.0,"03-10",12.555556],[75.0,"03-17",12.111111],[82.0,"03-24",12.055556],[89.0,"03-31",12.277778],[96.0,"04-07",11.777778],[103.0,"04-14",10.333333],[110.0,"04-21",10.0],[117.0,"04-28",11.094444],[124.0,"05-05",11.755556],[131.0,"05-12",11.222222],[138.0,"05-19",11.555556],[145.0,"05-26",11.777778],[152.0,"06-02",11.666667],[159.0,"06-09",11.5],[166.0,"06-16",11.811111],[173.0,"06-23",11.333333],[180.0,"06-30",11.011111],[187.0,"07-07",9.888889],[194.0,"07-14",9.666667],[201.0,"07-21",9.0],[208.0,"07-28",8.555556],[215.0,"08-04",8.777778],[222.0,"08-11",9.11],[229.0,"08-18",9.333333],[236.0,"08-25",9.444444],[243.0,"09-01",9.333333],[250.0,"09-08",9.111111],[257.0,"09-15",9.0],[264.0,"09-22",9.28],[271.0,"09-29",9.52],[281.0,"10-09",9.32],[285.0,"10-13",8.5],[292.0,"10-20",7.944444],[299.0,"10-27",8.388889],[306.0,"11-03",8.166667],[313.0,"11-10",8.055556],[320.0,"11-17",8.333333],[327.0,"11-24",8.777778],[334.0,"12-01",8.222222],[341.0,"12-08",8.611111],[348.0,"12-15",9.444444],[355.0,"12-22",11.888889],[362.0,"12-29",13.166667]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[4.0,"01-05",13.377778],[11.0,"01-12",13.944444],[18.0,"01-19",14.355556],[28.0,"01-29",10.833333],[32.0,"02-02",10.055556],[39.0,"02-09",9.666667],[46.0,"02-16",9.333333],[53.0,"02-23",9.5],[60.0,"03-02",10.0],[67.0,"03-09",10.166667],[74.0,"03-16",9.944444],[81.0,"03-23",9.277778],[88.0,"03-30",8.666667],[95.0,"04-06",8.222222],[102.0,"04-13",8.0],[109.0,"04-20",7.866667],[116.0,"04-27",7.977778],[123.0,"05-04",7.277778],[130.0,"05-11",7.111111],[137.0,"05-18",7.444444],[144.0,"05-25",7.666667],[151.0,"06-01",7.722222],[158.0,"06-08",7.5],[165.0,"06-15",7.666667],[171.0,"06-21",8.0],[179.0,"06-29",7.777778],[186.0,"07-06",7.655556],[193.0,"07-13",8.011111],[200.0,"07-20",8.388889],[207.0,"07-27",8.544444],[214.0,"08-03",8.666667],[221.0,"08-10",8.588889],[228.0,"08-17",8.366667],[235.0,"08-24",8.177778],[242.0,"08-31",8.0],[249.0,"09-07",8.111111],[256.0,"09-14",8.277778],[263.0,"09-21",8.666667],[270.0,"09-28",9.111111],[280.0,"10-08",8.722222],[284.0,"10-12",8.444444],[291.0,"10-19",8.166667],[298.0,"10-26",7.8],[305.0,"11-02",7.666667],[312.0,"11-09",7.722222],[319.0,"11-16",8.055556],[326.0,"11-23",8.444444],[333.0,"11-30",8.222222],[340.0,"12-07",8.5],[347.0,"12-14",8.288889],[354.0,"12-21",8.111111],[361.0,"12-28",8.444444]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[3.0,"01-04",8.333333],[10.0,"01-11",8.222222],[17.0,"01-18",8.944444],[24.0,"01-25",10.222222],[31.0,"02-01",12.555556],[38.0,"02-08",14.055556],[48.0,"02-18",11.222222],[52.0,"02-22",10.388889],[58.0,"02-29",9.111111],[65.0,"03-07",8.055556],[72.0,"03-14",7.0],[79.0,"03-21",6.444444],[86.0,"03-28",6.666667],[92.0,"04-03",6.444444],[100.0,"04-11",6.755556],[107.0,"04-18",6.888889],[114.0,"04-25",7.666667],[120.0,"05-01",8.055556],[127.0,"05-08",8.222222],[134.0,"05-15",8.0],[141.0,"05-22",7.888889],[148.0,"05-29",8.111111],[155.0,"06-05",7.833333],[162.0,"06-12",7.277778],[169.0,"06-19",7.0],[176.0,"06-26",7.37],[183.0,"07-03",7.59],[190.0,"07-10",7.33],[197.0,"07-17",7.15],[204.0,"07-24",6.94],[211.0,"07-31",6.87],[218.0,"08-07",6.888889],[225.0,"08-14",6.666667],[232.0,"08-21",6.37],[239.0,"08-28",6.851852],[246.0,"09-04",7.22],[253.0,"09-11",7.111111],[260.0,"09-18",7.333333],[267.0,"09-25",7.93],[281.0,"10-09",10.481481],[288.0,"10-16",9.0],[295.0,"10-23",6.925926],[302.0,"10-30",7.074074],[309.0,"11-06",7.0],[316.0,"11-13",6.44],[323.0,"11-20",6.56],[330.0,"11-27",6.81],[337.0,"12-04",7.555556],[344.0,"12-11",8.3],[351.0,"12-18",8.89],[358.0,"12-25",8.85]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[1.0,"01-02",8.52],[8.0,"01-09",9.19],[15.0,"01-16",11.41],[22.0,"01-23",14.56],[36.0,"02-06",8.7],[43.0,"02-13",8.07],[50.0,"02-20",7.3],[57.0,"02-27",7.41],[64.0,"03-06",7.15],[71.0,"03-13",7.3],[78.0,"03-20",7.41],[85.0,"03-27",7.7],[92.0,"04-03",8.07],[99.0,"04-10",8.22],[106.0,"04-17",8.04],[113.0,"04-24",7.81],[119.0,"04-30",7.96],[127.0,"05-08",7.41],[134.0,"05-15",7.11],[141.0,"05-22",6.93],[148.0,"05-29",6.48],[155.0,"06-05",6.33],[162.0,"06-12",6.52],[169.0,"06-19",6.56],[176.0,"06-26",6.78],[183.0,"07-03",7.07],[190.0,"07-10",7.19],[197.0,"07-17",7.04],[204.0,"07-24",7.22],[211.0,"07-31",7.46],[218.0,"08-07",7.38],[225.0,"08-14",7.52],[232.0,"08-21",7.24],[239.0,"08-28",7.0],[246.0,"09-04",6.84],[253.0,"09-11",6.72],[260.0,"09-18",7.0],[267.0,"09-25",7.8],[272.0,"09-30",8.64],[281.0,"10-09",7.48],[288.0,"10-16",7.52],[295.0,"10-23",7.2],[302.0,"10-30",7.44],[309.0,"11-06",7.56],[316.0,"11-13",7.4],[323.0,"11-20",7.12],[330.0,"11-27",6.84],[337.0,"12-04",6.6],[344.0,"12-11",6.8],[351.0,"12-18",6.72],[358.0,"12-25",7.28],[364.0,"12-31",7.04]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[7.0,"01-08",6.68],[14.0,"01-15",7.04],[21.0,"01-22",8.48],[28.0,"01-29",10.16],[35.0,"02-05",12.12],[42.0,"02-12",15.36],[56.0,"02-26",9.64],[63.0,"03-05",8.16],[70.0,"03-12",8.32],[77.0,"03-19",9.12],[84.0,"03-26",9.52],[91.0,"04-02",10.36],[98.0,"04-09",9.32],[105.0,"04-16",8.96],[112.0,"04-23",9.36],[119.0,"04-30",9.56],[126.0,"05-07",8.6],[133.0,"05-14",8.48],[140.0,"05-21",8.2],[147.0,"05-28",7.68],[154.0,"06-04",7.16],[161.0,"06-11",7.72],[167.0,"06-17",7.44],[175.0,"06-25",7.52],[182.0,"07-02",7.4],[189.0,"07-09",7.28],[196.0,"07-16",6.96],[203.0,"07-23",7.12],[210.0,"07-30",7.6],[217.0,"08-06",7.88],[224.0,"08-13",8.0],[231.0,"08-20",8.2],[238.0,"08-27",8.48],[245.0,"09-03",8.84]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2020</span><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article></div><p class="source-note">来源：fenwei_coking_coal_coking_plant_available_days_region.npz；单位：天。</p></div><div class="interactive-data-block available-days-block"><div class="data-head"><strong>调研样本焦企焦煤库存可用天数</strong><span>汇总表 + Canvas季节性图；单位：天</span></div><div class="table-scroll"><table class="data-table compact summary-table period-summary-table"><thead><tr><th>指标</th><th>2026/08/15</th><th>2026/08/22</th><th>2026/08/29</th><th>2026/09/05</th><th>周变动</th><th>月变动</th><th>年变动</th></tr></thead><tbody><tr><td>山西地区合计</td><td>6.14</td><td>5.86</td><td>5.77</td><td>5.83</td><td class="chg-pos">+0.1</td><td class="chg-neg">-0.3</td><td class="chg-pos">+0.5</td></tr><tr><td>山西亚鑫</td><td>8</td><td>8</td><td>8</td><td>8</td><td>+0.0</td><td>+0.0</td><td class="chg-pos">+2.0</td></tr><tr><td>山西美锦</td><td>6</td><td>6</td><td>6</td><td>5</td><td class="chg-neg">-1.0</td><td class="chg-neg">-1.0</td><td>+0.0</td></tr><tr><td>山西长治南耀</td><td>6</td><td>5</td><td>5</td><td>5</td><td>+0.0</td><td class="chg-neg">-1.0</td><td>+0.0</td></tr><tr><td>山西鹏飞</td><td>5</td><td>5</td><td>5</td><td>6</td><td class="chg-pos">+1.0</td><td class="chg-pos">+1.0</td><td class="chg-pos">+1.0</td></tr><tr><td>山西安泰</td><td>1.33</td><td>0.83</td><td>0.83</td><td>0.83</td><td>+0.0</td><td>+0.0</td><td>+0.0</td></tr><tr><td>山西潞宝</td><td>8</td><td>7</td><td>7</td><td>7</td><td>+0.0</td><td class="chg-neg">-1.0</td><td class="chg-pos">+1.0</td></tr><tr><td>山西潞安</td><td>7</td><td>7</td><td>7</td><td>7</td><td>+0.0</td><td>+0.0</td><td>+0.0</td></tr><tr><td>山西阳光</td><td>7.09</td><td>7.73</td><td>7.91</td><td>7.45</td><td class="chg-neg">-0.5</td><td>+0.0</td><td class="chg-pos">+1.0</td></tr><tr><td>山西中信</td><td>6</td><td>5</td><td>5</td><td>6</td><td class="chg-pos">+1.0</td><td>+0.0</td><td class="chg-pos">+1.0</td></tr><tr><td>河津龙门</td><td>7</td><td>7</td><td>6</td><td>6</td><td>+0.0</td><td class="chg-neg">-1.0</td><td class="chg-neg">-1.0</td></tr><tr><td>河北旭阳</td><td>5.71</td><td>5.71</td><td>5.71</td><td>5.71</td><td>+0.0</td><td>+0.0</td><td class="chg-pos">+0.7</td></tr><tr><td>河北华丰</td><td>6</td><td>6</td><td>5</td><td>5</td><td>+0.0</td><td class="chg-neg">-1.0</td><td class="chg-neg">-1.0</td></tr><tr><td>河北地区小计</td><td>5.86</td><td>5.86</td><td>5.36</td><td>5.36</td><td>+0.0</td><td class="chg-neg">-0.5</td><td class="chg-neg">-0.1</td></tr><tr><td>山东铁雄</td><td>12.0</td><td>12.0</td><td>11.0</td><td>10.0</td><td class="chg-neg">-1.0</td><td>+0.0</td><td class="chg-neg">-9.7</td></tr><tr><td>山东恒昌</td><td>13.6</td><td>11.4</td><td>11.4</td><td>11.4</td><td>+0.0</td><td class="chg-neg">-2.3</td><td class="chg-neg">-2.3</td></tr><tr><td>山东富海</td><td>0</td><td>0</td><td>0</td><td>0</td><td>+0.0</td><td>+0.0</td><td>+0.0</td></tr><tr><td>山东地区合计</td><td>12.8</td><td>11.7</td><td>11.2</td><td>10.7</td><td class="chg-neg">-0.5</td><td class="chg-neg">-1.1</td><td class="chg-neg">-6.0</td></tr><tr><td>宁夏宝丰</td><td>6</td><td>5</td><td>5</td><td>5</td><td>+0.0</td><td class="chg-neg">-1.0</td><td class="chg-neg">-1.0</td></tr><tr><td>宁夏地区小计</td><td>6</td><td>5</td><td>5</td><td>5</td><td>+0.0</td><td class="chg-neg">-1.0</td><td class="chg-neg">-1.0</td></tr><tr><td>乌海广纳</td><td>4</td><td>3</td><td>2</td><td>3</td><td class="chg-pos">+1.0</td><td class="chg-neg">-1.0</td><td class="chg-neg">-2.0</td></tr><tr><td>乌海美方</td><td>2.93</td><td>3.08</td><td>3.72</td><td>2.46</td><td class="chg-neg">-1.3</td><td class="chg-neg">-0.5</td><td class="chg-neg">-1.4</td></tr><tr><td>内蒙小计</td><td>3.47</td><td>3.04</td><td>2.86</td><td>2.73</td><td class="chg-neg">-0.1</td><td class="chg-neg">-0.7</td><td class="chg-neg">-1.7</td></tr><tr><td>总计</td><td>6.57</td><td>6.16</td><td>5.97</td><td>5.93</td><td>-0.0</td><td class="chg-neg">-0.5</td><td class="chg-neg">-0.7</td></tr></tbody></table></div><div class="chart-grid seasonal-grid available-days-grid chart-grid-live"><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山西地区合计（天）","axisMin":2,"axisMax":10,"ticks":[2,4,6,8,10],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",5.06],[325.0,"11-22",5.65],[332.0,"11-29",5.9],[339.0,"12-06",6.28],[346.0,"12-13",6.22],[353.0,"12-20",7.15],[360.0,"12-27",6.93]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",7.06],[16.0,"01-17",7.79],[37.0,"02-07",5.68],[44.0,"02-14",5.13],[51.0,"02-21",4.95],[58.0,"02-28",5.0],[65.0,"03-07",5.26],[72.0,"03-14",5.61],[79.0,"03-21",5.28],[86.0,"03-28",5.81],[93.0,"04-04",6.02],[100.0,"04-11",5.59],[107.0,"04-18",5.25],[114.0,"04-25",5.87],[128.0,"05-09",5.7],[135.0,"05-16",5.66],[142.0,"05-23",5.54],[149.0,"05-30",5.68],[156.0,"06-06",5.75],[163.0,"06-13",5.09],[170.0,"06-20",5.15],[177.0,"06-27",5.26],[184.0,"07-04",5.88],[191.0,"07-11",6.11],[198.0,"07-18",6.45],[205.0,"07-25",6.1],[212.0,"08-01",6.17],[219.0,"08-08",6.1],[226.0,"08-15",5.97],[233.0,"08-22",5.8],[240.0,"08-29",5.57],[247.0,"09-05",5.33],[254.0,"09-12",5.67],[261.0,"09-19",6.09],[268.0,"09-26",5.97],[282.0,"10-10",5.77],[289.0,"10-17",5.84],[296.0,"10-24",6.01],[303.0,"10-31",6.24],[310.0,"11-07",6.66],[317.0,"11-14",6.84],[324.0,"11-21",6.84],[331.0,"11-28",6.48],[338.0,"12-05",6.47],[345.0,"12-12",6.2],[352.0,"12-19",6.22],[359.0,"12-26",6.72]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",6.73],[8.0,"01-09",6.93],[15.0,"01-16",7.43],[22.0,"01-23",7.58],[29.0,"01-30",7.68],[36.0,"02-06",7.97],[57.0,"02-27",6.22],[64.0,"03-06",6.24],[71.0,"03-13",6.37],[78.0,"03-20",7.22],[85.0,"03-27",6.58],[92.0,"04-03",6.58],[99.0,"04-10",6.83],[106.0,"04-17",7.07],[113.0,"04-24",6.69],[127.0,"05-08",7.38],[135.0,"05-16",7.12],[142.0,"05-23",6.95],[149.0,"05-30",6.48],[156.0,"06-06",6.2],[163.0,"06-13",5.95],[170.0,"06-20",5.94],[177.0,"06-27",6.58],[184.0,"07-04",6.67],[191.0,"07-11",6.44],[198.0,"07-18",6.02],[205.0,"07-25",5.53],[212.0,"08-01",6.13],[219.0,"08-08",6.07],[226.0,"08-15",6.14],[233.0,"08-22",5.86],[240.0,"08-29",5.77],[247.0,"09-05",5.83]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山西亚鑫（天）","axisMin":4,"axisMax":12,"ticks":[4,6,8,10,12],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",6.0],[325.0,"11-22",6.0],[339.0,"12-06",7.0],[346.0,"12-13",7.0],[353.0,"12-20",8.0],[360.0,"12-27",8.0]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",10.0],[16.0,"01-17",10.0],[37.0,"02-07",9.0],[44.0,"02-14",7.0],[51.0,"02-21",6.0],[58.0,"02-28",6.0],[65.0,"03-07",6.0],[72.0,"03-14",6.0],[79.0,"03-21",6.0],[86.0,"03-28",6.0],[93.0,"04-04",6.0],[100.0,"04-11",6.0],[107.0,"04-18",6.0],[114.0,"04-25",6.0],[128.0,"05-09",6.0],[135.0,"05-16",6.0],[142.0,"05-23",6.0],[149.0,"05-30",6.0],[156.0,"06-06",6.0],[163.0,"06-13",6.0],[170.0,"06-20",6.0],[177.0,"06-27",6.0],[184.0,"07-04",6.0],[191.0,"07-11",6.0],[198.0,"07-18",6.0],[205.0,"07-25",7.0],[212.0,"08-01",7.0],[219.0,"08-08",7.0],[226.0,"08-15",6.0],[233.0,"08-22",6.0],[240.0,"08-29",6.0],[247.0,"09-05",6.0],[254.0,"09-12",6.0],[261.0,"09-19",6.0],[268.0,"09-26",6.0],[282.0,"10-10",6.0],[289.0,"10-17",6.0],[296.0,"10-24",7.0],[303.0,"10-31",7.0],[310.0,"11-07",7.0],[317.0,"11-14",7.0],[324.0,"11-21",7.0],[331.0,"11-28",7.0],[338.0,"12-05",7.0],[345.0,"12-12",7.0],[352.0,"12-19",7.0],[359.0,"12-26",7.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",7.0],[8.0,"01-09",7.0],[15.0,"01-16",7.0],[22.0,"01-23",7.0],[29.0,"01-30",7.0],[36.0,"02-06",8.0],[57.0,"02-27",7.0],[64.0,"03-06",7.0],[71.0,"03-13",7.0],[78.0,"03-20",7.0],[85.0,"03-27",7.0],[92.0,"04-03",7.0],[99.0,"04-10",7.0],[106.0,"04-17",7.0],[113.0,"04-24",7.0],[127.0,"05-08",8.0],[135.0,"05-16",8.0],[142.0,"05-23",8.0],[149.0,"05-30",8.0],[156.0,"06-06",8.0],[163.0,"06-13",8.0],[170.0,"06-20",8.0],[177.0,"06-27",8.0],[184.0,"07-04",8.0],[191.0,"07-11",7.0],[198.0,"07-18",7.0],[205.0,"07-25",7.0],[212.0,"08-01",8.0],[219.0,"08-08",8.0],[226.0,"08-15",8.0],[233.0,"08-22",8.0],[240.0,"08-29",8.0],[247.0,"09-05",8.0]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山西美锦（天）","axisMin":4,"axisMax":10,"ticks":[4,6,8,10],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",6.0],[325.0,"11-22",6.0],[339.0,"12-06",7.0],[346.0,"12-13",7.0],[353.0,"12-20",7.0],[360.0,"12-27",6.0]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",7.0],[16.0,"01-17",8.0],[37.0,"02-07",5.0],[44.0,"02-14",6.0],[51.0,"02-21",6.0],[58.0,"02-28",6.0],[65.0,"03-07",6.0],[72.0,"03-14",6.0],[79.0,"03-21",6.0],[86.0,"03-28",6.0],[93.0,"04-04",7.0],[100.0,"04-11",7.0],[107.0,"04-18",6.0],[114.0,"04-25",7.0],[128.0,"05-09",7.0],[135.0,"05-16",6.0],[142.0,"05-23",6.0],[149.0,"05-30",6.0],[156.0,"06-06",7.0],[163.0,"06-13",7.0],[170.0,"06-20",6.0],[177.0,"06-27",6.0],[184.0,"07-04",6.0],[191.0,"07-11",7.0],[198.0,"07-18",8.0],[205.0,"07-25",6.0],[212.0,"08-01",6.0],[219.0,"08-08",6.0],[226.0,"08-15",6.0],[233.0,"08-22",7.0],[240.0,"08-29",6.0],[247.0,"09-05",5.0],[254.0,"09-12",6.0],[261.0,"09-19",6.0],[268.0,"09-26",6.0],[282.0,"10-10",7.0],[289.0,"10-17",7.0],[296.0,"10-24",6.0],[303.0,"10-31",6.0],[310.0,"11-07",6.0],[317.0,"11-14",7.0],[324.0,"11-21",6.0],[331.0,"11-28",6.0],[338.0,"12-05",7.0],[345.0,"12-12",6.0],[352.0,"12-19",5.0],[359.0,"12-26",5.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",5.0],[8.0,"01-09",6.0],[15.0,"01-16",6.0],[22.0,"01-23",7.0],[29.0,"01-30",7.0],[36.0,"02-06",8.0],[57.0,"02-27",6.0],[64.0,"03-06",6.0],[71.0,"03-13",7.0],[78.0,"03-20",8.0],[85.0,"03-27",8.0],[92.0,"04-03",8.0],[99.0,"04-10",7.0],[106.0,"04-17",7.0],[113.0,"04-24",6.0],[127.0,"05-08",6.0],[135.0,"05-16",7.0],[142.0,"05-23",7.0],[149.0,"05-30",6.0],[156.0,"06-06",5.0],[163.0,"06-13",5.0],[170.0,"06-20",5.0],[177.0,"06-27",6.0],[184.0,"07-04",6.0],[191.0,"07-11",6.0],[198.0,"07-18",6.0],[205.0,"07-25",6.0],[212.0,"08-01",6.0],[219.0,"08-08",6.0],[226.0,"08-15",6.0],[233.0,"08-22",6.0],[240.0,"08-29",6.0],[247.0,"09-05",5.0]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山西长治南耀（天）","axisMin":0,"axisMax":12.5,"ticks":[0,2.5,5,7.5,10,12.5],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",3.0],[325.0,"11-22",4.0],[339.0,"12-06",7.0],[346.0,"12-13",5.0],[353.0,"12-20",10.0],[360.0,"12-27",7.0]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",8.0],[16.0,"01-17",10.0],[37.0,"02-07",5.0],[44.0,"02-14",5.0],[51.0,"02-21",5.0],[58.0,"02-28",6.0],[65.0,"03-07",6.0],[72.0,"03-14",7.0],[79.0,"03-21",6.0],[86.0,"03-28",7.0],[93.0,"04-04",7.0],[100.0,"04-11",6.0],[107.0,"04-18",6.0],[114.0,"04-25",7.0],[128.0,"05-09",6.0],[135.0,"05-16",7.0],[142.0,"05-23",6.0],[149.0,"05-30",6.0],[156.0,"06-06",6.0],[163.0,"06-13",5.0],[170.0,"06-20",6.0],[177.0,"06-27",5.0],[184.0,"07-04",7.0],[191.0,"07-11",6.0],[198.0,"07-18",7.0],[205.0,"07-25",6.0],[212.0,"08-01",7.0],[219.0,"08-08",7.0],[226.0,"08-15",7.0],[233.0,"08-22",6.0],[240.0,"08-29",6.0],[247.0,"09-05",5.0],[254.0,"09-12",6.0],[261.0,"09-19",7.0],[268.0,"09-26",8.0],[282.0,"10-10",6.0],[289.0,"10-17",6.0],[296.0,"10-24",7.0],[303.0,"10-31",8.0],[310.0,"11-07",10.0],[317.0,"11-14",8.0],[324.0,"11-21",8.0],[331.0,"11-28",7.0],[338.0,"12-05",6.0],[345.0,"12-12",6.0],[352.0,"12-19",8.0],[359.0,"12-26",8.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",8.0],[8.0,"01-09",7.0],[15.0,"01-16",8.0],[22.0,"01-23",8.0],[29.0,"01-30",8.0],[36.0,"02-06",10.0],[57.0,"02-27",7.0],[64.0,"03-06",7.0],[71.0,"03-13",7.0],[78.0,"03-20",10.0],[85.0,"03-27",7.0],[92.0,"04-03",7.0],[99.0,"04-10",10.0],[106.0,"04-17",8.0],[113.0,"04-24",8.0],[127.0,"05-08",8.0],[135.0,"05-16",8.0],[142.0,"05-23",7.0],[149.0,"05-30",6.0],[156.0,"06-06",6.0],[163.0,"06-13",6.0],[170.0,"06-20",6.0],[177.0,"06-27",7.0],[184.0,"07-04",8.0],[191.0,"07-11",7.0],[198.0,"07-18",7.0],[205.0,"07-25",6.0],[212.0,"08-01",6.0],[219.0,"08-08",6.0],[226.0,"08-15",6.0],[233.0,"08-22",5.0],[240.0,"08-29",5.0],[247.0,"09-05",5.0]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山西鹏飞（天）","axisMin":2,"axisMax":10,"ticks":[2,4,6,8,10],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",5.0],[325.0,"11-22",6.0],[339.0,"12-06",6.0],[346.0,"12-13",6.0],[353.0,"12-20",7.0],[360.0,"12-27",7.0]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",7.0],[16.0,"01-17",8.0],[37.0,"02-07",3.0],[44.0,"02-14",5.0],[51.0,"02-21",5.0],[58.0,"02-28",5.0],[65.0,"03-07",5.0],[72.0,"03-14",6.0],[79.0,"03-21",6.0],[86.0,"03-28",7.0],[93.0,"04-04",7.0],[100.0,"04-11",6.0],[107.0,"04-18",5.0],[114.0,"04-25",6.0],[128.0,"05-09",5.0],[135.0,"05-16",6.0],[142.0,"05-23",7.0],[149.0,"05-30",7.0],[156.0,"06-06",7.0],[163.0,"06-13",5.0],[170.0,"06-20",5.0],[177.0,"06-27",6.0],[184.0,"07-04",7.0],[191.0,"07-11",7.0],[198.0,"07-18",7.0],[205.0,"07-25",6.0],[212.0,"08-01",6.0],[219.0,"08-08",6.0],[226.0,"08-15",6.0],[233.0,"08-22",6.0],[240.0,"08-29",6.0],[247.0,"09-05",5.0],[254.0,"09-12",5.0],[261.0,"09-19",6.0],[268.0,"09-26",6.0],[282.0,"10-10",6.0],[289.0,"10-17",6.0],[296.0,"10-24",6.0],[303.0,"10-31",7.0],[310.0,"11-07",7.0],[317.0,"11-14",7.0],[324.0,"11-21",7.0],[331.0,"11-28",7.0],[338.0,"12-05",6.0],[345.0,"12-12",7.0],[352.0,"12-19",6.0],[359.0,"12-26",6.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",6.0],[8.0,"01-09",6.0],[15.0,"01-16",6.0],[22.0,"01-23",6.0],[29.0,"01-30",7.0],[36.0,"02-06",7.0],[57.0,"02-27",6.0],[64.0,"03-06",7.0],[71.0,"03-13",6.0],[78.0,"03-20",7.0],[85.0,"03-27",6.0],[92.0,"04-03",6.0],[99.0,"04-10",6.0],[106.0,"04-17",6.0],[113.0,"04-24",7.0],[127.0,"05-08",7.0],[135.0,"05-16",6.0],[142.0,"05-23",6.0],[149.0,"05-30",6.0],[156.0,"06-06",6.0],[163.0,"06-13",5.0],[170.0,"06-20",5.0],[177.0,"06-27",6.0],[184.0,"07-04",7.0],[191.0,"07-11",6.0],[198.0,"07-18",5.0],[205.0,"07-25",5.0],[212.0,"08-01",5.0],[219.0,"08-08",6.0],[226.0,"08-15",5.0],[233.0,"08-22",5.0],[240.0,"08-29",5.0],[247.0,"09-05",6.0]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山西安泰（天）","axisMin":-2,"axisMax":8,"ticks":[-2,0,2,4,6,8],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",0.83],[325.0,"11-22",0.83],[332.0,"11-29",0.83],[339.0,"12-06",0.83],[346.0,"12-13",0.83],[353.0,"12-20",0.83],[360.0,"12-27",0.83]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[2.0,"01-03",0.83],[9.0,"01-10",0.83],[16.0,"01-17",0.83],[23.0,"01-24",0.83],[30.0,"01-31",0.83],[37.0,"02-07",0.83],[44.0,"02-14",0.83],[51.0,"02-21",0.83],[58.0,"02-28",0.83],[65.0,"03-07",0.83],[72.0,"03-14",0.83],[79.0,"03-21",0.83],[86.0,"03-28",0.83],[93.0,"04-04",0.83],[100.0,"04-11",0.83],[107.0,"04-18",0.83],[114.0,"04-25",0.83],[128.0,"05-09",0.83],[135.0,"05-16",0.83],[142.0,"05-23",0.83],[149.0,"05-30",0.83],[156.0,"06-06",0.83],[163.0,"06-13",0.83],[170.0,"06-20",0.83],[177.0,"06-27",0.83],[184.0,"07-04",0.83],[191.0,"07-11",0.83],[198.0,"07-18",0.83],[205.0,"07-25",0.83],[212.0,"08-01",0.83],[219.0,"08-08",0.83],[226.0,"08-15",0.83],[233.0,"08-22",0.83],[240.0,"08-29",0.83],[247.0,"09-05",0.83],[254.0,"09-12",0.83],[261.0,"09-19",0.83],[268.0,"09-26",0.83],[282.0,"10-10",0.83],[289.0,"10-17",0.83],[296.0,"10-24",0.83],[303.0,"10-31",0.83],[310.0,"11-07",0.83],[317.0,"11-14",0.83],[324.0,"11-21",0.83],[331.0,"11-28",0.83],[338.0,"12-05",0.83],[345.0,"12-12",0.83],[352.0,"12-19",0.83],[359.0,"12-26",5.5]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",5.5],[8.0,"01-09",6.17],[15.0,"01-16",6.67],[22.0,"01-23",6.5],[29.0,"01-30",5.67],[36.0,"02-06",0.83],[57.0,"02-27",0.83],[64.0,"03-06",0.83],[71.0,"03-13",0.83],[78.0,"03-20",0.83],[85.0,"03-27",0.83],[92.0,"04-03",0.83],[99.0,"04-10",0.83],[106.0,"04-17",0.83],[113.0,"04-24",0.83],[127.0,"05-08",0.83],[135.0,"05-16",0.83],[142.0,"05-23",0.83],[149.0,"05-30",0.83],[156.0,"06-06",0.83],[163.0,"06-13",0.83],[170.0,"06-20",0.83],[177.0,"06-27",0.83],[184.0,"07-04",0.83],[191.0,"07-11",0.83],[198.0,"07-18",0.83],[205.0,"07-25",0.83],[212.0,"08-01",0.83],[219.0,"08-08",0.83],[226.0,"08-15",1.33],[233.0,"08-22",0.83],[240.0,"08-29",0.83],[247.0,"09-05",0.83]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山西潞宝（天）","axisMin":4,"axisMax":12,"ticks":[4,6,8,10,12],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",7.0],[325.0,"11-22",8.0],[339.0,"12-06",8.0],[346.0,"12-13",8.0],[353.0,"12-20",8.0],[360.0,"12-27",8.0]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",8.0],[16.0,"01-17",10.0],[37.0,"02-07",6.0],[44.0,"02-14",6.0],[51.0,"02-21",6.0],[58.0,"02-28",6.0],[65.0,"03-07",8.0],[72.0,"03-14",8.0],[79.0,"03-21",7.0],[86.0,"03-28",8.0],[93.0,"04-04",8.0],[100.0,"04-11",8.0],[107.0,"04-18",7.0],[114.0,"04-25",8.0],[128.0,"05-09",8.0],[135.0,"05-16",8.0],[142.0,"05-23",8.0],[149.0,"05-30",7.0],[156.0,"06-06",8.0],[163.0,"06-13",6.0],[170.0,"06-20",6.0],[177.0,"06-27",7.0],[184.0,"07-04",7.0],[191.0,"07-11",7.0],[198.0,"07-18",8.0],[205.0,"07-25",8.0],[212.0,"08-01",8.0],[219.0,"08-08",7.0],[226.0,"08-15",7.0],[233.0,"08-22",7.0],[240.0,"08-29",7.0],[247.0,"09-05",6.0],[254.0,"09-12",6.0],[261.0,"09-19",8.0],[268.0,"09-26",7.0],[282.0,"10-10",7.0],[289.0,"10-17",6.0],[296.0,"10-24",7.0],[303.0,"10-31",7.0],[310.0,"11-07",7.0],[317.0,"11-14",8.0],[324.0,"11-21",8.0],[331.0,"11-28",7.0],[338.0,"12-05",10.0],[345.0,"12-12",8.0],[352.0,"12-19",8.0],[359.0,"12-26",8.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",8.0],[8.0,"01-09",8.0],[15.0,"01-16",7.0],[22.0,"01-23",10.0],[29.0,"01-30",8.0],[36.0,"02-06",10.0],[57.0,"02-27",8.0],[64.0,"03-06",8.0],[71.0,"03-13",8.0],[78.0,"03-20",8.0],[85.0,"03-27",8.0],[92.0,"04-03",8.0],[99.0,"04-10",8.0],[106.0,"04-17",10.0],[113.0,"04-24",10.0],[127.0,"05-08",10.0],[135.0,"05-16",10.0],[142.0,"05-23",8.0],[149.0,"05-30",8.0],[156.0,"06-06",8.0],[163.0,"06-13",7.0],[170.0,"06-20",7.0],[177.0,"06-27",8.0],[184.0,"07-04",8.0],[191.0,"07-11",8.0],[198.0,"07-18",8.0],[205.0,"07-25",7.0],[212.0,"08-01",8.0],[219.0,"08-08",8.0],[226.0,"08-15",8.0],[233.0,"08-22",7.0],[240.0,"08-29",7.0],[247.0,"09-05",7.0]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山西潞安（天）","axisMin":2,"axisMax":10,"ticks":[2,4,6,8,10],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",4.5],[325.0,"11-22",7.0],[339.0,"12-06",7.0],[346.0,"12-13",7.0],[353.0,"12-20",7.0],[360.0,"12-27",7.0]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",7.0],[16.0,"01-17",7.0],[37.0,"02-07",5.0],[44.0,"02-14",4.0],[51.0,"02-21",4.0],[58.0,"02-28",4.0],[65.0,"03-07",4.0],[72.0,"03-14",4.0],[79.0,"03-21",5.0],[86.0,"03-28",5.0],[93.0,"04-04",5.0],[100.0,"04-11",5.0],[107.0,"04-18",5.0],[114.0,"04-25",5.0],[128.0,"05-09",5.0],[135.0,"05-16",5.0],[142.0,"05-23",5.0],[149.0,"05-30",5.0],[156.0,"06-06",5.0],[163.0,"06-13",5.0],[170.0,"06-20",5.0],[177.0,"06-27",5.0],[184.0,"07-04",5.0],[191.0,"07-11",6.0],[198.0,"07-18",6.0],[205.0,"07-25",8.0],[212.0,"08-01",8.0],[219.0,"08-08",8.0],[226.0,"08-15",8.0],[233.0,"08-22",7.0],[240.0,"08-29",7.0],[247.0,"09-05",7.0],[254.0,"09-12",7.0],[261.0,"09-19",7.0],[268.0,"09-26",7.0],[282.0,"10-10",7.0],[289.0,"10-17",7.0],[296.0,"10-24",7.0],[303.0,"10-31",7.0],[310.0,"11-07",7.0],[317.0,"11-14",7.0],[324.0,"11-21",7.0],[331.0,"11-28",7.0],[338.0,"12-05",7.0],[345.0,"12-12",7.0],[352.0,"12-19",7.0],[359.0,"12-26",7.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",7.0],[8.0,"01-09",7.0],[15.0,"01-16",8.0],[22.0,"01-23",8.0],[29.0,"01-30",8.0],[36.0,"02-06",8.0],[57.0,"02-27",7.0],[64.0,"03-06",7.0],[71.0,"03-13",7.0],[78.0,"03-20",7.0],[85.0,"03-27",7.0],[92.0,"04-03",7.0],[99.0,"04-10",7.0],[106.0,"04-17",7.0],[113.0,"04-24",7.0],[127.0,"05-08",8.0],[135.0,"05-16",8.0],[142.0,"05-23",8.0],[149.0,"05-30",8.0],[156.0,"06-06",8.0],[163.0,"06-13",8.0],[170.0,"06-20",8.0],[177.0,"06-27",8.0],[184.0,"07-04",8.0],[191.0,"07-11",8.0],[198.0,"07-18",7.0],[205.0,"07-25",7.0],[212.0,"08-01",7.0],[219.0,"08-08",7.0],[226.0,"08-15",7.0],[233.0,"08-22",7.0],[240.0,"08-29",7.0],[247.0,"09-05",7.0]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山西阳光（天）","axisMin":2.5,"axisMax":15,"ticks":[2.5,5,7.5,10,12.5,15],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",5.28],[325.0,"11-22",5.64],[332.0,"11-29",6.18],[339.0,"12-06",6.0],[346.0,"12-13",6.36],[353.0,"12-20",6.64],[360.0,"12-27",7.45]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",6.82],[16.0,"01-17",7.09],[37.0,"02-07",7.0],[44.0,"02-14",6.45],[51.0,"02-21",5.73],[58.0,"02-28",5.18],[65.0,"03-07",4.73],[72.0,"03-14",5.27],[79.0,"03-21",5.0],[86.0,"03-28",5.27],[93.0,"04-04",4.36],[100.0,"04-11",4.09],[107.0,"04-18",4.64],[114.0,"04-25",4.82],[128.0,"05-09",5.18],[135.0,"05-16",4.73],[142.0,"05-23",4.55],[149.0,"05-30",5.0],[156.0,"06-06",4.64],[163.0,"06-13",5.09],[170.0,"06-20",4.64],[177.0,"06-27",4.73],[184.0,"07-04",5.0],[191.0,"07-11",5.27],[198.0,"07-18",5.64],[205.0,"07-25",6.18],[212.0,"08-01",5.91],[219.0,"08-08",6.18],[226.0,"08-15",5.91],[233.0,"08-22",6.18],[240.0,"08-29",5.91],[247.0,"09-05",6.45],[254.0,"09-12",6.82],[261.0,"09-19",7.09],[268.0,"09-26",6.82],[282.0,"10-10",5.91],[289.0,"10-17",6.54],[296.0,"10-24",7.27],[303.0,"10-31",7.55],[310.0,"11-07",7.73],[317.0,"11-14",7.55],[324.0,"11-21",7.55],[331.0,"11-28",7.0],[338.0,"12-05",6.82],[345.0,"12-12",7.18],[352.0,"12-19",7.36],[359.0,"12-26",7.73]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",7.73],[8.0,"01-09",8.09],[15.0,"01-16",8.63],[22.0,"01-23",8.27],[29.0,"01-30",9.09],[36.0,"02-06",11.82],[57.0,"02-27",6.36],[64.0,"03-06",6.55],[71.0,"03-13",6.82],[78.0,"03-20",7.36],[85.0,"03-27",7.0],[92.0,"04-03",7.0],[99.0,"04-10",8.45],[106.0,"04-17",7.91],[113.0,"04-24",7.09],[127.0,"05-08",9.0],[135.0,"05-16",8.36],[142.0,"05-23",7.73],[149.0,"05-30",8.0],[156.0,"06-06",8.18],[163.0,"06-13",8.64],[170.0,"06-20",8.64],[177.0,"06-27",9.0],[184.0,"07-04",7.91],[191.0,"07-11",7.55],[198.0,"07-18",6.36],[205.0,"07-25",5.45],[212.0,"08-01",7.45],[219.0,"08-08",7.91],[226.0,"08-15",7.09],[233.0,"08-22",7.73],[240.0,"08-29",7.91],[247.0,"09-05",7.45]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山西中信（天）","axisMin":4,"axisMax":10,"ticks":[4,6,8,10],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",6.0],[325.0,"11-22",6.0],[332.0,"11-29",6.0],[339.0,"12-06",6.0],[346.0,"12-13",7.0],[353.0,"12-20",8.0],[360.0,"12-27",7.0]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",8.0],[16.0,"01-17",7.0],[37.0,"02-07",6.0],[44.0,"02-14",5.0],[51.0,"02-21",5.0],[58.0,"02-28",5.0],[65.0,"03-07",6.0],[72.0,"03-14",6.0],[79.0,"03-21",5.0],[86.0,"03-28",6.0],[93.0,"04-04",7.0],[100.0,"04-11",5.0],[107.0,"04-18",6.0],[114.0,"04-25",6.0],[128.0,"05-09",6.0],[135.0,"05-16",6.0],[142.0,"05-23",5.0],[149.0,"05-30",6.0],[156.0,"06-06",6.0],[163.0,"06-13",5.0],[170.0,"06-20",6.0],[177.0,"06-27",6.0],[184.0,"07-04",7.0],[191.0,"07-11",8.0],[198.0,"07-18",8.0],[205.0,"07-25",6.0],[212.0,"08-01",6.0],[219.0,"08-08",5.0],[226.0,"08-15",6.0],[233.0,"08-22",6.0],[240.0,"08-29",5.0],[247.0,"09-05",5.0],[254.0,"09-12",7.0],[261.0,"09-19",7.0],[268.0,"09-26",6.0],[282.0,"10-10",6.0],[289.0,"10-17",7.0],[296.0,"10-24",6.0],[303.0,"10-31",6.0],[310.0,"11-07",6.0],[317.0,"11-14",6.0],[324.0,"11-21",7.0],[331.0,"11-28",6.0],[338.0,"12-05",6.0],[345.0,"12-12",6.0],[352.0,"12-19",6.0],[359.0,"12-26",6.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",6.0],[8.0,"01-09",7.0],[15.0,"01-16",7.0],[22.0,"01-23",7.0],[29.0,"01-30",7.0],[36.0,"02-06",8.0],[57.0,"02-27",6.0],[64.0,"03-06",6.0],[71.0,"03-13",6.0],[78.0,"03-20",7.0],[85.0,"03-27",7.0],[92.0,"04-03",7.0],[99.0,"04-10",7.0],[106.0,"04-17",7.0],[113.0,"04-24",6.0],[127.0,"05-08",7.0],[135.0,"05-16",7.0],[142.0,"05-23",7.0],[149.0,"05-30",6.0],[156.0,"06-06",5.0],[163.0,"06-13",5.0],[170.0,"06-20",5.0],[177.0,"06-27",6.0],[184.0,"07-04",6.0],[191.0,"07-11",6.0],[198.0,"07-18",6.0],[205.0,"07-25",5.0],[212.0,"08-01",6.0],[219.0,"08-08",5.0],[226.0,"08-15",6.0],[233.0,"08-22",5.0],[240.0,"08-29",5.0],[247.0,"09-05",6.0]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"河津龙门（天）","axisMin":4,"axisMax":12,"ticks":[4,6,8,10,12],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",7.0],[325.0,"11-22",7.0],[332.0,"11-29",8.0],[339.0,"12-06",8.0],[346.0,"12-13",8.0],[353.0,"12-20",9.0],[360.0,"12-27",9.0]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",8.0],[16.0,"01-17",10.0],[37.0,"02-07",10.0],[44.0,"02-14",6.0],[51.0,"02-21",6.0],[58.0,"02-28",6.0],[65.0,"03-07",6.0],[72.0,"03-14",7.0],[79.0,"03-21",6.0],[86.0,"03-28",7.0],[93.0,"04-04",8.0],[100.0,"04-11",8.0],[107.0,"04-18",6.0],[114.0,"04-25",8.0],[128.0,"05-09",8.0],[135.0,"05-16",7.0],[142.0,"05-23",7.0],[149.0,"05-30",8.0],[156.0,"06-06",7.0],[163.0,"06-13",6.0],[170.0,"06-20",6.0],[177.0,"06-27",6.0],[184.0,"07-04",8.0],[191.0,"07-11",8.0],[198.0,"07-18",8.0],[205.0,"07-25",7.0],[212.0,"08-01",7.0],[219.0,"08-08",8.0],[226.0,"08-15",7.0],[233.0,"08-22",6.0],[240.0,"08-29",6.0],[247.0,"09-05",7.0],[254.0,"09-12",6.0],[261.0,"09-19",6.0],[268.0,"09-26",6.0],[282.0,"10-10",6.0],[289.0,"10-17",6.0],[296.0,"10-24",6.0],[303.0,"10-31",6.0],[310.0,"11-07",8.0],[317.0,"11-14",10.0],[324.0,"11-21",10.0],[331.0,"11-28",10.0],[338.0,"12-05",8.0],[345.0,"12-12",7.0],[352.0,"12-19",7.0],[359.0,"12-26",7.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",7.0],[8.0,"01-09",7.0],[15.0,"01-16",10.0],[22.0,"01-23",8.0],[29.0,"01-30",10.0],[36.0,"02-06",8.0],[57.0,"02-27",8.0],[64.0,"03-06",7.0],[71.0,"03-13",8.0],[78.0,"03-20",10.0],[85.0,"03-27",8.0],[92.0,"04-03",8.0],[99.0,"04-10",7.0],[106.0,"04-17",10.0],[113.0,"04-24",8.0],[127.0,"05-08",10.0],[135.0,"05-16",8.0],[142.0,"05-23",10.0],[149.0,"05-30",8.0],[156.0,"06-06",7.0],[163.0,"06-13",6.0],[170.0,"06-20",6.0],[177.0,"06-27",7.0],[184.0,"07-04",7.0],[191.0,"07-11",8.0],[198.0,"07-18",7.0],[205.0,"07-25",6.0],[212.0,"08-01",7.0],[219.0,"08-08",6.0],[226.0,"08-15",7.0],[233.0,"08-22",7.0],[240.0,"08-29",6.0],[247.0,"09-05",6.0]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"河北旭阳（天）","axisMin":2,"axisMax":10,"ticks":[2,4,6,8,10],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",5.71],[325.0,"11-22",7.14],[332.0,"11-29",7.14],[339.0,"12-06",7.14],[346.0,"12-13",7.14],[353.0,"12-20",7.14],[360.0,"12-27",7.14]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",7.14],[16.0,"01-17",7.14],[37.0,"02-07",5.0],[44.0,"02-14",5.71],[51.0,"02-21",5.71],[58.0,"02-28",5.71],[65.0,"03-07",5.71],[72.0,"03-14",5.71],[79.0,"03-21",7.14],[86.0,"03-28",5.71],[93.0,"04-04",5.71],[100.0,"04-11",7.14],[107.0,"04-18",7.14],[114.0,"04-25",7.14],[128.0,"05-09",4.29],[135.0,"05-16",7.14],[142.0,"05-23",7.14],[149.0,"05-30",7.14],[156.0,"06-06",7.14],[163.0,"06-13",5.71],[170.0,"06-20",5.71],[177.0,"06-27",7.14],[184.0,"07-04",7.14],[191.0,"07-11",7.14],[198.0,"07-18",7.14],[205.0,"07-25",5.71],[212.0,"08-01",7.14],[219.0,"08-08",7.14],[226.0,"08-15",5.71],[233.0,"08-22",7.14],[240.0,"08-29",5.71],[247.0,"09-05",5.0],[254.0,"09-12",5.71],[261.0,"09-19",5.71],[268.0,"09-26",5.71],[282.0,"10-10",7.14],[289.0,"10-17",7.14],[296.0,"10-24",7.14],[303.0,"10-31",7.14],[310.0,"11-07",7.14],[317.0,"11-14",7.14],[324.0,"11-21",7.14],[331.0,"11-28",7.14],[338.0,"12-05",7.14],[345.0,"12-12",5.71],[352.0,"12-19",7.14],[359.0,"12-26",7.14]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",7.14],[8.0,"01-09",7.14],[15.0,"01-16",7.14],[22.0,"01-23",7.14],[29.0,"01-30",7.14],[36.0,"02-06",7.14],[57.0,"02-27",5.71],[64.0,"03-06",5.71],[71.0,"03-13",7.14],[78.0,"03-20",7.14],[85.0,"03-27",7.14],[92.0,"04-03",7.14],[99.0,"04-10",7.14],[106.0,"04-17",7.14],[113.0,"04-24",7.14],[127.0,"05-08",7.14],[135.0,"05-16",7.14],[142.0,"05-23",7.14],[149.0,"05-30",5.71],[156.0,"06-06",5.71],[163.0,"06-13",7.14],[170.0,"06-20",7.14],[177.0,"06-27",7.14],[184.0,"07-04",7.14],[191.0,"07-11",5.71],[198.0,"07-18",5.71],[205.0,"07-25",5.71],[212.0,"08-01",5.71],[219.0,"08-08",5.71],[226.0,"08-15",5.71],[233.0,"08-22",5.71],[240.0,"08-29",5.71],[247.0,"09-05",5.71]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"河北华丰（天）","axisMin":2,"axisMax":10,"ticks":[2,4,6,8,10],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",5.0],[325.0,"11-22",5.0],[332.0,"11-29",6.0],[339.0,"12-06",5.0],[346.0,"12-13",6.0],[353.0,"12-20",6.0],[360.0,"12-27",7.0]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",7.0],[16.0,"01-17",7.0],[37.0,"02-07",4.0],[44.0,"02-14",5.0],[51.0,"02-21",5.0],[58.0,"02-28",5.0],[65.0,"03-07",5.0],[72.0,"03-14",5.0],[79.0,"03-21",6.0],[86.0,"03-28",6.0],[93.0,"04-04",6.0],[100.0,"04-11",6.0],[107.0,"04-18",5.0],[114.0,"04-25",6.0],[128.0,"05-09",7.0],[135.0,"05-16",6.0],[142.0,"05-23",6.0],[149.0,"05-30",6.0],[156.0,"06-06",6.0],[163.0,"06-13",5.0],[170.0,"06-20",5.0],[177.0,"06-27",5.0],[184.0,"07-04",5.0],[191.0,"07-11",6.0],[198.0,"07-18",7.0],[205.0,"07-25",6.0],[212.0,"08-01",6.0],[219.0,"08-08",6.0],[226.0,"08-15",6.0],[233.0,"08-22",6.0],[240.0,"08-29",6.0],[247.0,"09-05",6.0],[254.0,"09-12",6.0],[261.0,"09-19",7.0],[268.0,"09-26",7.0],[282.0,"10-10",6.0],[289.0,"10-17",7.0],[296.0,"10-24",7.0],[303.0,"10-31",7.0],[310.0,"11-07",6.0],[317.0,"11-14",7.0],[324.0,"11-21",7.0],[331.0,"11-28",7.0],[338.0,"12-05",6.0],[345.0,"12-12",6.0],[352.0,"12-19",6.0],[359.0,"12-26",6.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",6.0],[8.0,"01-09",6.0],[15.0,"01-16",7.0],[22.0,"01-23",8.0],[29.0,"01-30",8.0],[36.0,"02-06",8.0],[57.0,"02-27",6.0],[64.0,"03-06",6.0],[71.0,"03-13",7.0],[78.0,"03-20",8.0],[85.0,"03-27",7.0],[92.0,"04-03",7.0],[99.0,"04-10",7.0],[106.0,"04-17",7.0],[113.0,"04-24",7.0],[127.0,"05-08",7.0],[135.0,"05-16",7.0],[142.0,"05-23",7.0],[149.0,"05-30",6.0],[156.0,"06-06",6.0],[163.0,"06-13",6.0],[170.0,"06-20",6.0],[177.0,"06-27",6.0],[184.0,"07-04",6.0],[191.0,"07-11",6.0],[198.0,"07-18",6.0],[205.0,"07-25",6.0],[212.0,"08-01",6.0],[219.0,"08-08",5.0],[226.0,"08-15",6.0],[233.0,"08-22",6.0],[240.0,"08-29",5.0],[247.0,"09-05",5.0]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"河北地区小计（天）","axisMin":2,"axisMax":10,"ticks":[2,4,6,8,10],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",5.36],[325.0,"11-22",6.07],[332.0,"11-29",6.57],[339.0,"12-06",6.07],[346.0,"12-13",6.57],[353.0,"12-20",6.57],[360.0,"12-27",7.07]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",7.07],[16.0,"01-17",7.07],[37.0,"02-07",4.5],[44.0,"02-14",5.36],[51.0,"02-21",5.36],[58.0,"02-28",5.36],[65.0,"03-07",5.36],[72.0,"03-14",5.36],[79.0,"03-21",6.57],[86.0,"03-28",5.86],[93.0,"04-04",5.86],[100.0,"04-11",6.57],[107.0,"04-18",6.07],[114.0,"04-25",6.57],[128.0,"05-09",5.64],[135.0,"05-16",6.57],[142.0,"05-23",6.57],[149.0,"05-30",6.57],[156.0,"06-06",6.57],[163.0,"06-13",5.36],[170.0,"06-20",5.36],[177.0,"06-27",6.07],[184.0,"07-04",6.07],[191.0,"07-11",6.57],[198.0,"07-18",7.07],[205.0,"07-25",5.86],[212.0,"08-01",6.57],[219.0,"08-08",6.57],[226.0,"08-15",5.86],[233.0,"08-22",6.57],[240.0,"08-29",5.86],[247.0,"09-05",5.5],[254.0,"09-12",5.86],[261.0,"09-19",6.36],[268.0,"09-26",6.36],[282.0,"10-10",6.57],[289.0,"10-17",7.07],[296.0,"10-24",7.07],[303.0,"10-31",7.07],[310.0,"11-07",6.57],[317.0,"11-14",7.07],[324.0,"11-21",7.07],[331.0,"11-28",7.07],[338.0,"12-05",6.57],[345.0,"12-12",5.86],[352.0,"12-19",6.57],[359.0,"12-26",6.57]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",6.57],[8.0,"01-09",6.57],[15.0,"01-16",7.07],[22.0,"01-23",7.57],[29.0,"01-30",7.57],[36.0,"02-06",7.57],[57.0,"02-27",5.86],[64.0,"03-06",5.86],[71.0,"03-13",7.07],[78.0,"03-20",7.57],[85.0,"03-27",7.07],[92.0,"04-03",7.07],[99.0,"04-10",7.07],[106.0,"04-17",7.07],[113.0,"04-24",7.07],[127.0,"05-08",7.07],[135.0,"05-16",7.07],[142.0,"05-23",7.07],[149.0,"05-30",5.86],[156.0,"06-06",5.86],[163.0,"06-13",6.57],[170.0,"06-20",6.57],[177.0,"06-27",6.57],[184.0,"07-04",6.57],[191.0,"07-11",5.86],[198.0,"07-18",5.86],[205.0,"07-25",5.86],[212.0,"08-01",5.86],[219.0,"08-08",5.36],[226.0,"08-15",5.86],[233.0,"08-22",5.86],[240.0,"08-29",5.36],[247.0,"09-05",5.36]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山东铁雄（天）","axisMin":0,"axisMax":40,"ticks":[0.0,10,20,30,40],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",19.7],[325.0,"11-22",19.7],[332.0,"11-29",19.71],[339.0,"12-06",29.56],[346.0,"12-13",34.48],[353.0,"12-20",36.95],[360.0,"12-27",36.95]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",36.95],[16.0,"01-17",36.95],[37.0,"02-07",32.02],[44.0,"02-14",29.56],[51.0,"02-21",29.56],[58.0,"02-28",29.56],[65.0,"03-07",24.63],[72.0,"03-14",24.63],[79.0,"03-21",22.17],[86.0,"03-28",22.17],[93.0,"04-04",24.63],[100.0,"04-11",24.63],[107.0,"04-18",24.63],[114.0,"04-25",24.63],[128.0,"05-09",19.7],[135.0,"05-16",19.7],[142.0,"05-23",19.7],[149.0,"05-30",17.24],[156.0,"06-06",19.7],[163.0,"06-13",19.7],[170.0,"06-20",22.17],[177.0,"06-27",24.63],[184.0,"07-04",24.63],[191.0,"07-11",27.09],[198.0,"07-18",29.56],[205.0,"07-25",27.09],[212.0,"08-01",22.17],[219.0,"08-08",22.17],[226.0,"08-15",19.7],[233.0,"08-22",19.7],[240.0,"08-29",17.24],[247.0,"09-05",19.7],[254.0,"09-12",19.7],[261.0,"09-19",22.17],[268.0,"09-26",27.09],[282.0,"10-10",32.02],[289.0,"10-17",29.56],[296.0,"10-24",29.56],[303.0,"10-31",27.09],[310.0,"11-07",29.56],[317.0,"11-14",34.48],[324.0,"11-21",32.02],[331.0,"11-28",29.56],[338.0,"12-05",27.09],[345.0,"12-12",32.02],[352.0,"12-19",32.02],[359.0,"12-26",12.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",12.0],[8.0,"01-09",12.0],[15.0,"01-16",13.0],[22.0,"01-23",11.0],[29.0,"01-30",12.0],[36.0,"02-06",13.0],[57.0,"02-27",10.0],[64.0,"03-06",10.0],[71.0,"03-13",10.0],[78.0,"03-20",12.0],[85.0,"03-27",12.0],[92.0,"04-03",12.0],[99.0,"04-10",10.0],[106.0,"04-17",12.0],[113.0,"04-24",9.0],[127.0,"05-08",10.0],[135.0,"05-16",8.0],[142.0,"05-23",8.0],[149.0,"05-30",8.0],[156.0,"06-06",8.0],[163.0,"06-13",7.0],[170.0,"06-20",7.0],[177.0,"06-27",12.0],[184.0,"07-04",12.0],[191.0,"07-11",10.0],[198.0,"07-18",10.0],[205.0,"07-25",10.0],[212.0,"08-01",10.0],[219.0,"08-08",10.0],[226.0,"08-15",12.0],[233.0,"08-22",12.0],[240.0,"08-29",11.0],[247.0,"09-05",10.0]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山东恒昌（天）","axisMin":10,"axisMax":25,"ticks":[10,15,20,25],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",11.37],[325.0,"11-22",13.64],[332.0,"11-29",13.64],[339.0,"12-06",15.91],[346.0,"12-13",15.91],[353.0,"12-20",15.91],[360.0,"12-27",15.91]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",18.18],[16.0,"01-17",22.73],[37.0,"02-07",18.18],[44.0,"02-14",15.91],[51.0,"02-21",15.91],[58.0,"02-28",13.64],[65.0,"03-07",13.64],[72.0,"03-14",11.37],[79.0,"03-21",13.64],[86.0,"03-28",13.64],[93.0,"04-04",13.64],[100.0,"04-11",13.64],[107.0,"04-18",11.36],[114.0,"04-25",11.36],[128.0,"05-09",11.36],[135.0,"05-16",11.36],[142.0,"05-23",13.64],[149.0,"05-30",15.91],[156.0,"06-06",18.18],[163.0,"06-13",13.64],[170.0,"06-20",13.64],[177.0,"06-27",15.91],[184.0,"07-04",18.18],[191.0,"07-11",15.91],[198.0,"07-18",15.91],[205.0,"07-25",15.91],[212.0,"08-01",15.91],[219.0,"08-08",13.64],[226.0,"08-15",13.64],[233.0,"08-22",13.64],[240.0,"08-29",11.36],[247.0,"09-05",13.64],[254.0,"09-12",13.64],[261.0,"09-19",15.91],[268.0,"09-26",13.64],[282.0,"10-10",15.91],[289.0,"10-17",13.64],[296.0,"10-24",15.91],[303.0,"10-31",15.91],[310.0,"11-07",18.18],[317.0,"11-14",15.91],[324.0,"11-21",18.18],[331.0,"11-28",15.91],[338.0,"12-05",15.91],[345.0,"12-12",13.64],[352.0,"12-19",15.91],[359.0,"12-26",15.91]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",15.91],[8.0,"01-09",15.91],[15.0,"01-16",18.18],[22.0,"01-23",18.18],[29.0,"01-30",18.18],[36.0,"02-06",20.45],[57.0,"02-27",20.45],[64.0,"03-06",13.64],[71.0,"03-13",15.91],[78.0,"03-20",18.18],[85.0,"03-27",18.18],[92.0,"04-03",18.18],[99.0,"04-10",15.91],[106.0,"04-17",13.64],[113.0,"04-24",13.64],[127.0,"05-08",15.91],[135.0,"05-16",15.91],[142.0,"05-23",13.64],[149.0,"05-30",13.64],[156.0,"06-06",13.64],[163.0,"06-13",11.36],[170.0,"06-20",11.37],[177.0,"06-27",13.64],[184.0,"07-04",15.91],[191.0,"07-11",13.64],[198.0,"07-18",13.64],[205.0,"07-25",11.36],[212.0,"08-01",13.64],[219.0,"08-08",13.64],[226.0,"08-15",13.64],[233.0,"08-22",11.36],[240.0,"08-29",11.36],[247.0,"09-05",11.36]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山东富海（天）","axisMin":-5,"axisMax":15,"ticks":[-5,0.0,5,10,15],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",9.29],[325.0,"11-22",7.62],[332.0,"11-29",7.62],[339.0,"12-06",6.19],[346.0,"12-13",7.86],[353.0,"12-20",5.24],[360.0,"12-27",2.86]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[2.0,"01-03",0.0],[9.0,"01-10",0.0],[16.0,"01-17",0.0],[23.0,"01-24",0.0],[30.0,"01-31",0.0],[37.0,"02-07",0.0],[44.0,"02-14",0.0],[51.0,"02-21",0.0],[58.0,"02-28",0.0],[65.0,"03-07",0.0],[72.0,"03-14",0.0],[79.0,"03-21",0.0],[86.0,"03-28",0.0],[93.0,"04-04",0.0],[100.0,"04-11",0.0],[107.0,"04-18",0.0],[114.0,"04-25",0.0],[128.0,"05-09",0.0],[135.0,"05-16",0.0],[142.0,"05-23",0.0],[149.0,"05-30",0.0],[156.0,"06-06",0.0],[163.0,"06-13",0.0],[170.0,"06-20",0.0],[177.0,"06-27",0.0],[184.0,"07-04",0.0],[191.0,"07-11",0.0],[198.0,"07-18",0.0],[205.0,"07-25",0.0],[212.0,"08-01",0.0],[219.0,"08-08",0.0],[226.0,"08-15",0.0],[233.0,"08-22",0.0],[240.0,"08-29",0.0],[247.0,"09-05",0.0],[254.0,"09-12",0.0],[261.0,"09-19",0.0],[268.0,"09-26",0.0],[282.0,"10-10",0.0],[289.0,"10-17",0.0],[296.0,"10-24",0.0],[303.0,"10-31",0.0],[310.0,"11-07",0.0],[317.0,"11-14",0.0],[324.0,"11-21",0.0],[331.0,"11-28",0.0],[338.0,"12-05",0.0],[345.0,"12-12",0.0],[352.0,"12-19",0.0],[359.0,"12-26",0.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",0.0],[8.0,"01-09",0.0],[15.0,"01-16",0.0],[22.0,"01-23",0.0],[29.0,"01-30",0.0],[36.0,"02-06",0.0],[57.0,"02-27",0.0],[64.0,"03-06",0.0],[71.0,"03-13",0.0],[78.0,"03-20",0.0],[85.0,"03-27",0.0],[92.0,"04-03",0.0],[99.0,"04-10",0.0],[106.0,"04-17",0.0],[113.0,"04-24",0.0],[127.0,"05-08",0.0]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"山东地区合计（天）","axisMin":5,"axisMax":30,"ticks":[5,10,15,20,25,30],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",13.45],[325.0,"11-22",13.65],[332.0,"11-29",13.65],[339.0,"12-06",17.22],[346.0,"12-13",19.42],[353.0,"12-20",19.36],[360.0,"12-27",18.57]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[2.0,"01-03",18.57],[9.0,"01-10",19.02],[16.0,"01-17",20.54],[23.0,"01-24",22.06],[30.0,"01-31",23.58],[37.0,"02-07",25.1],[44.0,"02-14",22.73],[51.0,"02-21",22.74],[58.0,"02-28",21.6],[65.0,"03-07",19.13],[72.0,"03-14",18.0],[79.0,"03-21",17.9],[86.0,"03-28",17.9],[93.0,"04-04",19.13],[100.0,"04-11",19.13],[107.0,"04-18",18.0],[114.0,"04-25",18.0],[128.0,"05-09",15.53],[135.0,"05-16",15.53],[142.0,"05-23",16.67],[149.0,"05-30",16.58],[156.0,"06-06",18.94],[163.0,"06-13",16.67],[170.0,"06-20",17.9],[177.0,"06-27",20.27],[184.0,"07-04",21.41],[191.0,"07-11",21.5],[198.0,"07-18",22.73],[205.0,"07-25",21.5],[212.0,"08-01",19.04],[219.0,"08-08",17.9],[226.0,"08-15",16.67],[233.0,"08-22",16.67],[240.0,"08-29",14.3],[247.0,"09-05",16.67],[254.0,"09-12",16.67],[261.0,"09-19",19.04],[268.0,"09-26",20.36],[282.0,"10-10",23.96],[289.0,"10-17",21.59],[296.0,"10-24",22.73],[303.0,"10-31",21.5],[310.0,"11-07",23.87],[317.0,"11-14",25.2],[324.0,"11-21",25.1],[331.0,"11-28",22.73],[338.0,"12-05",21.5],[345.0,"12-12",22.83],[352.0,"12-19",23.96],[359.0,"12-26",13.95]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",13.95],[8.0,"01-09",13.95],[15.0,"01-16",15.59],[22.0,"01-23",14.59],[29.0,"01-30",15.09],[36.0,"02-06",16.73],[57.0,"02-27",15.23],[64.0,"03-06",11.81],[71.0,"03-13",12.95],[78.0,"03-20",15.09],[85.0,"03-27",15.09],[92.0,"04-03",15.09],[99.0,"04-10",12.95],[106.0,"04-17",12.82],[113.0,"04-24",11.32],[127.0,"05-08",12.95],[135.0,"05-16",11.95],[142.0,"05-23",10.82],[149.0,"05-30",10.82],[156.0,"06-06",10.82],[163.0,"06-13",9.18],[170.0,"06-20",9.18],[177.0,"06-27",12.82],[184.0,"07-04",13.95],[191.0,"07-11",11.82],[198.0,"07-18",11.82],[205.0,"07-25",10.68],[212.0,"08-01",11.82],[219.0,"08-08",11.82],[226.0,"08-15",12.82],[233.0,"08-22",11.68],[240.0,"08-29",11.18],[247.0,"09-05",10.68]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"宁夏宝丰（天）","axisMin":2,"axisMax":12,"ticks":[2,4,6,8,10,12],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",6.0],[325.0,"11-22",6.0],[332.0,"11-29",6.0],[339.0,"12-06",6.0],[346.0,"12-13",6.0],[353.0,"12-20",7.0],[360.0,"12-27",7.0]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",7.0],[16.0,"01-17",7.0],[37.0,"02-07",5.0],[44.0,"02-14",4.0],[51.0,"02-21",4.0],[58.0,"02-28",5.0],[65.0,"03-07",5.0],[72.0,"03-14",5.0],[79.0,"03-21",6.0],[86.0,"03-28",6.0],[93.0,"04-04",7.0],[100.0,"04-11",6.0],[107.0,"04-18",6.0],[114.0,"04-25",6.0],[128.0,"05-09",6.0],[135.0,"05-16",5.0],[142.0,"05-23",5.0],[149.0,"05-30",5.0],[156.0,"06-06",5.0],[163.0,"06-13",5.0],[170.0,"06-20",5.0],[177.0,"06-27",5.0],[184.0,"07-04",6.0],[191.0,"07-11",6.0],[198.0,"07-18",6.0],[205.0,"07-25",6.0],[212.0,"08-01",6.0],[219.0,"08-08",5.0],[226.0,"08-15",5.0],[233.0,"08-22",6.0],[240.0,"08-29",5.0],[247.0,"09-05",6.0],[254.0,"09-12",5.0],[261.0,"09-19",6.0],[268.0,"09-26",6.0],[282.0,"10-10",6.0],[289.0,"10-17",5.0],[296.0,"10-24",7.0],[303.0,"10-31",6.0],[310.0,"11-07",6.0],[317.0,"11-14",6.0],[324.0,"11-21",6.0],[331.0,"11-28",6.0],[338.0,"12-05",6.0],[345.0,"12-12",6.0],[352.0,"12-19",6.0],[359.0,"12-26",6.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",6.0],[8.0,"01-09",6.0],[15.0,"01-16",7.0],[22.0,"01-23",7.0],[29.0,"01-30",7.0],[36.0,"02-06",8.0],[57.0,"02-27",6.0],[64.0,"03-06",6.0],[71.0,"03-13",6.0],[78.0,"03-20",6.0],[85.0,"03-27",7.0],[92.0,"04-03",7.0],[99.0,"04-10",7.0],[106.0,"04-17",7.0],[113.0,"04-24",7.0],[127.0,"05-08",7.0],[135.0,"05-16",10.0],[142.0,"05-23",8.0],[149.0,"05-30",6.0],[156.0,"06-06",5.0],[163.0,"06-13",5.0],[170.0,"06-20",5.0],[177.0,"06-27",6.0],[184.0,"07-04",6.0],[191.0,"07-11",6.0],[198.0,"07-18",6.0],[205.0,"07-25",5.0],[212.0,"08-01",6.0],[219.0,"08-08",5.0],[226.0,"08-15",6.0],[233.0,"08-22",5.0],[240.0,"08-29",5.0],[247.0,"09-05",5.0]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"宁夏地区小计（天）","axisMin":2,"axisMax":12,"ticks":[2,4,6,8,10,12],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",6.0],[325.0,"11-22",6.0],[332.0,"11-29",6.0],[339.0,"12-06",6.0],[346.0,"12-13",6.0],[353.0,"12-20",7.0],[360.0,"12-27",7.0]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",7.0],[16.0,"01-17",7.0],[37.0,"02-07",5.0],[44.0,"02-14",4.0],[51.0,"02-21",4.0],[58.0,"02-28",5.0],[65.0,"03-07",5.0],[72.0,"03-14",5.0],[79.0,"03-21",6.0],[86.0,"03-28",6.0],[93.0,"04-04",7.0],[100.0,"04-11",6.0],[107.0,"04-18",6.0],[114.0,"04-25",6.0],[128.0,"05-09",6.0],[135.0,"05-16",5.0],[142.0,"05-23",5.0],[149.0,"05-30",5.0],[156.0,"06-06",5.0],[163.0,"06-13",5.0],[170.0,"06-20",5.0],[177.0,"06-27",5.0],[184.0,"07-04",6.0],[191.0,"07-11",6.0],[198.0,"07-18",6.0],[205.0,"07-25",6.0],[212.0,"08-01",6.0],[219.0,"08-08",5.0],[226.0,"08-15",5.0],[233.0,"08-22",6.0],[240.0,"08-29",5.0],[247.0,"09-05",6.0],[254.0,"09-12",5.0],[261.0,"09-19",6.0],[268.0,"09-26",6.0],[282.0,"10-10",6.0],[289.0,"10-17",5.0],[296.0,"10-24",7.0],[303.0,"10-31",6.0],[310.0,"11-07",6.0],[317.0,"11-14",6.0],[324.0,"11-21",6.0],[331.0,"11-28",6.0],[338.0,"12-05",6.0],[345.0,"12-12",6.0],[352.0,"12-19",6.0],[359.0,"12-26",6.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",6.0],[8.0,"01-09",6.0],[15.0,"01-16",7.0],[22.0,"01-23",7.0],[29.0,"01-30",7.0],[36.0,"02-06",8.0],[57.0,"02-27",6.0],[64.0,"03-06",6.0],[71.0,"03-13",6.0],[78.0,"03-20",6.0],[85.0,"03-27",7.0],[92.0,"04-03",7.0],[99.0,"04-10",7.0],[106.0,"04-17",7.0],[113.0,"04-24",7.0],[127.0,"05-08",7.0],[135.0,"05-16",10.0],[142.0,"05-23",8.0],[149.0,"05-30",6.0],[156.0,"06-06",5.0],[163.0,"06-13",5.0],[170.0,"06-20",5.0],[177.0,"06-27",6.0],[184.0,"07-04",6.0],[191.0,"07-11",6.0],[198.0,"07-18",6.0],[205.0,"07-25",5.0],[212.0,"08-01",6.0],[219.0,"08-08",5.0],[226.0,"08-15",6.0],[233.0,"08-22",5.0],[240.0,"08-29",5.0],[247.0,"09-05",5.0]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"乌海广纳（天）","axisMin":0,"axisMax":10,"ticks":[0.0,2,4,6,8,10],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",5.0],[325.0,"11-22",5.0],[332.0,"11-29",5.0],[339.0,"12-06",5.0],[346.0,"12-13",5.0],[353.0,"12-20",5.0],[360.0,"12-27",5.0]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",5.0],[16.0,"01-17",5.0],[37.0,"02-07",5.0],[44.0,"02-14",5.0],[51.0,"02-21",5.0],[58.0,"02-28",5.0],[65.0,"03-07",5.0],[72.0,"03-14",5.0],[79.0,"03-21",5.0],[86.0,"03-28",5.0],[93.0,"04-04",5.0],[100.0,"04-11",5.0],[107.0,"04-18",5.0],[114.0,"04-25",6.0],[128.0,"05-09",6.0],[135.0,"05-16",6.0],[142.0,"05-23",6.0],[149.0,"05-30",6.0],[156.0,"06-06",6.0],[163.0,"06-13",7.0],[170.0,"06-20",6.0],[177.0,"06-27",6.0],[184.0,"07-04",6.0],[191.0,"07-11",6.0],[198.0,"07-18",6.0],[205.0,"07-25",5.0],[212.0,"08-01",6.0],[219.0,"08-08",6.0],[226.0,"08-15",4.0],[233.0,"08-22",5.0],[240.0,"08-29",5.0],[247.0,"09-05",5.0],[254.0,"09-12",5.0],[261.0,"09-19",6.0],[268.0,"09-26",6.0],[282.0,"10-10",6.0],[289.0,"10-17",6.0],[296.0,"10-24",6.0],[303.0,"10-31",6.0],[310.0,"11-07",6.0],[317.0,"11-14",6.0],[324.0,"11-21",6.0],[331.0,"11-28",6.0],[338.0,"12-05",6.0],[345.0,"12-12",6.0],[352.0,"12-19",6.0],[359.0,"12-26",5.0]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",5.0],[8.0,"01-09",6.0],[15.0,"01-16",8.0],[22.0,"01-23",8.0],[29.0,"01-30",8.0],[36.0,"02-06",8.0],[57.0,"02-27",6.0],[64.0,"03-06",7.0],[71.0,"03-13",7.0],[78.0,"03-20",7.0],[85.0,"03-27",7.0],[92.0,"04-03",7.0],[99.0,"04-10",6.0],[106.0,"04-17",6.0],[113.0,"04-24",6.0],[127.0,"05-08",6.0],[135.0,"05-16",6.0],[142.0,"05-23",6.0],[149.0,"05-30",6.0],[156.0,"06-06",5.0],[163.0,"06-13",6.0],[170.0,"06-20",6.0],[177.0,"06-27",6.0],[184.0,"07-04",4.0],[191.0,"07-11",4.0],[198.0,"07-18",4.0],[205.0,"07-25",4.0],[212.0,"08-01",4.0],[219.0,"08-08",4.0],[226.0,"08-15",4.0],[233.0,"08-22",3.0],[240.0,"08-29",2.0],[247.0,"09-05",3.0]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"乌海美方（天）","axisMin":0,"axisMax":12.5,"ticks":[0,2.5,5,7.5,10,12.5],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",5.83],[325.0,"11-22",6.24],[332.0,"11-29",7.59],[339.0,"12-06",6.53],[346.0,"12-13",8.46],[353.0,"12-20",10.15],[360.0,"12-27",10.08]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",8.47],[16.0,"01-17",8.35],[37.0,"02-07",7.53],[44.0,"02-14",6.15],[51.0,"02-21",5.69],[58.0,"02-28",5.46],[65.0,"03-07",5.0],[72.0,"03-14",3.54],[79.0,"03-21",3.85],[86.0,"03-28",5.23],[93.0,"04-04",5.38],[100.0,"04-11",5.35],[107.0,"04-18",4.57],[114.0,"04-25",5.17],[128.0,"05-09",5.43],[135.0,"05-16",5.11],[142.0,"05-23",5.68],[149.0,"05-30",5.35],[156.0,"06-06",5.29],[163.0,"06-13",5.26],[170.0,"06-20",5.37],[177.0,"06-27",4.78],[184.0,"07-04",5.28],[191.0,"07-11",2.58],[198.0,"07-18",3.96],[205.0,"07-25",5.23],[212.0,"08-01",5.18],[219.0,"08-08",5.3],[226.0,"08-15",5.46],[233.0,"08-22",5.77],[240.0,"08-29",4.31],[247.0,"09-05",3.89],[254.0,"09-12",4.0],[261.0,"09-19",4.39],[268.0,"09-26",4.86],[282.0,"10-10",4.46],[289.0,"10-17",3.66],[296.0,"10-24",4.18],[303.0,"10-31",4.07],[310.0,"11-07",4.46],[317.0,"11-14",4.31],[324.0,"11-21",3.77],[331.0,"11-28",5.43],[338.0,"12-05",4.31],[345.0,"12-12",3.77],[352.0,"12-19",3.54],[359.0,"12-26",4.31]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",4.3],[8.0,"01-09",4.48],[15.0,"01-16",4.43],[22.0,"01-23",4.58],[29.0,"01-30",5.42],[36.0,"02-06",6.92],[57.0,"02-27",3.54],[64.0,"03-06",3.37],[71.0,"03-13",3.79],[78.0,"03-20",4.06],[85.0,"03-27",3.28],[92.0,"04-03",3.28],[99.0,"04-10",3.4],[106.0,"04-17",3.31],[113.0,"04-24",3.58],[127.0,"05-08",3.2],[135.0,"05-16",3.52],[142.0,"05-23",3.33],[149.0,"05-30",3.21],[156.0,"06-06",3.08],[163.0,"06-13",2.72],[170.0,"06-20",2.71],[177.0,"06-27",3.36],[184.0,"07-04",3.54],[191.0,"07-11",3.72],[198.0,"07-18",3.43],[205.0,"07-25",3.06],[212.0,"08-01",2.91],[219.0,"08-08",2.49],[226.0,"08-15",2.93],[233.0,"08-22",3.08],[240.0,"08-29",3.72],[247.0,"09-05",2.46]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"内蒙小计（天）","axisMin":0,"axisMax":10,"ticks":[0,2,4,6,8,10],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",5.42],[325.0,"11-22",5.62],[332.0,"11-29",6.3],[339.0,"12-06",5.77],[346.0,"12-13",6.73],[353.0,"12-20",7.58],[360.0,"12-27",7.54]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",6.73],[16.0,"01-17",6.67],[37.0,"02-07",6.27],[44.0,"02-14",5.58],[51.0,"02-21",5.35],[58.0,"02-28",5.23],[65.0,"03-07",5.0],[72.0,"03-14",4.27],[79.0,"03-21",4.42],[86.0,"03-28",5.12],[93.0,"04-04",5.19],[100.0,"04-11",5.17],[107.0,"04-18",4.78],[114.0,"04-25",5.58],[128.0,"05-09",5.72],[135.0,"05-16",5.55],[142.0,"05-23",5.84],[149.0,"05-30",5.68],[156.0,"06-06",5.65],[163.0,"06-13",6.13],[170.0,"06-20",5.68],[177.0,"06-27",5.39],[184.0,"07-04",5.64],[191.0,"07-11",4.79],[198.0,"07-18",4.98],[205.0,"07-25",5.12],[212.0,"08-01",5.59],[219.0,"08-08",5.65],[226.0,"08-15",4.73],[233.0,"08-22",5.38],[240.0,"08-29",4.65],[247.0,"09-05",4.45],[254.0,"09-12",4.5],[261.0,"09-19",5.2],[268.0,"09-26",5.43],[282.0,"10-10",5.23],[289.0,"10-17",4.83],[296.0,"10-24",5.09],[303.0,"10-31",5.03],[310.0,"11-07",5.23],[317.0,"11-14",5.15],[324.0,"11-21",4.88],[331.0,"11-28",5.72],[338.0,"12-05",5.15],[345.0,"12-12",4.88],[352.0,"12-19",4.77],[359.0,"12-26",4.6]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",4.65],[8.0,"01-09",5.24],[15.0,"01-16",6.22],[22.0,"01-23",6.29],[29.0,"01-30",6.71],[36.0,"02-06",7.46],[57.0,"02-27",4.77],[64.0,"03-06",5.19],[71.0,"03-13",5.4],[78.0,"03-20",5.53],[85.0,"03-27",5.14],[92.0,"04-03",5.14],[99.0,"04-10",4.7],[106.0,"04-17",4.65],[113.0,"04-24",4.79],[127.0,"05-08",4.6],[135.0,"05-16",4.76],[142.0,"05-23",4.66],[149.0,"05-30",4.6],[156.0,"06-06",4.04],[163.0,"06-13",4.36],[170.0,"06-20",4.36],[177.0,"06-27",4.68],[184.0,"07-04",3.77],[191.0,"07-11",3.86],[198.0,"07-18",3.72],[205.0,"07-25",3.53],[212.0,"08-01",3.45],[219.0,"08-08",3.25],[226.0,"08-15",3.47],[233.0,"08-22",3.04],[240.0,"08-29",2.86],[247.0,"09-05",2.73]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"总计（天）","axisMin":4,"axisMax":12,"ticks":[4,6,8,10,12],"series":[{"year":2024,"color":"#1689d8","width":2.0,"points":[[318.0,"11-15",6.59],[325.0,"11-22",7.05],[332.0,"11-29",7.32],[339.0,"12-06",8.01],[346.0,"12-13",8.5],[353.0,"12-20",9.16],[360.0,"12-27",8.96]]},{"year":2025,"color":"#0b2f66","width":2.0,"points":[[9.0,"01-10",8.91],[16.0,"01-17",9.56],[37.0,"02-07",7.85],[44.0,"02-14",7.21],[51.0,"02-21",7.08],[58.0,"02-28",7.02],[65.0,"03-07",6.86],[72.0,"03-14",6.84],[79.0,"03-21",6.86],[86.0,"03-28",7.17],[93.0,"04-04",7.5],[100.0,"04-11",7.28],[107.0,"04-18",6.83],[114.0,"04-25",7.35],[128.0,"05-09",6.87],[135.0,"05-16",6.88],[142.0,"05-23",6.97],[149.0,"05-30",7.03],[156.0,"06-06",7.34],[163.0,"06-13",6.6],[170.0,"06-20",6.73],[177.0,"06-27",7.12],[184.0,"07-04",7.71],[191.0,"07-11",7.81],[198.0,"07-18",8.24],[205.0,"07-25",7.76],[212.0,"08-01",7.66],[219.0,"08-08",7.43],[226.0,"08-15",7.02],[233.0,"08-22",7.13],[240.0,"08-29",6.49],[247.0,"09-05",6.62],[254.0,"09-12",6.81],[261.0,"09-19",7.54],[268.0,"09-26",7.64],[282.0,"10-10",7.96],[289.0,"10-17",7.67],[296.0,"10-24",8.05],[303.0,"10-31",7.98],[310.0,"11-07",8.46],[317.0,"11-14",8.78],[324.0,"11-21",8.73],[331.0,"11-28",8.35],[338.0,"12-05",8.06],[345.0,"12-12",7.95],[352.0,"12-19",8.17],[359.0,"12-26",7.27]]},{"year":2026,"color":"#e00000","width":3.6,"points":[[1.0,"01-02",7.27],[8.0,"01-09",7.46],[15.0,"01-16",8.18],[22.0,"01-23",8.22],[29.0,"01-30",8.38],[36.0,"02-06",8.89],[57.0,"02-27",7.05],[64.0,"03-06",6.71],[71.0,"03-13",7.09],[78.0,"03-20",7.92],[85.0,"03-27",7.5],[92.0,"04-03",7.5],[99.0,"04-10",7.34],[106.0,"04-17",7.46],[113.0,"04-24",7.08],[127.0,"05-08",7.65],[135.0,"05-16",7.57],[142.0,"05-23",7.22],[149.0,"05-30",6.67],[156.0,"06-06",6.38],[163.0,"06-13",6.16],[170.0,"06-20",6.16],[177.0,"06-27",7.06],[184.0,"07-04",7.14],[191.0,"07-11",6.67],[198.0,"07-18",6.41],[205.0,"07-25",5.91],[212.0,"08-01",6.44],[219.0,"08-08",6.27],[226.0,"08-15",6.57],[233.0,"08-22",6.16],[240.0,"08-29",5.97],[247.0,"09-05",5.93]]}]}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article></div><p class="source-note">来源：sample_coke_inventory_coking_plant_coal_焦企焦煤库存可用天数.npz；单位：天。</p></div></section></section>
+</main>
+</div>
+<div class="modal" id="image-modal"><button type="button">关闭</button><img alt="放大预览"/></div>
+<div aria-label="可编辑文字工具条" class="edit-toolbar" id="edit-toolbar">
+<button data-cmd="bold" type="button">加粗</button>
+<button class="red-btn" data-cmd="foreColor" data-value="#c00000" type="button">标红</button>
+<button data-cmd="removeFormat" type="button">清格式</button>
+<button class="save-btn" id="save-edits" title="保存当前所有可编辑文字" type="button">保存文字</button>
+<span class="edit-save-hint">自动保存</span>
+</div>
+<div class="chart-tip" id="chart-tip"></div>
+<script>
+    const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+    const panels = Array.from(document.querySelectorAll('.report-panel'));
+    const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+    function activatePanel(target) {
+      tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.target === target));
+      panels.forEach(panel => panel.classList.toggle('active', panel.id === target));
+    }
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      activatePanel(tab.dataset.target);
+      history.replaceState(null, '', '#' + tab.dataset.target);
+    }));
+    tocLinks.forEach(link => link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const id = link.getAttribute('href').slice(1);
+      activatePanel(link.dataset.panel);
+      document.getElementById(id)?.scrollIntoView({behavior:'smooth', block:'start'});
+      history.replaceState(null, '', '#' + id);
+      tocLinks.forEach(a => a.classList.toggle('active', a === link));
+    }));
+    const initial = location.hash.replace('#', '');
+    const initialLink = tocLinks.find(link => link.getAttribute('href') === '#' + initial);
+    if (initialLink) {
+      activatePanel(initialLink.dataset.panel);
+      setTimeout(() => document.getElementById(initial)?.scrollIntoView({block:'start'}), 0);
+    } else if (tabs.some(tab => tab.dataset.target === initial)) activatePanel(initial);
+    document.querySelectorAll('.copy-table').forEach(button => button.addEventListener('click', () => {
+      const table = button.closest('.subpanel').querySelector('table');
+      const text = Array.from(table.rows).map(row => Array.from(row.cells).map(cell => cell.innerText.trim()).join('\t')).join('\n');
+      navigator.clipboard?.writeText(text);
+      button.textContent = '已复制';
+      setTimeout(() => button.textContent = '复制表格', 1200);
+    }));
+    const editToolbar = document.getElementById('edit-toolbar');
+    const editStoragePrefix = 'coal-weekly-dashboard-portable-fixed-20260816:';
+    let activeEditable = null;
+    function positionEditToolbar(target) {
+      const rect = target.getBoundingClientRect();
+      editToolbar.style.left = Math.min(window.innerWidth - 280, Math.max(8, rect.left)) + 'px';
+      editToolbar.style.top = Math.max(8, rect.top - 46) + 'px';
+      editToolbar.classList.add('active');
+    }
+    function persistEditable(target) {
+      if (!target?.dataset?.editId) return;
+      try {
+        localStorage.setItem(editStoragePrefix + target.dataset.editId, target.innerHTML);
+      } catch (err) {}
+    }
+    function stableEditId(el, idx) {
+      const section = el.closest('section[id]');
+      const table = el.closest('table');
+      const row = el.closest('tr');
+      const cell = el.closest('th,td');
+      const rowIndex = row ? Array.from(row.parentElement.children).indexOf(row) : -1;
+      const cellIndex = cell && row ? Array.from(row.children).indexOf(cell) : -1;
+      const tag = el.tagName.toLowerCase();
+      return [section?.id || 'page', table?.className || 'note', tag, rowIndex, cellIndex, idx].join(':');
+    }
+    function persistAllEditables() {
+      document.querySelectorAll('[contenteditable="true"]').forEach(el => persistEditable(el));
+      const btn = document.getElementById('save-edits');
+      if (btn) {
+        btn.textContent = '已保存';
+        setTimeout(() => btn.textContent = '保存文字', 1200);
+      }
+    }
+    document.querySelectorAll('[contenteditable="true"]').forEach((el, idx) => {
+      el.dataset.editId = stableEditId(el, idx);
+      try {
+        const saved = localStorage.getItem(editStoragePrefix + el.dataset.editId) ?? localStorage.getItem(editStoragePrefix + String(idx));
+        if (saved !== null) el.innerHTML = saved;
+      } catch (err) {}
+      el.addEventListener('focus', () => {
+        activeEditable = el;
+        positionEditToolbar(el);
+      });
+      el.addEventListener('input', () => persistEditable(el));
+      el.addEventListener('mouseup', () => positionEditToolbar(el));
+      el.addEventListener('keyup', () => positionEditToolbar(el));
+    });
+    editToolbar.querySelectorAll('button[data-cmd]').forEach(button => button.addEventListener('mousedown', event => {
+      event.preventDefault();
+      if (!activeEditable) return;
+      activeEditable.focus();
+      document.execCommand(button.dataset.cmd, false, button.dataset.value || null);
+      persistEditable(activeEditable);
+    }));
+    document.getElementById('save-edits')?.addEventListener('mousedown', event => {
+      event.preventDefault();
+      persistAllEditables();
+    });
+    document.addEventListener('mousedown', event => {
+      if (event.target.closest('[contenteditable="true"]') || event.target.closest('#edit-toolbar')) return;
+      editToolbar.classList.remove('active');
+    });
+    window.addEventListener('scroll', () => {
+      if (activeEditable && document.activeElement === activeEditable) positionEditToolbar(activeEditable);
+    }, { passive:true });
+    const modal = document.getElementById('image-modal');
+    const modalImg = modal.querySelector('img');
+    document.querySelectorAll('.image-zoom').forEach(btn => btn.addEventListener('click', () => {
+      const embeddedImg = btn.querySelector('img');
+      modalImg.src = embeddedImg?.currentSrc || embeddedImg?.src || btn.dataset.src;
+      modal.classList.add('active');
+    }));
+    modal.querySelector('button').addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', event => { if (event.target === modal) modal.classList.remove('active'); });
+    const chartTip = document.getElementById('chart-tip');
+    function fmtChartValue(value) {
+      if (!Number.isFinite(value)) return '';
+      if (Math.abs(value) >= 100) return value.toFixed(0);
+      if (Math.abs(value) >= 10) return value.toFixed(1);
+      return value.toFixed(2).replace(/\.00$/, '').replace(/0$/, '');
+    }
+    function fmtDisplayValue(value, format) {
+      if (!Number.isFinite(value)) return '';
+      if (format === 'percent') {
+        const percentValue = value * 100;
+        const label = Math.abs(percentValue - Math.round(percentValue)) < 1e-9 ? String(Math.round(percentValue)) : percentValue.toFixed(1).replace(/\.0$/, '');
+        return `${label}%`;
+      }
+      return fmtChartValue(value);
+    }
+    function cleanTick(value, format) {
+      if (format === 'percent') return `${Math.round(value * 100)}%`;
+      return Math.abs(value - Math.round(value)) < 1e-9 ? String(Math.round(value)) : fmtChartValue(value);
+    }
+    function drawCanvasChart(canvas) {
+      const data = JSON.parse(canvas.dataset.chart || '{}');
+      const ctx = canvas.getContext('2d');
+      const w = Number(canvas.getAttribute('width')) || 760;
+      const h = Number(canvas.getAttribute('height')) || 420;
+      const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 760 ? 1.25 : 2);
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      canvas.style.aspectRatio = `${w} / ${h}`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      const left = data.type === 'seasonal' ? 66 : 56;
+      const top = data.type === 'seasonal' ? 34 : 30;
+      const right = 24;
+      const bottom = data.type === 'seasonal' ? 46 : 40;
+      const pw = w - left - right;
+      const ph = h - top - bottom;
+      ctx.fillStyle = '#0b2f66';
+      ctx.font = '800 16px "Times New Roman", KaiTi, STKaiti, SimKai, serif';
+      ctx.fillText(data.title || '', left, 23);
+      ctx.font = '13px "Times New Roman", KaiTi, STKaiti, SimKai, serif';
+      ctx.strokeStyle = '#d7dce5';
+      ctx.setLineDash([4, 4]);
+      ctx.fillStyle = '#667085';
+      const hoverPoints = [];
+      if (data.type === 'seasonal') {
+        const mn = Number(data.axisMin);
+        const mx = Number(data.axisMax);
+        const valueFormat = data.valueFormat || '';
+        const chartKind = data.chartKind || 'line';
+        (data.ticks || []).slice().reverse().forEach(value => {
+          const y = top + ph * (mx - value) / (mx - mn);
+          ctx.beginPath();
+          ctx.moveTo(left, y);
+          ctx.lineTo(w - right, y);
+          ctx.stroke();
+          ctx.fillText(cleanTick(value, valueFormat), left - 54, y + 4);
+        });
+        if (mn < 0 && mx > 0) {
+          const y0 = top + ph * mx / (mx - mn);
+          ctx.save();
+          ctx.setLineDash([]);
+          ctx.strokeStyle = '#475467';
+          ctx.lineWidth = 2.2;
+          ctx.beginPath();
+          ctx.moveTo(left, y0);
+          ctx.lineTo(w - right, y0);
+          ctx.stroke();
+          ctx.restore();
+          ctx.strokeStyle = '#d7dce5';
+          ctx.setLineDash([4, 4]);
+        }
+        [['1月',0], ['3月',59], ['5月',120], ['7月',181], ['9月',243], ['11月',304]].forEach(([label, day]) => {
+          const x = left + pw * day / 364;
+          ctx.beginPath();
+          ctx.moveTo(x, top);
+          ctx.lineTo(x, top + ph);
+          ctx.stroke();
+          ctx.textAlign = 'center';
+          ctx.fillText(label, x, h - 18);
+          ctx.textAlign = 'left';
+        });
+        ctx.setLineDash([]);
+        const seriesList = data.series || [];
+        seriesList.forEach((s, seriesIdx) => {
+          const pts = (s.points || []).filter(p => Number.isFinite(Number(p[2])));
+          if (!pts.length) return;
+          if (chartKind === 'bar') {
+            const count = Math.max(1, seriesList.length);
+            const slot = Math.max(3, Math.min(8, pw / 140));
+            const barWidth = Math.max(2, slot * 0.78);
+            const baseValue = Math.max(mn, Math.min(mx, 0));
+            const baseY = top + ph * (mx - baseValue) / (mx - mn);
+            ctx.fillStyle = s.color || '#0b2f66';
+            pts.forEach(p => {
+              const x = left + pw * Number(p[0]) / 364 + (seriesIdx - (count - 1) / 2) * slot;
+              const rawValue = Number(p[2]);
+              const cappedValue = Math.max(mn, Math.min(mx, rawValue));
+              const y = top + ph * (mx - cappedValue) / (mx - mn);
+              const barTop = Math.min(y, baseY);
+              const barHeight = Math.max(1, Math.abs(baseY - y));
+              ctx.globalAlpha = Number(s.year) === Number((seriesList[seriesList.length - 1] || {}).year) ? 0.9 : 0.45;
+              ctx.fillRect(x - barWidth / 2, barTop, barWidth, barHeight);
+              ctx.globalAlpha = 1;
+              hoverPoints.push({type:'seasonal', year:s.year, date:p[1], value:rawValue, format:valueFormat, x, y, title:data.title});
+            });
+          } else {
+            ctx.strokeStyle = s.color || '#0b2f66';
+            ctx.lineWidth = Number(s.width) || 2.2;
+            ctx.beginPath();
+            pts.forEach((p, idx) => {
+              const x = left + pw * Number(p[0]) / 364;
+              const y = top + ph * (mx - Number(p[2])) / (mx - mn);
+              if (idx === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+              hoverPoints.push({type:'seasonal', year:s.year, date:p[1], value:Number(p[2]), format:valueFormat, x, y, title:data.title});
+            });
+            ctx.stroke();
+            const last = pts[pts.length - 1];
+            const lx = left + pw * Number(last[0]) / 364;
+            const ly = top + ph * (mx - Number(last[2])) / (mx - mn);
+            ctx.fillStyle = s.color || '#0b2f66';
+            ctx.beginPath();
+            ctx.arc(lx, ly, 3.8, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+        ctx.restore();
+        if (data.latestAnnotation) {
+          ctx.save();
+          ctx.textAlign = 'right';
+          ctx.fillStyle = data.latestAnnotation.color || '#e00000';
+          ctx.font = '700 17px KaiTi, "Microsoft YaHei", sans-serif';
+          ctx.fillText(data.latestAnnotation.text || '', w - right, top - 10);
+          ctx.restore();
+        }
+      } else {
+        const pairs = (data.pairs || []).filter(p => Number.isFinite(Number(p[1])));
+        const vals = pairs.map(p => Number(p[1]));
+        let mn = Math.min(...vals);
+        let mx = Math.max(...vals);
+        if (Math.abs(mx - mn) < 1e-9) { mn -= 1; mx += 1; }
+        const pad = (mx - mn) * 0.08;
+        mn -= pad; mx += pad;
+        for (let t = 0; t < 5; t += 1) {
+          const y = top + ph * t / 4;
+          const val = mx - (mx - mn) * t / 4;
+          ctx.beginPath();
+          ctx.moveTo(left, y);
+          ctx.lineTo(w - right, y);
+          ctx.stroke();
+          ctx.fillText(cleanTick(val), left - 42, y + 4);
+        }
+        ctx.setLineDash([]);
+        ctx.strokeStyle = data.color || '#0b2f66';
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        pairs.forEach((p, idx) => {
+          const x = left + pw * idx / Math.max(1, pairs.length - 1);
+          const y = top + ph * (mx - Number(p[1])) / (mx - mn);
+          if (idx === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          hoverPoints.push({type:'line', date:p[0], value:Number(p[1]), x, y, title:data.title});
+        });
+        ctx.stroke();
+        ctx.fillStyle = data.color || '#0b2f66';
+        const last = hoverPoints[hoverPoints.length - 1];
+        if (last) {
+          ctx.beginPath();
+          ctx.arc(last.x, last.y, 4.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.fillStyle = '#667085';
+        if (pairs[0]) ctx.fillText(pairs[0][0], left, h - 10);
+        if (pairs[pairs.length - 1]) {
+          ctx.textAlign = 'right';
+          ctx.fillText(pairs[pairs.length - 1][0], w - right, h - 10);
+          ctx.textAlign = 'left';
+        }
+      }
+      canvas._hoverPoints = hoverPoints;
+    }
+
+    function bindCanvasCharts(root = document) {
+      const canvases = Array.from(root.querySelectorAll('.chart-canvas:not([data-rendered])'));
+      const bindOne = canvas => {
+        if (canvas.dataset.rendered === '1') return;
+        canvas.dataset.rendered = '1';
+        drawCanvasChart(canvas);
+        canvas.addEventListener('mousemove', event => {
+          const rect = canvas.getBoundingClientRect();
+          const w = Number(canvas.getAttribute('width')) || 620;
+          const x = (event.clientX - rect.left) * w / rect.width;
+          const points = canvas._hoverPoints || [];
+          if (!points.length) return;
+          const data = JSON.parse(canvas.dataset.chart || '{}');
+          if (points[0].type === 'seasonal') {
+            const grouped = new Map();
+            points.forEach(point => {
+              if (!grouped.has(point.year)) grouped.set(point.year, []);
+              grouped.get(point.year).push(point);
+            });
+            const years = Array.from(grouped.keys()).sort((a, b) => Number(b) - Number(a));
+            const anchorYear = years[0];
+            const anchorCandidates = grouped.get(anchorYear) || [];
+            let anchor = anchorCandidates[0];
+            anchorCandidates.forEach(point => {
+              if (!anchor || Math.abs(point.x - x) < Math.abs(anchor.x - x)) anchor = point;
+            });
+            const anchorX = anchor ? anchor.x : x;
+            const formatPointValue = point => {
+              if (point.format === 'percent' || data.yFormat === 'percent') {
+                const pct = Math.abs(point.value) <= 1.5 ? point.value * 100 : point.value;
+                return `${Number.isInteger(pct) ? pct.toFixed(0) : pct.toFixed(1)}%`;
+              }
+              return fmtChartValue(point.value);
+            };
+            const lines = years.map(year => {
+              const yearPoints = grouped.get(year) || [];
+              let nearest = yearPoints[0];
+              yearPoints.forEach(point => {
+                if (!nearest || Math.abs(point.x - anchorX) < Math.abs(nearest.x - anchorX)) nearest = point;
+              });
+              return nearest ? `${nearest.year} ${nearest.date}：${formatPointValue(nearest)}` : '';
+            }).filter(Boolean);
+            chartTip.textContent = [points[0].title || '', ...lines].filter(Boolean).join('
+');
+          } else {
+            let nearest = points[0];
+            points.forEach(point => { if (Math.abs(point.x - x) < Math.abs(nearest.x - x)) nearest = point; });
+            chartTip.textContent = `${nearest.title} ${nearest.date}：${fmtChartValue(nearest.value)}`;
+          }
+          chartTip.style.display = 'block';
+          chartTip.style.left = Math.min(window.innerWidth - 340, event.clientX + 12) + 'px';
+          chartTip.style.top = (event.clientY + 12) + 'px';
+        });
+        canvas.addEventListener('mouseleave', () => chartTip.style.display = 'none');
+      };
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            bindOne(entry.target);
+            observer.unobserve(entry.target);
+          });
+        }, {rootMargin: '360px 0px'});
+        canvases.forEach(canvas => observer.observe(canvas));
+      } else {
+        canvases.slice(0, 8).forEach(bindOne);
+        canvases.slice(8).forEach((canvas, idx) => window.setTimeout(() => bindOne(canvas), 160 * (idx + 1)));
+      }
+    }
+    function bindChartInteractions(root = document) {
+      bindCanvasCharts(root);
+      root.querySelectorAll('.hover-dot:not([data-bound])').forEach(dot => {
+        dot.dataset.bound = '1';
+        dot.addEventListener('mouseenter', () => {
+          chartTip.textContent = dot.dataset.tip || '';
+          chartTip.style.display = 'block';
+        });
+        dot.addEventListener('mousemove', event => {
+          chartTip.style.left = Math.min(window.innerWidth - 280, event.clientX + 12) + 'px';
+          chartTip.style.top = (event.clientY + 12) + 'px';
+        });
+        dot.addEventListener('mouseleave', () => chartTip.style.display = 'none');
+      });
+      root.querySelectorAll('.seasonal-hover-zone:not([data-bound])').forEach(zone => {
+        zone.dataset.bound = '1';
+        zone.addEventListener('mousemove', event => {
+          const svg = zone.closest('svg');
+          const guide = svg?.querySelector('.seasonal-guide');
+          const rect = svg.getBoundingClientRect();
+          const viewBox = svg.viewBox.baseVal;
+          const x = (event.clientX - rect.left) * viewBox.width / rect.width;
+          if (guide) {
+            guide.setAttribute('x1', x.toFixed(1));
+            guide.setAttribute('x2', x.toFixed(1));
+            guide.style.display = 'block';
+          }
+          const points = zone._points || (zone._points = JSON.parse(zone.dataset.points || '[]'));
+          const byYear = new Map();
+          points.forEach(point => {
+            const prev = byYear.get(point.year);
+            if (!prev || Math.abs(point.x - x) < Math.abs(prev.x - x)) byYear.set(point.year, point);
+          });
+          const lines = Array.from(byYear.values())
+            .sort((a, b) => Number(b.year) - Number(a.year))
+            .map(point => `${point.year} ${point.date}：${point.value}`);
+          chartTip.textContent = [zone.dataset.title || '', ...lines].filter(Boolean).join('\n');
+          chartTip.style.display = 'block';
+          chartTip.style.left = Math.min(window.innerWidth - 340, event.clientX + 12) + 'px';
+          chartTip.style.top = (event.clientY + 12) + 'px';
+        });
+        zone.addEventListener('mouseleave', () => {
+          const guide = zone.closest('svg')?.querySelector('.seasonal-guide');
+          if (guide) guide.style.display = 'none';
+          chartTip.style.display = 'none';
+        });
+      });
+    }
+    bindChartInteractions();
+  </script>
+<script id="mobile-touch-overrides">
+  (() => {
+    const tip = () => {
+      let node = document.getElementById('chart-tip');
+      if (!node) {
+        node = document.createElement('div');
+        node.id = 'chart-tip';
+        node.className = 'chart-tip';
+        document.body.appendChild(node);
+      }
+      return node;
+    };
+
+    const fmt = value => {
+      const num = Number(value);
+      if (!Number.isFinite(num)) return String(value ?? '');
+      if (Math.abs(num) >= 100) return num.toFixed(0);
+      if (Math.abs(num) >= 10) return num.toFixed(1);
+      return num.toFixed(2).replace(/\.00$/, '').replace(/0$/, '');
+    };
+
+    const placeTip = (event, content) => {
+      const node = tip();
+      node.textContent = content;
+      node.style.display = 'block';
+      const pointer = event.touches ? event.touches[0] : event;
+      const x = pointer.clientX || 12;
+      const y = pointer.clientY || 12;
+      const width = Math.min(340, window.innerWidth - 18);
+      node.style.maxWidth = width + 'px';
+      node.style.left = Math.max(8, Math.min(window.innerWidth - width - 8, x + 10)) + 'px';
+      node.style.top = Math.max(8, Math.min(window.innerHeight - 96, y + 12)) + 'px';
+    };
+
+    const bindCanvasTouch = canvas => {
+      if (canvas.dataset.mobileTouchBound === '1') return;
+      canvas.dataset.mobileTouchBound = '1';
+      const show = event => {
+        const rect = canvas.getBoundingClientRect();
+        const width = Number(canvas.getAttribute('width')) || 760;
+        const pointer = event.touches ? event.touches[0] : event;
+        const x = (pointer.clientX - rect.left) * width / Math.max(1, rect.width);
+        const points = canvas._hoverPoints || [];
+        if (!points.length) return;
+        let content = '';
+        if (points[0].type === 'seasonal') {
+          const grouped = new Map();
+          points.forEach(point => {
+            if (!grouped.has(point.year)) grouped.set(point.year, []);
+            grouped.get(point.year).push(point);
+          });
+          const years = Array.from(grouped.keys()).sort((a, b) => Number(b) - Number(a));
+          const anchorYear = years[0];
+          const anchorPoints = grouped.get(anchorYear) || [];
+          let anchor = anchorPoints[0];
+          anchorPoints.forEach(point => {
+            if (!anchor || Math.abs(point.x - x) < Math.abs(anchor.x - x)) anchor = point;
+          });
+          const anchorX = anchor ? anchor.x : x;
+          const lines = years.map(year => {
+            let nearest = (grouped.get(year) || [])[0];
+            (grouped.get(year) || []).forEach(point => {
+              if (!nearest || Math.abs(point.x - anchorX) < Math.abs(nearest.x - anchorX)) nearest = point;
+            });
+            if (!nearest) return '';
+            const rawValue = nearest.format === 'percent' || points[0].yFormat === 'percent'
+              ? `${fmt(Math.abs(nearest.value) <= 1.5 ? nearest.value * 100 : nearest.value)}%`
+              : fmt(nearest.value);
+            return `${nearest.year} ${nearest.date}: ${rawValue}`;
+          }).filter(Boolean);
+          content = [points[0].title || '', ...lines].filter(Boolean).join('\n');
+        } else {
+          let nearest = points[0];
+          points.forEach(point => {
+            if (Math.abs(point.x - x) < Math.abs(nearest.x - x)) nearest = point;
+          });
+          content = `${nearest.title} ${nearest.date}: ${fmt(nearest.value)}`;
+        }
+        if (content) placeTip(event, content);
+      };
+      canvas.addEventListener('pointerdown', show, { passive: true });
+      canvas.addEventListener('pointermove', show, { passive: true });
+      canvas.addEventListener('touchstart', show, { passive: true });
+      canvas.addEventListener('touchmove', show, { passive: true });
+    };
+
+    const bindSvgTouch = node => {
+      if (node.dataset.mobileTouchBound === '1') return;
+      node.dataset.mobileTouchBound = '1';
+      const show = event => {
+        const content = node.dataset.tip || node.dataset.title || '';
+        if (content) placeTip(event, content);
+      };
+      node.addEventListener('pointerdown', show, { passive: true });
+      node.addEventListener('pointermove', show, { passive: true });
+      node.addEventListener('touchstart', show, { passive: true });
+      node.addEventListener('touchmove', show, { passive: true });
+    };
+
+    const bindAll = () => {
+      document.querySelectorAll('.chart-canvas').forEach(bindCanvasTouch);
+      document.querySelectorAll('[data-tip], .hover-dot, .seasonal-hover-zone').forEach(bindSvgTouch);
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      bindAll();
+      window.setTimeout(bindAll, 500);
+      window.setTimeout(bindAll, 1500);
+    });
+
+    document.addEventListener('pointerdown', event => {
+      if (!event.target.closest('.chart-canvas, [data-tip], .hover-dot, .seasonal-hover-zone')) {
+        const node = document.getElementById('chart-tip');
+        if (node) node.style.display = 'none';
+      }
+    });
+  })();
+</script>
+</body>
+</html>
