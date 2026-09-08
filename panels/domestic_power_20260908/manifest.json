@@ -1,7 +1,7 @@
 {
   "dashboard": "国内电力月报手机版",
   "report_date": "20260908",
-  "generated_at": "2026-09-08T18:02:22",
+  "generated_at": "2026-09-08T19:32:28",
   "source_html": "D:\\all remain\\FangcloudV2\\太和致远\\AI-workspace\\html\\电力月度看板\\index.html",
   "source_snapshot": "D:\\all remain\\FangcloudV2\\太和致远\\AI-workspace\\html\\电力月度看板\\outputs\\国内电力月报20260908_data_snapshot.json",
   "latest_dates": {
@@ -27,217 +27,217 @@
       "subpanel": "overview-core",
       "label": "1.1 发电、用电核心变化",
       "filename": "index.html",
-      "bytes": 28985
+      "bytes": 29143
     },
     {
       "panel": "overview",
       "subpanel": "overview-investment",
       "label": "1.2 电源电网投资",
       "filename": "overview-overview-investment.html",
-      "bytes": 144286
+      "bytes": 144444
     },
     {
       "panel": "price",
       "subpanel": "price-spot",
       "label": "2.1 重点省份现货电力价格",
       "filename": "price.html",
-      "bytes": 717481
+      "bytes": 717639
     },
     {
       "panel": "price",
       "subpanel": "price-table",
       "label": "2.2 分省份代理电价",
       "filename": "price-price-table.html",
-      "bytes": 372247
+      "bytes": 372405
     },
     {
       "panel": "price",
       "subpanel": "price-overseas",
       "label": "2.3 美洲日度",
       "filename": "price-overseas-americas-daily.html",
-      "bytes": 526438
+      "bytes": 526596
     },
     {
       "panel": "price",
       "subpanel": "price-overseas",
       "label": "2.3 美洲MA7",
       "filename": "price-overseas-americas-ma7.html",
-      "bytes": 535679
+      "bytes": 535837
     },
     {
       "panel": "price",
       "subpanel": "price-overseas",
       "label": "2.3 亚洲日度",
       "filename": "price-overseas-asia-daily.html",
-      "bytes": 718311
+      "bytes": 718469
     },
     {
       "panel": "price",
       "subpanel": "price-overseas",
       "label": "2.3 亚洲MA7",
       "filename": "price-overseas-asia-ma7.html",
-      "bytes": 730911
+      "bytes": 731069
     },
     {
       "panel": "price",
       "subpanel": "price-overseas",
       "label": "2.3 欧洲日度",
       "filename": "price-overseas-europe-daily.html",
-      "bytes": 1641096
+      "bytes": 1641254
     },
     {
       "panel": "price",
       "subpanel": "price-overseas",
       "label": "2.3 欧洲MA7",
       "filename": "price-overseas-europe-ma7.html",
-      "bytes": 1668453
+      "bytes": 1668611
     },
     {
       "panel": "price",
       "subpanel": "price-overseas",
       "label": "2.3 大洋洲日度",
       "filename": "price-overseas-oceania-daily.html",
-      "bytes": 940647
+      "bytes": 940805
     },
     {
       "panel": "price",
       "subpanel": "price-overseas",
       "label": "2.3 大洋洲MA7",
       "filename": "price-overseas-oceania-ma7.html",
-      "bytes": 956332
+      "bytes": 956490
     },
     {
       "panel": "price",
       "subpanel": "price-long-contract",
       "label": "2.4 年度长协电价",
       "filename": "price-price-long-contract.html",
-      "bytes": 28846
+      "bytes": 29004
     },
     {
       "panel": "price",
       "subpanel": "price-capacity",
       "label": "2.5 容量电价对比变动",
       "filename": "price-price-capacity.html",
-      "bytes": 46770
+      "bytes": 46928
     },
     {
       "panel": "supply",
       "subpanel": "supply-generation",
       "label": "3.1 发电量",
       "filename": "supply.html",
-      "bytes": 140615
+      "bytes": 140773
     },
     {
       "panel": "supply",
       "subpanel": "supply-capacity",
       "label": "3.2 装机",
       "filename": "supply-supply-capacity.html",
-      "bytes": 224889
+      "bytes": 225047
     },
     {
       "panel": "supply",
       "subpanel": "supply-regional",
       "label": "3.3 分地区分类型发电",
       "filename": "supply-supply-regional.html",
-      "bytes": 40092
+      "bytes": 40250
     },
     {
       "panel": "supply",
       "subpanel": "supply-decadal",
       "label": "3.4 旬度日均发电",
       "filename": "supply-supply-decadal.html",
-      "bytes": 297776
+      "bytes": 297934
     },
     {
       "panel": "supply",
       "subpanel": "supply-utilization-hours",
       "label": "3.5 发电利用小时数",
       "filename": "supply-supply-utilization-hours.html",
-      "bytes": 88227
+      "bytes": 88385
     },
     {
       "panel": "supply",
       "subpanel": "supply-regional-structure",
       "label": "3.6 分省份发电结构",
       "filename": "supply-supply-regional-structure.html",
-      "bytes": 86545
+      "bytes": 86703
     },
     {
       "panel": "supply",
       "subpanel": "supply-nuclear-maintenance",
       "label": "3.7 核电检修",
       "filename": "supply-supply-nuclear-maintenance.html",
-      "bytes": 40411
+      "bytes": 40569
     },
     {
       "panel": "demand",
       "subpanel": "demand-total",
       "label": "4.1 用电总量与结构",
       "filename": "demand.html",
-      "bytes": 115281
+      "bytes": 115439
     },
     {
       "panel": "demand",
       "subpanel": "demand-industry",
       "label": "4.2 分行业用电",
       "filename": "demand-demand-industry.html",
-      "bytes": 292556
+      "bytes": 292714
     },
     {
       "panel": "trade",
       "subpanel": "trade-long-term",
       "label": "5.1 中长期电力直接交易",
       "filename": "trade.html",
-      "bytes": 62310
+      "bytes": 62468
     },
     {
       "panel": "trade",
       "subpanel": "trade-center",
       "label": "5.2 电力交易中心交易",
       "filename": "trade-trade-center.html",
-      "bytes": 255694
+      "bytes": 255852
     },
     {
       "panel": "trade",
       "subpanel": "trade-net-transfer",
       "label": "5.3 省份净输出电量",
       "filename": "trade-trade-net-transfer.html",
-      "bytes": 74762
+      "bytes": 74920
     },
     {
       "panel": "policy",
       "subpanel": "policy-market",
       "label": "6.1 国内电力市场政策",
       "filename": "policy.html",
-      "bytes": 35445
+      "bytes": 35603
     },
     {
       "panel": "policy",
       "subpanel": "policy-renewable",
       "label": "6.2 新能源政策",
       "filename": "policy-policy-renewable.html",
-      "bytes": 29037
+      "bytes": 29195
     },
     {
       "panel": "policy",
       "subpanel": "policy-storage",
       "label": "6.3 储能政策",
       "filename": "policy-policy-storage.html",
-      "bytes": 29273
+      "bytes": 29431
     },
     {
       "panel": "storage",
       "subpanel": "storage-monthly-install",
       "label": "7.1 储能装机与招中标",
       "filename": "storage.html",
-      "bytes": 178869
+      "bytes": 179027
     },
     {
       "panel": "storage",
       "subpanel": "storage-headline-weekly",
       "label": "7.2 储能头条周度招中标",
       "filename": "storage-storage-headline-weekly.html",
-      "bytes": 357005
+      "bytes": 357163
     }
   ]
 }

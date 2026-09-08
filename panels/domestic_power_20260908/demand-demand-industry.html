@@ -231,7 +231,13 @@
         .subpanel > h3 { font-size: 17px; }
         .grid-2, .chart-grid, .spot-season-grid, .overseas-chart-grid { grid-template-columns: minmax(0, 1fr) !important; }
         table { min-width: 620px; }
-        svg { min-width: 560px; }
+        svg {
+          display: block;
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+          height: auto !important;
+        }
         .card-head h3 { font-size: 16px !important; }
         .card-head p, .table-note, .source-note { font-size: 12px !important; }
       }
