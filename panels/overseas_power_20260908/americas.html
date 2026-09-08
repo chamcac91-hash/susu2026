@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>海外电力月报 手机版 - 2.0 美洲地区电力市场小结</title>
+<style>
+    :root { --bg:#f5f1ea; --paper:#fffdf9; --ink:#111827; --muted:#687080; --line:#cfd6e3; --navy:#0b2f66; --accent:#b4493f; }
+    * { box-sizing:border-box; }
+    body { margin:0; padding-left:176px; background:var(--bg); color:var(--ink); font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .page { width:min(1680px, calc(100% - 28px)); margin:14px auto 40px; background:var(--paper); border:1px solid #d7d0c6; box-shadow:0 8px 28px rgba(64,46,26,.08); }
+    header { padding:22px 28px 14px; border-bottom:3px solid var(--navy); }
+    header h1 { margin:0; color:var(--navy); font-size:30px; }
+    header p { margin:6px 0 0; color:var(--muted); }
+    main { padding:0 22px 28px; }
+    .side-toc { position:fixed; left:0; top:0; bottom:0; z-index:70; width:176px; overflow:auto; padding:42px 12px 18px; background:rgba(255,253,249,.98); border-right:1px solid #cbd5e1; box-shadow:8px 0 22px rgba(15,23,42,.08); }
+    .side-toc div { color:var(--navy); font-size:16px; font-weight:700; margin:0 0 8px; }
+    .side-toc a { display:block; color:#334155; text-decoration:none; font-size:13px; line-height:1.2; padding:7px 6px; border-left:3px solid transparent; }
+    .side-toc a:hover { color:var(--navy); background:#eef3fb; border-left-color:var(--accent); }
+    .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:8px; padding:18px 0 10px; border-bottom:1px solid #d7dde8; background:rgba(255,253,249,.96); }
+    .panel-tab { border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:8px 16px; min-height:42px; border-radius:3px; font-family:inherit; font-size:18px; font-weight:700; cursor:pointer; }
+    .panel-tab.active { background:var(--accent); border-color:var(--accent); color:white; }
+    body { padding-left:224px; }
+    .side-toc { width:224px; padding:24px 12px 18px; }
+    .toc-title { color:var(--navy); font-size:17px; font-weight:800; margin:0 0 10px; padding:0 6px 8px; border-bottom:1px solid #d7dde8; }
+    .toc-group { margin:0 0 8px; }
+    .toc-group-title { width:100%; display:flex; align-items:center; justify-content:space-between; gap:8px; border:1px solid #d7dde8; background:#f8fafc; color:#1f2937; padding:8px 8px; min-height:38px; border-radius:4px; font-family:inherit; font-size:14px; font-weight:800; text-align:left; cursor:pointer; }
+    .toc-group-title b { min-width:24px; height:20px; padding:1px 6px; border-radius:10px; background:#e8edf6; color:#475569; font-size:12px; text-align:center; }
+    .toc-group.active .toc-group-title { background:#0b2f66; border-color:#0b2f66; color:white; }
+    .toc-group.active .toc-group-title b { background:rgba(255,255,255,.18); color:white; }
+    .toc-group-links { display:none; padding:5px 0 2px; }
+    .toc-group.active .toc-group-links { display:block; }
+    .side-toc a { line-height:1.22; padding:7px 7px; margin:1px 0; border-radius:3px; }
+    .side-toc a:hover { border-left-color:#9aa9bf; }
+    .side-toc a.active { color:var(--navy); background:#f3e8e4; border-left-color:var(--accent); font-weight:800; }
+    .toc-depth-2 { padding-left:16px !important; font-size:12.6px !important; }
+    .toc-depth-3 { padding-left:28px !important; font-size:12px !important; color:#64748b !important; }
+    .report-panel { display:none; padding-top:16px; }
+    .report-panel.active { display:block; }
+    .report-panel > h1 { margin:0 0 14px; color:var(--navy); font-size:26px; }
+    .subpanel { scroll-margin-top:78px; margin:14px 0 22px; padding:12px; border:1px solid #d7dde8; background:#fbfcff; }
+    .subpanel > h2 { margin:0 0 10px; font-size:22px; color:var(--navy); border-left:5px solid var(--navy); padding-left:10px; }
+    .card { border:1px solid #bfc8d8; background:white; overflow:hidden; }
+    .card + .card { margin-top:12px; }
+    .wide { width:100%; }
+    .card-head { background:#d9e2f3; border-bottom:1px solid #aeb8c8; padding:8px 10px; text-align:center; }
+    .card-head h3 { margin:0; font-size:18px; color:#001f55; }
+    .card-head p { margin:3px 0 0; color:#475569; font-size:12px; }
+    .card-body { padding:10px; overflow:auto; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th, td { border:1px solid #c9ced8; padding:6px 8px; text-align:left; vertical-align:top; }
+    th { background:#e5ebf6; color:#0f2d5c; font-weight:700; }
+    td.num { text-align:right; font-variant-numeric:tabular-nums; }
+    .metric-matrix-wrap { margin:0 0 12px; overflow-x:auto; border:1px solid #d8dee9; background:#fff; }
+    .metric-matrix { min-width:1320px; width:max-content; }
+    .compact-metric-matrix { min-width:0; width:100%; }
+    .metric-matrix th { text-align:center; white-space:nowrap; }
+    .metric-matrix td { white-space:nowrap; }
+    .metric-matrix .metric-name { position:sticky; left:0; z-index:2; min-width:112px; background:#eef3fb; color:#0f2d5c; font-weight:700; }
+    .metric-matrix tbody .metric-name { background:#fffdf9; }
+    .combo-chart { margin:0 0 12px; border:1px solid #d8dee9; background:#fff; }
+    .combo-chart-head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 12px 4px; }
+    .combo-chart-head h4 { margin:0; color:#0f2d5c; font-size:17px; }
+    .chart-controls { display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-end; }
+    .chart-toggle { min-height:28px; padding:3px 10px; border:1px solid #cbd5e1; background:#f8fafc; color:#334155; border-radius:3px; font-family:inherit; cursor:pointer; }
+    .chart-toggle.active { background:var(--navy); border-color:var(--navy); color:white; }
+    .combo-chart canvas { display:block; width:100%; height:360px; }
+    .combo-chart.chart-heatmap canvas { height:520px; }
+    .combo-chart.chart-sparkline canvas { height:460px; }
+    .combo-chart.chart-seasonality canvas { height:1180px; }
+    .chart-note { margin:0; padding:0 12px 10px; color:#64748b; font-size:12px; }
+    .chart-tooltip { position:fixed; z-index:999; display:none; min-width:168px; max-width:280px; padding:8px 10px; background:rgba(15,23,42,.94); color:white; border:1px solid rgba(255,255,255,.18); border-radius:4px; box-shadow:0 10px 24px rgba(15,23,42,.22); pointer-events:none; font-size:12px; line-height:1.45; }
+    .chart-tooltip .tip-title { margin:0 0 5px; font-weight:700; color:#fff; }
+    .chart-tooltip .tip-row { display:flex; justify-content:space-between; gap:16px; border-top:1px solid rgba(255,255,255,.12); padding-top:4px; margin-top:4px; }
+    .chart-tooltip span { color:#cbd5e1; }
+    .chart-tooltip b { color:#fff; font-weight:700; text-align:right; }
+    .takeaways { margin:10px 0 0; padding-left:20px; color:#1f2937; line-height:1.65; font-size:14px; }
+    .summary-analysis { padding:8px 10px 4px; color:#1f2937; font-size:15px; line-height:1.75; }
+    .summary-analysis p { margin:0 0 10px; }
+    .summary-analysis .summary-lead { font-weight:700; color:#0f2d5c; }
+    .summary-analysis .takeaways { margin-top:8px; }
+    .data-note { margin:8px 0 12px; color:#64748b; font-size:12px; line-height:1.6; }
+    .inline-section-title { margin:16px 0 6px; color:#0f2d5c; font-size:15px; }
+    .sources { padding:16px 22px 26px; font-size:12px; color:#596273; line-height:1.7; border-top:1px solid #d7dde8; }
+    @media(max-width:1320px) {
+      .combo-chart.chart-seasonality canvas { height:1500px; }
+    }
+    @media(max-width:900px) {
+      body { padding-left:0; }
+      .page { width:100%; margin:0; border:0; }
+      .side-toc { position:sticky; top:0; width:100%; max-height:none; padding:7px 8px; display:flex; gap:6px; overflow-x:auto; border-right:0; border-bottom:1px solid #cbd5e1; box-shadow:none; }
+      .side-toc div { display:none; }
+      .side-toc a { flex:0 0 auto; border:1px solid #d7dde8; border-radius:3px; background:#f8fafc; white-space:nowrap; }
+      .toc-title { display:none; }
+      .toc-group { flex:0 0 auto; margin:0; }
+      .toc-group-title { min-height:34px; padding:6px 10px; white-space:nowrap; }
+      .toc-group-title b { display:none; }
+      .toc-group-links { position:absolute; left:0; right:0; top:49px; padding:6px 8px; background:rgba(255,253,249,.98); border-bottom:1px solid #cbd5e1; overflow-x:auto; white-space:nowrap; }
+      .toc-depth-2, .toc-depth-3 { padding-left:7px !important; font-size:12px !important; }
+      .panel-tabs { flex-wrap:nowrap; overflow-x:auto; padding:8px; }
+      .panel-tab { flex:0 0 auto; font-size:14px; min-height:34px; padding:6px 10px; }
+      main { padding:0 8px 18px; }
+      .combo-chart-head { display:block; }
+      .chart-controls { justify-content:flex-start; margin-top:8px; }
+      .combo-chart canvas { height:320px; }
+      .combo-chart.chart-heatmap canvas { height:520px; }
+      .combo-chart.chart-sparkline canvas { height:460px; }
+      .combo-chart.chart-seasonality canvas { height:2600px; }
+      table { min-width:760px; font-size:12px; }
+    }
+  </style>
+<link href="data:," rel="icon"/><style id="mobile-pages-overrides">
+      html { scroll-behavior: smooth; }
+      body { min-width: 0; padding-left: 0 !important; }
+      .page { width: 100%; max-width: 1120px; margin: 0 auto 28px; border-top: 0; }
+      main { min-width: 0; padding-top: 0 !important; }
+      .split-page-tabs {
+        position: sticky; top: 0; z-index: 95; display: flex; flex-wrap: nowrap;
+        gap: 6px; overflow-x: auto; padding: 8px 0; white-space: nowrap;
+        background: rgba(255,253,249,.98); border-bottom: 1px solid var(--line);
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      }
+      .split-page-tabs::-webkit-scrollbar, .section-page-nav::-webkit-scrollbar { display: none; }
+      .split-tab, .section-link {
+        flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none;
+        background: #f8fafc; color: #344054; font-weight: 750; white-space: nowrap;
+      }
+      .split-tab { min-width: 4.2rem; min-height: 36px; padding: 7px 10px; font-size: 14px; }
+      .split-tab.active { color: #fff; background: var(--accent); border-color: var(--accent); }
+      .section-page-nav {
+        position: sticky; top: 53px; z-index: 90; display: flex; gap: 6px;
+        overflow-x: auto; padding: 8px 0 10px; margin: -2px 0 8px;
+        background: rgba(255,253,249,.98); scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .section-link { min-height: 32px; max-width: 82vw; padding: 6px 9px; font-size: 13px; }
+      .section-link.active { color: #fff; background: var(--navy); border-color: var(--navy); }
+      .report-panel { display: block !important; padding-top: 8px; }
+      .report-panel > h1 { margin-top: 8px; }
+      img { max-width: 100%; height: auto; }
+      .card-body, .metric-matrix-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      @media (max-width: 760px) {
+        header, main { width: auto !important; max-width: none !important; }
+        header { padding: 14px 12px 10px !important; }
+        header h1 { font-size: 23px !important; line-height: 1.2; }
+        header p { font-size: 12px; line-height: 1.45; }
+        main { padding: 0 8px 28px !important; }
+        .subpanel { padding: 6px; margin: 8px 0 12px; }
+        .subpanel > h2 { font-size: 17px; line-height: 1.35; }
+        .grid-2, .chart-grid, .chart-grid-2, .chart-grid-3 { grid-template-columns: minmax(0, 1fr) !important; }
+        .combo-chart-head { align-items: flex-start; flex-direction: column; gap: 6px; }
+        .chart-controls { justify-content: flex-start; }
+        .combo-chart canvas { min-width: 680px; }
+        .combo-chart.chart-heatmap canvas { min-width: 760px; }
+        table { min-width: 620px; }
+        .card-head h3 { font-size: 16px !important; }
+        .card-head p, .data-note, .chart-note, .sources { font-size: 12px !important; }
+      }
+    </style></head>
+<body>
+<div class="page">
+
+<header>
+<h1>海外电力月报 手机版</h1>
+<p>按全球、美洲、欧洲、亚洲、大洋洲、非洲六部分组织；先建数据源和指标底表，再逐步转为交互式图。</p>
+</header>
+<main>
+
+<section class="report-panel active" id="americas"><nav aria-label="区域栏目" class="panel-tabs split-page-tabs"><a class="split-tab" href="index.html">全球</a><a class="split-tab active" href="americas.html">美洲</a><a class="split-tab" href="europe.html">欧洲</a><a class="split-tab" href="asia.html">亚洲</a><a class="split-tab" href="oceania.html">大洋洲</a><a class="split-tab" href="africa.html">非洲</a></nav><h1>2. 美洲电力</h1><nav aria-label="专题栏目" class="section-page-nav"><a class="section-link active" href="americas.html#americas-overview">2.0 美洲地区电力市场小结</a><a class="section-link" href="americas-us.html#americas-us">2.1 美国</a><a class="section-link" href="us-power-balance.html#us-power-balance">2.1.1 美国总发电和总用电</a><a class="section-link" href="us-generation-structure.html#us-generation-structure">2.1.2 美国月度发电电力结构</a><a class="section-link" href="us-capacity.html#us-capacity">2.1.3 美国电力装机</a><a class="section-link" href="us-power-price.html#us-power-price">2.1.4 美国电价</a><a class="section-link" href="americas-canada.html#americas-canada">2.2 加拿大</a><a class="section-link" href="americas-brazil.html#americas-brazil">2.3 巴西</a></nav><section class="subpanel" id="americas-overview"><h2>2.0 美洲地区电力市场小结</h2><div class="card wide"><div class="card-head"><h3>美洲地区电力市场小结</h3><p>基于美国、加拿大、巴西已接入月度数据，对区域供需强弱做分析。</p></div><div class="card-body"><div class="summary-analysis"><p class="summary-lead">当前小结基于 Ember 已接入的 3 个市场月度发电和总用电数据，最新可比窗口为 2026-04 至 2026-07。美国是本区域样本中发电体量最大的市场，最新月发电量约 470.7 TWh。</p><p>发电侧看，美国年初至今累计发电同比最高，为 +2.56%；巴西最低，为 -0.17%。这组差异先反映各市场发电总量的边际变化，不直接归因到气候、燃料或政策，后续需要结合官方负荷、电源结构和电价数据验证。</p><p>用电侧看，美国年初至今总用电累计同比最高，为 +2.10%；巴西最低，为 -0.17%。若发电和总用电同向变化，说明总量信号较一致；若二者背离，则优先回到进口、电源出力和统计口径检查。</p><ul class="takeaways"><li>供需判断：先以累计同比识别区域内强弱市场，再进入国家子面板查看月度曲线和电源结构。</li><li>结构判断：本小结只使用已接入月度数据，未把尚未接入的官方高频价格、跨区交换或装机数据写成结论。</li><li>跟踪判断：后续补官方源后，再把电价、容量、跨区交换和政策事件并入区域判断。</li></ul><p class="data-note">数据溯源：月度发电和总用电使用 Ember 月度统一口径；本区域已接入样本为 美国、加拿大、巴西。</p></div></div></div></section></section>
+</main>
+<div class="sources">
+<strong>源与口径：</strong>IEA 用于全球发电预测和结构短期展望；Ember 用于历史年度发电、需求、结构、排放和排放强度。IEA 预测段与 Ember 历史段后续画图时必须分段标注。
+      最新数据：IEA 发电到 2027，IEA 净用电需求到 2027，Ember 年度到 2025，Ember 月度 World 到 2026-06。
+    </div>
+</div>
+<script>
+
+  const powerCanvasCharts = new Map();
+  const chartHitAreas = new Map();
+  let chartTooltip = null;
+  const chartPalette = { total:'#b4493f', line:'#0b2f66', forecast:'#9ca3af', grid:'#d8dee9' };
+  const multiColors = ['#0b2f66','#b4493f','#0f766e','#7c3aed','#d97706','#2563eb','#16a34a','#9333ea','#dc2626','#64748b'];
+  let canvasRenderScheduled = false;
+  function fmtNumber(value, digits) {
+    const n = Number(value);
+    if (!Number.isFinite(n)) return '-';
+    return n.toLocaleString('en-US', { maximumFractionDigits: digits ?? 1 });
+  }
+  function hasNumericValue(value) {
+    return value !== null && value !== undefined && value !== '' && Number.isFinite(Number(value));
+  }
+  function fmtPct(value) {
+    if (!hasNumericValue(value)) return '-';
+    const n = Number(value);
+    return (n > 0 ? '+' : '') + n.toFixed(2) + '%';
+  }
+  function ensureChartTooltip() {
+    if (chartTooltip) return chartTooltip;
+    chartTooltip = document.createElement('div');
+    chartTooltip.className = 'chart-tooltip';
+    document.body.appendChild(chartTooltip);
+    return chartTooltip;
+  }
+  function tooltipHtml(title, rows) {
+    return `<div class="tip-title">${title}</div>` + rows
+      .map((row) => `<div class="tip-row"><span>${row[0]}</span><b>${row[1]}</b></div>`)
+      .join('');
+  }
+  function showChartTooltip(event, hit) {
+    if (!hit || !hit.html) return;
+    const tip = ensureChartTooltip();
+    tip.innerHTML = hit.html;
+    tip.style.display = 'block';
+    const pad = 14;
+    const rect = tip.getBoundingClientRect();
+    let left = event.clientX + pad;
+    let top = event.clientY + pad;
+    if (left + rect.width > window.innerWidth - 8) left = event.clientX - rect.width - pad;
+    if (top + rect.height > window.innerHeight - 8) top = event.clientY - rect.height - pad;
+    tip.style.left = Math.max(8, left) + 'px';
+    tip.style.top = Math.max(8, top) + 'px';
+  }
+  function hideChartTooltip() {
+    if (chartTooltip) chartTooltip.style.display = 'none';
+  }
+  function pointerInCanvas(canvas, event) {
+    const rect = canvas.getBoundingClientRect();
+    return { x:event.clientX - rect.left, y:event.clientY - rect.top };
+  }
+  function findCanvasHit(canvas, point) {
+    const hits = chartHitAreas.get(canvas.id) || [];
+    for (const hit of hits) {
+      if (hit.kind === 'xband' && point.x >= hit.x0 && point.x <= hit.x1 && point.y >= hit.y0 && point.y <= hit.y1) return hit;
+    }
+    for (const hit of hits) {
+      if (hit.kind === 'rect' && point.x >= hit.x0 && point.x <= hit.x1 && point.y >= hit.y0 && point.y <= hit.y1) return hit;
+    }
+    let best = null;
+    let bestDist = Infinity;
+    for (const hit of hits) {
+      if (hit.kind !== 'point') continue;
+      const dx = point.x - hit.x;
+      const dy = point.y - hit.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const radius = hit.radius || 10;
+      if (dist <= radius && dist < bestDist) {
+        best = hit;
+        bestDist = dist;
+      }
+    }
+    return best;
+  }
+  function activeChartSelection(canvas) {
+    const chart = canvas.closest('.combo-chart');
+    const active = chart ? chart.querySelector('.chart-toggle.active') : null;
+    return active ? (active.dataset.type || active.dataset.view) : null;
+  }
+  function redrawCanvas(canvas) {
+    const payload = powerCanvasCharts.get(canvas.id) || readChartPayload(canvas.id);
+    if (payload) drawChartCanvas(canvas, payload, activeChartSelection(canvas));
+  }
+  function bindCanvasInteractions(canvas) {
+    if (canvas.dataset.boundInteractions === '1') return;
+    canvas.dataset.boundInteractions = '1';
+    canvas.addEventListener('mousemove', (event) => {
+      const hit = findCanvasHit(canvas, pointerInCanvas(canvas, event));
+      canvas.style.cursor = hit ? 'pointer' : 'default';
+      const prev = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+      const next = hit ? hit.key : '';
+      if (prev !== next) {
+        canvas.__hoverHit = hit || null;
+        redrawCanvas(canvas);
+      }
+      if (hit) showChartTooltip(event, hit);
+      else hideChartTooltip();
+    });
+    canvas.addEventListener('mouseleave', () => {
+      canvas.style.cursor = 'default';
+      canvas.__hoverHit = null;
+      hideChartTooltip();
+      redrawCanvas(canvas);
+    });
+  }
+  function canvasNearViewport(canvas, margin) {
+    const rect = canvas.getBoundingClientRect();
+    const buffer = margin || 700;
+    return rect.bottom >= -buffer && rect.top <= window.innerHeight + buffer;
+  }
+  function releaseHiddenCanvases() {
+    document.querySelectorAll('.report-panel:not(.active) canvas').forEach((canvas) => {
+      if (canvas.width > 1 || canvas.height > 1) {
+        canvas.width = 1;
+        canvas.height = 1;
+        canvas.__hoverHit = null;
+        chartHitAreas.delete(canvas.id);
+      }
+    });
+  }
+  function scheduleCanvasRender() {
+    if (canvasRenderScheduled) return;
+    canvasRenderScheduled = true;
+    requestAnimationFrame(() => {
+      canvasRenderScheduled = false;
+      renderCanvasCharts();
+    });
+  }
+  function readChartPayload(chartId) {
+    const dataEl = document.getElementById(chartId + '-data');
+    if (!dataEl) return null;
+    try { return JSON.parse(dataEl.textContent); } catch (err) { return null; }
+  }
+  function niceMax(value) {
+    if (!Number.isFinite(value) || value <= 0) return 1;
+    const p = Math.pow(10, Math.floor(Math.log10(value)));
+    return Math.ceil(value / p * 1.08) * p;
+  }
+  function setupCanvas(canvas) {
+    const rect = canvas.getBoundingClientRect();
+    const width = Math.max(680, Math.round(rect.width || canvas.clientWidth || 1000));
+    const height = Math.max(300, Math.round(rect.height || canvas.clientHeight || 360));
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, width, height);
+    ctx.font = '12px "Times New Roman","KaiTi","楷体","STKaiti",serif';
+    ctx.textBaseline = 'middle';
+    return { ctx, width, height };
+  }
+  function valueRange(values) {
+    const clean = values.map(Number).filter(Number.isFinite);
+    if (!clean.length) return { min:0, max:1 };
+    const min = Math.min(0, ...clean);
+    const max = Math.max(0, ...clean);
+    const pad = Math.max(0.5, (max - min) * 0.16);
+    return { min:Math.floor((min - pad) * 10) / 10, max:Math.ceil((max + pad) * 10) / 10 };
+  }
+  function niceStep510(range, targetTicks) {
+    const raw = Math.abs(Number(range)) / (targetTicks || 4);
+    if (!Number.isFinite(raw) || raw <= 0) return 5;
+    if (raw >= 100) return Math.ceil(raw / 50) * 50;
+    if (raw >= 10) return Math.ceil(raw / 10) * 10;
+    if (raw >= 1) return Math.ceil(raw / 5) * 5;
+    if (raw >= 0.1) return Math.ceil(raw / 0.5) * 0.5;
+    return Math.ceil(raw / 0.05) * 0.05;
+  }
+  function axisExtent510(values, targetTicks, includeZero) {
+    const clean = values.map(Number).filter(Number.isFinite);
+    if (!clean.length) return { min:0, max:10, step:5, ticks:[0,5,10] };
+    let min = Math.min(...clean);
+    let max = Math.max(...clean);
+    if (includeZero) {
+      min = Math.min(min, 0);
+      max = Math.max(max, 0);
+    }
+    if (min === max) {
+      min -= 5;
+      max += 5;
+    }
+    const step = niceStep510(max - min, targetTicks || 4);
+    const axisMin = Math.floor(min / step) * step;
+    const axisMax = Math.ceil(max / step) * step;
+    const ticks = [];
+    for (let v = axisMin; v <= axisMax + step * 0.5; v += step) ticks.push(Number(v.toFixed(6)));
+    return { min:axisMin, max:axisMax, step, ticks };
+  }
+  function seasonalityValueAxis(values, valueScale) {
+    const clean = values.map(Number).filter(Number.isFinite);
+    if (!clean.length) return { min:0, max:10, step:5, ticks:[0,5,10] };
+    const maxValue = Math.max(...clean, 0);
+    let step;
+    if (valueScale === 1000) {
+      if (maxValue <= 800) step = 100;
+      else if (maxValue <= 1600) step = 200;
+      else if (maxValue <= 5000) step = 500;
+      else if (maxValue <= 10000) step = 1000;
+      else step = niceStep510(maxValue, 6);
+    } else {
+      if (maxValue <= 12) step = 2;
+      else if (maxValue <= 35) step = 5;
+      else if (maxValue <= 80) step = 10;
+      else if (maxValue <= 160) step = 20;
+      else if (maxValue <= 400) step = 50;
+      else step = niceStep510(maxValue, 6);
+    }
+    const axisMax = Math.max(step, Math.ceil(maxValue / step) * step);
+    const ticks = [];
+    for (let v = 0; v <= axisMax + step * 0.5; v += step) ticks.push(Number(v.toFixed(6)));
+    return { min:0, max:axisMax, step, ticks };
+  }
+  function drawAxes(ctx, width, height, pad, yMap, ticks, suffix) {
+    ctx.strokeStyle = chartPalette.grid;
+    ctx.lineWidth = 1;
+    ctx.fillStyle = '#64748b';
+    ctx.textAlign = 'right';
+    ticks.forEach((value) => {
+      const y = yMap(value);
+      ctx.beginPath();
+      ctx.moveTo(pad.left, y);
+      ctx.lineTo(width - pad.right, y);
+      ctx.stroke();
+      ctx.fillText(Number(value).toLocaleString('en-US', { maximumFractionDigits: 1 }) + (suffix || ''), pad.left - 8, y);
+    });
+  }
+  function chartLabelOrder(label) {
+    const text = String(label || '');
+    const ytd = text.match(/^(\d{4})YTD$/);
+    if (ytd) return Number(ytd[1]) * 100 + 99;
+    const ym = text.match(/^(\d{4})-(\d{2})$/);
+    if (ym) return Number(ym[1]) * 100 + Number(ym[2]);
+    const year = text.match(/^(\d{4})$/);
+    if (year) return Number(year[1]) * 100;
+    return Number.MAX_SAFE_INTEGER;
+  }
+  function drawComboCanvas(canvas, payload, selectedType) {
+    const { ctx, width, height } = setupCanvas(canvas);
+    const hits = [];
+    const hoverKey = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+
+    let series = payload.series || [];
+    let barColor = chartPalette.total;
+    let label = payload.barLabel || '发电量';
+    if (payload.mode === 'type') {
+      const types = payload.types || [];
+      const item = types.find((x) => x.key === selectedType) || types[0];
+      if (!item) return;
+      series = item.series || [];
+      barColor = item.color || chartPalette.total;
+      label = item.label + '发电量';
+    }
+    const points = series.filter((d) => Number.isFinite(Number(d.value)));
+    if (!points.length) return;
+
+    const pad = { left:64, right:58, top:28, bottom:54 };
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+    const maxValue = niceMax(Math.max(...points.map((d) => Number(d.value))));
+    const yoyVals = points.map((d) => d.yoy).filter(hasNumericValue).map(Number);
+    const yoyMinRaw = Math.min(0, ...yoyVals);
+    const yoyMaxRaw = Math.max(0, ...yoyVals);
+    const yoyPad = Math.max(1, (yoyMaxRaw - yoyMinRaw) * 0.18);
+    const yoyMin = Math.floor((yoyMinRaw - yoyPad) * 10) / 10;
+    const yoyMax = Math.ceil((yoyMaxRaw + yoyPad) * 10) / 10;
+    const xStep = plotW / points.length;
+    const barW = Math.max(16, Math.min(54, xStep * 0.48));
+    const yValue = (v) => pad.top + (1 - Number(v) / maxValue) * plotH;
+    const yYoy = (v) => pad.top + (1 - (Number(v) - yoyMin) / (yoyMax - yoyMin || 1)) * plotH;
+    const xPos = (i) => pad.left + xStep * i + xStep / 2;
+    const hoverIndex = hoverKey && hoverKey.startsWith('x-') ? Number(hoverKey.slice(2)) : -1;
+
+    ctx.strokeStyle = chartPalette.grid;
+    for (let i = 0; i <= 4; i++) {
+      const value = maxValue * i / 4;
+      const y = yValue(value);
+      ctx.beginPath();
+      ctx.moveTo(pad.left, y);
+      ctx.lineTo(width - pad.right, y);
+      ctx.stroke();
+      ctx.fillText(value.toLocaleString('en-US', { maximumFractionDigits: 0 }), pad.left - 8, y);
+    }
+    ctx.textAlign = 'left';
+    for (let i = 0; i <= 4; i++) {
+      const value = yoyMin + (yoyMax - yoyMin) * i / 4;
+      const y = yYoy(value);
+      ctx.fillText(value.toFixed(1) + '%', width - pad.right + 8, y);
+    }
+
+    points.forEach((d, i) => {
+      const x = xPos(i);
+      const y = yValue(Number(d.value));
+      const base = yValue(0);
+      const key = 'bar-' + i;
+      const isForecast = d.status === '预测';
+      ctx.fillStyle = isForecast ? chartPalette.forecast : barColor;
+      ctx.globalAlpha = isForecast ? 0.62 : 0.92;
+      ctx.fillRect(x - barW / 2, y, barW, base - y);
+      ctx.globalAlpha = 1;
+      if (hoverKey === key || hoverIndex === i) {
+        ctx.strokeStyle = '#111827';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(x - barW / 2, y, barW, base - y);
+      }
+      hits.push({
+        key,
+        kind:'rect',
+        x0:x - barW / 2,
+        x1:x + barW / 2,
+        y0:Math.min(y, base),
+        y1:Math.max(y, base),
+        html:tooltipHtml(String(d.label || d.year || ''), [
+          [label, fmtNumber(d.value, 1) + ' ' + (payload.unit || 'TWh')],
+          [payload.lineLabel || '同比', fmtPct(d.yoyActual ?? d.yoy)],
+          ['状态', d.status || '-']
+        ])
+      });
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'center';
+      const shown = String(d.label || d.year || '');
+      if (i % Math.ceil(points.length / 10) === 0 || points.length <= 12) ctx.fillText(shown.replace('-01',''), x, height - 26);
+    });
+
+    const linePoints = points
+      .map((d, i) => {
+        const yoyValue = hasNumericValue(d.yoy) ? Number(d.yoy) : NaN;
+        return { x:xPos(i), y:yYoy(yoyValue), value:yoyValue, raw:d, index:i };
+      })
+      .filter((d) => Number.isFinite(d.value));
+    if (linePoints.length) {
+      ctx.strokeStyle = chartPalette.line;
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      linePoints.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
+      ctx.stroke();
+      linePoints.forEach((p) => {
+        const key = 'line-' + p.index;
+        ctx.fillStyle = '#fff';
+        ctx.strokeStyle = chartPalette.line;
+        ctx.lineWidth = hoverKey === key || hoverIndex === p.index ? 3 : 2;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, hoverKey === key || hoverIndex === p.index ? 6 : 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        hits.push({
+          key,
+          kind:'point',
+          x:p.x,
+          y:p.y,
+          radius:12,
+          html:tooltipHtml(String(p.raw.label || p.raw.year || ''), [
+            [payload.lineLabel || '同比', fmtPct(p.raw.yoy)],
+            [label, fmtNumber(p.raw.value, 1) + ' ' + (payload.unit || 'TWh')],
+            ['状态', p.raw.status || '-']
+          ])
+        });
+      });
+    }
+    if (hoverIndex >= 0 && hoverIndex < points.length) {
+      const hx = xPos(hoverIndex);
+      ctx.strokeStyle = 'rgba(15,23,42,.55)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(hx, pad.top);
+      ctx.lineTo(hx, height - pad.bottom);
+      ctx.stroke();
+    }
+    points.forEach((d, i) => {
+      hits.push({
+        key:'x-' + i,
+        kind:'xband',
+        x0:pad.left + xStep * i,
+        x1:pad.left + xStep * (i + 1),
+        y0:pad.top,
+        y1:height - pad.bottom,
+        html:tooltipHtml(String(d.label || d.year || ''), [
+          [label, fmtNumber(d.value, 1) + ' ' + (payload.unit || 'TWh')],
+          [payload.lineLabel || '同比', fmtPct(d.yoyActual ?? d.yoy)],
+          ['状态', d.status || '-']
+        ])
+      });
+    });
+
+    ctx.fillStyle = barColor;
+    ctx.fillRect(pad.left, 10, 14, 9);
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.fillText(label + '（柱，左轴） / ' + (payload.unit || 'TWh'), pad.left + 20, 15);
+    const lineLegendX = Math.max(pad.left + 260, width - pad.right - 220);
+    ctx.strokeStyle = chartPalette.line;
+    ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    ctx.moveTo(lineLegendX, 15);
+    ctx.lineTo(lineLegendX + 22, 15);
+    ctx.stroke();
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(lineLegendX + 11, 15, 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = chartPalette.line;
+    ctx.textAlign = 'left';
+    ctx.fillText((payload.lineLabel || '同比') + '（折线，右轴） / %', lineLegendX + 30, 15);
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function drawLineMulti(canvas, payload) {
+    const { ctx, width, height } = setupCanvas(canvas);
+    const hits = [];
+    const hoverKey = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+    const series = payload.series || [];
+    const labels = Array.from(new Set(series.flatMap((s) => (s.points || []).map((p) => p.label))))
+      .sort((a, b) => chartLabelOrder(a) - chartLabelOrder(b) || String(a).localeCompare(String(b)));
+    if (!series.length || !labels.length) return;
+    const values = series.flatMap((s) => (s.points || []).map((p) => Number(p.value))).filter(Number.isFinite);
+    const range = axisExtent510(values, 4, true);
+    const pad = { left:64, right:150, top:28, bottom:46 };
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+    const x = (i) => pad.left + (labels.length <= 1 ? plotW / 2 : (plotW * i / (labels.length - 1)));
+    const y = (v) => pad.top + (1 - (Number(v) - range.min) / (range.max - range.min || 1)) * plotH;
+    const hoverIndex = hoverKey && hoverKey.startsWith('x-') ? Number(hoverKey.slice(2)) : -1;
+    const ticks = range.ticks || Array.from({length:5}, (_, i) => range.min + (range.max - range.min) * i / 4);
+    drawAxes(ctx, width, height, pad, y, ticks, '%');
+    series.forEach((s, si) => {
+      const byLabel = new Map((s.points || []).map((p) => [p.label, p.value]));
+      ctx.strokeStyle = multiColors[si % multiColors.length];
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      let started = false;
+      labels.forEach((label, i) => {
+        const v = Number(byLabel.get(label));
+        if (!Number.isFinite(v)) return;
+        if (!started) { ctx.moveTo(x(i), y(v)); started = true; }
+        else ctx.lineTo(x(i), y(v));
+      });
+      ctx.stroke();
+      ctx.fillStyle = ctx.strokeStyle;
+      ctx.textAlign = 'left';
+      ctx.fillText(s.label, width - pad.right + 12, pad.top + 16 + si * 18);
+      labels.forEach((label, i) => {
+        const v = Number(byLabel.get(label));
+        if (!Number.isFinite(v)) return;
+        const key = 'line-' + si + '-' + i;
+        if (hoverKey === key || hoverIndex === i) {
+          ctx.fillStyle = '#fff';
+          ctx.strokeStyle = multiColors[si % multiColors.length];
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.arc(x(i), y(v), 6, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+        }
+        hits.push({
+          key,
+          kind:'point',
+          x:x(i),
+          y:y(v),
+          radius:12,
+          html:tooltipHtml(String(label), [
+            ['系列', s.label],
+            [payload.title || '增速', fmtPct(v)]
+          ])
+        });
+      });
+    });
+    if (hoverIndex >= 0 && hoverIndex < labels.length) {
+      const hx = x(hoverIndex);
+      ctx.strokeStyle = 'rgba(15,23,42,.55)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(hx, pad.top);
+      ctx.lineTo(hx, height - pad.bottom);
+      ctx.stroke();
+    }
+    ctx.fillStyle = '#334155';
+    ctx.textAlign = 'center';
+    labels.forEach((label, i) => {
+      if (i % Math.ceil(labels.length / 8) === 0 || labels.length <= 8) ctx.fillText(String(label).replace('-01',''), x(i), height - 24);
+    });
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.fillText((payload.title || '增速') + ' / ' + (payload.unit || '%'), pad.left, 15);
+    labels.forEach((label, i) => {
+      const rows = series.map((s) => {
+        const byLabel = new Map((s.points || []).map((p) => [p.label, p.value]));
+        return [s.label, fmtPct(byLabel.get(label))];
+      });
+      hits.push({
+        key:'x-' + i,
+        kind:'xband',
+        x0:i === 0 ? pad.left : (x(i - 1) + x(i)) / 2,
+        x1:i === labels.length - 1 ? width - pad.right : (x(i) + x(i + 1)) / 2,
+        y0:pad.top,
+        y1:height - pad.bottom,
+        html:tooltipHtml(String(label), rows)
+      });
+    });
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function drawSeasonalLines(canvas, payload) {
+    const { ctx, width, height } = setupCanvas(canvas);
+    const hits = [];
+    const hoverKey = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+    const hoverIndex = hoverKey && hoverKey.startsWith('x-') ? Number(hoverKey.slice(2)) : -1;
+    const series = payload.series || [];
+    const labels = Array.from({ length:12 }, (_, i) => String(i + 1));
+    const values = series.flatMap((s) => (s.points || []).map((p) => Number(p.value))).filter(Number.isFinite);
+    if (!series.length || !values.length) return;
+    const range = axisExtent510(values, 5, true);
+    const pad = { left:64, right:150, top:34, bottom:42 };
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+    const x = (i) => pad.left + plotW * i / 11;
+    const y = (v) => pad.top + (1 - (Number(v) - range.min) / (range.max - range.min || 1)) * plotH;
+    drawAxes(ctx, width, height, pad, y, range.ticks, '');
+    series.forEach((s, si) => {
+      const byLabel = new Map((s.points || []).map((p) => [String(p.label), p.value]));
+      ctx.strokeStyle = multiColors[si % multiColors.length];
+      ctx.lineWidth = si === series.length - 1 ? 2.8 : 2;
+      ctx.beginPath();
+      let started = false;
+      labels.forEach((label, i) => {
+        const v = Number(byLabel.get(label));
+        if (!Number.isFinite(v)) return;
+        if (!started) { ctx.moveTo(x(i), y(v)); started = true; }
+        else ctx.lineTo(x(i), y(v));
+      });
+      ctx.stroke();
+      ctx.fillStyle = ctx.strokeStyle;
+      ctx.textAlign = 'left';
+      ctx.fillText(s.label, width - pad.right + 12, pad.top + 16 + si * 18);
+      labels.forEach((label, i) => {
+        const v = Number(byLabel.get(label));
+        if (!Number.isFinite(v)) return;
+        if (hoverIndex === i) {
+          ctx.fillStyle = '#fff';
+          ctx.strokeStyle = multiColors[si % multiColors.length];
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.arc(x(i), y(v), 5.5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+        }
+      });
+    });
+    if (hoverIndex >= 0 && hoverIndex < labels.length) {
+      const hx = x(hoverIndex);
+      ctx.strokeStyle = 'rgba(15,23,42,.55)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(hx, pad.top);
+      ctx.lineTo(hx, height - pad.bottom);
+      ctx.stroke();
+    }
+    ctx.fillStyle = '#334155';
+    ctx.textAlign = 'center';
+    labels.forEach((label, i) => ctx.fillText(label, x(i), height - 22));
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.fillText((payload.title || '季节性') + ' / ' + (payload.unit || ''), pad.left, 16);
+    labels.forEach((label, i) => {
+      const rows = series.map((s) => {
+        const byLabel = new Map((s.points || []).map((p) => [String(p.label), p.value]));
+        const value = byLabel.get(label);
+        return [s.label, Number.isFinite(Number(value)) ? fmtNumber(Number(value), 2) + ' ' + (payload.unit || '') : '-'];
+      });
+      hits.push({
+        key:'x-' + i,
+        kind:'xband',
+        x0:i === 0 ? pad.left : (x(i - 1) + x(i)) / 2,
+        x1:i === labels.length - 1 ? width - pad.right : (x(i) + x(i + 1)) / 2,
+        y0:pad.top,
+        y1:height - pad.bottom,
+        html:tooltipHtml(label + '月', rows)
+      });
+    });
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function heatColor(value) {
+    const raw = Number(value);
+    if (!Number.isFinite(raw)) return '#f1f5f9';
+    const v = Math.max(-30, Math.min(30, raw));
+    if (v > 0) {
+      const t = v / 30;
+      return `rgb(${Math.round(253 - 82 * t)},${Math.round(232 - 128 * t)},${Math.round(232 - 128 * t)})`;
+    }
+    if (v < 0) {
+      const t = Math.abs(v) / 30;
+      return `rgb(${Math.round(230 - 100 * t)},${Math.round(244 - 82 * t)},${Math.round(234 - 105 * t)})`;
+    }
+    return '#eef4ef';
+  }
+  function drawHeatmap(canvas, payload) {
+    const { ctx, width, height } = setupCanvas(canvas);
+    const hits = [];
+    const hoverKey = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+    const xLabels = payload.x || [];
+    const rows = payload.rows || (payload.y || []).map((label) => ({ continent:'', country:label }));
+    const yLabels = rows.map((row) => row.country || '');
+    const values = payload.values || [];
+    if (!xLabels.length || !yLabels.length) return;
+    const pad = { left:244, right:24, top:62, bottom:18 };
+    const continentW = 58;
+    const countryW = pad.left - continentW - 18;
+    const cellW = (width - pad.left - pad.right) / xLabels.length;
+    const cellH = Math.max(20, Math.min(26, (height - pad.top - pad.bottom) / yLabels.length));
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.fillText((payload.title || '热力图') + ' / 同比%', pad.left, 15);
+    ctx.fillStyle = '#334155';
+    ctx.textAlign = 'center';
+    ctx.fillText('洲别', continentW / 2 + 8, 38);
+    ctx.fillText('国家', continentW + countryW / 2 + 8, 38);
+    ctx.textAlign = 'center';
+    xLabels.forEach((label, xi) => ctx.fillText(String(label).slice(2), pad.left + xi * cellW + cellW / 2, 38));
+    let groupStart = 0;
+    while (groupStart < rows.length) {
+      const continent = rows[groupStart].continent || '-';
+      let groupEnd = groupStart + 1;
+      while (groupEnd < rows.length && (rows[groupEnd].continent || '-') === continent) groupEnd += 1;
+      const y0 = pad.top + groupStart * cellH;
+      const y1 = pad.top + groupEnd * cellH;
+      ctx.fillStyle = '#f8fafc';
+      ctx.fillRect(8, y0, continentW - 1, y1 - y0 - 1);
+      ctx.strokeStyle = '#d8dee9';
+      ctx.strokeRect(8.5, y0 + 0.5, continentW - 1, y1 - y0 - 1);
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'center';
+      ctx.fillText(continent, 8 + continentW / 2, y0 + (y1 - y0) / 2);
+      groupStart = groupEnd;
+    }
+    yLabels.forEach((label, yi) => {
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'right';
+      ctx.fillText(label, pad.left - 8, pad.top + yi * cellH + cellH / 2);
+      xLabels.forEach((xLabel, xi) => {
+        const v = values[yi] ? values[yi][xi] : null;
+        const x0 = pad.left + xi * cellW;
+        const y0 = pad.top + yi * cellH;
+        const key = 'cell-' + yi + '-' + xi;
+        ctx.fillStyle = heatColor(v);
+        ctx.fillRect(x0, y0, cellW - 1, cellH - 1);
+        if (hoverKey === key) {
+          ctx.strokeStyle = '#111827';
+          ctx.lineWidth = 2;
+          ctx.strokeRect(x0 + 1, y0 + 1, cellW - 3, cellH - 3);
+        }
+        hits.push({
+          key,
+          kind:'rect',
+          x0,
+          y0,
+          x1:x0 + cellW,
+          y1:y0 + cellH,
+          html:tooltipHtml(`${rows[yi]?.continent || ''} ${label}`.trim(), [
+            ['月份', xLabel],
+            ['同比', fmtPct(v)]
+          ])
+        });
+        if (cellW > 48 && Number.isFinite(Number(v))) {
+          ctx.fillStyle = Math.abs(Number(v)) > 18 ? '#fff' : '#0f172a';
+          ctx.textAlign = 'center';
+          ctx.fillText(Number(v).toFixed(1), x0 + cellW / 2, y0 + cellH / 2);
+        }
+      });
+    });
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function drawSparkline(canvas, payload) {
+    const { ctx, width, height } = setupCanvas(canvas);
+    const hits = [];
+    const hoverKey = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+    const series = payload.series || [];
+    if (!series.length) return;
+    const pad = { left:150, right:36, top:24, bottom:52 };
+    const rowH = (height - pad.top - pad.bottom) / series.length;
+    const values = series.flatMap((s) => (s.points || []).map((p) => Number(p.value))).filter(Number.isFinite);
+    const range = valueRange(values);
+    const labels = payload.labels || (series[0]?.points || []).map((p) => p.label);
+    const plotW = width - pad.left - pad.right;
+    const xAt = (i) => pad.left + (labels.length <= 1 ? 0 : plotW * i / (labels.length - 1));
+    const hoverIndex = hoverKey && hoverKey.startsWith('x-') ? Number(hoverKey.slice(2)) : -1;
+    series.forEach((s, si) => {
+      const points = s.points || [];
+      const baseY = pad.top + si * rowH;
+      const y = (v) => baseY + rowH - 8 - (Number(v) - range.min) / (range.max - range.min || 1) * (rowH - 16);
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.beginPath();
+      ctx.moveTo(pad.left, baseY + rowH / 2);
+      ctx.lineTo(width - pad.right, baseY + rowH / 2);
+      ctx.stroke();
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'right';
+      ctx.fillText(s.label, pad.left - 10, baseY + rowH / 2);
+      ctx.strokeStyle = multiColors[si % multiColors.length];
+      ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      let started = false;
+      points.forEach((p, i) => {
+        const v = Number(p.value);
+        if (!Number.isFinite(v)) return;
+        if (!started) { ctx.moveTo(xAt(i), y(v)); started = true; }
+        else ctx.lineTo(xAt(i), y(v));
+      });
+      ctx.stroke();
+      points.forEach((p, i) => {
+        const v = Number(p.value);
+        if (!Number.isFinite(v)) return;
+        const key = 'spark-' + si + '-' + i;
+        if (hoverKey === key || hoverIndex === i) {
+          ctx.fillStyle = '#fff';
+          ctx.strokeStyle = multiColors[si % multiColors.length];
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.arc(xAt(i), y(v), 5.5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+        }
+        hits.push({
+          key,
+          kind:'point',
+          x:xAt(i),
+          y:y(v),
+          radius:10,
+          html:tooltipHtml(s.label, [
+            [payload.xLabel || '月份', p.label],
+            [payload.valueLabel || '同比', fmtPct(v)]
+          ])
+        });
+      });
+      const last = [...points].reverse().find((p) => Number.isFinite(Number(p.value)));
+      if (last) {
+        ctx.fillStyle = '#0f172a';
+        ctx.textAlign = 'left';
+        ctx.fillText(Number(last.value).toFixed(1) + '%', width - pad.right - 44, baseY + rowH / 2);
+      }
+    });
+    if (hoverIndex >= 0 && labels.length && hoverIndex < labels.length) {
+      const hx = xAt(hoverIndex);
+      ctx.strokeStyle = 'rgba(15,23,42,.45)';
+      ctx.lineWidth = 1.1;
+      ctx.beginPath();
+      ctx.moveTo(hx, pad.top);
+      ctx.lineTo(hx, height - pad.bottom);
+      ctx.stroke();
+    }
+    if (labels.length) {
+      const axisY = height - 30;
+      const tickSet = new Set([0, labels.length - 1]);
+      labels.forEach((label, i) => {
+        const text = String(label || '');
+        if (labels.length <= 8 || text.endsWith('-01') || i % 6 === 0) tickSet.add(i);
+      });
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(pad.left, axisY);
+      ctx.lineTo(width - pad.right, axisY);
+      ctx.stroke();
+      ctx.fillStyle = '#475569';
+      ctx.textAlign = 'center';
+      Array.from(tickSet).sort((a, b) => a - b).forEach((i) => {
+        const x = xAt(i);
+        ctx.beginPath();
+        ctx.moveTo(x, axisY);
+        ctx.lineTo(x, axisY + 5);
+        ctx.stroke();
+        ctx.fillText(String(labels[i] || ''), x, axisY + 20);
+      });
+    }
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.fillText((payload.title || '前10国家') + ' / 同比%', pad.left, 12);
+    labels.forEach((label, i) => {
+      const x0 = i === 0 ? pad.left : pad.left + plotW * (i - 0.5) / Math.max(1, labels.length - 1);
+      const x1 = i === labels.length - 1 ? width - pad.right : pad.left + plotW * (i + 0.5) / Math.max(1, labels.length - 1);
+      const rows = series.map((s) => {
+        const point = (s.points || [])[i] || {};
+        return [s.label, fmtPct(point.value)];
+      });
+      hits.push({
+        key:'x-' + i,
+        kind:'xband',
+        x0,
+        x1,
+        y0:pad.top,
+        y1:height - pad.bottom,
+        html:tooltipHtml(String(label), rows)
+      });
+    });
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function drawSeasonality(canvas, payload) {
+    const { ctx, width, height } = setupCanvas(canvas);
+    const hits = [];
+    const hoverKey = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+    const hoverParts = hoverKey && hoverKey.startsWith('cell-') ? hoverKey.split('-') : [];
+    const hoverPanel = hoverParts.length === 3 ? Number(hoverParts[1]) : -1;
+    const hoverMonth = hoverParts.length === 3 ? Number(hoverParts[2]) : -1;
+    const panels = payload.panels || [];
+    if (!panels.length) return;
+    const months = Array.from({ length:12 }, (_, i) => i + 1);
+    const yearColors = ['#cbd5e1', '#94a3b8', '#48a6df', '#173a78', '#d43c32'];
+    const currentYear = String(payload.latestYear || '2026');
+    const cols = width >= 1120 ? 3 : (width >= 760 ? 2 : 1);
+    const rows = Math.ceil(panels.length / cols);
+    const outer = { left:26, right:24, top:58, bottom:24 };
+    const gapX = 22;
+    const gapY = 22;
+    const cellW = (width - outer.left - outer.right - gapX * (cols - 1)) / cols;
+    const cellH = Math.max(244, (height - outer.top - outer.bottom - gapY * (rows - 1)) / rows);
+
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.fillText((payload.title || '月度发电量季节性') + ' / 左轴发电量，右轴同比%', outer.left, 16);
+    let legendX = outer.left;
+    ctx.fillStyle = 'rgba(190,54,54,.58)';
+    ctx.fillRect(legendX, 36, 22, 8);
+    ctx.fillStyle = '#0f172a';
+    ctx.fillText((payload.barLabel || '2026累计同比') + '>0', legendX + 28, 40);
+    legendX += 150;
+    ctx.fillStyle = 'rgba(54,126,85,.56)';
+    ctx.fillRect(legendX, 36, 22, 8);
+    ctx.fillStyle = '#0f172a';
+    ctx.fillText((payload.barLabel || '2026累计同比') + '<0', legendX + 28, 40);
+    legendX += 150;
+    const legendYears = Array.from(new Set(panels.flatMap((panel) => (panel.lines || []).map((line) => line.year))));
+    legendYears.forEach((year, i) => {
+      ctx.strokeStyle = year === currentYear ? '#d43c32' : yearColors[Math.min(i, yearColors.length - 2)];
+      ctx.lineWidth = year === currentYear ? 3 : 2;
+      ctx.beginPath();
+      ctx.moveTo(legendX, 40);
+      ctx.lineTo(legendX + 30, 40);
+      ctx.stroke();
+      ctx.fillStyle = '#0f172a';
+      ctx.textAlign = 'left';
+      ctx.fillText(year, legendX + 36, 40);
+      legendX += 82;
+    });
+
+    panels.forEach((panel, pi) => {
+      const col = pi % cols;
+      const row = Math.floor(pi / cols);
+      const cellLeft = outer.left + col * (cellW + gapX);
+      const cellTop = outer.top + row * (cellH + gapY);
+      const cellRight = cellLeft + cellW;
+      const cellBottom = cellTop + cellH;
+      const pad = { left:54, right:46, top:56, bottom:28 };
+      const plotLeft = cellLeft + pad.left;
+      const plotRight = cellRight - pad.right;
+      const plotTop = cellTop + pad.top;
+      const plotBottom = cellBottom - pad.bottom;
+      const plotW = plotRight - plotLeft;
+      const plotH = plotBottom - plotTop;
+      const monthX = (month) => plotLeft + (month - 1) * plotW / 11;
+      const lineValues = (panel.lines || []).flatMap((line) => (line.points || []).map((p) => Number(p.value))).filter(Number.isFinite);
+      const maxRaw = Math.max(...lineValues, 0);
+      const valueScale = maxRaw > 0 && maxRaw < 10 ? 1000 : 1;
+      const valueUnit = valueScale === 1000 ? 'GWh' : (payload.unit || 'TWh');
+      const scaledValues = lineValues.map((v) => v * valueScale);
+      const valueAxis = seasonalityValueAxis(scaledValues, valueScale);
+      const yoyValues = (panel.bars || []).map((p) => Number(p.value)).filter(Number.isFinite);
+      const yoyAxis = axisExtent510(yoyValues, 5, true);
+      const yValue = (v) => plotBottom - (Number(v) * valueScale - valueAxis.min) / (valueAxis.max - valueAxis.min || 1) * plotH;
+      const yYoy = (v) => plotBottom - (Number(v) - yoyAxis.min) / (yoyAxis.max - yoyAxis.min || 1) * plotH;
+
+      ctx.strokeStyle = '#d8dee9';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(cellLeft + 0.5, cellTop + 0.5, cellW - 1, cellH - 1);
+      ctx.fillStyle = '#0f2d5c';
+      ctx.textAlign = 'left';
+      ctx.font = '15px "Times New Roman","KaiTi","楷体","STKaiti",serif';
+      ctx.fillText((panel.rank ? '#' + panel.rank + ' ' : '') + panel.country, cellLeft + 10, cellTop + 18);
+      ctx.fillStyle = '#64748b';
+      ctx.font = '12px "Times New Roman","KaiTi","妤蜂綋","STKaiti",serif';
+      if (panel.continent) ctx.fillText(panel.continent, cellLeft + 10, cellTop + 32);
+      const ytdText = panel.ytdYoy !== undefined && panel.ytdYoy !== null ? 'YTD ' + fmtNumber(panel.ytdYoy, 1) + '%' : '';
+      ctx.fillText(valueUnit, cellLeft + 10, cellTop + 46);
+      if (ytdText) {
+        const unitWidth = ctx.measureText(valueUnit).width;
+        const ytdValue = Number(panel.ytdYoy);
+        ctx.fillStyle = ytdValue > 0 ? '#b23b3b' : (ytdValue < 0 ? '#2f7d54' : '#64748b');
+        ctx.fillText(' · ' + ytdText, cellLeft + 10 + unitWidth, cellTop + 46);
+      }
+      ctx.font = '12px "Times New Roman","KaiTi","楷体","STKaiti",serif';
+
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 1;
+      valueAxis.ticks.forEach((tick) => {
+        const y = plotBottom - (tick - valueAxis.min) / (valueAxis.max - valueAxis.min || 1) * plotH;
+        ctx.beginPath();
+        ctx.moveTo(plotLeft, y);
+        ctx.lineTo(plotRight, y);
+        ctx.stroke();
+      });
+      ctx.fillStyle = '#64748b';
+      ctx.textAlign = 'right';
+      valueAxis.ticks.forEach((tick) => {
+        const y = plotBottom - (tick - valueAxis.min) / (valueAxis.max - valueAxis.min || 1) * plotH;
+        ctx.fillText(fmtNumber(tick, tick >= 100 ? 0 : 1), plotLeft - 6, y);
+      });
+      ctx.textAlign = 'left';
+
+      const zeroY = yYoy(0);
+      const barW = Math.max(8, plotW / 28);
+      (panel.bars || []).forEach((bar) => {
+        const value = Number(bar.value);
+        if (!Number.isFinite(value)) return;
+        const x = monthX(Number(bar.month));
+        const y = yYoy(value);
+        ctx.fillStyle = value > 0 ? 'rgba(190,54,54,.58)' : (value < 0 ? 'rgba(54,126,85,.56)' : 'rgba(148,163,184,.35)');
+        ctx.fillRect(x - barW / 2, Math.min(y, zeroY), barW, Math.max(2, Math.abs(zeroY - y)));
+      });
+
+      (panel.lines || []).forEach((line, li) => {
+        const isCurrent = line.year === currentYear;
+        ctx.strokeStyle = isCurrent ? '#d43c32' : yearColors[Math.min(li, yearColors.length - 2)];
+        ctx.lineWidth = isCurrent ? 3.2 : 2;
+        ctx.beginPath();
+        let started = false;
+        (line.points || []).forEach((point) => {
+          const value = Number(point.value);
+          if (!Number.isFinite(value)) return;
+          const x = monthX(Number(point.month));
+          const y = yValue(value);
+          if (!started) { ctx.moveTo(x, y); started = true; }
+          else ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+        if (isCurrent) {
+          (line.points || []).forEach((point) => {
+            const value = Number(point.value);
+            if (!Number.isFinite(value)) return;
+            const month = Number(point.month);
+            if (hoverMonth === month) {
+              ctx.fillStyle = '#fff';
+              ctx.strokeStyle = '#d43c32';
+              ctx.lineWidth = 3;
+              ctx.beginPath();
+              ctx.arc(monthX(month), yValue(value), 5.5, 0, Math.PI * 2);
+              ctx.fill();
+              ctx.stroke();
+            }
+          });
+        }
+      });
+
+      ctx.fillStyle = '#64748b';
+      ctx.textAlign = 'left';
+      ctx.fillText('同比%', plotRight + 6, plotTop - 10);
+      ctx.textAlign = 'left';
+      yoyAxis.ticks.forEach((tick) => {
+        const y = plotBottom - (tick - yoyAxis.min) / (yoyAxis.max - yoyAxis.min || 1) * plotH;
+        ctx.fillText(fmtNumber(tick, Math.abs(tick) >= 100 ? 0 : 1) + '%', plotRight + 6, y);
+      });
+
+      if (hoverPanel === pi && hoverMonth >= 1 && hoverMonth <= 12) {
+        const hx = monthX(hoverMonth);
+        ctx.strokeStyle = 'rgba(15,23,42,.35)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(hx, plotTop);
+        ctx.lineTo(hx, plotBottom);
+        ctx.stroke();
+      }
+
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'center';
+      months.forEach((month) => {
+        if (month === 1 || month === 6 || month === 12) ctx.fillText(String(month), monthX(month), cellBottom - 12);
+      });
+      months.forEach((month) => {
+        const bar = (panel.bars || []).find((p) => Number(p.month) === month);
+        const lineRows = (panel.lines || []).map((line) => {
+          const sameMonth = (line.points || []).find((p) => Number(p.month) === month);
+          const lineValue = Number(sameMonth?.value);
+          return [
+            line.year,
+            Number.isFinite(lineValue) ? fmtNumber(lineValue * valueScale, valueScale === 1000 ? 0 : 2) + ' ' + valueUnit : '-'
+          ];
+        });
+        const x = monthX(month);
+        hits.push({
+          key:'cell-' + pi + '-' + month,
+          kind:'xband',
+          x0:month === 1 ? plotLeft : (monthX(month - 1) + x) / 2,
+          x1:month === 12 ? plotRight : (x + monthX(month + 1)) / 2,
+          y0:plotTop,
+          y1:plotBottom,
+          html:tooltipHtml(`${panel.country} ${String(month).padStart(2, '0')}月`, [
+            ...lineRows,
+            [`${currentYear}累计同比`, fmtPct(bar?.value)]
+          ])
+        });
+      });
+    });
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function drawStackedSources(canvas, payload, view) {
+    if (view === 'growth') {
+      const lineSeries = (payload.types || []).map((t) => ({ label:t.label, points:(t.points || []).map((p) => ({ label:p.label, value:p.yoy })) }));
+      drawLineMulti(canvas, { mode:'line_multi', title:'分类型发电增速', unit:'%', series:lineSeries });
+      return;
+    }
+    const { ctx, width, height } = setupCanvas(canvas);
+    const hits = [];
+    const hoverKey = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+    const types = payload.types || [];
+    const labels = types[0] ? (types[0].points || []).map((p) => p.label) : [];
+    if (!types.length || !labels.length) return;
+    const totals = labels.map((_, i) => types.reduce((sum, t) => sum + (Number((t.points || [])[i]?.value) || 0), 0));
+    const maxValue = niceMax(Math.max(...totals));
+    const pad = { left:64, right:150, top:30, bottom:46 };
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+    const xStep = plotW / labels.length;
+    const barW = Math.max(18, Math.min(54, xStep * 0.62));
+    const y = (v) => pad.top + (1 - Number(v) / maxValue) * plotH;
+    const hoverIndex = hoverKey && hoverKey.startsWith('x-') ? Number(hoverKey.slice(2)) : -1;
+    drawAxes(ctx, width, height, pad, y, [0, maxValue * .25, maxValue * .5, maxValue * .75, maxValue], '');
+    labels.forEach((label, i) => {
+      let acc = 0;
+      types.forEach((t, ti) => {
+        const v = Number((t.points || [])[i]?.value) || 0;
+        const y0 = y(acc);
+        const y1 = y(acc + v);
+        const key = 'stack-' + ti + '-' + i;
+        const x0 = pad.left + i * xStep + (xStep - barW) / 2;
+        ctx.fillStyle = t.color || '#64748b';
+        ctx.fillRect(x0, y1, barW, Math.max(0, y0 - y1));
+        if (hoverKey === key || hoverIndex === i) {
+          ctx.strokeStyle = '#111827';
+          ctx.lineWidth = 2;
+          ctx.strokeRect(x0, y1, barW, Math.max(0, y0 - y1));
+        }
+        hits.push({
+          key,
+          kind:'rect',
+          x0,
+          y0:y1,
+          x1:x0 + barW,
+          y1:y0,
+          html:tooltipHtml(String(label), [
+            ['电源', t.label],
+            ['发电量', fmtNumber(v, 1) + ' ' + (payload.unit || 'TWh')],
+            ['同比', fmtPct((t.points || [])[i]?.yoy)],
+            ['状态', (t.points || [])[i]?.status || '-']
+          ])
+        });
+        acc += v;
+      });
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'center';
+      ctx.fillText(String(label), pad.left + i * xStep + xStep / 2, height - 24);
+    });
+    types.forEach((t, i) => {
+      ctx.fillStyle = t.color || '#64748b';
+      ctx.fillRect(width - pad.right + 12, pad.top + 8 + i * 18, 10, 10);
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'left';
+      ctx.fillText(t.label, width - pad.right + 28, pad.top + 13 + i * 18);
+    });
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.fillText((payload.title || '分类型发电量') + ' / ' + (payload.unit || 'TWh'), pad.left, 15);
+    labels.forEach((label, i) => {
+      const rows = types.map((t) => {
+        const point = (t.points || [])[i] || {};
+        return [t.label, fmtNumber(point.value, 1) + ' ' + (payload.unit || 'TWh') + ' / ' + fmtPct(point.yoy)];
+      });
+      hits.push({
+        key:'x-' + i,
+        kind:'xband',
+        x0:pad.left + xStep * i,
+        x1:pad.left + xStep * (i + 1),
+        y0:pad.top,
+        y1:height - pad.bottom,
+        html:tooltipHtml(String(label), rows)
+      });
+    });
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function drawPie(canvas, payload) {
+    const { ctx, width, height } = setupCanvas(canvas);
+    const slices = (payload.slices || []).filter((slice) => Number(slice.value) > 0);
+    const total = Number(payload.total) || slices.reduce((sum, slice) => sum + Number(slice.value || 0), 0);
+    const hits = [];
+    chartHitAreas.set(canvas.id, hits);
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.font = 'bold 15px "Times New Roman","KaiTi","楷体","STKaiti",serif';
+    ctx.fillText(payload.title || '结构占比', 40, 26);
+    ctx.font = '12px "Times New Roman","KaiTi","楷体","STKaiti",serif';
+    ctx.fillStyle = '#64748b';
+    ctx.fillText('合计：' + fmtNumber(total, 1) + ' ' + (payload.unit || ''), 40, 48);
+    if (!slices.length || !total) {
+      ctx.fillStyle = '#94a3b8';
+      ctx.textAlign = 'center';
+      ctx.fillText('暂无可展示数据', width / 2, height / 2);
+      return;
+    }
+    const legendW = Math.min(270, Math.max(220, width * 0.34));
+    const plotW = Math.max(300, width - legendW - 90);
+    const cx = 42 + plotW / 2;
+    const cy = height * 0.55;
+    const radius = Math.max(96, Math.min(plotW * 0.34, height * 0.34, 152));
+    let angle = -Math.PI / 2;
+    slices.forEach((slice) => {
+      const value = Number(slice.value) || 0;
+      const nextAngle = angle + (value / total) * Math.PI * 2;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, radius, angle, nextAngle);
+      ctx.closePath();
+      ctx.fillStyle = slice.color || '#64748b';
+      ctx.fill();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      const mid = (angle + nextAngle) / 2;
+      const share = Number(slice.share);
+      if (Number.isFinite(share) && share >= 6) {
+        ctx.fillStyle = '#0f172a';
+        ctx.textAlign = 'center';
+        ctx.font = '12px "Times New Roman","KaiTi","楷体","STKaiti",serif';
+        ctx.fillText(share.toFixed(1) + '%', cx + Math.cos(mid) * radius * 0.62, cy + Math.sin(mid) * radius * 0.62);
+      }
+      angle = nextAngle;
+    });
+    const legendX = width - legendW - 34;
+    const legendY = 76;
+    slices.forEach((slice, i) => {
+      const y = legendY + i * 25;
+      const shareText = Number.isFinite(Number(slice.share)) ? Number(slice.share).toFixed(1) + '%' : '-';
+      ctx.fillStyle = slice.color || '#64748b';
+      ctx.fillRect(legendX, y - 6, 11, 11);
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'left';
+      ctx.font = '12px "Times New Roman","KaiTi","楷体","STKaiti",serif';
+      ctx.fillText(String(slice.label), legendX + 18, y);
+      ctx.fillStyle = '#64748b';
+      ctx.textAlign = 'right';
+      ctx.fillText(fmtNumber(slice.value, 1) + ' ' + (payload.unit || '') + ' / ' + shareText, width - 36, y);
+      hits.push({
+        key: 'pie-legend-' + i,
+        kind: 'rect',
+        x0: legendX,
+        y0: y - 11,
+        x1: width - 30,
+        y1: y + 11,
+        html: tooltipHtml(String(slice.label), [
+          [payload.valueLabel || '数值', fmtNumber(slice.value, 1) + ' ' + (payload.unit || '')],
+          ['占比', shareText]
+        ])
+      });
+    });
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function drawChartCanvas(canvas, payload, selected) {
+    if (!payload) return;
+    if (payload.mode === 'line_multi') drawLineMulti(canvas, payload);
+    else if (payload.mode === 'seasonal_lines') drawSeasonalLines(canvas, payload);
+    else if (payload.mode === 'heatmap') drawHeatmap(canvas, payload);
+    else if (payload.mode === 'seasonality') drawSeasonality(canvas, payload);
+    else if (payload.mode === 'sparkline') drawSparkline(canvas, payload);
+    else if (payload.mode === 'pie') drawPie(canvas, payload);
+    else if (payload.mode === 'stacked_sources') drawStackedSources(canvas, payload, selected || 'stack');
+    else drawComboCanvas(canvas, payload, selected);
+  }
+  function renderCanvasCharts() {
+    releaseHiddenCanvases();
+    document.querySelectorAll('.combo-chart canvas').forEach((canvas) => {
+      if (canvas.offsetParent === null) return;
+      const chart = canvas.closest('.combo-chart');
+      const payload = powerCanvasCharts.get(canvas.id) || readChartPayload(canvas.id);
+      if (!payload) return;
+      powerCanvasCharts.set(canvas.id, payload);
+      if (payload.mode === 'heatmap') {
+        const rowCount = (payload.rows || payload.y || []).length;
+        canvas.style.height = Math.max(520, 92 + rowCount * 24) + 'px';
+      }
+      if (!canvasNearViewport(canvas, 900)) return;
+      const active = chart.querySelector('.chart-toggle.active');
+      drawChartCanvas(canvas, payload, active ? (active.dataset.type || active.dataset.view) : null);
+      if (payload.mode !== 'heatmap') bindCanvasInteractions(canvas);
+      else {
+        chartHitAreas.delete(canvas.id);
+        canvas.style.cursor = 'default';
+      }
+    });
+  }
+  document.querySelectorAll('.combo-chart .chart-toggle').forEach((button) => {
+    button.addEventListener('click', () => {
+      const chart = button.closest('.combo-chart');
+      chart.querySelectorAll('.chart-toggle').forEach((x) => x.classList.toggle('active', x === button));
+      const canvas = chart.querySelector('canvas');
+      if (canvas) canvas.__hoverHit = null;
+      hideChartTooltip();
+      scheduleCanvasRender();
+    });
+  });
+  window.addEventListener('resize', scheduleCanvasRender);
+  window.addEventListener('scroll', scheduleCanvasRender, { passive:true });
+
+  const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+  const panels = Array.from(document.querySelectorAll('.report-panel'));
+  const tocGroups = Array.from(document.querySelectorAll('.toc-group'));
+  const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+  function setTocPanel(panelId) {
+    tocGroups.forEach((group) => group.classList.toggle('active', group.dataset.panelGroup === panelId));
+  }
+  function setActiveTocLink(targetId) {
+    tocLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === '#' + targetId));
+  }
+  function updateTocFromScroll() {
+    const activePanel = panels.find((panel) => panel.classList.contains('active'));
+    if (!activePanel) return;
+    setTocPanel(activePanel.id);
+    const sections = Array.from(activePanel.querySelectorAll('.subpanel[id]'));
+    let current = activePanel.id;
+    const offset = 110;
+    sections.forEach((section) => {
+      if (section.getBoundingClientRect().top <= offset) current = section.id;
+    });
+    setActiveTocLink(current);
+  }
+  function activatePanel(target) {
+    tabs.forEach((tab) => {
+      const active = tab.dataset.target === target;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    panels.forEach((panel) => panel.classList.toggle('active', panel.id === target));
+    setTocPanel(target);
+  }
+  tabs.forEach((tab) => tab.addEventListener('click', () => {
+    activatePanel(tab.dataset.target);
+    history.replaceState(null, '', '#' + tab.dataset.target);
+    const firstLink = document.querySelector(`.side-toc a[data-panel="${tab.dataset.target}"]`);
+    if (firstLink) setActiveTocLink(firstLink.getAttribute('href').slice(1));
+    scheduleCanvasRender();
+  }));
+  document.querySelectorAll('.toc-group-title').forEach((button) => {
+    button.addEventListener('click', () => {
+      const panel = button.dataset.panel;
+      activatePanel(panel);
+      const firstLink = document.querySelector(`.side-toc a[data-panel="${panel}"]`);
+      const target = firstLink ? firstLink.getAttribute('href').slice(1) : panel;
+      history.replaceState(null, '', '#' + target);
+      setActiveTocLink(target);
+      const el = document.getElementById(target);
+      if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+      setTimeout(scheduleCanvasRender, 120);
+    });
+  });
+  document.querySelectorAll('.side-toc a[data-panel]').forEach((link) => {
+    link.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const panel = link.dataset.panel;
+      const target = link.getAttribute('href').slice(1);
+      activatePanel(panel);
+      history.replaceState(null, '', '#' + target);
+      setActiveTocLink(target);
+      requestAnimationFrame(() => {
+        const el = document.getElementById(target);
+        if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+        setTimeout(scheduleCanvasRender, 120);
+      });
+    });
+  });
+  const hash = location.hash.replace('#', '');
+  const startLink = document.querySelector(`.side-toc a[href="#${hash}"]`);
+  if (startLink) {
+    activatePanel(startLink.dataset.panel);
+    setActiveTocLink(hash);
+  }
+  else if (hash && document.getElementById(hash)) activatePanel(hash);
+  else updateTocFromScroll();
+  window.addEventListener('scroll', updateTocFromScroll, { passive:true });
+  scheduleCanvasRender();
+</script>
+</body>
+</html>
