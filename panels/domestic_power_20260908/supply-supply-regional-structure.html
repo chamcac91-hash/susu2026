@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>国内电力月报 手机版 - 3.6 分省份发电结构</title>
+<style>
+    :root {
+      --bg:#f5f1ea; --paper:#fffdf9; --ink:#111827; --muted:#687080; --line:#cfd6e3;
+      --navy:#0b2f66; --blue:#4f7dbf; --red:#dc2626; --soft:#f8fafc;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; padding-left:154px; background:var(--bg); color:var(--ink); font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .page { position:relative; width:min(1680px, calc(100% - 28px)); margin:14px auto 40px; background:var(--paper); border:1px solid #d7d0c6; box-shadow:0 8px 28px rgba(64,46,26,.08); }
+    header { padding:22px 28px 16px; border-bottom:3px solid var(--navy); }
+    h1 { margin:0; font-size:30px; letter-spacing:0; color:var(--navy); }
+    .subtitle { margin-top:7px; color:var(--muted); font-size:13px; }
+    main { padding:0 22px 28px; }
+    .report-section { padding:18px 0 22px; border-bottom:1px solid #d7dde8; }
+    h2 { margin:0 0 12px; font-size:24px; color:#111; }
+    h2::before { content:attr(id); display:none; }
+    .placeholder { min-height:90px; border:1px dashed #b8c0cf; background:#fbfaf7; color:#7b8190; padding:24px; font-size:16px; }
+    .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:8px; padding:18px 0 10px; border-bottom:1px solid #d7dde8; background:rgba(255,253,249,.96); backdrop-filter:blur(8px); }
+    .panel-tab { appearance:none; border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:8px 16px; min-height:42px; border-radius:3px; font-family:inherit; font-size:18px; font-weight:700; cursor:pointer; }
+    .panel-tab:hover { border-color:#b4493f; color:#0b2f66; }
+    .panel-tab.active { background:#b4493f; border-color:#b4493f; color:white; }
+    .report-panel { display:none; }
+    .report-panel.active { display:block; }
+    .subpanel { scroll-margin-top:76px; margin:12px 0 18px; padding:10px; border:1px solid #d7dde8; background:#fbfcff; }
+    .subpanel > h3 { margin:0 0 10px; font-size:20px; color:#0b2f66; border-left:5px solid #0b2f66; padding-left:9px; }
+    .stack { display:grid; gap:14px; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
+    .card { border:1px solid #bfc8d8; background:white; overflow:hidden; }
+    .wide-card { grid-column:1 / -1; }
+    .card-head { background:#d9e2f3; border-bottom:1px solid #aeb8c8; padding:7px 10px; text-align:center; }
+    .card-head h3 { margin:0; font-size:17px; color:#001f55; }
+    .card-head p { margin:2px 0 0; font-size:12px; color:#475569; }
+    .card-body { padding:10px; overflow:auto; }
+    table { width:100%; border-collapse:collapse; font-size:12px; background:white; }
+    th, td { border:1px solid #c9ced8; padding:5px 7px; text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    th { background:#e5ebf6; color:#0f2d5c; font-weight:700; }
+    th:first-child, td:first-child { text-align:left; }
+    .spot-summary-table { font-size:13px; }
+    .recent-values { text-align:left; white-space:normal; min-width:260px; }
+    .recent-values span { display:inline-block; margin:1px 5px 1px 0; padding:1px 5px; border:1px solid #d7dde8; background:#f8fafc; border-radius:3px; }
+    .date-value { display:inline-flex; flex-direction:column; align-items:flex-end; gap:1px; line-height:1.18; }
+    .date-value span { color:#64748b; font-size:11px; font-weight:400; }
+    .date-value b { color:#0f172a; font-size:13px; font-weight:700; }
+    .table-card .card-body { max-height:520px; }
+    .full-table .card-body { max-height:none; overflow:visible; }
+    .storage-summary-block + .storage-summary-block { margin-top:12px; }
+    .storage-summary-block h4 { margin:0; padding:6px 8px; border:1px solid #c9ced8; border-bottom:0; background:#f8fafc; color:#0f2d5c; font-size:15px; }
+    .image-card .card-body { overflow:visible; }
+    .reference-image { display:block; width:100%; height:auto; background:white; }
+    .heat td { min-width:72px; }
+    .table-note { margin:8px 2px 0; color:#64748b; font-size:12px; }
+    .summary-text { font-size:16px; line-height:1.8; color:#111827; }
+    .summary-text p { margin:0 0 8px; }
+    .summary-text strong { color:#b91c1c; }
+    .editable-summary-tools { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:8px 10px; border-bottom:1px solid #d7dde8; background:#f8fafc; }
+    .summary-tool-btn { appearance:none; border:1px solid #b9c3d3; background:white; color:#0f2d5c; min-height:32px; padding:5px 12px; border-radius:3px; font-family:inherit; font-size:14px; font-weight:700; cursor:pointer; }
+    .summary-tool-btn:hover { border-color:#b4493f; color:#b4493f; }
+    .summary-tool-btn.primary { background:#0b2f66; border-color:#0b2f66; color:white; }
+    .editable-summary-status { margin-left:auto; color:#64748b; font-size:12px; }
+    .editable-summary-body { min-height:118px; outline:none; border:1px solid transparent; padding:4px 6px; }
+    .editable-summary-body[contenteditable="true"] { border-color:#b4493f; background:#fffaf2; box-shadow:inset 0 0 0 1px rgba(180,73,63,.18); }
+    .editable-summary-body[contenteditable="true"] p { cursor:text; }
+    .pos { color:#b91c1c; font-weight:700; }
+    .neg { color:#1d4ed8; font-weight:700; }
+    .mini-chart-row { display:grid; grid-template-columns:repeat(4, minmax(260px,1fr)); gap:10px; }
+    .mini-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(280px,1fr)); gap:10px; }
+    .storage-smm-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-xunxi-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-headline-weekly-grid { grid-template-columns:repeat(4, minmax(240px,1fr)); }
+    .storage-headline-price-wide { margin-top:14px; padding-top:10px; border-top:1px solid #d7dde8; }
+    .chart-group-title { margin:12px 0 8px; color:#0b2f66; font-size:18px; text-align:center; }
+    .overseas-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:12px; }
+    .spot-season-grid { display:grid; grid-template-columns:repeat(3, minmax(420px,1fr)); gap:16px; align-items:start; }
+    .spot-season-grid .svg-title { font-size:16px; }
+    .spot-season-grid .svg-axis { font-size:12px; }
+    .spot-season-grid .svg-legend { font-size:11px; }
+    .decadal-chart-grid { display:grid; grid-template-columns:repeat(2, minmax(520px,1fr)); gap:14px; }
+    .net-transfer-grid { display:grid; grid-template-columns:repeat(2, minmax(560px,1fr)); gap:14px; align-items:start; }
+    .regional-structure-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:10px; align-items:start; }
+    .regional-structure-svg { border:1px solid #d7dde8; background:#fff; }
+    .regional-structure-title { font-size:18px; font-weight:700; fill:#0b2f66; }
+    .regional-structure-date { font-size:12px; fill:#64748b; }
+    .regional-structure-total { font-size:13px; fill:#334155; }
+    .regional-structure-inside { font-size:11px; font-weight:700; fill:white; paint-order:stroke; stroke:#334155; stroke-width:2px; }
+    .regional-structure-legend { font-size:11px; fill:#111827; }
+    .industry-chain-svg { border:1px solid #d7dde8; }
+    .industry-chain-title { font-size:22px; font-weight:700; fill:#0b2f66; }
+    .industry-chain-col-title { font-size:18px; font-weight:700; fill:white; }
+    .industry-chain-item { font-size:14px; fill:#0f172a; }
+    .industry-chain-note { font-size:15px; fill:#334155; }
+    .industry-panorama-image { max-height:760px; object-fit:contain; }
+    svg { width:100%; height:auto; display:block; background:white; }
+    svg text { font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .svg-title { font-size:14px; font-weight:700; fill:#0b2f66; }
+    .svg-axis { font-size:10px; fill:#334155; }
+    .svg-legend { font-size:8px; }
+    .latest-label { font-size:11px; font-weight:700; paint-order:stroke; stroke:white; stroke-width:3px; }
+    .chart-point { cursor:crosshair; }
+    .interactive-chart { position:relative; background:white; }
+    .interactive-toolbar { display:flex; flex-wrap:wrap; gap:8px 12px; padding:2px 0 8px; }
+    .interactive-toggle { display:inline-flex; align-items:center; gap:5px; color:#0f172a; font-size:12px; cursor:pointer; }
+    .interactive-toggle::before { content:""; width:18px; height:3px; background:var(--line-color); display:inline-block; }
+    .interactive-toggle input { width:13px; height:13px; margin:0; accent-color:#0b2f66; }
+    .interactive-stage { position:relative; }
+    .spot-line-card .interactive-toggle { font-size:15px; font-weight:700; }
+    .spot-line-card .interactive-toggle::before { width:24px; height:4px; }
+    .spot-line-card .interactive-toggle input { width:16px; height:16px; }
+    .spot-line-card .svg-title { font-size:18px; }
+    .spot-line-card .svg-axis { font-size:13px; }
+    .spot-line-card .latest-label { font-size:13px; }
+    .chart-tooltip { display:none; position:absolute; z-index:20; min-width:190px; max-width:320px; pointer-events:none; background:rgba(15,23,42,.94); color:white; border-radius:6px; padding:10px 12px; font-size:14px; line-height:1.55; box-shadow:0 12px 30px rgba(15,23,42,.28); }
+    .chart-tooltip .tip-date { font-weight:700; color:#dbeafe; margin-bottom:5px; font-size:17px; }
+    .global-chart-tooltip { position:fixed; white-space:normal; }
+    .rotated { writing-mode:tb; glyph-orientation-vertical:0; }
+    .industry-bar-svg { width:100%; }
+    .industry-axis { font-size:16px; dominant-baseline:hanging; }
+    .net-transfer-axis { font-size:13px; fill:#0f2d5c; text-anchor:end; dominant-baseline:middle; }
+    .capacity-title { font-size:26px; fill:#4b5563; }
+    .capacity-axis { font-size:18px; fill:#4b5563; text-anchor:end; dominant-baseline:middle; }
+    .side-toc { position:fixed; left:0; top:0; bottom:0; z-index:70; width:154px; overflow:auto; padding:42px 12px 18px; background:rgba(255,253,249,.98); border-right:1px solid #cbd5e1; box-shadow:8px 0 22px rgba(15,23,42,.08); }
+    .side-toc div { color:#0b2f66; font-size:16px; font-weight:700; margin:0 0 8px; }
+    .side-toc a { display:block; color:#334155; text-decoration:none; font-size:13px; line-height:1.2; padding:7px 6px; border-left:3px solid transparent; }
+    .side-toc a:hover { color:#0b2f66; background:#eef3fb; border-left-color:#b4493f; }
+    .sources { padding:16px 22px 26px; font-size:12px; color:#596273; line-height:1.7; }
+    @media(max-width:1100px) {
+      .grid-2, .mini-chart-row, .mini-chart-grid, .overseas-chart-grid, .spot-season-grid, .decadal-chart-grid, .net-transfer-grid, .regional-structure-grid { grid-template-columns:1fr; }
+      .page { width:100%; margin:0; border:0; box-shadow:none; }
+      body { padding-left:0; }
+      header { padding:14px 14px 10px; }
+      h1 { font-size:24px; }
+      .panel-tabs { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:8px; white-space:nowrap; }
+      .panel-tab { flex:0 0 auto; min-height:34px; padding:6px 10px; font-size:14px; }
+      .side-toc { position:sticky; top:50px; z-index:75; width:100%; max-height:none; padding:7px 8px; display:flex; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; border-right:0; border-bottom:1px solid #cbd5e1; box-shadow:none; }
+      .side-toc div { display:none; }
+      .side-toc a { flex:0 0 auto; padding:5px 9px; border:1px solid #d7dde8; border-left:0; border-radius:3px; background:#f8fafc; font-size:13px; line-height:1.15; white-space:nowrap; }
+      .side-toc a:hover { border-left:0; border-color:#b4493f; }
+      main { padding:0 10px 18px; }
+    }
+    @media(max-width:720px) {
+      body { font-size:14px; }
+      header { padding:10px 10px 8px; }
+      h1 { font-size:22px; }
+      main { padding:0 6px 14px; }
+      h2 { margin:8px 0; font-size:20px; }
+      .report-section { padding:8px 0 16px; }
+      .subpanel { scroll-margin-top:92px; margin:8px 0 12px; padding:6px; }
+      .subpanel > h3 { font-size:17px; padding-left:7px; }
+      .card-head { padding:6px 8px; }
+      .card-head h3 { font-size:16px; }
+      .card-head p { font-size:11px; line-height:1.35; }
+      .card-body { padding:7px; }
+      table { min-width:720px; font-size:11px; }
+      .spot-summary-table { min-width:860px; font-size:11px; }
+      th, td { padding:4px 5px; }
+      .table-card .card-body, .full-table .card-body { max-height:none; overflow-x:auto; overflow-y:visible; -webkit-overflow-scrolling:touch; }
+      .full-table table th:first-child, .full-table table td:first-child,
+      .table-card table th:first-child, .table-card table td:first-child { position:sticky; left:0; z-index:2; background:white; }
+      .full-table table th:first-child, .table-card table th:first-child { z-index:3; background:#e5ebf6; }
+      .summary-text { font-size:14px; line-height:1.65; }
+      .editable-summary-tools { gap:6px; padding:6px; }
+      .summary-tool-btn { min-height:30px; padding:4px 9px; font-size:12px; }
+      .editable-summary-status { width:100%; margin-left:0; font-size:11px; }
+      .interactive-toolbar { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px; }
+      .interactive-toggle { flex:0 0 auto; gap:4px; font-size:10px; white-space:nowrap; }
+      .interactive-toggle::before { width:16px; height:3px; }
+      .interactive-toggle input { width:12px; height:12px; }
+      .spot-line-card .interactive-toggle { font-size:11px; }
+      .spot-line-card .interactive-toggle::before { width:18px; height:3px; }
+      .spot-line-card .interactive-toggle input { width:13px; height:13px; }
+      .svg-title { font-size:12px; }
+      .svg-axis { font-size:8px; }
+      .svg-legend { font-size:7px; }
+      .latest-label { font-size:8px; }
+      .spot-line-card .svg-title { font-size:13px; }
+      .spot-line-card .svg-axis { font-size:9px; }
+      .spot-line-card .latest-label { font-size:9px; }
+      .industry-axis { font-size:11px; }
+      .net-transfer-axis { font-size:9px; }
+      .capacity-title { font-size:18px; }
+      .capacity-axis { font-size:12px; }
+      .regional-structure-title { font-size:15px; }
+      .regional-structure-date, .regional-structure-total, .regional-structure-legend { font-size:10px; }
+      .regional-structure-inside { font-size:9px; }
+      .chart-tooltip { min-width:160px; max-width:calc(100vw - 28px); padding:8px 10px; font-size:12px; }
+      .chart-tooltip .tip-date { font-size:14px; }
+      .sources { padding:12px 10px 18px; font-size:10px; }
+    }
+  </style>
+<style id="mobile-pages-overrides">
+      html { scroll-behavior: smooth; }
+      body { min-width: 0; }
+      .side-toc { display: none !important; }
+      main { margin-left: 0 !important; min-width: 0; }
+      .split-page-tabs {
+        position: sticky; top: 0; z-index: 95; display: flex; flex-wrap: nowrap;
+        gap: 6px; overflow-x: auto; padding: 8px 0; white-space: nowrap;
+        background: rgba(255,253,249,.98); border-bottom: 1px solid var(--line);
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      }
+      .split-page-tabs::-webkit-scrollbar, .section-page-nav::-webkit-scrollbar { display: none; }
+      .split-tab, .section-link {
+        flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none;
+        background: #f8fafc; color: #344054; font-weight: 750; white-space: nowrap;
+      }
+      .split-tab { min-width: 4.4rem; min-height: 36px; padding: 7px 10px; font-size: 14px; }
+      .split-tab.active { color: #fff; background: #b4493f; border-color: #b4493f; }
+      .section-page-nav {
+        position: sticky; top: 53px; z-index: 90; display: flex; gap: 6px;
+        overflow-x: auto; padding: 8px 0 10px; margin: -2px 0 8px;
+        background: rgba(255,253,249,.98); scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .section-link { min-height: 32px; max-width: 82vw; padding: 6px 9px; font-size: 13px; }
+      .section-link.active { color: #fff; background: #183a6b; border-color: #183a6b; }
+      .report-panel > h2 { margin-top: 10px; }
+      img { max-width: 100%; height: auto; }
+      .card-body, .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      @media (max-width: 760px) {
+        header, main { width: auto !important; max-width: none !important; }
+        header { padding-left: 12px !important; padding-right: 12px !important; }
+        main { padding: 0 8px 28px !important; }
+        h1 { font-size: 23px !important; line-height: 1.2; }
+        .subpanel { padding: 6px; margin: 8px 0 12px; }
+        .subpanel > h3 { font-size: 17px; }
+        .grid-2, .chart-grid, .spot-season-grid, .overseas-chart-grid { grid-template-columns: minmax(0, 1fr) !important; }
+        table { min-width: 620px; }
+        svg { min-width: 560px; }
+        .card-head h3 { font-size: 16px !important; }
+        .card-head p, .table-note, .source-note { font-size: 12px !important; }
+      }
+    </style></head>
+<body>
+<div class="page">
+<nav aria-label="子面板目录" class="side-toc"><div>目录</div><a href="index.html#overview-core">1.1 发电用电</a><a href="overview-overview-investment.html#overview-investment">1.2 电源电网</a><a href="price.html#price-spot">2.1 现货电价</a><a href="price-price-table.html#price-table">2.2 代理电价</a><a href="price-overseas-americas-daily.html#price-overseas">2.3 海外电价</a><a href="price-price-long-contract.html#price-long-contract">2.4 长协电价</a><a href="price-price-capacity.html#price-capacity">2.5 容量电价</a><a href="supply.html#supply-generation">3.1 发电量</a><a href="supply-supply-capacity.html#supply-capacity">3.2 装机</a><a href="supply-supply-regional.html#supply-regional">3.3 分地区发电</a><a href="supply-supply-decadal.html#supply-decadal">3.4 旬度发电</a><a href="supply-supply-utilization-hours.html#supply-utilization-hours">3.5 利用小时</a><a href="supply-supply-regional-structure.html#supply-regional-structure">3.6 分省结构</a><a href="supply-supply-nuclear-maintenance.html#supply-nuclear-maintenance">3.7 核电检修</a><a href="demand.html#demand-total">4.1 用电总量</a><a href="demand-demand-industry.html#demand-industry">4.2 分行业用电</a><a href="trade.html#trade-long-term">5.1 中长期交易</a><a href="trade-trade-center.html#trade-center">5.2 交易中心</a><a href="trade-trade-net-transfer.html#trade-net-transfer">5.3 净输出</a><a href="policy.html#policy-market">6.1 电力市场政策</a><a href="policy-policy-renewable.html#policy-renewable">6.2 新能源政策</a><a href="policy-policy-storage.html#policy-storage">6.3 储能政策</a><a href="storage.html#storage-monthly-install">7.1 储能装机</a><a href="storage-storage-headline-weekly.html#storage-headline-weekly">7.2 储能头条周度</a></nav>
+<header>
+<h1>国内电力月报 手机版</h1>
+</header>
+<main>
+<nav aria-label="一级栏目" class="panel-tabs split-page-tabs"><a class="split-tab" href="index.html">汇总</a><a class="split-tab" href="price.html">价格</a><a class="split-tab active" href="supply.html">供给</a><a class="split-tab" href="demand.html">需求</a><a class="split-tab" href="trade.html">交易</a><a class="split-tab" href="policy.html">政策</a><a class="split-tab" href="storage.html">储能</a></nav>
+
+
+<section class="report-section report-panel active" id="supply"><h2>供给</h2><nav aria-label="专题栏目" class="section-page-nav"><a class="section-link" href="supply.html#supply-generation">3.1 发电量</a><a class="section-link" href="supply-supply-capacity.html#supply-capacity">3.2 装机</a><a class="section-link" href="supply-supply-regional.html#supply-regional">3.3 分地区分类型发电</a><a class="section-link" href="supply-supply-decadal.html#supply-decadal">3.4 旬度日均发电</a><a class="section-link" href="supply-supply-utilization-hours.html#supply-utilization-hours">3.5 发电利用小时数</a><a class="section-link active" href="supply-supply-regional-structure.html#supply-regional-structure">3.6 分省份发电结构</a><a class="section-link" href="supply-supply-nuclear-maintenance.html#supply-nuclear-maintenance">3.7 核电检修</a></nav><section class="subpanel" id="supply-regional-structure"><h3>3.6 分省份发电结构</h3><div class="card wide-card"><div class="card-head"><h3>各省当年累计发电结构</h3><p>按分类型分地区表计算各省当年累计发电结构，展示火电、水电、风电、太阳能、核电及必要的其他项。</p></div><div class="card-body"><div class="regional-structure-grid"><svg aria-label="内蒙古发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">内蒙古发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 4,934.8 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="内蒙古\n火电: 3,348.2 亿千瓦时\n占比: 67.8%" fill="#5b9bd5" height="24" width="287.7" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="161.8" y="78">68%</text><rect class="chart-point" data-tip="内蒙古\n水电: 28.1 亿千瓦时\n占比: 0.6%" fill="#ed7d31" height="24" width="2.4" x="305.7" y="62"></rect><rect class="chart-point" data-tip="内蒙古\n风电: 1,181.9 亿千瓦时\n占比: 24.0%" fill="#a5a5a5" height="24" width="101.5" x="308.1" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="358.9" y="78">24%</text><rect class="chart-point" data-tip="内蒙古\n太阳能: 376.5 亿千瓦时\n占比: 7.6%" fill="#ffc000" height="24" width="32.3" x="409.6" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 3,348.2 / 67.8%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 28.1 / 0.6%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 1,181.9 / 24.0%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 376.5 / 7.6%</text></svg><svg aria-label="广东发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">广东发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 4,333.6 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="广东\n火电: 3,186.8 亿千瓦时\n占比: 73.5%" fill="#5b9bd5" height="24" width="311.8" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="173.9" y="78">74%</text><rect class="chart-point" data-tip="广东\n水电: 134.7 亿千瓦时\n占比: 3.1%" fill="#ed7d31" height="24" width="13.2" x="329.8" y="62"></rect><rect class="chart-point" data-tip="广东\n风电: 200.4 亿千瓦时\n占比: 4.6%" fill="#a5a5a5" height="24" width="19.6" x="343.0" y="62"></rect><rect class="chart-point" data-tip="广东\n太阳能: 113.1 亿千瓦时\n占比: 2.6%" fill="#ffc000" height="24" width="11.1" x="362.6" y="62"></rect><rect class="chart-point" data-tip="广东\n核电: 698.7 亿千瓦时\n占比: 16.1%" fill="#4472c4" height="24" width="68.4" x="373.6" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="407.8" y="78">16%</text><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 3,186.8 / 73.5%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 134.7 / 3.1%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 200.4 / 4.6%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 113.1 / 2.6%</text><rect fill="#4472c4" height="9" width="9" x="160" y="130"></rect><text class="regional-structure-legend" x="174" y="140">核电 698.7 / 16.1%</text></svg><svg aria-label="江苏发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">江苏发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 3,826.7 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="江苏\n火电: 3,039.6 亿千瓦时\n占比: 79.4%" fill="#5b9bd5" height="24" width="336.8" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="186.4" y="78">79%</text><rect class="chart-point" data-tip="江苏\n水电: 29.5 亿千瓦时\n占比: 0.8%" fill="#ed7d31" height="24" width="3.3" x="354.8" y="62"></rect><rect class="chart-point" data-tip="江苏\n风电: 304.8 亿千瓦时\n占比: 8.0%" fill="#a5a5a5" height="24" width="33.8" x="358.1" y="62"></rect><rect class="chart-point" data-tip="江苏\n太阳能: 158.7 亿千瓦时\n占比: 4.1%" fill="#ffc000" height="24" width="17.6" x="391.8" y="62"></rect><rect class="chart-point" data-tip="江苏\n核电: 294.1 亿千瓦时\n占比: 7.7%" fill="#4472c4" height="24" width="32.6" x="409.4" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 3,039.6 / 79.4%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 29.5 / 0.8%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 304.8 / 8.0%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 158.7 / 4.1%</text><rect fill="#4472c4" height="9" width="9" x="160" y="130"></rect><text class="regional-structure-legend" x="174" y="140">核电 294.1 / 7.7%</text></svg><svg aria-label="新疆发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">新疆发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 3,520.1 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="新疆\n火电: 2,249.6 亿千瓦时\n占比: 63.9%" fill="#5b9bd5" height="24" width="271.0" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="153.5" y="78">64%</text><rect class="chart-point" data-tip="新疆\n水电: 190.8 亿千瓦时\n占比: 5.4%" fill="#ed7d31" height="24" width="23.0" x="289.0" y="62"></rect><rect class="chart-point" data-tip="新疆\n风电: 627.2 亿千瓦时\n占比: 17.8%" fill="#a5a5a5" height="24" width="75.5" x="311.9" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="349.7" y="78">18%</text><rect class="chart-point" data-tip="新疆\n太阳能: 452.6 亿千瓦时\n占比: 12.9%" fill="#ffc000" height="24" width="54.5" x="387.5" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="414.8" y="78">13%</text><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 2,249.6 / 63.9%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 190.8 / 5.4%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 627.2 / 17.8%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 452.6 / 12.9%</text></svg><svg aria-label="山东发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">山东发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 3,476.1 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="山东\n火电: 2,698.2 亿千瓦时\n占比: 77.6%" fill="#5b9bd5" height="24" width="329.1" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="182.6" y="78">78%</text><rect class="chart-point" data-tip="山东\n水电: 26.4 亿千瓦时\n占比: 0.8%" fill="#ed7d31" height="24" width="3.2" x="347.1" y="62"></rect><rect class="chart-point" data-tip="山东\n风电: 309.3 亿千瓦时\n占比: 8.9%" fill="#a5a5a5" height="24" width="37.7" x="350.3" y="62"></rect><rect class="chart-point" data-tip="山东\n核电: 219.2 亿千瓦时\n占比: 6.3%" fill="#4472c4" height="24" width="26.7" x="388.1" y="62"></rect><rect class="chart-point" data-tip="山东\n其他: 223.0 亿千瓦时\n占比: 6.4%" fill="#70ad47" height="24" width="27.2" x="414.8" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 2,698.2 / 77.6%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 26.4 / 0.8%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 309.3 / 8.9%</text><rect fill="#4472c4" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">核电 219.2 / 6.3%</text><rect fill="#70ad47" height="9" width="9" x="160" y="130"></rect><text class="regional-structure-legend" x="174" y="140">其他 223.0 / 6.4%</text></svg><svg aria-label="浙江发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">浙江发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 2,919.3 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="浙江\n火电: 2,065.2 亿千瓦时\n占比: 70.7%" fill="#5b9bd5" height="24" width="300.0" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="168.0" y="78">71%</text><rect class="chart-point" data-tip="浙江\n水电: 134.9 亿千瓦时\n占比: 4.6%" fill="#ed7d31" height="24" width="19.6" x="318.0" y="62"></rect><rect class="chart-point" data-tip="浙江\n风电: 86.5 亿千瓦时\n占比: 3.0%" fill="#a5a5a5" height="24" width="12.6" x="337.5" y="62"></rect><rect class="chart-point" data-tip="浙江\n太阳能: 152.6 亿千瓦时\n占比: 5.2%" fill="#ffc000" height="24" width="22.2" x="350.1" y="62"></rect><rect class="chart-point" data-tip="浙江\n核电: 480.1 亿千瓦时\n占比: 16.4%" fill="#4472c4" height="24" width="69.7" x="372.3" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="407.1" y="78">16%</text><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 2,065.2 / 70.7%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 134.9 / 4.6%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 86.5 / 3.0%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 152.6 / 5.2%</text><rect fill="#4472c4" height="9" width="9" x="160" y="130"></rect><text class="regional-structure-legend" x="174" y="140">核电 480.1 / 16.4%</text></svg><svg aria-label="四川发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">四川发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 2,899.5 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="四川\n火电: 597.7 亿千瓦时\n占比: 20.6%" fill="#5b9bd5" height="24" width="87.4" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="61.7" y="78">21%</text><rect class="chart-point" data-tip="四川\n水电: 2,076.5 亿千瓦时\n占比: 71.6%" fill="#ed7d31" height="24" width="303.7" x="105.4" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="257.2" y="78">72%</text><rect class="chart-point" data-tip="四川\n风电: 114.2 亿千瓦时\n占比: 3.9%" fill="#a5a5a5" height="24" width="16.7" x="409.1" y="62"></rect><rect class="chart-point" data-tip="四川\n太阳能: 111.1 亿千瓦时\n占比: 3.8%" fill="#ffc000" height="24" width="16.2" x="425.8" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 597.7 / 20.6%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 2,076.5 / 71.6%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 114.2 / 3.9%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 111.1 / 3.8%</text></svg><svg aria-label="云南发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">云南发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 2,530.8 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="云南\n火电: 346.4 亿千瓦时\n占比: 13.7%" fill="#5b9bd5" height="24" width="58.0" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="47.0" y="78">14%</text><rect class="chart-point" data-tip="云南\n水电: 1,649.5 亿千瓦时\n占比: 65.2%" fill="#ed7d31" height="24" width="276.4" x="76.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="214.2" y="78">65%</text><rect class="chart-point" data-tip="云南\n风电: 240.2 亿千瓦时\n占比: 9.5%" fill="#a5a5a5" height="24" width="40.2" x="352.4" y="62"></rect><rect class="chart-point" data-tip="云南\n太阳能: 294.7 亿千瓦时\n占比: 11.6%" fill="#ffc000" height="24" width="49.4" x="392.6" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 346.4 / 13.7%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 1,649.5 / 65.2%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 240.2 / 9.5%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 294.7 / 11.6%</text></svg><svg aria-label="山西发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">山西发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 2,481.1 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="山西\n火电: 1,976.5 亿千瓦时\n占比: 79.7%" fill="#5b9bd5" height="24" width="337.8" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="186.9" y="78">80%</text><rect class="chart-point" data-tip="山西\n水电: 23.4 亿千瓦时\n占比: 0.9%" fill="#ed7d31" height="24" width="4.0" x="355.8" y="62"></rect><rect class="chart-point" data-tip="山西\n风电: 280.1 亿千瓦时\n占比: 11.3%" fill="#a5a5a5" height="24" width="47.9" x="359.8" y="62"></rect><rect class="chart-point" data-tip="山西\n太阳能: 201.1 亿千瓦时\n占比: 8.1%" fill="#ffc000" height="24" width="34.4" x="407.6" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 1,976.5 / 79.7%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 23.4 / 0.9%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 280.1 / 11.3%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 201.1 / 8.1%</text></svg><svg aria-label="河北发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">河北发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 2,442.6 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="河北\n火电: 1,596.8 亿千瓦时\n占比: 65.4%" fill="#5b9bd5" height="24" width="277.2" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="156.6" y="78">65%</text><rect class="chart-point" data-tip="河北\n水电: 50.2 亿千瓦时\n占比: 2.1%" fill="#ed7d31" height="24" width="8.7" x="295.2" y="62"></rect><rect class="chart-point" data-tip="河北\n风电: 474.2 亿千瓦时\n占比: 19.4%" fill="#a5a5a5" height="24" width="82.3" x="303.9" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="345.1" y="78">19%</text><rect class="chart-point" data-tip="河北\n太阳能: 321.4 亿千瓦时\n占比: 13.2%" fill="#ffc000" height="24" width="55.8" x="386.2" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="414.1" y="78">13%</text><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 1,596.8 / 65.4%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 50.2 / 2.1%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 474.2 / 19.4%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 321.4 / 13.2%</text></svg><svg aria-label="安徽发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">安徽发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 2,040.6 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="安徽\n火电: 1,765.5 亿千瓦时\n占比: 86.5%" fill="#5b9bd5" height="24" width="366.8" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="201.4" y="78">87%</text><rect class="chart-point" data-tip="安徽\n水电: 44.0 亿千瓦时\n占比: 2.2%" fill="#ed7d31" height="24" width="9.1" x="384.8" y="62"></rect><rect class="chart-point" data-tip="安徽\n风电: 124.6 亿千瓦时\n占比: 6.1%" fill="#a5a5a5" height="24" width="25.9" x="394.0" y="62"></rect><rect class="chart-point" data-tip="安徽\n太阳能: 106.5 亿千瓦时\n占比: 5.2%" fill="#ffc000" height="24" width="22.1" x="419.9" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 1,765.5 / 86.5%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 44.0 / 2.2%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 124.6 / 6.1%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 106.5 / 5.2%</text></svg><svg aria-label="福建发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">福建发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 1,989.2 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="福建\n火电: 1,116.1 亿千瓦时\n占比: 56.1%" fill="#5b9bd5" height="24" width="237.9" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="136.9" y="78">56%</text><rect class="chart-point" data-tip="福建\n水电: 143.3 亿千瓦时\n占比: 7.2%" fill="#ed7d31" height="24" width="30.5" x="255.9" y="62"></rect><rect class="chart-point" data-tip="福建\n风电: 137.2 亿千瓦时\n占比: 6.9%" fill="#a5a5a5" height="24" width="29.2" x="286.4" y="62"></rect><rect class="chart-point" data-tip="福建\n太阳能: 18.1 亿千瓦时\n占比: 0.9%" fill="#ffc000" height="24" width="3.9" x="315.7" y="62"></rect><rect class="chart-point" data-tip="福建\n核电: 574.5 亿千瓦时\n占比: 28.9%" fill="#4472c4" height="24" width="122.5" x="319.5" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="380.8" y="78">29%</text><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 1,116.1 / 56.1%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 143.3 / 7.2%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 137.2 / 6.9%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 18.1 / 0.9%</text><rect fill="#4472c4" height="9" width="9" x="160" y="130"></rect><text class="regional-structure-legend" x="174" y="140">核电 574.5 / 28.9%</text></svg><svg aria-label="河南发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">河南发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 1,952.0 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="河南\n火电: 1,530.4 亿千瓦时\n占比: 78.4%" fill="#5b9bd5" height="24" width="332.4" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="184.2" y="78">78%</text><rect class="chart-point" data-tip="河南\n水电: 104.3 亿千瓦时\n占比: 5.3%" fill="#ed7d31" height="24" width="22.7" x="350.4" y="62"></rect><rect class="chart-point" data-tip="河南\n风电: 261.5 亿千瓦时\n占比: 13.4%" fill="#a5a5a5" height="24" width="56.8" x="373.1" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="401.5" y="78">13%</text><rect class="chart-point" data-tip="河南\n太阳能: 55.7 亿千瓦时\n占比: 2.9%" fill="#ffc000" height="24" width="12.1" x="429.9" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 1,530.4 / 78.4%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 104.3 / 5.3%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 261.5 / 13.4%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 55.7 / 2.9%</text></svg><svg aria-label="湖北发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">湖北发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 1,907.3 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="湖北\n火电: 871.4 亿千瓦时\n占比: 45.7%" fill="#5b9bd5" height="24" width="193.7" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="114.9" y="78">46%</text><rect class="chart-point" data-tip="湖北\n水电: 831.7 亿千瓦时\n占比: 43.6%" fill="#ed7d31" height="24" width="184.9" x="211.7" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="304.2" y="78">44%</text><rect class="chart-point" data-tip="湖北\n风电: 93.9 亿千瓦时\n占比: 4.9%" fill="#a5a5a5" height="24" width="20.9" x="396.6" y="62"></rect><rect class="chart-point" data-tip="湖北\n太阳能: 110.3 亿千瓦时\n占比: 5.8%" fill="#ffc000" height="24" width="24.5" x="417.5" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 871.4 / 45.7%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 831.7 / 43.6%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 93.9 / 4.9%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 110.3 / 5.8%</text></svg><svg aria-label="陕西发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">陕西发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 1,894.7 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="陕西\n火电: 1,520.2 亿千瓦时\n占比: 80.2%" fill="#5b9bd5" height="24" width="340.2" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="188.1" y="78">80%</text><rect class="chart-point" data-tip="陕西\n水电: 58.3 亿千瓦时\n占比: 3.1%" fill="#ed7d31" height="24" width="13.0" x="358.2" y="62"></rect><rect class="chart-point" data-tip="陕西\n风电: 155.2 亿千瓦时\n占比: 8.2%" fill="#a5a5a5" height="24" width="34.7" x="371.2" y="62"></rect><rect class="chart-point" data-tip="陕西\n太阳能: 161.0 亿千瓦时\n占比: 8.5%" fill="#ffc000" height="24" width="36.0" x="406.0" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 1,520.2 / 80.2%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 58.3 / 3.1%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 155.2 / 8.2%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 161.0 / 8.5%</text></svg><svg aria-label="广西发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">广西发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 1,555.7 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="广西\n火电: 658.9 亿千瓦时\n占比: 42.4%" fill="#5b9bd5" height="24" width="179.6" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="107.8" y="78">42%</text><rect class="chart-point" data-tip="广西\n水电: 414.9 亿千瓦时\n占比: 26.7%" fill="#ed7d31" height="24" width="113.1" x="197.6" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="254.1" y="78">27%</text><rect class="chart-point" data-tip="广西\n风电: 211.4 亿千瓦时\n占比: 13.6%" fill="#a5a5a5" height="24" width="57.6" x="310.7" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="339.5" y="78">14%</text><rect class="chart-point" data-tip="广西\n太阳能: 69.7 亿千瓦时\n占比: 4.5%" fill="#ffc000" height="24" width="19.0" x="368.3" y="62"></rect><rect class="chart-point" data-tip="广西\n核电: 200.7 亿千瓦时\n占比: 12.9%" fill="#4472c4" height="24" width="54.7" x="387.3" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="414.6" y="78">13%</text><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 658.9 / 42.4%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 414.9 / 26.7%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 211.4 / 13.6%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 69.7 / 4.5%</text><rect fill="#4472c4" height="9" width="9" x="160" y="130"></rect><text class="regional-structure-legend" x="174" y="140">核电 200.7 / 12.9%</text></svg><svg aria-label="贵州发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">贵州发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 1,530.6 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="贵州\n火电: 869.8 亿千瓦时\n占比: 56.8%" fill="#5b9bd5" height="24" width="240.9" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="138.5" y="78">57%</text><rect class="chart-point" data-tip="贵州\n水电: 443.3 亿千瓦时\n占比: 29.0%" fill="#ed7d31" height="24" width="122.8" x="258.9" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="320.3" y="78">29%</text><rect class="chart-point" data-tip="贵州\n风电: 93.4 亿千瓦时\n占比: 6.1%" fill="#a5a5a5" height="24" width="25.9" x="381.7" y="62"></rect><rect class="chart-point" data-tip="贵州\n太阳能: 124.1 亿千瓦时\n占比: 8.1%" fill="#ffc000" height="24" width="34.4" x="407.6" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 869.8 / 56.8%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 443.3 / 29.0%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 93.4 / 6.1%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 124.1 / 8.1%</text></svg><svg aria-label="甘肃发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">甘肃发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 1,495.6 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="甘肃\n火电: 807.6 亿千瓦时\n占比: 54.0%" fill="#5b9bd5" height="24" width="229.0" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="132.5" y="78">54%</text><rect class="chart-point" data-tip="甘肃\n水电: 152.5 亿千瓦时\n占比: 10.2%" fill="#ed7d31" height="24" width="43.2" x="247.0" y="62"></rect><rect class="chart-point" data-tip="甘肃\n风电: 345.5 亿千瓦时\n占比: 23.1%" fill="#a5a5a5" height="24" width="97.9" x="290.2" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="339.2" y="78">23%</text><rect class="chart-point" data-tip="甘肃\n太阳能: 190.0 亿千瓦时\n占比: 12.7%" fill="#ffc000" height="24" width="53.9" x="388.1" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 807.6 / 54.0%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 152.5 / 10.2%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 345.5 / 23.1%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 190.0 / 12.7%</text></svg><svg aria-label="宁夏发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">宁夏发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 1,426.7 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="宁夏\n火电: 965.7 亿千瓦时\n占比: 67.7%" fill="#5b9bd5" height="24" width="287.0" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="161.5" y="78">68%</text><rect class="chart-point" data-tip="宁夏\n水电: 9.6 亿千瓦时\n占比: 0.7%" fill="#ed7d31" height="24" width="2.9" x="305.0" y="62"></rect><rect class="chart-point" data-tip="宁夏\n风电: 168.4 亿千瓦时\n占比: 11.8%" fill="#a5a5a5" height="24" width="50.0" x="307.8" y="62"></rect><rect class="chart-point" data-tip="宁夏\n太阳能: 283.0 亿千瓦时\n占比: 19.8%" fill="#ffc000" height="24" width="84.1" x="357.9" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="399.9" y="78">20%</text><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 965.7 / 67.7%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 9.6 / 0.7%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 168.4 / 11.8%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 283.0 / 19.8%</text></svg><svg aria-label="辽宁发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">辽宁发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 1,413.1 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="辽宁\n火电: 785.2 亿千瓦时\n占比: 55.6%" fill="#5b9bd5" height="24" width="235.6" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="135.8" y="78">56%</text><rect class="chart-point" data-tip="辽宁\n水电: 31.3 亿千瓦时\n占比: 2.2%" fill="#ed7d31" height="24" width="9.4" x="253.6" y="62"></rect><rect class="chart-point" data-tip="辽宁\n风电: 267.9 亿千瓦时\n占比: 19.0%" fill="#a5a5a5" height="24" width="80.4" x="263.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="303.2" y="78">19%</text><rect class="chart-point" data-tip="辽宁\n太阳能: 45.1 亿千瓦时\n占比: 3.2%" fill="#ffc000" height="24" width="13.5" x="343.4" y="62"></rect><rect class="chart-point" data-tip="辽宁\n核电: 283.5 亿千瓦时\n占比: 20.1%" fill="#4472c4" height="24" width="85.1" x="356.9" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="399.4" y="78">20%</text><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 785.2 / 55.6%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 31.3 / 2.2%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 267.9 / 19.0%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 45.1 / 3.2%</text><rect fill="#4472c4" height="9" width="9" x="160" y="130"></rect><text class="regional-structure-legend" x="174" y="140">核电 283.5 / 20.1%</text></svg><svg aria-label="江西发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">江西发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 1,046.3 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="江西\n火电: 860.3 亿千瓦时\n占比: 82.2%" fill="#5b9bd5" height="24" width="348.6" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="192.3" y="78">82%</text><rect class="chart-point" data-tip="江西\n水电: 47.4 亿千瓦时\n占比: 4.5%" fill="#ed7d31" height="24" width="19.2" x="366.6" y="62"></rect><rect class="chart-point" data-tip="江西\n风电: 79.6 亿千瓦时\n占比: 7.6%" fill="#a5a5a5" height="24" width="32.3" x="385.8" y="62"></rect><rect class="chart-point" data-tip="江西\n太阳能: 58.9 亿千瓦时\n占比: 5.6%" fill="#ffc000" height="24" width="23.9" x="418.1" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 860.3 / 82.2%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 47.4 / 4.5%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 79.6 / 7.6%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 58.9 / 5.6%</text></svg><svg aria-label="湖南发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">湖南发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 985.8 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="湖南\n火电: 526.2 亿千瓦时\n占比: 53.4%" fill="#5b9bd5" height="24" width="226.3" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="131.2" y="78">53%</text><rect class="chart-point" data-tip="湖南\n水电: 282.2 亿千瓦时\n占比: 28.6%" fill="#ed7d31" height="24" width="121.4" x="244.3" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="305.0" y="78">29%</text><rect class="chart-point" data-tip="湖南\n风电: 108.4 亿千瓦时\n占比: 11.0%" fill="#a5a5a5" height="24" width="46.6" x="365.7" y="62"></rect><rect class="chart-point" data-tip="湖南\n太阳能: 69.0 亿千瓦时\n占比: 7.0%" fill="#ffc000" height="24" width="29.7" x="412.3" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 526.2 / 53.4%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 282.2 / 28.6%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 108.4 / 11.0%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 69.0 / 7.0%</text></svg><svg aria-label="黑龙江发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">黑龙江发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 793.3 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="黑龙江\n火电: 536.7 亿千瓦时\n占比: 67.7%" fill="#5b9bd5" height="24" width="286.9" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="161.4" y="78">68%</text><rect class="chart-point" data-tip="黑龙江\n水电: 23.9 亿千瓦时\n占比: 3.0%" fill="#ed7d31" height="24" width="12.8" x="304.9" y="62"></rect><rect class="chart-point" data-tip="黑龙江\n风电: 187.4 亿千瓦时\n占比: 23.6%" fill="#a5a5a5" height="24" width="100.2" x="317.6" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="367.7" y="78">24%</text><rect class="chart-point" data-tip="黑龙江\n太阳能: 44.9 亿千瓦时\n占比: 5.7%" fill="#ffc000" height="24" width="24.0" x="417.8" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 536.7 / 67.7%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 23.9 / 3.0%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 187.4 / 23.6%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 44.9 / 5.7%</text></svg><svg aria-label="青海发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">青海发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 683.6 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="青海\n火电: 90.2 亿千瓦时\n占比: 13.2%" fill="#5b9bd5" height="24" width="55.9" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="46.0" y="78">13%</text><rect class="chart-point" data-tip="青海\n水电: 262.9 亿千瓦时\n占比: 38.5%" fill="#ed7d31" height="24" width="163.1" x="73.9" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="155.5" y="78">38%</text><rect class="chart-point" data-tip="青海\n风电: 105.0 亿千瓦时\n占比: 15.4%" fill="#a5a5a5" height="24" width="65.1" x="237.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="269.6" y="78">15%</text><rect class="chart-point" data-tip="青海\n太阳能: 225.6 亿千瓦时\n占比: 33.0%" fill="#ffc000" height="24" width="139.9" x="302.1" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="372.1" y="78">33%</text><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 90.2 / 13.2%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 262.9 / 38.5%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 105.0 / 15.4%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 225.6 / 33.0%</text></svg><svg aria-label="吉林发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">吉林发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 620.4 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="吉林\n火电: 355.9 亿千瓦时\n占比: 57.4%" fill="#5b9bd5" height="24" width="243.2" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="139.6" y="78">57%</text><rect class="chart-point" data-tip="吉林\n水电: 55.7 亿千瓦时\n占比: 9.0%" fill="#ed7d31" height="24" width="38.1" x="261.2" y="62"></rect><rect class="chart-point" data-tip="吉林\n风电: 172.8 亿千瓦时\n占比: 27.9%" fill="#a5a5a5" height="24" width="118.1" x="299.3" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="358.3" y="78">28%</text><rect class="chart-point" data-tip="吉林\n太阳能: 36.1 亿千瓦时\n占比: 5.8%" fill="#ffc000" height="24" width="24.7" x="417.4" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 355.9 / 57.4%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 55.7 / 9.0%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 172.8 / 27.9%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 36.1 / 5.8%</text></svg><svg aria-label="重庆发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">重庆发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 592.6 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="重庆\n火电: 405.7 亿千瓦时\n占比: 68.5%" fill="#5b9bd5" height="24" width="290.3" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="163.1" y="78">68%</text><rect class="chart-point" data-tip="重庆\n水电: 148.2 亿千瓦时\n占比: 25.0%" fill="#ed7d31" height="24" width="106.0" x="308.3" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="361.3" y="78">25%</text><rect class="chart-point" data-tip="重庆\n风电: 30.0 亿千瓦时\n占比: 5.1%" fill="#a5a5a5" height="24" width="21.5" x="414.3" y="62"></rect><rect class="chart-point" data-tip="重庆\n太阳能: 8.7 亿千瓦时\n占比: 1.5%" fill="#ffc000" height="24" width="6.2" x="435.8" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 405.7 / 68.5%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 148.2 / 25.0%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 30.0 / 5.1%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 8.7 / 1.5%</text></svg><svg aria-label="上海发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">上海发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 572.8 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="上海\n火电: 545.9 亿千瓦时\n占比: 95.3%" fill="#5b9bd5" height="24" width="404.1" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="220.0" y="78">95%</text><rect class="chart-point" data-tip="上海\n风电: 16.8 亿千瓦时\n占比: 2.9%" fill="#a5a5a5" height="24" width="12.4" x="422.1" y="62"></rect><rect class="chart-point" data-tip="上海\n其他: 10.1 亿千瓦时\n占比: 1.8%" fill="#70ad47" height="24" width="7.5" x="434.5" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 545.9 / 95.3%</text><rect fill="#a5a5a5" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">风电 16.8 / 2.9%</text><rect fill="#70ad47" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">其他 10.1 / 1.8%</text></svg><svg aria-label="天津发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">天津发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 452.7 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="天津\n火电: 383.9 亿千瓦时\n占比: 84.8%" fill="#5b9bd5" height="24" width="359.6" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="197.8" y="78">85%</text><rect class="chart-point" data-tip="天津\n风电: 30.3 亿千瓦时\n占比: 6.7%" fill="#a5a5a5" height="24" width="28.4" x="377.6" y="62"></rect><rect class="chart-point" data-tip="天津\n太阳能: 38.5 亿千瓦时\n占比: 8.5%" fill="#ffc000" height="24" width="36.1" x="405.9" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 383.9 / 84.8%</text><rect fill="#a5a5a5" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">风电 30.3 / 6.7%</text><rect fill="#ffc000" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">太阳能 38.5 / 8.5%</text></svg><svg aria-label="海南发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">海南发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 294.3 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="海南\n火电: 178.0 亿千瓦时\n占比: 60.5%" fill="#5b9bd5" height="24" width="256.4" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="146.2" y="78">60%</text><rect class="chart-point" data-tip="海南\n水电: 9.7 亿千瓦时\n占比: 3.3%" fill="#ed7d31" height="24" width="14.0" x="274.4" y="62"></rect><rect class="chart-point" data-tip="海南\n风电: 20.8 亿千瓦时\n占比: 7.1%" fill="#a5a5a5" height="24" width="30.0" x="288.4" y="62"></rect><rect class="chart-point" data-tip="海南\n太阳能: 31.7 亿千瓦时\n占比: 10.8%" fill="#ffc000" height="24" width="45.7" x="318.4" y="62"></rect><rect class="chart-point" data-tip="海南\n核电: 54.0 亿千瓦时\n占比: 18.3%" fill="#4472c4" height="24" width="77.8" x="364.1" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="403.0" y="78">18%</text><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 178.0 / 60.5%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 9.7 / 3.3%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 20.8 / 7.1%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 31.7 / 10.8%</text><rect fill="#4472c4" height="9" width="9" x="160" y="130"></rect><text class="regional-structure-legend" x="174" y="140">核电 54.0 / 18.3%</text></svg><svg aria-label="北京发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">北京发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 267.8 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="北京\n火电: 244.6 亿千瓦时\n占比: 91.3%" fill="#5b9bd5" height="24" width="387.3" x="18.0" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="211.6" y="78">91%</text><rect class="chart-point" data-tip="北京\n水电: 11.2 亿千瓦时\n占比: 4.2%" fill="#ed7d31" height="24" width="17.7" x="405.3" y="62"></rect><rect class="chart-point" data-tip="北京\n风电: 0.7 亿千瓦时\n占比: 0.3%" fill="#a5a5a5" height="24" width="1.1" x="423.0" y="62"></rect><rect class="chart-point" data-tip="北京\n太阳能: 11.3 亿千瓦时\n占比: 4.2%" fill="#ffc000" height="24" width="17.9" x="424.1" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 244.6 / 91.3%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 11.2 / 4.2%</text><rect fill="#a5a5a5" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">风电 0.7 / 0.3%</text><rect fill="#ffc000" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">太阳能 11.3 / 4.2%</text></svg><svg aria-label="西藏发电结构" class="regional-structure-svg" role="img" viewbox="0 0 460 176"><text class="regional-structure-title" x="18" y="24">西藏发电结构</text><text class="regional-structure-date" text-anchor="end" x="442" y="24">2026年07月累计</text><text class="regional-structure-total" x="18" y="45">累计发电 105.5 亿千瓦时</text><rect fill="#eef2f7" height="24" rx="2" width="424" x="18" y="62"></rect><rect class="chart-point" data-tip="西藏\n火电: 3.5 亿千瓦时\n占比: 3.3%" fill="#5b9bd5" height="24" width="14.1" x="18.0" y="62"></rect><rect class="chart-point" data-tip="西藏\n水电: 85.1 亿千瓦时\n占比: 80.7%" fill="#ed7d31" height="24" width="342.0" x="32.1" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="203.1" y="78">81%</text><rect class="chart-point" data-tip="西藏\n太阳能: 13.7 亿千瓦时\n占比: 13.0%" fill="#ffc000" height="24" width="55.1" x="374.1" y="62"></rect><text class="regional-structure-inside" text-anchor="middle" x="401.6" y="78">13%</text><rect class="chart-point" data-tip="西藏\n其他: 3.2 亿千瓦时\n占比: 3.0%" fill="#70ad47" height="24" width="12.9" x="429.1" y="62"></rect><rect fill="#5b9bd5" height="9" width="9" x="18" y="102"></rect><text class="regional-structure-legend" x="32" y="112">火电 3.5 / 3.3%</text><rect fill="#ed7d31" height="9" width="9" x="160" y="102"></rect><text class="regional-structure-legend" x="174" y="112">水电 85.1 / 80.7%</text><rect fill="#ffc000" height="9" width="9" x="302" y="102"></rect><text class="regional-structure-legend" x="316" y="112">太阳能 13.7 / 13.0%</text><rect fill="#70ad47" height="9" width="9" x="18" y="130"></rect><text class="regional-structure-legend" x="32" y="140">其他 3.2 / 3.0%</text></svg></div><p class="table-note">口径：采用“分类型分地区”中 2026年07月 各省当年累计发电量；数值由源表万千瓦时换算为亿千瓦时。若分类型合计低于总发电量，差额列为“其他”。</p></div></div></section></section>
+
+
+
+
+</main>
+<div class="sources">
+<strong>源与口径：</strong>
+      现货电价来自“电力现货价格日度”；代理电价来自“代理电价月度钢联”；发电、用电来自“发电用电”；分地区发电来自“分类型分地区”；
+      累计装机来自“发电装机容量-wind”；新增装机来自“新增发电装机容量-ifind”；投资来自“电源电网投资”。
+      省份净输出来自“输出电量”和“输入电量”，按输出-输入计算；海外电价来自 pb/全球电价.xlsx 的图表公式对应序列。
+      储能装机和政策事件先来自项目内 JSON 底表；核电检修来源固定为生态环境部核电运行状态监测页面，后续接入日度/事件级抓取。
+      最新数据日期：发用电 2026-07-31，现货电价 2026-09-07，代理电价 2026-09-01，分地区发电 2026-07-31，装机 2026-07-31，交易 2026-06-01，输出/输入电量 2026-07-01/2026-07-01，投资 2026-07-31。
+    </div>
+</div>
+<div class="chart-tooltip global-chart-tooltip" id="global-chart-tooltip"></div>
+<script>
+  const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+  const panels = Array.from(document.querySelectorAll('.report-panel'));
+  function activatePanel(target) {
+    tabs.forEach((tab) => {
+      const active = tab.dataset.target === target;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    panels.forEach((panel) => panel.classList.toggle('active', panel.id === target));
+  }
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      activatePanel(tab.dataset.target);
+      history.replaceState(null, '', '#' + tab.dataset.target);
+    });
+  });
+  const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+  const tocTargetPanel = Object.fromEntries(tocLinks.map((link) => [link.getAttribute('href').replace('#', ''), link.dataset.panel]));
+  function jumpToSubpanel(targetId, panelId) {
+    if (!targetId || !panelId) return;
+    activatePanel(panelId);
+    requestAnimationFrame(() => {
+      const target = document.getElementById(targetId);
+      if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  }
+  tocLinks.forEach((link) => {
+    link.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const targetId = link.getAttribute('href').replace('#', '');
+      jumpToSubpanel(targetId, link.dataset.panel);
+      history.replaceState(null, '', '#' + targetId);
+    });
+  });
+  const initial = location.hash.replace('#', '');
+  if (['overview', 'price', 'supply', 'demand', 'trade'].includes(initial)) activatePanel(initial);
+  if (tocTargetPanel[initial]) jumpToSubpanel(initial, tocTargetPanel[initial]);
+  function summaryStorageKey(card) {
+    return 'power-dashboard-summary:' + (card.dataset.summaryKey || 'default');
+  }
+  function setSummaryStatus(card, text) {
+    const status = card.querySelector('.editable-summary-status');
+    if (status) status.textContent = text;
+  }
+  document.querySelectorAll('.editable-summary-card').forEach((card) => {
+    const body = card.querySelector('.editable-summary-body');
+    if (!body) return;
+    const key = summaryStorageKey(card);
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      body.innerHTML = saved;
+      setSummaryStatus(card, '已载入保存稿');
+    }
+    card.addEventListener('click', (ev) => {
+      const button = ev.target.closest ? ev.target.closest('[data-summary-action]') : null;
+      if (!button) return;
+      const action = button.dataset.summaryAction;
+      if (action === 'edit') {
+        const enabled = body.getAttribute('contenteditable') === 'true';
+        body.setAttribute('contenteditable', enabled ? 'false' : 'true');
+        button.textContent = enabled ? '编辑' : '完成编辑';
+        if (!enabled) {
+          body.focus();
+          setSummaryStatus(card, '编辑中');
+        } else {
+          setSummaryStatus(card, '待保存');
+        }
+      }
+      if (action === 'save') {
+        localStorage.setItem(key, body.innerHTML);
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已保存 ' + new Date().toLocaleTimeString('zh-CN', { hour12:false }));
+      }
+      if (action === 'reset') {
+        if (!confirm('恢复为本次数据自动生成的汇总文字？')) return;
+        localStorage.removeItem(key);
+        body.innerHTML = body.dataset.defaultHtml || '';
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已恢复生成稿');
+      }
+      if (action === 'export') {
+        const title = card.querySelector('.card-head h3')?.textContent || 'summary';
+        const html = '<!doctype html><meta charset="utf-8"><title>' + title + '</title><body>' + body.innerHTML + '</body>';
+        const blob = new Blob([html], { type:'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = '电力月报-汇总编辑稿.html';
+        link.click();
+        URL.revokeObjectURL(url);
+        setSummaryStatus(card, '已导出');
+      }
+    });
+  });
+  const globalTip = document.getElementById('global-chart-tooltip');
+  function showGlobalTip(ev, text) {
+    if (!globalTip || !text) return;
+    const rawText = String(text).replace(/\r?\n/g, '\n').replace(/\\n/g, '\n');
+    globalTip.innerHTML = rawText
+      .split('\n')
+      .map((line, idx) => {
+        const safe = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return idx === 0 ? `<div class="tip-date">${safe}</div>` : `<div>${safe}</div>`;
+      })
+      .join('');
+    globalTip.style.display = 'block';
+    const margin = 16;
+    const boxW = globalTip.offsetWidth || 240;
+    const boxH = globalTip.offsetHeight || 90;
+    let left = ev.clientX + 16;
+    let top = ev.clientY - Math.min(40, boxH / 2);
+    if (left + boxW + margin > window.innerWidth) left = ev.clientX - boxW - 16;
+    if (top + boxH + margin > window.innerHeight) top = window.innerHeight - boxH - margin;
+    if (top < margin) top = margin;
+    globalTip.style.left = left + 'px';
+    globalTip.style.top = top + 'px';
+  }
+  document.addEventListener('mousemove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    if (!target) {
+      if (globalTip) globalTip.style.display = 'none';
+      return;
+    }
+    showGlobalTip(ev, target.dataset.tip);
+  });
+  document.addEventListener('touchstart', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('touchmove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('mouseleave', () => {
+    if (globalTip) globalTip.style.display = 'none';
+  });
+</script>
+</body>
+</html>

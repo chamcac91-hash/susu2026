@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>国内电力月报 手机版 - 5.1 中长期电力直接交易</title>
+<style>
+    :root {
+      --bg:#f5f1ea; --paper:#fffdf9; --ink:#111827; --muted:#687080; --line:#cfd6e3;
+      --navy:#0b2f66; --blue:#4f7dbf; --red:#dc2626; --soft:#f8fafc;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; padding-left:154px; background:var(--bg); color:var(--ink); font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .page { position:relative; width:min(1680px, calc(100% - 28px)); margin:14px auto 40px; background:var(--paper); border:1px solid #d7d0c6; box-shadow:0 8px 28px rgba(64,46,26,.08); }
+    header { padding:22px 28px 16px; border-bottom:3px solid var(--navy); }
+    h1 { margin:0; font-size:30px; letter-spacing:0; color:var(--navy); }
+    .subtitle { margin-top:7px; color:var(--muted); font-size:13px; }
+    main { padding:0 22px 28px; }
+    .report-section { padding:18px 0 22px; border-bottom:1px solid #d7dde8; }
+    h2 { margin:0 0 12px; font-size:24px; color:#111; }
+    h2::before { content:attr(id); display:none; }
+    .placeholder { min-height:90px; border:1px dashed #b8c0cf; background:#fbfaf7; color:#7b8190; padding:24px; font-size:16px; }
+    .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:8px; padding:18px 0 10px; border-bottom:1px solid #d7dde8; background:rgba(255,253,249,.96); backdrop-filter:blur(8px); }
+    .panel-tab { appearance:none; border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:8px 16px; min-height:42px; border-radius:3px; font-family:inherit; font-size:18px; font-weight:700; cursor:pointer; }
+    .panel-tab:hover { border-color:#b4493f; color:#0b2f66; }
+    .panel-tab.active { background:#b4493f; border-color:#b4493f; color:white; }
+    .report-panel { display:none; }
+    .report-panel.active { display:block; }
+    .subpanel { scroll-margin-top:76px; margin:12px 0 18px; padding:10px; border:1px solid #d7dde8; background:#fbfcff; }
+    .subpanel > h3 { margin:0 0 10px; font-size:20px; color:#0b2f66; border-left:5px solid #0b2f66; padding-left:9px; }
+    .stack { display:grid; gap:14px; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
+    .card { border:1px solid #bfc8d8; background:white; overflow:hidden; }
+    .wide-card { grid-column:1 / -1; }
+    .card-head { background:#d9e2f3; border-bottom:1px solid #aeb8c8; padding:7px 10px; text-align:center; }
+    .card-head h3 { margin:0; font-size:17px; color:#001f55; }
+    .card-head p { margin:2px 0 0; font-size:12px; color:#475569; }
+    .card-body { padding:10px; overflow:auto; }
+    table { width:100%; border-collapse:collapse; font-size:12px; background:white; }
+    th, td { border:1px solid #c9ced8; padding:5px 7px; text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    th { background:#e5ebf6; color:#0f2d5c; font-weight:700; }
+    th:first-child, td:first-child { text-align:left; }
+    .spot-summary-table { font-size:13px; }
+    .recent-values { text-align:left; white-space:normal; min-width:260px; }
+    .recent-values span { display:inline-block; margin:1px 5px 1px 0; padding:1px 5px; border:1px solid #d7dde8; background:#f8fafc; border-radius:3px; }
+    .date-value { display:inline-flex; flex-direction:column; align-items:flex-end; gap:1px; line-height:1.18; }
+    .date-value span { color:#64748b; font-size:11px; font-weight:400; }
+    .date-value b { color:#0f172a; font-size:13px; font-weight:700; }
+    .table-card .card-body { max-height:520px; }
+    .full-table .card-body { max-height:none; overflow:visible; }
+    .storage-summary-block + .storage-summary-block { margin-top:12px; }
+    .storage-summary-block h4 { margin:0; padding:6px 8px; border:1px solid #c9ced8; border-bottom:0; background:#f8fafc; color:#0f2d5c; font-size:15px; }
+    .image-card .card-body { overflow:visible; }
+    .reference-image { display:block; width:100%; height:auto; background:white; }
+    .heat td { min-width:72px; }
+    .table-note { margin:8px 2px 0; color:#64748b; font-size:12px; }
+    .summary-text { font-size:16px; line-height:1.8; color:#111827; }
+    .summary-text p { margin:0 0 8px; }
+    .summary-text strong { color:#b91c1c; }
+    .editable-summary-tools { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:8px 10px; border-bottom:1px solid #d7dde8; background:#f8fafc; }
+    .summary-tool-btn { appearance:none; border:1px solid #b9c3d3; background:white; color:#0f2d5c; min-height:32px; padding:5px 12px; border-radius:3px; font-family:inherit; font-size:14px; font-weight:700; cursor:pointer; }
+    .summary-tool-btn:hover { border-color:#b4493f; color:#b4493f; }
+    .summary-tool-btn.primary { background:#0b2f66; border-color:#0b2f66; color:white; }
+    .editable-summary-status { margin-left:auto; color:#64748b; font-size:12px; }
+    .editable-summary-body { min-height:118px; outline:none; border:1px solid transparent; padding:4px 6px; }
+    .editable-summary-body[contenteditable="true"] { border-color:#b4493f; background:#fffaf2; box-shadow:inset 0 0 0 1px rgba(180,73,63,.18); }
+    .editable-summary-body[contenteditable="true"] p { cursor:text; }
+    .pos { color:#b91c1c; font-weight:700; }
+    .neg { color:#1d4ed8; font-weight:700; }
+    .mini-chart-row { display:grid; grid-template-columns:repeat(4, minmax(260px,1fr)); gap:10px; }
+    .mini-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(280px,1fr)); gap:10px; }
+    .storage-smm-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-xunxi-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-headline-weekly-grid { grid-template-columns:repeat(4, minmax(240px,1fr)); }
+    .storage-headline-price-wide { margin-top:14px; padding-top:10px; border-top:1px solid #d7dde8; }
+    .chart-group-title { margin:12px 0 8px; color:#0b2f66; font-size:18px; text-align:center; }
+    .overseas-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:12px; }
+    .spot-season-grid { display:grid; grid-template-columns:repeat(3, minmax(420px,1fr)); gap:16px; align-items:start; }
+    .spot-season-grid .svg-title { font-size:16px; }
+    .spot-season-grid .svg-axis { font-size:12px; }
+    .spot-season-grid .svg-legend { font-size:11px; }
+    .decadal-chart-grid { display:grid; grid-template-columns:repeat(2, minmax(520px,1fr)); gap:14px; }
+    .net-transfer-grid { display:grid; grid-template-columns:repeat(2, minmax(560px,1fr)); gap:14px; align-items:start; }
+    .regional-structure-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:10px; align-items:start; }
+    .regional-structure-svg { border:1px solid #d7dde8; background:#fff; }
+    .regional-structure-title { font-size:18px; font-weight:700; fill:#0b2f66; }
+    .regional-structure-date { font-size:12px; fill:#64748b; }
+    .regional-structure-total { font-size:13px; fill:#334155; }
+    .regional-structure-inside { font-size:11px; font-weight:700; fill:white; paint-order:stroke; stroke:#334155; stroke-width:2px; }
+    .regional-structure-legend { font-size:11px; fill:#111827; }
+    .industry-chain-svg { border:1px solid #d7dde8; }
+    .industry-chain-title { font-size:22px; font-weight:700; fill:#0b2f66; }
+    .industry-chain-col-title { font-size:18px; font-weight:700; fill:white; }
+    .industry-chain-item { font-size:14px; fill:#0f172a; }
+    .industry-chain-note { font-size:15px; fill:#334155; }
+    .industry-panorama-image { max-height:760px; object-fit:contain; }
+    svg { width:100%; height:auto; display:block; background:white; }
+    svg text { font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .svg-title { font-size:14px; font-weight:700; fill:#0b2f66; }
+    .svg-axis { font-size:10px; fill:#334155; }
+    .svg-legend { font-size:8px; }
+    .latest-label { font-size:11px; font-weight:700; paint-order:stroke; stroke:white; stroke-width:3px; }
+    .chart-point { cursor:crosshair; }
+    .interactive-chart { position:relative; background:white; }
+    .interactive-toolbar { display:flex; flex-wrap:wrap; gap:8px 12px; padding:2px 0 8px; }
+    .interactive-toggle { display:inline-flex; align-items:center; gap:5px; color:#0f172a; font-size:12px; cursor:pointer; }
+    .interactive-toggle::before { content:""; width:18px; height:3px; background:var(--line-color); display:inline-block; }
+    .interactive-toggle input { width:13px; height:13px; margin:0; accent-color:#0b2f66; }
+    .interactive-stage { position:relative; }
+    .spot-line-card .interactive-toggle { font-size:15px; font-weight:700; }
+    .spot-line-card .interactive-toggle::before { width:24px; height:4px; }
+    .spot-line-card .interactive-toggle input { width:16px; height:16px; }
+    .spot-line-card .svg-title { font-size:18px; }
+    .spot-line-card .svg-axis { font-size:13px; }
+    .spot-line-card .latest-label { font-size:13px; }
+    .chart-tooltip { display:none; position:absolute; z-index:20; min-width:190px; max-width:320px; pointer-events:none; background:rgba(15,23,42,.94); color:white; border-radius:6px; padding:10px 12px; font-size:14px; line-height:1.55; box-shadow:0 12px 30px rgba(15,23,42,.28); }
+    .chart-tooltip .tip-date { font-weight:700; color:#dbeafe; margin-bottom:5px; font-size:17px; }
+    .global-chart-tooltip { position:fixed; white-space:normal; }
+    .rotated { writing-mode:tb; glyph-orientation-vertical:0; }
+    .industry-bar-svg { width:100%; }
+    .industry-axis { font-size:16px; dominant-baseline:hanging; }
+    .net-transfer-axis { font-size:13px; fill:#0f2d5c; text-anchor:end; dominant-baseline:middle; }
+    .capacity-title { font-size:26px; fill:#4b5563; }
+    .capacity-axis { font-size:18px; fill:#4b5563; text-anchor:end; dominant-baseline:middle; }
+    .side-toc { position:fixed; left:0; top:0; bottom:0; z-index:70; width:154px; overflow:auto; padding:42px 12px 18px; background:rgba(255,253,249,.98); border-right:1px solid #cbd5e1; box-shadow:8px 0 22px rgba(15,23,42,.08); }
+    .side-toc div { color:#0b2f66; font-size:16px; font-weight:700; margin:0 0 8px; }
+    .side-toc a { display:block; color:#334155; text-decoration:none; font-size:13px; line-height:1.2; padding:7px 6px; border-left:3px solid transparent; }
+    .side-toc a:hover { color:#0b2f66; background:#eef3fb; border-left-color:#b4493f; }
+    .sources { padding:16px 22px 26px; font-size:12px; color:#596273; line-height:1.7; }
+    @media(max-width:1100px) {
+      .grid-2, .mini-chart-row, .mini-chart-grid, .overseas-chart-grid, .spot-season-grid, .decadal-chart-grid, .net-transfer-grid, .regional-structure-grid { grid-template-columns:1fr; }
+      .page { width:100%; margin:0; border:0; box-shadow:none; }
+      body { padding-left:0; }
+      header { padding:14px 14px 10px; }
+      h1 { font-size:24px; }
+      .panel-tabs { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:8px; white-space:nowrap; }
+      .panel-tab { flex:0 0 auto; min-height:34px; padding:6px 10px; font-size:14px; }
+      .side-toc { position:sticky; top:50px; z-index:75; width:100%; max-height:none; padding:7px 8px; display:flex; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; border-right:0; border-bottom:1px solid #cbd5e1; box-shadow:none; }
+      .side-toc div { display:none; }
+      .side-toc a { flex:0 0 auto; padding:5px 9px; border:1px solid #d7dde8; border-left:0; border-radius:3px; background:#f8fafc; font-size:13px; line-height:1.15; white-space:nowrap; }
+      .side-toc a:hover { border-left:0; border-color:#b4493f; }
+      main { padding:0 10px 18px; }
+    }
+    @media(max-width:720px) {
+      body { font-size:14px; }
+      header { padding:10px 10px 8px; }
+      h1 { font-size:22px; }
+      main { padding:0 6px 14px; }
+      h2 { margin:8px 0; font-size:20px; }
+      .report-section { padding:8px 0 16px; }
+      .subpanel { scroll-margin-top:92px; margin:8px 0 12px; padding:6px; }
+      .subpanel > h3 { font-size:17px; padding-left:7px; }
+      .card-head { padding:6px 8px; }
+      .card-head h3 { font-size:16px; }
+      .card-head p { font-size:11px; line-height:1.35; }
+      .card-body { padding:7px; }
+      table { min-width:720px; font-size:11px; }
+      .spot-summary-table { min-width:860px; font-size:11px; }
+      th, td { padding:4px 5px; }
+      .table-card .card-body, .full-table .card-body { max-height:none; overflow-x:auto; overflow-y:visible; -webkit-overflow-scrolling:touch; }
+      .full-table table th:first-child, .full-table table td:first-child,
+      .table-card table th:first-child, .table-card table td:first-child { position:sticky; left:0; z-index:2; background:white; }
+      .full-table table th:first-child, .table-card table th:first-child { z-index:3; background:#e5ebf6; }
+      .summary-text { font-size:14px; line-height:1.65; }
+      .editable-summary-tools { gap:6px; padding:6px; }
+      .summary-tool-btn { min-height:30px; padding:4px 9px; font-size:12px; }
+      .editable-summary-status { width:100%; margin-left:0; font-size:11px; }
+      .interactive-toolbar { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px; }
+      .interactive-toggle { flex:0 0 auto; gap:4px; font-size:10px; white-space:nowrap; }
+      .interactive-toggle::before { width:16px; height:3px; }
+      .interactive-toggle input { width:12px; height:12px; }
+      .spot-line-card .interactive-toggle { font-size:11px; }
+      .spot-line-card .interactive-toggle::before { width:18px; height:3px; }
+      .spot-line-card .interactive-toggle input { width:13px; height:13px; }
+      .svg-title { font-size:12px; }
+      .svg-axis { font-size:8px; }
+      .svg-legend { font-size:7px; }
+      .latest-label { font-size:8px; }
+      .spot-line-card .svg-title { font-size:13px; }
+      .spot-line-card .svg-axis { font-size:9px; }
+      .spot-line-card .latest-label { font-size:9px; }
+      .industry-axis { font-size:11px; }
+      .net-transfer-axis { font-size:9px; }
+      .capacity-title { font-size:18px; }
+      .capacity-axis { font-size:12px; }
+      .regional-structure-title { font-size:15px; }
+      .regional-structure-date, .regional-structure-total, .regional-structure-legend { font-size:10px; }
+      .regional-structure-inside { font-size:9px; }
+      .chart-tooltip { min-width:160px; max-width:calc(100vw - 28px); padding:8px 10px; font-size:12px; }
+      .chart-tooltip .tip-date { font-size:14px; }
+      .sources { padding:12px 10px 18px; font-size:10px; }
+    }
+  </style>
+<style id="mobile-pages-overrides">
+      html { scroll-behavior: smooth; }
+      body { min-width: 0; }
+      .side-toc { display: none !important; }
+      main { margin-left: 0 !important; min-width: 0; }
+      .split-page-tabs {
+        position: sticky; top: 0; z-index: 95; display: flex; flex-wrap: nowrap;
+        gap: 6px; overflow-x: auto; padding: 8px 0; white-space: nowrap;
+        background: rgba(255,253,249,.98); border-bottom: 1px solid var(--line);
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      }
+      .split-page-tabs::-webkit-scrollbar, .section-page-nav::-webkit-scrollbar { display: none; }
+      .split-tab, .section-link {
+        flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none;
+        background: #f8fafc; color: #344054; font-weight: 750; white-space: nowrap;
+      }
+      .split-tab { min-width: 4.4rem; min-height: 36px; padding: 7px 10px; font-size: 14px; }
+      .split-tab.active { color: #fff; background: #b4493f; border-color: #b4493f; }
+      .section-page-nav {
+        position: sticky; top: 53px; z-index: 90; display: flex; gap: 6px;
+        overflow-x: auto; padding: 8px 0 10px; margin: -2px 0 8px;
+        background: rgba(255,253,249,.98); scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .section-link { min-height: 32px; max-width: 82vw; padding: 6px 9px; font-size: 13px; }
+      .section-link.active { color: #fff; background: #183a6b; border-color: #183a6b; }
+      .report-panel > h2 { margin-top: 10px; }
+      img { max-width: 100%; height: auto; }
+      .card-body, .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      @media (max-width: 760px) {
+        header, main { width: auto !important; max-width: none !important; }
+        header { padding-left: 12px !important; padding-right: 12px !important; }
+        main { padding: 0 8px 28px !important; }
+        h1 { font-size: 23px !important; line-height: 1.2; }
+        .subpanel { padding: 6px; margin: 8px 0 12px; }
+        .subpanel > h3 { font-size: 17px; }
+        .grid-2, .chart-grid, .spot-season-grid, .overseas-chart-grid { grid-template-columns: minmax(0, 1fr) !important; }
+        table { min-width: 620px; }
+        svg { min-width: 560px; }
+        .card-head h3 { font-size: 16px !important; }
+        .card-head p, .table-note, .source-note { font-size: 12px !important; }
+      }
+    </style></head>
+<body>
+<div class="page">
+<nav aria-label="子面板目录" class="side-toc"><div>目录</div><a href="index.html#overview-core">1.1 发电用电</a><a href="overview-overview-investment.html#overview-investment">1.2 电源电网</a><a href="price.html#price-spot">2.1 现货电价</a><a href="price-price-table.html#price-table">2.2 代理电价</a><a href="price-overseas-americas-daily.html#price-overseas">2.3 海外电价</a><a href="price-price-long-contract.html#price-long-contract">2.4 长协电价</a><a href="price-price-capacity.html#price-capacity">2.5 容量电价</a><a href="supply.html#supply-generation">3.1 发电量</a><a href="supply-supply-capacity.html#supply-capacity">3.2 装机</a><a href="supply-supply-regional.html#supply-regional">3.3 分地区发电</a><a href="supply-supply-decadal.html#supply-decadal">3.4 旬度发电</a><a href="supply-supply-utilization-hours.html#supply-utilization-hours">3.5 利用小时</a><a href="supply-supply-regional-structure.html#supply-regional-structure">3.6 分省结构</a><a href="supply-supply-nuclear-maintenance.html#supply-nuclear-maintenance">3.7 核电检修</a><a href="demand.html#demand-total">4.1 用电总量</a><a href="demand-demand-industry.html#demand-industry">4.2 分行业用电</a><a href="trade.html#trade-long-term">5.1 中长期交易</a><a href="trade-trade-center.html#trade-center">5.2 交易中心</a><a href="trade-trade-net-transfer.html#trade-net-transfer">5.3 净输出</a><a href="policy.html#policy-market">6.1 电力市场政策</a><a href="policy-policy-renewable.html#policy-renewable">6.2 新能源政策</a><a href="policy-policy-storage.html#policy-storage">6.3 储能政策</a><a href="storage.html#storage-monthly-install">7.1 储能装机</a><a href="storage-storage-headline-weekly.html#storage-headline-weekly">7.2 储能头条周度</a></nav>
+<header>
+<h1>国内电力月报 手机版</h1>
+</header>
+<main>
+<nav aria-label="一级栏目" class="panel-tabs split-page-tabs"><a class="split-tab" href="index.html">汇总</a><a class="split-tab" href="price.html">价格</a><a class="split-tab" href="supply.html">供给</a><a class="split-tab" href="demand.html">需求</a><a class="split-tab active" href="trade.html">交易</a><a class="split-tab" href="policy.html">政策</a><a class="split-tab" href="storage.html">储能</a></nav>
+
+
+
+
+<section class="report-section report-panel active" id="trade"><h2>交易</h2><nav aria-label="专题栏目" class="section-page-nav"><a class="section-link active" href="trade.html#trade-long-term">5.1 中长期电力直接交易</a><a class="section-link" href="trade-trade-center.html#trade-center">5.2 电力交易中心交易</a><a class="section-link" href="trade-trade-net-transfer.html#trade-net-transfer">5.3 省份净输出电量</a></nav><section class="subpanel" id="trade-long-term"><h3>5.1 中长期电力直接交易</h3><div class="grid-2"><div class="card table-card full-table wide-card"><div class="card-head"><h3>省内电力直接交易指标</h3><p>当月值及累计值，表头月份即对应期数。</p></div><div class="card-body"><table><thead><tr><th>指标</th><th>02月</th><th>03月</th><th>04月</th><th>05月</th><th>06月</th><th>最新(06月)</th><th>上月(05月)</th><th>月环比/变化</th><th>去年同期(2025年06月)</th><th>年同比/变化</th><th>单位</th></tr></thead><tbody><tr><td>省内电力直接交易:当月值</td><td>3,840.5</td><td>4,056.0</td><td>3,877.0</td><td>4,055.0</td><td>4,097.0</td><td>4,097.0</td><td>4,055.0</td><td class="pos" style="background:rgba(220,38,38,0.039);color:#111827;">+1.0%</td><td>3,658.1</td><td class="pos" style="background:rgba(220,38,38,0.449);color:#111827;">+12.0%</td><td>亿千瓦时</td></tr><tr><td>省内电力直接交易:累计值</td><td>7,681.0</td><td>11,737.0</td><td>15,614.0</td><td>19,669.0</td><td>23,766.0</td><td>23,766.0</td><td>19,669.0</td><td class="pos" style="background:rgba(220,38,38,0.780);color:#111827;">+20.8%</td><td>21,790.2</td><td class="pos" style="background:rgba(220,38,38,0.340);color:#111827;">+9.1%</td><td>亿千瓦时</td></tr></tbody></table></div></div><div class="card wide-card"><div class="card-head"><h3>省内电力直接交易季节性</h3><p>当月值按 1-2 月平分处理，并展示累计值。</p></div><div class="card-body"><div class="mini-chart-grid"><svg aria-label="省内电力直接交易:当月值" role="img" viewbox="0 0 620 300"><text class="svg-title" x="44" y="16">省内电力直接交易:当月值</text><line stroke="#cbd5e1" x1="44" x2="604" y1="266" y2="266"></line><line stroke="#cbd5e1" x1="44" x2="44" y1="24" y2="266"></line><line stroke="#eef2f7" x1="44" x2="604" y1="266.0" y2="266.0"></line><text class="svg-axis" text-anchor="end" x="38" y="270.0">1,000</text><line stroke="#eef2f7" x1="44" x2="604" y1="205.5" y2="205.5"></line><text class="svg-axis" text-anchor="end" x="38" y="209.5">2,000</text><line stroke="#eef2f7" x1="44" x2="604" y1="145.0" y2="145.0"></line><text class="svg-axis" text-anchor="end" x="38" y="149.0">3,000</text><line stroke="#eef2f7" x1="44" x2="604" y1="84.5" y2="84.5"></line><text class="svg-axis" text-anchor="end" x="38" y="88.5">4,000</text><line stroke="#eef2f7" x1="44" x2="604" y1="24.0" y2="24.0"></line><text class="svg-axis" text-anchor="end" x="38" y="28.0">5,000</text><text class="svg-axis" text-anchor="middle" x="44.0" y="290">1</text><text class="svg-axis" text-anchor="middle" x="94.9" y="290">2</text><text class="svg-axis" text-anchor="middle" x="145.8" y="290">3</text><text class="svg-axis" text-anchor="middle" x="196.7" y="290">4</text><text class="svg-axis" text-anchor="middle" x="247.6" y="290">5</text><text class="svg-axis" text-anchor="middle" x="298.5" y="290">6</text><text class="svg-axis" text-anchor="middle" x="349.5" y="290">7</text><text class="svg-axis" text-anchor="middle" x="400.4" y="290">8</text><text class="svg-axis" text-anchor="middle" x="451.3" y="290">9</text><text class="svg-axis" text-anchor="middle" x="502.2" y="290">10</text><text class="svg-axis" text-anchor="middle" x="553.1" y="290">11</text><text class="svg-axis" text-anchor="middle" x="604.0" y="290">12</text><polyline fill="none" points="196.7,187.8 247.6,188.9 298.5,181.4 349.5,180.1 400.4,181.1 451.3,182.3 502.2,193.7 553.1,186.4 604.0,141.3" stroke="#d1d5db" stroke-width="2"></polyline><circle class="chart-point" cx="196.7" cy="187.8" data-tip="省内电力直接交易:当月值 2021-04: 2,292.5" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="247.6" cy="188.9" data-tip="省内电力直接交易:当月值 2021-05: 2,275.0" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="298.5" cy="181.4" data-tip="省内电力直接交易:当月值 2021-06: 2,397.8" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="349.5" cy="180.1" data-tip="省内电力直接交易:当月值 2021-07: 2,419.2" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="400.4" cy="181.1" data-tip="省内电力直接交易:当月值 2021-08: 2,403.2" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="451.3" cy="182.3" data-tip="省内电力直接交易:当月值 2021-09: 2,383.2" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="502.2" cy="193.7" data-tip="省内电力直接交易:当月值 2021-10: 2,194.6" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="553.1" cy="186.4" data-tip="省内电力直接交易:当月值 2021-11: 2,315.2" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="604.0" cy="141.3" data-tip="省内电力直接交易:当月值 2021-12: 3,060.7" fill="#d1d5db" opacity="0.001" r="3.2"></circle><polyline fill="none" points="44.0,125.0 94.9,133.1 145.8,131.8 196.7,145.3 247.6,139.0 298.5,133.8 349.5,98.9 400.4,94.3 451.3,127.1 502.2,138.8 553.1,128.5 604.0,107.0" stroke="#8b8f98" stroke-width="2"></polyline><circle class="chart-point" cx="44.0" cy="125.0" data-tip="省内电力直接交易:当月值 2022-01: 3,331.2" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="94.9" cy="133.1" data-tip="省内电力直接交易:当月值 2022-02: 3,196.6" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="145.8" cy="131.8" data-tip="省内电力直接交易:当月值 2022-03: 3,217.9" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="196.7" cy="145.3" data-tip="省内电力直接交易:当月值 2022-04: 2,995.8" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="247.6" cy="139.0" data-tip="省内电力直接交易:当月值 2022-05: 3,099.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="298.5" cy="133.8" data-tip="省内电力直接交易:当月值 2022-06: 3,185.2" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="349.5" cy="98.9" data-tip="省内电力直接交易:当月值 2022-07: 3,762.8" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="400.4" cy="94.3" data-tip="省内电力直接交易:当月值 2022-08: 3,838.2" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="451.3" cy="127.1" data-tip="省内电力直接交易:当月值 2022-09: 3,295.1" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="502.2" cy="138.8" data-tip="省内电力直接交易:当月值 2022-10: 3,103.2" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="553.1" cy="128.5" data-tip="省内电力直接交易:当月值 2022-11: 3,272.7" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="604.0" cy="107.0" data-tip="省内电力直接交易:当月值 2022-12: 3,628.6" fill="#8b8f98" opacity="0.001" r="3.2"></circle><polyline fill="none" points="44.0,129.3 94.9,123.1 145.8,108.7 196.7,125.1 247.6,123.0 298.5,115.0 349.5,82.8 400.4,87.1 451.3,114.9 502.2,125.8 553.1,115.4 604.0,71.9" stroke="#94a3b8" stroke-width="2"></polyline><circle class="chart-point" cx="44.0" cy="129.3" data-tip="省内电力直接交易:当月值 2023-01: 3,260.1" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="94.9" cy="123.1" data-tip="省内电力直接交易:当月值 2023-02: 3,361.6" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="145.8" cy="108.7" data-tip="省内电力直接交易:当月值 2023-03: 3,599.3" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="196.7" cy="125.1" data-tip="省内电力直接交易:当月值 2023-04: 3,328.2" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="247.6" cy="123.0" data-tip="省内电力直接交易:当月值 2023-05: 3,363.6" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="298.5" cy="115.0" data-tip="省内电力直接交易:当月值 2023-06: 3,495.6" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="349.5" cy="82.8" data-tip="省内电力直接交易:当月值 2023-07: 4,028.6" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="400.4" cy="87.1" data-tip="省内电力直接交易:当月值 2023-08: 3,956.3" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="451.3" cy="114.9" data-tip="省内电力直接交易:当月值 2023-09: 3,498.3" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="502.2" cy="125.8" data-tip="省内电力直接交易:当月值 2023-10: 3,317.4" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="553.1" cy="115.4" data-tip="省内电力直接交易:当月值 2023-11: 3,489.3" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="604.0" cy="71.9" data-tip="省内电力直接交易:当月值 2023-12: 4,207.9" fill="#94a3b8" opacity="0.001" r="3.2"></circle><polyline fill="none" points="44.0,81.9 94.9,105.2 145.8,98.6 196.7,125.2 247.6,111.3 298.5,101.9 349.5,78.1 400.4,69.8 451.3,93.2 502.2,107.8 553.1,102.8 604.0,69.4" stroke="#0ea5e9" stroke-width="2"></polyline><circle class="chart-point" cx="44.0" cy="81.9" data-tip="省内电力直接交易:当月值 2024-01: 4,042.8" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="94.9" cy="105.2" data-tip="省内电力直接交易:当月值 2024-02: 3,657.2" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="145.8" cy="98.6" data-tip="省内电力直接交易:当月值 2024-03: 3,766.4" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="196.7" cy="125.2" data-tip="省内电力直接交易:当月值 2024-04: 3,327.9" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="247.6" cy="111.3" data-tip="省内电力直接交易:当月值 2024-05: 3,556.2" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="298.5" cy="101.9" data-tip="省内电力直接交易:当月值 2024-06: 3,711.7" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="349.5" cy="78.1" data-tip="省内电力直接交易:当月值 2024-07: 4,105.5" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="400.4" cy="69.8" data-tip="省内电力直接交易:当月值 2024-08: 4,242.8" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="451.3" cy="93.2" data-tip="省内电力直接交易:当月值 2024-09: 3,856.7" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="502.2" cy="107.8" data-tip="省内电力直接交易:当月值 2024-10: 3,614.8" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="553.1" cy="102.8" data-tip="省内电力直接交易:当月值 2024-11: 3,696.9" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="604.0" cy="69.4" data-tip="省内电力直接交易:当月值 2024-12: 4,250.1" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><polyline fill="none" points="44.0,110.3 94.9,110.3 145.8,93.8 196.7,114.3 247.6,106.9 298.5,105.2 400.4,62.0 451.3,102.0 502.2,97.6 553.1,99.4 604.0,74.4" stroke="#0b2f66" stroke-width="2"></polyline><circle class="chart-point" cx="44.0" cy="110.3" data-tip="省内电力直接交易:当月值 2025-01: 3,574.3" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="94.9" cy="110.3" data-tip="省内电力直接交易:当月值 2025-02: 3,574.3" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="145.8" cy="93.8" data-tip="省内电力直接交易:当月值 2025-03: 3,846.3" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="196.7" cy="114.3" data-tip="省内电力直接交易:当月值 2025-04: 3,507.0" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="247.6" cy="106.9" data-tip="省内电力直接交易:当月值 2025-05: 3,630.2" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="298.5" cy="105.2" data-tip="省内电力直接交易:当月值 2025-06: 3,658.1" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="400.4" cy="62.0" data-tip="省内电力直接交易:当月值 2025-08: 4,371.1" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="451.3" cy="102.0" data-tip="省内电力直接交易:当月值 2025-09: 3,711.0" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="502.2" cy="97.6" data-tip="省内电力直接交易:当月值 2025-10: 3,784.0" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="553.1" cy="99.4" data-tip="省内电力直接交易:当月值 2025-11: 3,753.0" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="604.0" cy="74.4" data-tip="省内电力直接交易:当月值 2025-12: 4,167.0" fill="#0b2f66" opacity="0.001" r="3.2"></circle><polyline fill="none" points="44.0,94.1 94.9,94.1 145.8,81.1 196.7,91.9 247.6,81.2 298.5,78.6" stroke="#dc2626" stroke-width="3"></polyline><circle class="chart-point" cx="44.0" cy="94.1" data-tip="省内电力直接交易:当月值 2026-01: 3,840.5" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="94.9" cy="94.1" data-tip="省内电力直接交易:当月值 2026-02: 3,840.5" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="145.8" cy="81.1" data-tip="省内电力直接交易:当月值 2026-03: 4,056.0" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="196.7" cy="91.9" data-tip="省内电力直接交易:当月值 2026-04: 3,877.0" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="247.6" cy="81.2" data-tip="省内电力直接交易:当月值 2026-05: 4,055.0" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="298.5" cy="78.6" data-tip="省内电力直接交易:当月值 2026-06: 4,097.0" fill="#dc2626" opacity="0.001" r="3.2"></circle><rect class="chart-point hover-zone" data-tip="省内电力直接交易:当月值\n1月\n2022: 3,331.2\n2023: 3,260.1\n2024: 4,042.8\n2025: 3,574.3\n2026: 3,840.5" fill="transparent" height="242.0" width="25.5" x="44.0" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:当月值\n2月\n2022: 3,196.6\n2023: 3,361.6\n2024: 3,657.2\n2025: 3,574.3\n2026: 3,840.5" fill="transparent" height="242.0" width="50.9" x="69.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:当月值\n3月\n2022: 3,217.9\n2023: 3,599.3\n2024: 3,766.4\n2025: 3,846.3\n2026: 4,056.0" fill="transparent" height="242.0" width="50.9" x="120.4" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:当月值\n4月\n2021: 2,292.5\n2022: 2,995.8\n2023: 3,328.2\n2024: 3,327.9\n2025: 3,507.0\n2026: 3,877.0" fill="transparent" height="242.0" width="50.9" x="171.3" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:当月值\n5月\n2021: 2,275.0\n2022: 3,099.0\n2023: 3,363.6\n2024: 3,556.2\n2025: 3,630.2\n2026: 4,055.0" fill="transparent" height="242.0" width="50.9" x="222.2" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:当月值\n6月\n2021: 2,397.8\n2022: 3,185.2\n2023: 3,495.6\n2024: 3,711.7\n2025: 3,658.1\n2026: 4,097.0" fill="transparent" height="242.0" width="50.9" x="273.1" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:当月值\n7月\n2021: 2,419.2\n2022: 3,762.8\n2023: 4,028.6\n2024: 4,105.5" fill="transparent" height="242.0" width="50.9" x="324.0" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:当月值\n8月\n2021: 2,403.2\n2022: 3,838.2\n2023: 3,956.3\n2024: 4,242.8\n2025: 4,371.1" fill="transparent" height="242.0" width="50.9" x="374.9" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:当月值\n9月\n2021: 2,383.2\n2022: 3,295.1\n2023: 3,498.3\n2024: 3,856.7\n2025: 3,711.0" fill="transparent" height="242.0" width="50.9" x="425.8" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:当月值\n10月\n2021: 2,194.6\n2022: 3,103.2\n2023: 3,317.4\n2024: 3,614.8\n2025: 3,784.0" fill="transparent" height="242.0" width="50.9" x="476.7" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:当月值\n11月\n2021: 2,315.2\n2022: 3,272.7\n2023: 3,489.3\n2024: 3,696.9\n2025: 3,753.0" fill="transparent" height="242.0" width="50.9" x="527.6" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:当月值\n12月\n2021: 3,060.7\n2022: 3,628.6\n2023: 4,207.9\n2024: 4,250.1\n2025: 4,167.0" fill="transparent" height="242.0" width="25.5" x="578.5" y="24.0"></rect><circle cx="44" cy="275" fill="#d1d5db" r="3"></circle><text class="svg-axis svg-legend" x="50" y="278">2021</text><circle cx="87" cy="275" fill="#8b8f98" r="3"></circle><text class="svg-axis svg-legend" x="93" y="278">2022</text><circle cx="130" cy="275" fill="#94a3b8" r="3"></circle><text class="svg-axis svg-legend" x="136" y="278">2023</text><circle cx="173" cy="275" fill="#0ea5e9" r="3"></circle><text class="svg-axis svg-legend" x="179" y="278">2024</text><circle cx="216" cy="275" fill="#0b2f66" r="3"></circle><text class="svg-axis svg-legend" x="222" y="278">2025</text><circle cx="259" cy="275" fill="#dc2626" r="3"></circle><text class="svg-axis svg-legend" x="265" y="278">2026</text></svg><svg aria-label="省内电力直接交易:累计值" role="img" viewbox="0 0 620 300"><text class="svg-title" x="44" y="16">省内电力直接交易:累计值</text><line stroke="#cbd5e1" x1="44" x2="604" y1="266" y2="266"></line><line stroke="#cbd5e1" x1="44" x2="44" y1="24" y2="266"></line><line stroke="#eef2f7" x1="44" x2="604" y1="266.0" y2="266.0"></line><text class="svg-axis" text-anchor="end" x="38" y="270.0">-20,000</text><line stroke="#eef2f7" x1="44" x2="604" y1="205.5" y2="205.5"></line><text class="svg-axis" text-anchor="end" x="38" y="209.5">0</text><line stroke="#eef2f7" x1="44" x2="604" y1="145.0" y2="145.0"></line><text class="svg-axis" text-anchor="end" x="38" y="149.0">20,000</text><line stroke="#eef2f7" x1="44" x2="604" y1="84.5" y2="84.5"></line><text class="svg-axis" text-anchor="end" x="38" y="88.5">40,000</text><line stroke="#eef2f7" x1="44" x2="604" y1="24.0" y2="24.0"></line><text class="svg-axis" text-anchor="end" x="38" y="28.0">60,000</text><text class="svg-axis" text-anchor="middle" x="44.0" y="290">1</text><text class="svg-axis" text-anchor="middle" x="94.9" y="290">2</text><text class="svg-axis" text-anchor="middle" x="145.8" y="290">3</text><text class="svg-axis" text-anchor="middle" x="196.7" y="290">4</text><text class="svg-axis" text-anchor="middle" x="247.6" y="290">5</text><text class="svg-axis" text-anchor="middle" x="298.5" y="290">6</text><text class="svg-axis" text-anchor="middle" x="349.5" y="290">7</text><text class="svg-axis" text-anchor="middle" x="400.4" y="290">8</text><text class="svg-axis" text-anchor="middle" x="451.3" y="290">9</text><text class="svg-axis" text-anchor="middle" x="502.2" y="290">10</text><text class="svg-axis" text-anchor="middle" x="553.1" y="290">11</text><text class="svg-axis" text-anchor="middle" x="604.0" y="290">12</text><polyline fill="none" points="196.7,198.6 247.6,191.7 298.5,184.4 349.5,177.1 400.4,169.8 451.3,162.6 502.2,156.0 553.1,149.0 604.0,139.7" stroke="#d1d5db" stroke-width="2"></polyline><circle class="chart-point" cx="196.7" cy="198.6" data-tip="省内电力直接交易:累计值 2021-04: 2,292.5" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="247.6" cy="191.7" data-tip="省内电力直接交易:累计值 2021-05: 4,567.5" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="298.5" cy="184.4" data-tip="省内电力直接交易:累计值 2021-06: 6,965.3" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="349.5" cy="177.1" data-tip="省内电力直接交易:累计值 2021-07: 9,384.5" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="400.4" cy="169.8" data-tip="省内电力直接交易:累计值 2021-08: 11,787.7" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="451.3" cy="162.6" data-tip="省内电力直接交易:累计值 2021-09: 14,170.9" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="502.2" cy="156.0" data-tip="省内电力直接交易:累计值 2021-10: 16,365.5" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="553.1" cy="149.0" data-tip="省内电力直接交易:累计值 2021-11: 18,680.7" fill="#d1d5db" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="604.0" cy="139.7" data-tip="省内电力直接交易:累计值 2021-12: 21,741.4" fill="#d1d5db" opacity="0.001" r="3.2"></circle><polyline fill="none" points="44.0,195.4 94.9,185.8 145.8,176.0 196.7,167.0 247.6,157.6 298.5,147.9 349.5,136.6 400.4,125.0 451.3,115.0 502.2,105.6 553.1,95.7 604.0,84.7" stroke="#8b8f98" stroke-width="2"></polyline><circle class="chart-point" cx="44.0" cy="195.4" data-tip="省内电力直接交易:累计值 2022-01: 3,331.2" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="94.9" cy="185.8" data-tip="省内电力直接交易:累计值 2022-02: 6,527.8" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="145.8" cy="176.0" data-tip="省内电力直接交易:累计值 2022-03: 9,745.7" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="196.7" cy="167.0" data-tip="省内电力直接交易:累计值 2022-04: 12,741.5" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="247.6" cy="157.6" data-tip="省内电力直接交易:累计值 2022-05: 15,840.5" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="298.5" cy="147.9" data-tip="省内电力直接交易:累计值 2022-06: 19,025.7" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="349.5" cy="136.6" data-tip="省内电力直接交易:累计值 2022-07: 22,788.5" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="400.4" cy="125.0" data-tip="省内电力直接交易:累计值 2022-08: 26,626.7" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="451.3" cy="115.0" data-tip="省内电力直接交易:累计值 2022-09: 29,921.8" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="502.2" cy="105.6" data-tip="省内电力直接交易:累计值 2022-10: 33,025.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="553.1" cy="95.7" data-tip="省内电力直接交易:累计值 2022-11: 36,297.7" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="604.0" cy="84.7" data-tip="省内电力直接交易:累计值 2022-12: 39,926.3" fill="#8b8f98" opacity="0.001" r="3.2"></circle><polyline fill="none" points="44.0,195.6 94.9,185.5 145.8,174.6 196.7,164.5 247.6,154.3 298.5,143.8 349.5,131.6 400.4,119.6 451.3,109.0 502.2,99.0 553.1,88.4 604.0,75.7" stroke="#94a3b8" stroke-width="2"></polyline><circle class="chart-point" cx="44.0" cy="195.6" data-tip="省内电力直接交易:累计值 2023-01: 3,260.1" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="94.9" cy="185.5" data-tip="省内电力直接交易:累计值 2023-02: 6,621.6" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="145.8" cy="174.6" data-tip="省内电力直接交易:累计值 2023-03: 10,221.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="196.7" cy="164.5" data-tip="省内电力直接交易:累计值 2023-04: 13,549.1" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="247.6" cy="154.3" data-tip="省内电力直接交易:累计值 2023-05: 16,912.8" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="298.5" cy="143.8" data-tip="省内电力直接交易:累计值 2023-06: 20,408.3" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="349.5" cy="131.6" data-tip="省内电力直接交易:累计值 2023-07: 24,437.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="400.4" cy="119.6" data-tip="省内电力直接交易:累计值 2023-08: 28,393.2" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="451.3" cy="109.0" data-tip="省内电力直接交易:累计值 2023-09: 31,891.5" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="502.2" cy="99.0" data-tip="省内电力直接交易:累计值 2023-10: 35,208.9" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="553.1" cy="88.4" data-tip="省内电力直接交易:累计值 2023-11: 38,698.2" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="604.0" cy="75.7" data-tip="省内电力直接交易:累计值 2023-12: 42,906.2" fill="#94a3b8" opacity="0.001" r="3.2"></circle><polyline fill="none" points="44.0,193.3 94.9,182.2 145.8,170.8 196.7,160.7 247.6,150.0 298.5,138.8 349.5,126.3 400.4,113.5 451.3,101.8 502.2,90.9 553.1,79.7 604.0,66.9" stroke="#0ea5e9" stroke-width="2"></polyline><circle class="chart-point" cx="44.0" cy="193.3" data-tip="省内电力直接交易:累计值 2024-01: 4,042.8" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="94.9" cy="182.2" data-tip="省内电力直接交易:累计值 2024-02: 7,700.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="145.8" cy="170.8" data-tip="省内电力直接交易:累计值 2024-03: 11,466.4" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="196.7" cy="160.7" data-tip="省内电力直接交易:累计值 2024-04: 14,794.3" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="247.6" cy="150.0" data-tip="省内电力直接交易:累计值 2024-05: 18,350.5" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="298.5" cy="138.8" data-tip="省内电力直接交易:累计值 2024-06: 22,062.2" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="349.5" cy="126.3" data-tip="省内电力直接交易:累计值 2024-07: 26,167.7" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="400.4" cy="113.5" data-tip="省内电力直接交易:累计值 2024-08: 30,410.5" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="451.3" cy="101.8" data-tip="省内电力直接交易:累计值 2024-09: 34,267.2" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="502.2" cy="90.9" data-tip="省内电力直接交易:累计值 2024-10: 37,882.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="553.1" cy="79.7" data-tip="省内电力直接交易:累计值 2024-11: 41,578.9" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="604.0" cy="66.9" data-tip="省内电力直接交易:累计值 2024-12: 45,829.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><polyline fill="none" points="44.0,194.7 94.9,183.9 145.8,172.2 196.7,161.6 247.6,150.7 298.5,139.6 400.4,126.4 451.3,115.1 502.2,103.7 553.1,92.3 604.0,79.7" stroke="#0b2f66" stroke-width="2"></polyline><circle class="chart-point" cx="44.0" cy="194.7" data-tip="省内电力直接交易:累计值 2025-01: 3,574.3" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="94.9" cy="183.9" data-tip="省内电力直接交易:累计值 2025-02: 7,148.6" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="145.8" cy="172.2" data-tip="省内电力直接交易:累计值 2025-03: 10,994.9" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="196.7" cy="161.6" data-tip="省内电力直接交易:累计值 2025-04: 14,501.9" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="247.6" cy="150.7" data-tip="省内电力直接交易:累计值 2025-05: 18,132.1" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="298.5" cy="139.6" data-tip="省内电力直接交易:累计值 2025-06: 21,790.2" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="400.4" cy="126.4" data-tip="省内电力直接交易:累计值 2025-08: 26,161.3" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="451.3" cy="115.1" data-tip="省内电力直接交易:累计值 2025-09: 29,872.3" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="502.2" cy="103.7" data-tip="省内电力直接交易:累计值 2025-10: 33,656.3" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="553.1" cy="92.3" data-tip="省内电力直接交易:累计值 2025-11: 37,409.3" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="604.0" cy="79.7" data-tip="省内电力直接交易:累计值 2025-12: 41,576.3" fill="#0b2f66" opacity="0.001" r="3.2"></circle><polyline fill="none" points="44.0,193.9 94.9,182.3 145.8,170.0 196.7,158.3 247.6,146.0 298.5,133.6" stroke="#dc2626" stroke-width="3"></polyline><circle class="chart-point" cx="44.0" cy="193.9" data-tip="省内电力直接交易:累计值 2026-01: 3,840.5" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="94.9" cy="182.3" data-tip="省内电力直接交易:累计值 2026-02: 7,681.0" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="145.8" cy="170.0" data-tip="省内电力直接交易:累计值 2026-03: 11,737.0" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="196.7" cy="158.3" data-tip="省内电力直接交易:累计值 2026-04: 15,614.0" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="247.6" cy="146.0" data-tip="省内电力直接交易:累计值 2026-05: 19,669.0" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="298.5" cy="133.6" data-tip="省内电力直接交易:累计值 2026-06: 23,766.0" fill="#dc2626" opacity="0.001" r="3.2"></circle><rect class="chart-point hover-zone" data-tip="省内电力直接交易:累计值\n1月\n2022: 3,331.2\n2023: 3,260.1\n2024: 4,042.8\n2025: 3,574.3\n2026: 3,840.5" fill="transparent" height="242.0" width="25.5" x="44.0" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:累计值\n2月\n2022: 6,527.8\n2023: 6,621.6\n2024: 7,700.0\n2025: 7,148.6\n2026: 7,681.0" fill="transparent" height="242.0" width="50.9" x="69.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:累计值\n3月\n2022: 9,745.7\n2023: 10,221.0\n2024: 11,466.4\n2025: 10,994.9\n2026: 11,737.0" fill="transparent" height="242.0" width="50.9" x="120.4" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:累计值\n4月\n2021: 2,292.5\n2022: 12,741.5\n2023: 13,549.1\n2024: 14,794.3\n2025: 14,501.9\n2026: 15,614.0" fill="transparent" height="242.0" width="50.9" x="171.3" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:累计值\n5月\n2021: 4,567.5\n2022: 15,840.5\n2023: 16,912.8\n2024: 18,350.5\n2025: 18,132.1\n2026: 19,669.0" fill="transparent" height="242.0" width="50.9" x="222.2" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:累计值\n6月\n2021: 6,965.3\n2022: 19,025.7\n2023: 20,408.3\n2024: 22,062.2\n2025: 21,790.2\n2026: 23,766.0" fill="transparent" height="242.0" width="50.9" x="273.1" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:累计值\n7月\n2021: 9,384.5\n2022: 22,788.5\n2023: 24,437.0\n2024: 26,167.7" fill="transparent" height="242.0" width="50.9" x="324.0" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:累计值\n8月\n2021: 11,787.7\n2022: 26,626.7\n2023: 28,393.2\n2024: 30,410.5\n2025: 26,161.3" fill="transparent" height="242.0" width="50.9" x="374.9" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:累计值\n9月\n2021: 14,170.9\n2022: 29,921.8\n2023: 31,891.5\n2024: 34,267.2\n2025: 29,872.3" fill="transparent" height="242.0" width="50.9" x="425.8" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:累计值\n10月\n2021: 16,365.5\n2022: 33,025.0\n2023: 35,208.9\n2024: 37,882.0\n2025: 33,656.3" fill="transparent" height="242.0" width="50.9" x="476.7" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:累计值\n11月\n2021: 18,680.7\n2022: 36,297.7\n2023: 38,698.2\n2024: 41,578.9\n2025: 37,409.3" fill="transparent" height="242.0" width="50.9" x="527.6" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="省内电力直接交易:累计值\n12月\n2021: 21,741.4\n2022: 39,926.3\n2023: 42,906.2\n2024: 45,829.0\n2025: 41,576.3" fill="transparent" height="242.0" width="25.5" x="578.5" y="24.0"></rect><circle cx="44" cy="275" fill="#d1d5db" r="3"></circle><text class="svg-axis svg-legend" x="50" y="278">2021</text><circle cx="87" cy="275" fill="#8b8f98" r="3"></circle><text class="svg-axis svg-legend" x="93" y="278">2022</text><circle cx="130" cy="275" fill="#94a3b8" r="3"></circle><text class="svg-axis svg-legend" x="136" y="278">2023</text><circle cx="173" cy="275" fill="#0ea5e9" r="3"></circle><text class="svg-axis svg-legend" x="179" y="278">2024</text><circle cx="216" cy="275" fill="#0b2f66" r="3"></circle><text class="svg-axis svg-legend" x="222" y="278">2025</text><circle cx="259" cy="275" fill="#dc2626" r="3"></circle><text class="svg-axis svg-legend" x="265" y="278">2026</text></svg></div></div></div></div></section></section>
+
+
+</main>
+<div class="sources">
+<strong>源与口径：</strong>
+      现货电价来自“电力现货价格日度”；代理电价来自“代理电价月度钢联”；发电、用电来自“发电用电”；分地区发电来自“分类型分地区”；
+      累计装机来自“发电装机容量-wind”；新增装机来自“新增发电装机容量-ifind”；投资来自“电源电网投资”。
+      省份净输出来自“输出电量”和“输入电量”，按输出-输入计算；海外电价来自 pb/全球电价.xlsx 的图表公式对应序列。
+      储能装机和政策事件先来自项目内 JSON 底表；核电检修来源固定为生态环境部核电运行状态监测页面，后续接入日度/事件级抓取。
+      最新数据日期：发用电 2026-07-31，现货电价 2026-09-07，代理电价 2026-09-01，分地区发电 2026-07-31，装机 2026-07-31，交易 2026-06-01，输出/输入电量 2026-07-01/2026-07-01，投资 2026-07-31。
+    </div>
+</div>
+<div class="chart-tooltip global-chart-tooltip" id="global-chart-tooltip"></div>
+<script>
+  const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+  const panels = Array.from(document.querySelectorAll('.report-panel'));
+  function activatePanel(target) {
+    tabs.forEach((tab) => {
+      const active = tab.dataset.target === target;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    panels.forEach((panel) => panel.classList.toggle('active', panel.id === target));
+  }
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      activatePanel(tab.dataset.target);
+      history.replaceState(null, '', '#' + tab.dataset.target);
+    });
+  });
+  const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+  const tocTargetPanel = Object.fromEntries(tocLinks.map((link) => [link.getAttribute('href').replace('#', ''), link.dataset.panel]));
+  function jumpToSubpanel(targetId, panelId) {
+    if (!targetId || !panelId) return;
+    activatePanel(panelId);
+    requestAnimationFrame(() => {
+      const target = document.getElementById(targetId);
+      if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  }
+  tocLinks.forEach((link) => {
+    link.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const targetId = link.getAttribute('href').replace('#', '');
+      jumpToSubpanel(targetId, link.dataset.panel);
+      history.replaceState(null, '', '#' + targetId);
+    });
+  });
+  const initial = location.hash.replace('#', '');
+  if (['overview', 'price', 'supply', 'demand', 'trade'].includes(initial)) activatePanel(initial);
+  if (tocTargetPanel[initial]) jumpToSubpanel(initial, tocTargetPanel[initial]);
+  function summaryStorageKey(card) {
+    return 'power-dashboard-summary:' + (card.dataset.summaryKey || 'default');
+  }
+  function setSummaryStatus(card, text) {
+    const status = card.querySelector('.editable-summary-status');
+    if (status) status.textContent = text;
+  }
+  document.querySelectorAll('.editable-summary-card').forEach((card) => {
+    const body = card.querySelector('.editable-summary-body');
+    if (!body) return;
+    const key = summaryStorageKey(card);
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      body.innerHTML = saved;
+      setSummaryStatus(card, '已载入保存稿');
+    }
+    card.addEventListener('click', (ev) => {
+      const button = ev.target.closest ? ev.target.closest('[data-summary-action]') : null;
+      if (!button) return;
+      const action = button.dataset.summaryAction;
+      if (action === 'edit') {
+        const enabled = body.getAttribute('contenteditable') === 'true';
+        body.setAttribute('contenteditable', enabled ? 'false' : 'true');
+        button.textContent = enabled ? '编辑' : '完成编辑';
+        if (!enabled) {
+          body.focus();
+          setSummaryStatus(card, '编辑中');
+        } else {
+          setSummaryStatus(card, '待保存');
+        }
+      }
+      if (action === 'save') {
+        localStorage.setItem(key, body.innerHTML);
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已保存 ' + new Date().toLocaleTimeString('zh-CN', { hour12:false }));
+      }
+      if (action === 'reset') {
+        if (!confirm('恢复为本次数据自动生成的汇总文字？')) return;
+        localStorage.removeItem(key);
+        body.innerHTML = body.dataset.defaultHtml || '';
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已恢复生成稿');
+      }
+      if (action === 'export') {
+        const title = card.querySelector('.card-head h3')?.textContent || 'summary';
+        const html = '<!doctype html><meta charset="utf-8"><title>' + title + '</title><body>' + body.innerHTML + '</body>';
+        const blob = new Blob([html], { type:'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = '电力月报-汇总编辑稿.html';
+        link.click();
+        URL.revokeObjectURL(url);
+        setSummaryStatus(card, '已导出');
+      }
+    });
+  });
+  const globalTip = document.getElementById('global-chart-tooltip');
+  function showGlobalTip(ev, text) {
+    if (!globalTip || !text) return;
+    const rawText = String(text).replace(/\r?\n/g, '\n').replace(/\\n/g, '\n');
+    globalTip.innerHTML = rawText
+      .split('\n')
+      .map((line, idx) => {
+        const safe = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return idx === 0 ? `<div class="tip-date">${safe}</div>` : `<div>${safe}</div>`;
+      })
+      .join('');
+    globalTip.style.display = 'block';
+    const margin = 16;
+    const boxW = globalTip.offsetWidth || 240;
+    const boxH = globalTip.offsetHeight || 90;
+    let left = ev.clientX + 16;
+    let top = ev.clientY - Math.min(40, boxH / 2);
+    if (left + boxW + margin > window.innerWidth) left = ev.clientX - boxW - 16;
+    if (top + boxH + margin > window.innerHeight) top = window.innerHeight - boxH - margin;
+    if (top < margin) top = margin;
+    globalTip.style.left = left + 'px';
+    globalTip.style.top = top + 'px';
+  }
+  document.addEventListener('mousemove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    if (!target) {
+      if (globalTip) globalTip.style.display = 'none';
+      return;
+    }
+    showGlobalTip(ev, target.dataset.tip);
+  });
+  document.addEventListener('touchstart', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('touchmove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('mouseleave', () => {
+    if (globalTip) globalTip.style.display = 'none';
+  });
+</script>
+</body>
+</html>

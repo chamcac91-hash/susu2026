@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>国内电力月报 手机版 - 1.2 电源电网投资</title>
+<style>
+    :root {
+      --bg:#f5f1ea; --paper:#fffdf9; --ink:#111827; --muted:#687080; --line:#cfd6e3;
+      --navy:#0b2f66; --blue:#4f7dbf; --red:#dc2626; --soft:#f8fafc;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; padding-left:154px; background:var(--bg); color:var(--ink); font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .page { position:relative; width:min(1680px, calc(100% - 28px)); margin:14px auto 40px; background:var(--paper); border:1px solid #d7d0c6; box-shadow:0 8px 28px rgba(64,46,26,.08); }
+    header { padding:22px 28px 16px; border-bottom:3px solid var(--navy); }
+    h1 { margin:0; font-size:30px; letter-spacing:0; color:var(--navy); }
+    .subtitle { margin-top:7px; color:var(--muted); font-size:13px; }
+    main { padding:0 22px 28px; }
+    .report-section { padding:18px 0 22px; border-bottom:1px solid #d7dde8; }
+    h2 { margin:0 0 12px; font-size:24px; color:#111; }
+    h2::before { content:attr(id); display:none; }
+    .placeholder { min-height:90px; border:1px dashed #b8c0cf; background:#fbfaf7; color:#7b8190; padding:24px; font-size:16px; }
+    .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:8px; padding:18px 0 10px; border-bottom:1px solid #d7dde8; background:rgba(255,253,249,.96); backdrop-filter:blur(8px); }
+    .panel-tab { appearance:none; border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:8px 16px; min-height:42px; border-radius:3px; font-family:inherit; font-size:18px; font-weight:700; cursor:pointer; }
+    .panel-tab:hover { border-color:#b4493f; color:#0b2f66; }
+    .panel-tab.active { background:#b4493f; border-color:#b4493f; color:white; }
+    .report-panel { display:none; }
+    .report-panel.active { display:block; }
+    .subpanel { scroll-margin-top:76px; margin:12px 0 18px; padding:10px; border:1px solid #d7dde8; background:#fbfcff; }
+    .subpanel > h3 { margin:0 0 10px; font-size:20px; color:#0b2f66; border-left:5px solid #0b2f66; padding-left:9px; }
+    .stack { display:grid; gap:14px; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
+    .card { border:1px solid #bfc8d8; background:white; overflow:hidden; }
+    .wide-card { grid-column:1 / -1; }
+    .card-head { background:#d9e2f3; border-bottom:1px solid #aeb8c8; padding:7px 10px; text-align:center; }
+    .card-head h3 { margin:0; font-size:17px; color:#001f55; }
+    .card-head p { margin:2px 0 0; font-size:12px; color:#475569; }
+    .card-body { padding:10px; overflow:auto; }
+    table { width:100%; border-collapse:collapse; font-size:12px; background:white; }
+    th, td { border:1px solid #c9ced8; padding:5px 7px; text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    th { background:#e5ebf6; color:#0f2d5c; font-weight:700; }
+    th:first-child, td:first-child { text-align:left; }
+    .spot-summary-table { font-size:13px; }
+    .recent-values { text-align:left; white-space:normal; min-width:260px; }
+    .recent-values span { display:inline-block; margin:1px 5px 1px 0; padding:1px 5px; border:1px solid #d7dde8; background:#f8fafc; border-radius:3px; }
+    .date-value { display:inline-flex; flex-direction:column; align-items:flex-end; gap:1px; line-height:1.18; }
+    .date-value span { color:#64748b; font-size:11px; font-weight:400; }
+    .date-value b { color:#0f172a; font-size:13px; font-weight:700; }
+    .table-card .card-body { max-height:520px; }
+    .full-table .card-body { max-height:none; overflow:visible; }
+    .storage-summary-block + .storage-summary-block { margin-top:12px; }
+    .storage-summary-block h4 { margin:0; padding:6px 8px; border:1px solid #c9ced8; border-bottom:0; background:#f8fafc; color:#0f2d5c; font-size:15px; }
+    .image-card .card-body { overflow:visible; }
+    .reference-image { display:block; width:100%; height:auto; background:white; }
+    .heat td { min-width:72px; }
+    .table-note { margin:8px 2px 0; color:#64748b; font-size:12px; }
+    .summary-text { font-size:16px; line-height:1.8; color:#111827; }
+    .summary-text p { margin:0 0 8px; }
+    .summary-text strong { color:#b91c1c; }
+    .editable-summary-tools { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:8px 10px; border-bottom:1px solid #d7dde8; background:#f8fafc; }
+    .summary-tool-btn { appearance:none; border:1px solid #b9c3d3; background:white; color:#0f2d5c; min-height:32px; padding:5px 12px; border-radius:3px; font-family:inherit; font-size:14px; font-weight:700; cursor:pointer; }
+    .summary-tool-btn:hover { border-color:#b4493f; color:#b4493f; }
+    .summary-tool-btn.primary { background:#0b2f66; border-color:#0b2f66; color:white; }
+    .editable-summary-status { margin-left:auto; color:#64748b; font-size:12px; }
+    .editable-summary-body { min-height:118px; outline:none; border:1px solid transparent; padding:4px 6px; }
+    .editable-summary-body[contenteditable="true"] { border-color:#b4493f; background:#fffaf2; box-shadow:inset 0 0 0 1px rgba(180,73,63,.18); }
+    .editable-summary-body[contenteditable="true"] p { cursor:text; }
+    .pos { color:#b91c1c; font-weight:700; }
+    .neg { color:#1d4ed8; font-weight:700; }
+    .mini-chart-row { display:grid; grid-template-columns:repeat(4, minmax(260px,1fr)); gap:10px; }
+    .mini-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(280px,1fr)); gap:10px; }
+    .storage-smm-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-xunxi-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-headline-weekly-grid { grid-template-columns:repeat(4, minmax(240px,1fr)); }
+    .storage-headline-price-wide { margin-top:14px; padding-top:10px; border-top:1px solid #d7dde8; }
+    .chart-group-title { margin:12px 0 8px; color:#0b2f66; font-size:18px; text-align:center; }
+    .overseas-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:12px; }
+    .spot-season-grid { display:grid; grid-template-columns:repeat(3, minmax(420px,1fr)); gap:16px; align-items:start; }
+    .spot-season-grid .svg-title { font-size:16px; }
+    .spot-season-grid .svg-axis { font-size:12px; }
+    .spot-season-grid .svg-legend { font-size:11px; }
+    .decadal-chart-grid { display:grid; grid-template-columns:repeat(2, minmax(520px,1fr)); gap:14px; }
+    .net-transfer-grid { display:grid; grid-template-columns:repeat(2, minmax(560px,1fr)); gap:14px; align-items:start; }
+    .regional-structure-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:10px; align-items:start; }
+    .regional-structure-svg { border:1px solid #d7dde8; background:#fff; }
+    .regional-structure-title { font-size:18px; font-weight:700; fill:#0b2f66; }
+    .regional-structure-date { font-size:12px; fill:#64748b; }
+    .regional-structure-total { font-size:13px; fill:#334155; }
+    .regional-structure-inside { font-size:11px; font-weight:700; fill:white; paint-order:stroke; stroke:#334155; stroke-width:2px; }
+    .regional-structure-legend { font-size:11px; fill:#111827; }
+    .industry-chain-svg { border:1px solid #d7dde8; }
+    .industry-chain-title { font-size:22px; font-weight:700; fill:#0b2f66; }
+    .industry-chain-col-title { font-size:18px; font-weight:700; fill:white; }
+    .industry-chain-item { font-size:14px; fill:#0f172a; }
+    .industry-chain-note { font-size:15px; fill:#334155; }
+    .industry-panorama-image { max-height:760px; object-fit:contain; }
+    svg { width:100%; height:auto; display:block; background:white; }
+    svg text { font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .svg-title { font-size:14px; font-weight:700; fill:#0b2f66; }
+    .svg-axis { font-size:10px; fill:#334155; }
+    .svg-legend { font-size:8px; }
+    .latest-label { font-size:11px; font-weight:700; paint-order:stroke; stroke:white; stroke-width:3px; }
+    .chart-point { cursor:crosshair; }
+    .interactive-chart { position:relative; background:white; }
+    .interactive-toolbar { display:flex; flex-wrap:wrap; gap:8px 12px; padding:2px 0 8px; }
+    .interactive-toggle { display:inline-flex; align-items:center; gap:5px; color:#0f172a; font-size:12px; cursor:pointer; }
+    .interactive-toggle::before { content:""; width:18px; height:3px; background:var(--line-color); display:inline-block; }
+    .interactive-toggle input { width:13px; height:13px; margin:0; accent-color:#0b2f66; }
+    .interactive-stage { position:relative; }
+    .spot-line-card .interactive-toggle { font-size:15px; font-weight:700; }
+    .spot-line-card .interactive-toggle::before { width:24px; height:4px; }
+    .spot-line-card .interactive-toggle input { width:16px; height:16px; }
+    .spot-line-card .svg-title { font-size:18px; }
+    .spot-line-card .svg-axis { font-size:13px; }
+    .spot-line-card .latest-label { font-size:13px; }
+    .chart-tooltip { display:none; position:absolute; z-index:20; min-width:190px; max-width:320px; pointer-events:none; background:rgba(15,23,42,.94); color:white; border-radius:6px; padding:10px 12px; font-size:14px; line-height:1.55; box-shadow:0 12px 30px rgba(15,23,42,.28); }
+    .chart-tooltip .tip-date { font-weight:700; color:#dbeafe; margin-bottom:5px; font-size:17px; }
+    .global-chart-tooltip { position:fixed; white-space:normal; }
+    .rotated { writing-mode:tb; glyph-orientation-vertical:0; }
+    .industry-bar-svg { width:100%; }
+    .industry-axis { font-size:16px; dominant-baseline:hanging; }
+    .net-transfer-axis { font-size:13px; fill:#0f2d5c; text-anchor:end; dominant-baseline:middle; }
+    .capacity-title { font-size:26px; fill:#4b5563; }
+    .capacity-axis { font-size:18px; fill:#4b5563; text-anchor:end; dominant-baseline:middle; }
+    .side-toc { position:fixed; left:0; top:0; bottom:0; z-index:70; width:154px; overflow:auto; padding:42px 12px 18px; background:rgba(255,253,249,.98); border-right:1px solid #cbd5e1; box-shadow:8px 0 22px rgba(15,23,42,.08); }
+    .side-toc div { color:#0b2f66; font-size:16px; font-weight:700; margin:0 0 8px; }
+    .side-toc a { display:block; color:#334155; text-decoration:none; font-size:13px; line-height:1.2; padding:7px 6px; border-left:3px solid transparent; }
+    .side-toc a:hover { color:#0b2f66; background:#eef3fb; border-left-color:#b4493f; }
+    .sources { padding:16px 22px 26px; font-size:12px; color:#596273; line-height:1.7; }
+    @media(max-width:1100px) {
+      .grid-2, .mini-chart-row, .mini-chart-grid, .overseas-chart-grid, .spot-season-grid, .decadal-chart-grid, .net-transfer-grid, .regional-structure-grid { grid-template-columns:1fr; }
+      .page { width:100%; margin:0; border:0; box-shadow:none; }
+      body { padding-left:0; }
+      header { padding:14px 14px 10px; }
+      h1 { font-size:24px; }
+      .panel-tabs { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:8px; white-space:nowrap; }
+      .panel-tab { flex:0 0 auto; min-height:34px; padding:6px 10px; font-size:14px; }
+      .side-toc { position:sticky; top:50px; z-index:75; width:100%; max-height:none; padding:7px 8px; display:flex; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; border-right:0; border-bottom:1px solid #cbd5e1; box-shadow:none; }
+      .side-toc div { display:none; }
+      .side-toc a { flex:0 0 auto; padding:5px 9px; border:1px solid #d7dde8; border-left:0; border-radius:3px; background:#f8fafc; font-size:13px; line-height:1.15; white-space:nowrap; }
+      .side-toc a:hover { border-left:0; border-color:#b4493f; }
+      main { padding:0 10px 18px; }
+    }
+    @media(max-width:720px) {
+      body { font-size:14px; }
+      header { padding:10px 10px 8px; }
+      h1 { font-size:22px; }
+      main { padding:0 6px 14px; }
+      h2 { margin:8px 0; font-size:20px; }
+      .report-section { padding:8px 0 16px; }
+      .subpanel { scroll-margin-top:92px; margin:8px 0 12px; padding:6px; }
+      .subpanel > h3 { font-size:17px; padding-left:7px; }
+      .card-head { padding:6px 8px; }
+      .card-head h3 { font-size:16px; }
+      .card-head p { font-size:11px; line-height:1.35; }
+      .card-body { padding:7px; }
+      table { min-width:720px; font-size:11px; }
+      .spot-summary-table { min-width:860px; font-size:11px; }
+      th, td { padding:4px 5px; }
+      .table-card .card-body, .full-table .card-body { max-height:none; overflow-x:auto; overflow-y:visible; -webkit-overflow-scrolling:touch; }
+      .full-table table th:first-child, .full-table table td:first-child,
+      .table-card table th:first-child, .table-card table td:first-child { position:sticky; left:0; z-index:2; background:white; }
+      .full-table table th:first-child, .table-card table th:first-child { z-index:3; background:#e5ebf6; }
+      .summary-text { font-size:14px; line-height:1.65; }
+      .editable-summary-tools { gap:6px; padding:6px; }
+      .summary-tool-btn { min-height:30px; padding:4px 9px; font-size:12px; }
+      .editable-summary-status { width:100%; margin-left:0; font-size:11px; }
+      .interactive-toolbar { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px; }
+      .interactive-toggle { flex:0 0 auto; gap:4px; font-size:10px; white-space:nowrap; }
+      .interactive-toggle::before { width:16px; height:3px; }
+      .interactive-toggle input { width:12px; height:12px; }
+      .spot-line-card .interactive-toggle { font-size:11px; }
+      .spot-line-card .interactive-toggle::before { width:18px; height:3px; }
+      .spot-line-card .interactive-toggle input { width:13px; height:13px; }
+      .svg-title { font-size:12px; }
+      .svg-axis { font-size:8px; }
+      .svg-legend { font-size:7px; }
+      .latest-label { font-size:8px; }
+      .spot-line-card .svg-title { font-size:13px; }
+      .spot-line-card .svg-axis { font-size:9px; }
+      .spot-line-card .latest-label { font-size:9px; }
+      .industry-axis { font-size:11px; }
+      .net-transfer-axis { font-size:9px; }
+      .capacity-title { font-size:18px; }
+      .capacity-axis { font-size:12px; }
+      .regional-structure-title { font-size:15px; }
+      .regional-structure-date, .regional-structure-total, .regional-structure-legend { font-size:10px; }
+      .regional-structure-inside { font-size:9px; }
+      .chart-tooltip { min-width:160px; max-width:calc(100vw - 28px); padding:8px 10px; font-size:12px; }
+      .chart-tooltip .tip-date { font-size:14px; }
+      .sources { padding:12px 10px 18px; font-size:10px; }
+    }
+  </style>
+<style id="mobile-pages-overrides">
+      html { scroll-behavior: smooth; }
+      body { min-width: 0; }
+      .side-toc { display: none !important; }
+      main { margin-left: 0 !important; min-width: 0; }
+      .split-page-tabs {
+        position: sticky; top: 0; z-index: 95; display: flex; flex-wrap: nowrap;
+        gap: 6px; overflow-x: auto; padding: 8px 0; white-space: nowrap;
+        background: rgba(255,253,249,.98); border-bottom: 1px solid var(--line);
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      }
+      .split-page-tabs::-webkit-scrollbar, .section-page-nav::-webkit-scrollbar { display: none; }
+      .split-tab, .section-link {
+        flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none;
+        background: #f8fafc; color: #344054; font-weight: 750; white-space: nowrap;
+      }
+      .split-tab { min-width: 4.4rem; min-height: 36px; padding: 7px 10px; font-size: 14px; }
+      .split-tab.active { color: #fff; background: #b4493f; border-color: #b4493f; }
+      .section-page-nav {
+        position: sticky; top: 53px; z-index: 90; display: flex; gap: 6px;
+        overflow-x: auto; padding: 8px 0 10px; margin: -2px 0 8px;
+        background: rgba(255,253,249,.98); scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .section-link { min-height: 32px; max-width: 82vw; padding: 6px 9px; font-size: 13px; }
+      .section-link.active { color: #fff; background: #183a6b; border-color: #183a6b; }
+      .report-panel > h2 { margin-top: 10px; }
+      img { max-width: 100%; height: auto; }
+      .card-body, .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      @media (max-width: 760px) {
+        header, main { width: auto !important; max-width: none !important; }
+        header { padding-left: 12px !important; padding-right: 12px !important; }
+        main { padding: 0 8px 28px !important; }
+        h1 { font-size: 23px !important; line-height: 1.2; }
+        .subpanel { padding: 6px; margin: 8px 0 12px; }
+        .subpanel > h3 { font-size: 17px; }
+        .grid-2, .chart-grid, .spot-season-grid, .overseas-chart-grid { grid-template-columns: minmax(0, 1fr) !important; }
+        table { min-width: 620px; }
+        svg { min-width: 560px; }
+        .card-head h3 { font-size: 16px !important; }
+        .card-head p, .table-note, .source-note { font-size: 12px !important; }
+      }
+    </style></head>
+<body>
+<div class="page">
+<nav aria-label="子面板目录" class="side-toc"><div>目录</div><a href="index.html#overview-core">1.1 发电用电</a><a href="overview-overview-investment.html#overview-investment">1.2 电源电网</a><a href="price.html#price-spot">2.1 现货电价</a><a href="price-price-table.html#price-table">2.2 代理电价</a><a href="price-overseas-americas-daily.html#price-overseas">2.3 海外电价</a><a href="price-price-long-contract.html#price-long-contract">2.4 长协电价</a><a href="price-price-capacity.html#price-capacity">2.5 容量电价</a><a href="supply.html#supply-generation">3.1 发电量</a><a href="supply-supply-capacity.html#supply-capacity">3.2 装机</a><a href="supply-supply-regional.html#supply-regional">3.3 分地区发电</a><a href="supply-supply-decadal.html#supply-decadal">3.4 旬度发电</a><a href="supply-supply-utilization-hours.html#supply-utilization-hours">3.5 利用小时</a><a href="supply-supply-regional-structure.html#supply-regional-structure">3.6 分省结构</a><a href="supply-supply-nuclear-maintenance.html#supply-nuclear-maintenance">3.7 核电检修</a><a href="demand.html#demand-total">4.1 用电总量</a><a href="demand-demand-industry.html#demand-industry">4.2 分行业用电</a><a href="trade.html#trade-long-term">5.1 中长期交易</a><a href="trade-trade-center.html#trade-center">5.2 交易中心</a><a href="trade-trade-net-transfer.html#trade-net-transfer">5.3 净输出</a><a href="policy.html#policy-market">6.1 电力市场政策</a><a href="policy-policy-renewable.html#policy-renewable">6.2 新能源政策</a><a href="policy-policy-storage.html#policy-storage">6.3 储能政策</a><a href="storage.html#storage-monthly-install">7.1 储能装机</a><a href="storage-storage-headline-weekly.html#storage-headline-weekly">7.2 储能头条周度</a></nav>
+<header>
+<h1>国内电力月报 手机版</h1>
+</header>
+<main>
+<nav aria-label="一级栏目" class="panel-tabs split-page-tabs"><a class="split-tab active" href="index.html">汇总</a><a class="split-tab" href="price.html">价格</a><a class="split-tab" href="supply.html">供给</a><a class="split-tab" href="demand.html">需求</a><a class="split-tab" href="trade.html">交易</a><a class="split-tab" href="policy.html">政策</a><a class="split-tab" href="storage.html">储能</a></nav>
+<section class="report-section report-panel active" id="overview"><h2>汇总</h2><nav aria-label="专题栏目" class="section-page-nav"><a class="section-link" href="index.html#overview-core">1.1 发电、用电核心变化</a><a class="section-link active" href="overview-overview-investment.html#overview-investment">1.2 电源电网投资</a></nav><section class="subpanel" id="overview-investment"><h3>1.2 电源电网投资</h3><div class="grid-2"><div class="card table-card full-table wide-card"><div class="card-head"><h3>分类型电源累计投资完成额</h3><p>电源基本建设投资完成额，展示最近 3 个月累计值与最新累计同比。</p></div><div class="card-body"><table><thead><tr><th>指标</th><th>5月累计完成额</th><th>6月累计完成额</th><th>7月累计完成额</th><th>7月累计同比%</th></tr></thead><tbody><tr><td>电源总投资</td><td>2,820.8</td><td>3,637.0</td><td>4,237.3</td><td class="neg" style="background:rgba(37,99,235,0.097);color:#111827;">-4.7%</td></tr><tr><td>水电</td><td>309.2</td><td>407.0</td><td>475.8</td><td class="pos" style="background:rgba(220,38,38,0.127);color:#111827;">+6.2%</td></tr><tr><td>火电</td><td>778.9</td><td>1,007.1</td><td>1,160.6</td><td class="pos" style="background:rgba(220,38,38,0.025);color:#111827;">+1.2%</td></tr><tr><td>核电</td><td>576.1</td><td>692.7</td><td>773.3</td><td class="pos" style="background:rgba(220,38,38,0.137);color:#111827;">+6.7%</td></tr><tr><td>风电</td><td>691.3</td><td>917.3</td><td>1,106.5</td><td class="pos" style="background:rgba(220,38,38,0.304);color:#111827;">+14.9%</td></tr><tr><td>太阳能</td><td>465.3</td><td>612.8</td><td>721.0</td><td class="neg" style="background:rgba(37,99,235,0.780);color:#111827;">-38.1%</td></tr></tbody></table></div></div><div class="card wide-card"><div class="card-head"><h3>分类型电源投资累计同比</h3><p>水电、火电、核电、风电、太阳能累计同比。</p></div><div class="card-body">
+<div class="interactive-chart" id="interactive_chart_311898">
+<div class="interactive-toolbar"></div>
+<div class="interactive-stage">
+<svg aria-label="分类型电源投资累计同比" role="img" viewbox="0 0 1180 430"></svg>
+<div class="chart-tooltip"></div>
+</div>
+</div>
+<script>
+(function(){
+  const root = document.getElementById("interactive_chart_311898");
+  if (!root) return;
+  const rawSeries = [{"label": "水电", "points": [{"date": "2022-08", "value": -23.9}, {"date": "2022-09", "value": -23.9}, {"date": "2022-10", "value": -19.9}, {"date": "2022-11", "value": -15.4}, {"date": "2022-12", "value": -26.5}, {"date": "2023-02", "value": -20.2}, {"date": "2023-03", "value": -7.8}, {"date": "2023-04", "value": -2.2}, {"date": "2023-05", "value": 5.8}, {"date": "2023-06", "value": 10.6}, {"date": "2023-07", "value": 8.6}, {"date": "2023-08", "value": 8.9}, {"date": "2023-09", "value": 9.7}, {"date": "2023-10", "value": 7.3}, {"date": "2023-11", "value": -0.837}, {"date": "2023-12", "value": 13.7}, {"date": "2024-02", "value": 15.6}, {"date": "2024-03", "value": -4.6}, {"date": "2024-04", "value": -2.1}, {"date": "2024-05", "value": -1.5}, {"date": "2024-06", "value": -13.2}, {"date": "2024-07", "value": -5.9}, {"date": "2024-08", "value": 0.4}, {"date": "2024-09", "value": 5.3}, {"date": "2024-10", "value": 8.2}, {"date": "2024-11", "value": 17.7}, {"date": "2024-12", "value": 4.56}, {"date": "2025-02", "value": -31.898}, {"date": "2025-03", "value": -9.797}, {"date": "2025-04", "value": -7.265}, {"date": "2025-05", "value": -4.91}, {"date": "2025-06", "value": 9.852}, {"date": "2025-07", "value": 4.844}, {"date": "2025-08", "value": 0.63}, {"date": "2025-09", "value": 2.015}, {"date": "2025-10", "value": -0.446}, {"date": "2025-11", "value": -0.854}, {"date": "2025-12", "value": -10.246}, {"date": "2026-02", "value": 61.829}, {"date": "2026-03", "value": 32.925}, {"date": "2026-04", "value": 24.257}, {"date": "2026-05", "value": 15.093}, {"date": "2026-06", "value": 8.434}, {"date": "2026-07", "value": 6.21}]}, {"label": "火电", "points": [{"date": "2022-08", "value": 60.1}, {"date": "2022-09", "value": 47.5}, {"date": "2022-10", "value": 42.8}, {"date": "2022-11", "value": 38.3}, {"date": "2022-12", "value": 28.4}, {"date": "2023-02", "value": -7.6}, {"date": "2023-03", "value": 3.7}, {"date": "2023-04", "value": 4.9}, {"date": "2023-05", "value": 11.9}, {"date": "2023-06", "value": 13.0}, {"date": "2023-07", "value": 16.9}, {"date": "2023-08", "value": 13.8}, {"date": "2023-09", "value": 16.2}, {"date": "2023-10", "value": 14.2}, {"date": "2023-11", "value": 13.336}, {"date": "2023-12", "value": 15.0}, {"date": "2024-02", "value": 54.0}, {"date": "2024-03", "value": 42.7}, {"date": "2024-04", "value": 35.4}, {"date": "2024-05", "value": 32.4}, {"date": "2024-06", "value": 26.6}, {"date": "2024-07", "value": 23.6}, {"date": "2024-08", "value": 25.3}, {"date": "2024-09", "value": 27.3}, {"date": "2024-10", "value": 28.2}, {"date": "2024-11", "value": 31.4}, {"date": "2024-12", "value": 32.732}, {"date": "2025-02", "value": 34.647}, {"date": "2025-03", "value": 47.539}, {"date": "2025-04", "value": 56.33}, {"date": "2025-05", "value": 53.982}, {"date": "2025-06", "value": 52.005}, {"date": "2025-07", "value": 52.419}, {"date": "2025-08", "value": 39.456}, {"date": "2025-09", "value": 45.772}, {"date": "2025-10", "value": 68.312}, {"date": "2025-11", "value": 65.577}, {"date": "2025-12", "value": 27.732}, {"date": "2026-02", "value": 46.829}, {"date": "2026-03", "value": 19.308}, {"date": "2026-04", "value": 10.92}, {"date": "2026-05", "value": 13.181}, {"date": "2026-06", "value": 4.783}, {"date": "2026-07", "value": 1.212}]}, {"label": "核电", "points": [{"date": "2022-08", "value": 9.1}, {"date": "2022-09", "value": 13.3}, {"date": "2022-10", "value": 19.9}, {"date": "2022-11", "value": 23.7}, {"date": "2022-12", "value": 25.7}, {"date": "2023-02", "value": 44.8}, {"date": "2023-03", "value": 53.5}, {"date": "2023-04", "value": 52.4}, {"date": "2023-05", "value": 66.5}, {"date": "2023-06", "value": 56.1}, {"date": "2023-07", "value": 50.5}, {"date": "2023-08", "value": 56.9}, {"date": "2023-09", "value": 46.0}, {"date": "2023-10", "value": 41.5}, {"date": "2023-11", "value": 45.335}, {"date": "2023-12", "value": 20.8}, {"date": "2024-02", "value": 39.5}, {"date": "2024-03", "value": 24.4}, {"date": "2024-04", "value": 25.0}, {"date": "2024-05", "value": 26.4}, {"date": "2024-06", "value": 13.5}, {"date": "2024-07", "value": 26.5}, {"date": "2024-08", "value": 29.0}, {"date": "2024-09", "value": 36.3}, {"date": "2024-10", "value": 48.8}, {"date": "2024-11", "value": 48.5}, {"date": "2024-12", "value": 46.517}, {"date": "2025-02", "value": 48.785}, {"date": "2025-03", "value": 37.92}, {"date": "2025-04", "value": 36.641}, {"date": "2025-05", "value": 33.396}, {"date": "2025-06", "value": 52.33}, {"date": "2025-07", "value": 30.645}, {"date": "2025-08", "value": 27.509}, {"date": "2025-09", "value": 23.348}, {"date": "2025-10", "value": 13.801}, {"date": "2025-11", "value": 17.979}, {"date": "2025-12", "value": 13.456}, {"date": "2026-02", "value": 35.428}, {"date": "2026-03", "value": 51.999}, {"date": "2026-04", "value": 35.399}, {"date": "2026-05", "value": 27.044}, {"date": "2026-06", "value": 11.666}, {"date": "2026-07", "value": 6.675}]}, {"label": "风电", "points": [{"date": "2022-08", "value": -32.9}, {"date": "2022-09", "value": -26.8}, {"date": "2022-10", "value": -26.7}, {"date": "2022-11", "value": -23.8}, {"date": "2022-12", "value": -24.3}, {"date": "2023-02", "value": 15.6}, {"date": "2023-03", "value": 15.0}, {"date": "2023-04", "value": 20.7}, {"date": "2023-05", "value": 41.8}, {"date": "2023-06", "value": 34.3}, {"date": "2023-07", "value": 40.3}, {"date": "2023-08", "value": 38.7}, {"date": "2023-09", "value": 33.4}, {"date": "2023-10", "value": 42.5}, {"date": "2023-11", "value": 33.731}, {"date": "2023-12", "value": 27.5}, {"date": "2024-02", "value": 0.9}, {"date": "2024-03", "value": 10.9}, {"date": "2024-04", "value": 3.3}, {"date": "2024-05", "value": 2.4}, {"date": "2024-06", "value": 0.2}, {"date": "2024-07", "value": -5.5}, {"date": "2024-08", "value": -4.3}, {"date": "2024-09", "value": -4.6}, {"date": "2024-10", "value": -2.5}, {"date": "2024-11", "value": 6.0}, {"date": "2024-12", "value": 10.065}, {"date": "2025-02", "value": -19.292}, {"date": "2025-03", "value": -11.635}, {"date": "2025-04", "value": -9.182}, {"date": "2025-05", "value": -7.693}, {"date": "2025-06", "value": -0.953}, {"date": "2025-07", "value": 1.463}, {"date": "2025-08", "value": 6.138}, {"date": "2025-09", "value": 10.037}, {"date": "2025-10", "value": 4.006}, {"date": "2025-11", "value": -0.615}, {"date": "2025-12", "value": -2.605}, {"date": "2026-02", "value": 96.026}, {"date": "2026-03", "value": 71.365}, {"date": "2026-04", "value": 40.58}, {"date": "2026-05", "value": 26.509}, {"date": "2026-06", "value": 15.974}, {"date": "2026-07", "value": 14.864}]}, {"label": "太阳能", "points": [{"date": "2022-08", "value": 323.8}, {"date": "2022-09", "value": 352.6}, {"date": "2022-10", "value": 326.7}, {"date": "2022-11", "value": 290.1}, {"date": "2023-02", "value": 199.9}, {"date": "2023-03", "value": 177.6}, {"date": "2023-04", "value": 156.3}, {"date": "2023-05", "value": 140.3}, {"date": "2023-06", "value": 113.6}, {"date": "2023-07", "value": 108.7}, {"date": "2023-08", "value": 82.7}, {"date": "2023-09", "value": 67.8}, {"date": "2023-10", "value": 71.2}, {"date": "2023-11", "value": 60.452}, {"date": "2024-02", "value": -10.7}, {"date": "2024-03", "value": -3.5}, {"date": "2024-04", "value": -4.8}, {"date": "2024-05", "value": -1.2}, {"date": "2024-06", "value": -1.5}, {"date": "2024-07", "value": -2.9}, {"date": "2024-08", "value": -0.3}, {"date": "2024-09", "value": 1.5}, {"date": "2024-10", "value": -0.3}, {"date": "2024-11", "value": 0.6}, {"date": "2025-02", "value": -11.254}, {"date": "2025-03", "value": -29.375}, {"date": "2025-04", "value": -22.7}, {"date": "2025-05", "value": -24.512}, {"date": "2025-06", "value": -23.08}, {"date": "2025-07", "value": -24.677}, {"date": "2025-08", "value": -27.463}, {"date": "2025-09", "value": -30.288}, {"date": "2025-10", "value": -30.943}, {"date": "2025-11", "value": -34.202}, {"date": "2026-02", "value": -24.066}, {"date": "2026-03", "value": -19.218}, {"date": "2026-04", "value": -33.086}, {"date": "2026-05", "value": -38.282}, {"date": "2026-06", "value": -39.279}, {"date": "2026-07", "value": -38.08}]}];
+  const suffix = "%";
+  const valueDigits = 1;
+  const yDigits = 1;
+  const yTickStep = null;
+  const signedValues = true;
+  const colors = ["#0b2f66", "#64748b", "#2563eb", "#7c3aed", "#059669", "#dc2626", "#b45309", "#0f766e"];
+  const selected = new Set(rawSeries.map(s => s.label));
+  const toolbar = root.querySelector(".interactive-toolbar");
+  const svg = root.querySelector("svg");
+  const tooltip = root.querySelector(".chart-tooltip");
+  const width = 1180, height = 430;
+  const pad = {l:58, r:180, t:54, b:62};
+  const plotW = width - pad.l - pad.r;
+  const plotH = height - pad.t - pad.b;
+  function escText(v){ return String(v).replace(/[&<>"]/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m])); }
+  function fmt(v){
+    if (!Number.isFinite(v)) return "-";
+    const text = v.toFixed(valueDigits) + suffix;
+    return signedValues && v >= 0 ? "+" + text : text;
+  }
+  function activeSeries(){ return rawSeries.filter(s => selected.has(s.label)); }
+  function allDates(series){
+    return Array.from(new Set(series.flatMap(s => s.points.map(p => p.date)))).sort();
+  }
+  function yScale(value, ymin, ymax){ return pad.t + (ymax - value) / (ymax - ymin) * plotH; }
+  function xScale(date, dates){
+    if (dates.length <= 1) return pad.l + plotW / 2;
+    return pad.l + dates.indexOf(date) / (dates.length - 1) * plotW;
+  }
+  function niceTicks(ymin, ymax, targetCount, minStep){
+    if (!Number.isFinite(ymin) || !Number.isFinite(ymax)) return [];
+    if (Math.abs(ymax - ymin) < 0.001) { ymin -= 1; ymax += 1; }
+    const rawStep = (ymax - ymin) / Math.max(targetCount - 1, 1);
+    const magnitude = Math.pow(10, Math.floor(Math.log10(Math.max(Math.abs(rawStep), 1e-9))));
+    let step = 10 * magnitude;
+    for (const candidate of [1, 2, 5, 10]) {
+      if (candidate * magnitude >= rawStep) { step = candidate * magnitude; break; }
+    }
+    if (minStep) step = Math.max(step, minStep);
+    const start = Math.floor(ymin / step) * step;
+    const end = Math.ceil(ymax / step) * step;
+    const ticks = [];
+    for (let tick = start, guard = 0; tick <= end + step * 0.5 && guard < 20; tick += step, guard++) {
+      ticks.push(Number(tick.toFixed(10)));
+    }
+    return ticks;
+  }
+  function draw(){
+    const active = activeSeries();
+    const dates = allDates(active);
+    const vals = active.flatMap(s => s.points.map(p => Number(p.value)).filter(Number.isFinite));
+    if (!active.length || !dates.length || !vals.length) {
+      svg.innerHTML = `<text x="20" y="30" class="svg-title">分类型电源投资累计同比：无数据</text>`;
+      return;
+    }
+    let ymin = signedValues ? Math.min(0, ...vals) : Math.min(...vals);
+    let ymax = signedValues ? Math.max(0, ...vals) : Math.max(...vals);
+    if (Math.abs(ymax - ymin) < 0.001) { ymin -= 1; ymax += 1; }
+    const extra = (ymax - ymin) * 0.14;
+    ymin -= extra; ymax += extra;
+    const ticks = niceTicks(ymin, ymax, suffix === "%" ? 7 : 5, yTickStep || 5);
+    if (ticks.length) {
+      ymin = ticks[0];
+      ymax = ticks[ticks.length - 1];
+    }
+    let html = `<text x="${pad.l}" y="24" class="svg-title">分类型电源投资累计同比</text>`;
+    ticks.forEach(tick => {
+      const y = yScale(tick, ymin, ymax);
+      html += `<line x1="${pad.l}" y1="${y.toFixed(1)}" x2="${pad.l+plotW}" y2="${y.toFixed(1)}" stroke="#e5e7eb"/>`;
+      html += `<text x="${pad.l-8}" y="${(y+4).toFixed(1)}" text-anchor="end" class="svg-axis">${tick.toFixed(yDigits)}${suffix}</text>`;
+    });
+    if (ymin <= 0 && ymax >= 0) {
+      const zeroY = yScale(0, ymin, ymax);
+      html += `<line x1="${pad.l}" y1="${zeroY.toFixed(1)}" x2="${pad.l+plotW}" y2="${zeroY.toFixed(1)}" stroke="#1f2937" stroke-dasharray="4 3"/>`;
+    }
+    const labelStep = Math.max(1, Math.floor(dates.length / 7));
+    let labelIdx = dates.map((_, idx) => idx).filter(idx => idx % labelStep === 0);
+    if (!labelIdx.includes(dates.length - 1)) labelIdx.push(dates.length - 1);
+    if (labelIdx.length > 1 && labelIdx[labelIdx.length - 1] - labelIdx[labelIdx.length - 2] < labelStep * 0.65) {
+      labelIdx.splice(labelIdx.length - 2, 1);
+    }
+    const labelSet = new Set(labelIdx);
+    dates.forEach((d, idx) => {
+      if (labelSet.has(idx)) {
+        const x = xScale(d, dates);
+        html += `<text x="${x.toFixed(1)}" y="${height - 24}" text-anchor="middle" class="svg-axis">${d.slice(2)}</text>`;
+      }
+    });
+    const lastItems = active.map((s, idx) => {
+      const color = colors[rawSeries.findIndex(item => item.label === s.label) % colors.length];
+      const pts = s.points.filter(p => dates.includes(p.date) && Number.isFinite(Number(p.value)));
+      const last = pts[pts.length - 1];
+      if (!last) return null;
+      const x = xScale(last.date, dates);
+      const y = yScale(Number(last.value), ymin, ymax);
+      return { label:s.label, color, x, y, value:Number(last.value), labelY:y - 5 };
+    }).filter(Boolean).sort((a, b) => a.labelY - b.labelY);
+    const minGap = 20;
+    const labelTop = pad.t + 8;
+    const labelBottom = pad.t + plotH - 8;
+    lastItems.forEach((item, idx) => {
+      item.labelY = Math.max(labelTop, idx === 0 ? item.labelY : Math.max(item.labelY, lastItems[idx - 1].labelY + minGap));
+    });
+    if (lastItems.length && lastItems[lastItems.length - 1].labelY > labelBottom) {
+      const shift = lastItems[lastItems.length - 1].labelY - labelBottom;
+      lastItems.forEach(item => { item.labelY -= shift; });
+    }
+    for (let i = lastItems.length - 2; i >= 0; i--) {
+      lastItems[i].labelY = Math.min(lastItems[i].labelY, lastItems[i + 1].labelY - minGap);
+      lastItems[i].labelY = Math.max(labelTop, lastItems[i].labelY);
+    }
+    const placedLabels = new Map(lastItems.map(item => [item.label, item]));
+    active.forEach((s, idx) => {
+      const color = colors[rawSeries.findIndex(item => item.label === s.label) % colors.length];
+      const pts = s.points.filter(p => dates.includes(p.date) && Number.isFinite(Number(p.value)));
+      const poly = pts.map(p => `${xScale(p.date, dates).toFixed(1)},${yScale(Number(p.value), ymin, ymax).toFixed(1)}`).join(" ");
+      html += `<polyline fill="none" stroke="${color}" stroke-width="2.8" points="${poly}"/>`;
+      const last = pts[pts.length - 1];
+      if (last) {
+        const x = xScale(last.date, dates), y = yScale(Number(last.value), ymin, ymax);
+        const placed = placedLabels.get(s.label) || {labelY:y - 5};
+        const labelX = Math.min(x + 18, width - 170);
+        html += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5" fill="${color}"/>`;
+        if (Math.abs(placed.labelY - (y - 5)) > 2) {
+          html += `<line x1="${(x + 4).toFixed(1)}" y1="${y.toFixed(1)}" x2="${(labelX - 4).toFixed(1)}" y2="${placed.labelY.toFixed(1)}" stroke="${color}" stroke-width="1" opacity="0.65"/>`;
+        }
+        html += `<text x="${labelX.toFixed(1)}" y="${placed.labelY.toFixed(1)}" class="svg-axis latest-label" fill="${color}">${escText(s.label)} ${fmt(Number(last.value))}</text>`;
+      }
+    });
+    svg.innerHTML = html;
+    svg.dataset.dates = JSON.stringify(dates);
+    svg.dataset.ymin = String(ymin);
+    svg.dataset.ymax = String(ymax);
+  }
+  rawSeries.forEach((s, idx) => {
+    const label = document.createElement("label");
+    label.className = "interactive-toggle";
+    label.style.setProperty("--line-color", colors[idx % colors.length]);
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.checked = true;
+    input.addEventListener("change", () => {
+      if (input.checked) selected.add(s.label); else selected.delete(s.label);
+      draw();
+    });
+    label.append(input, document.createTextNode(s.label));
+    toolbar.appendChild(label);
+  });
+  function showSeriesTip(clientX, clientY){
+    const dates = JSON.parse(svg.dataset.dates || "[]");
+    if (!dates.length) return;
+    const rect = svg.getBoundingClientRect();
+    const vx = (clientX - rect.left) / rect.width * width;
+    let best = dates[0], bestDist = Infinity;
+    dates.forEach(d => {
+      const x = xScale(d, dates);
+      const dist = Math.abs(x - vx);
+      if (dist < bestDist) { best = d; bestDist = dist; }
+    });
+    const rows = activeSeries().map(s => {
+      const p = s.points.find(item => item.date === best);
+      return p ? `<div><b>${escText(s.label)}</b> ${fmt(Number(p.value))}</div>` : "";
+    }).join("");
+    tooltip.innerHTML = `<div class="tip-date">${best}</div>${rows}`;
+    tooltip.style.display = "block";
+    tooltip.style.left = Math.min(clientX - rect.left + 14, rect.width - 180) + "px";
+    tooltip.style.top = Math.max(clientY - rect.top - 8, 8) + "px";
+  }
+  svg.addEventListener("mousemove", ev => {
+    showSeriesTip(ev.clientX, ev.clientY);
+  });
+  svg.addEventListener("touchstart", ev => {
+    const touch = ev.touches && ev.touches[0];
+    if (touch) showSeriesTip(touch.clientX, touch.clientY);
+  }, { passive:true });
+  svg.addEventListener("touchmove", ev => {
+    const touch = ev.touches && ev.touches[0];
+    if (touch) showSeriesTip(touch.clientX, touch.clientY);
+  }, { passive:true });
+  svg.addEventListener("mouseleave", () => { tooltip.style.display = "none"; });
+  draw();
+})();
+</script>
+</div></div><div class="card wide-card"><div class="card-head"><h3>电源电网投资累计同比</h3><p>电源基本建设投资完成额与电网基本建设投资完成额累计同比。</p></div><div class="card-body">
+<div class="interactive-chart" id="interactive_chart_299220">
+<div class="interactive-toolbar"></div>
+<div class="interactive-stage">
+<svg aria-label="电源电网投资累计同比" role="img" viewbox="0 0 1180 430"></svg>
+<div class="chart-tooltip"></div>
+</div>
+</div>
+<script>
+(function(){
+  const root = document.getElementById("interactive_chart_299220");
+  if (!root) return;
+  const rawSeries = [{"label": "电源总投资", "points": [{"date": "2022-08", "value": 18.7}, {"date": "2022-09", "value": 25.1}, {"date": "2022-10", "value": 27.0}, {"date": "2022-11", "value": 28.3}, {"date": "2022-12", "value": 22.8}, {"date": "2023-02", "value": 43.6}, {"date": "2023-03", "value": 55.2}, {"date": "2023-04", "value": 53.6}, {"date": "2023-05", "value": 62.5}, {"date": "2023-06", "value": 53.8}, {"date": "2023-07", "value": 54.4}, {"date": "2023-08", "value": 46.6}, {"date": "2023-09", "value": 41.1}, {"date": "2023-10", "value": 43.7}, {"date": "2023-11", "value": 39.594}, {"date": "2023-12", "value": 30.1}, {"date": "2024-02", "value": 8.3}, {"date": "2024-03", "value": 7.7}, {"date": "2024-04", "value": 5.2}, {"date": "2024-05", "value": 6.5}, {"date": "2024-06", "value": 2.5}, {"date": "2024-07", "value": 2.6}, {"date": "2024-08", "value": 5.1}, {"date": "2024-09", "value": 7.2}, {"date": "2024-10", "value": 8.3}, {"date": "2024-11", "value": 12.0}, {"date": "2024-12", "value": 12.144}, {"date": "2025-02", "value": 0.205}, {"date": "2025-03", "value": -2.477}, {"date": "2025-04", "value": 1.6}, {"date": "2025-05", "value": 0.392}, {"date": "2025-06", "value": 5.938}, {"date": "2025-07", "value": 3.375}, {"date": "2025-08", "value": 0.537}, {"date": "2025-09", "value": 0.628}, {"date": "2025-10", "value": 0.652}, {"date": "2025-11", "value": -1.796}, {"date": "2025-12", "value": -9.571}, {"date": "2026-02", "value": 32.349}, {"date": "2026-03", "value": 26.622}, {"date": "2026-04", "value": 10.166}, {"date": "2026-05", "value": 4.063}, {"date": "2026-06", "value": -3.195}, {"date": "2026-07", "value": -4.725}]}, {"label": "电网投资", "points": [{"date": "2022-08", "value": 10.7}, {"date": "2022-09", "value": 9.1}, {"date": "2022-10", "value": 3.0}, {"date": "2022-11", "value": 2.6}, {"date": "2022-12", "value": 2.0}, {"date": "2023-02", "value": 2.2}, {"date": "2023-03", "value": 7.5}, {"date": "2023-04", "value": 10.3}, {"date": "2023-05", "value": 10.8}, {"date": "2023-06", "value": 7.8}, {"date": "2023-07", "value": 10.4}, {"date": "2023-08", "value": 1.4}, {"date": "2023-09", "value": 4.2}, {"date": "2023-10", "value": 6.3}, {"date": "2023-11", "value": 5.905}, {"date": "2023-12", "value": 5.4}, {"date": "2024-02", "value": 2.3}, {"date": "2024-03", "value": 14.7}, {"date": "2024-04", "value": 24.9}, {"date": "2024-05", "value": 21.6}, {"date": "2024-06", "value": 23.7}, {"date": "2024-07", "value": 19.2}, {"date": "2024-08", "value": 23.1}, {"date": "2024-09", "value": 21.1}, {"date": "2024-10", "value": 20.7}, {"date": "2024-11", "value": 18.7}, {"date": "2024-12", "value": 15.263}, {"date": "2025-02", "value": 33.478}, {"date": "2025-03", "value": 24.811}, {"date": "2025-04", "value": 14.59}, {"date": "2025-05", "value": 19.796}, {"date": "2025-06", "value": 14.584}, {"date": "2025-07", "value": 12.494}, {"date": "2025-08", "value": 13.989}, {"date": "2025-09", "value": 9.94}, {"date": "2025-10", "value": 7.168}, {"date": "2025-11", "value": 5.934}, {"date": "2025-12", "value": 5.11}, {"date": "2026-02", "value": 79.839}, {"date": "2026-03", "value": 43.324}, {"date": "2026-04", "value": 24.947}, {"date": "2026-05", "value": 13.193}, {"date": "2026-06", "value": 3.993}, {"date": "2026-07", "value": 0.749}]}];
+  const suffix = "%";
+  const valueDigits = 1;
+  const yDigits = 1;
+  const yTickStep = null;
+  const signedValues = true;
+  const colors = ["#0b2f66", "#64748b", "#2563eb", "#7c3aed", "#059669", "#dc2626", "#b45309", "#0f766e"];
+  const selected = new Set(rawSeries.map(s => s.label));
+  const toolbar = root.querySelector(".interactive-toolbar");
+  const svg = root.querySelector("svg");
+  const tooltip = root.querySelector(".chart-tooltip");
+  const width = 1180, height = 430;
+  const pad = {l:58, r:180, t:54, b:62};
+  const plotW = width - pad.l - pad.r;
+  const plotH = height - pad.t - pad.b;
+  function escText(v){ return String(v).replace(/[&<>"]/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m])); }
+  function fmt(v){
+    if (!Number.isFinite(v)) return "-";
+    const text = v.toFixed(valueDigits) + suffix;
+    return signedValues && v >= 0 ? "+" + text : text;
+  }
+  function activeSeries(){ return rawSeries.filter(s => selected.has(s.label)); }
+  function allDates(series){
+    return Array.from(new Set(series.flatMap(s => s.points.map(p => p.date)))).sort();
+  }
+  function yScale(value, ymin, ymax){ return pad.t + (ymax - value) / (ymax - ymin) * plotH; }
+  function xScale(date, dates){
+    if (dates.length <= 1) return pad.l + plotW / 2;
+    return pad.l + dates.indexOf(date) / (dates.length - 1) * plotW;
+  }
+  function niceTicks(ymin, ymax, targetCount, minStep){
+    if (!Number.isFinite(ymin) || !Number.isFinite(ymax)) return [];
+    if (Math.abs(ymax - ymin) < 0.001) { ymin -= 1; ymax += 1; }
+    const rawStep = (ymax - ymin) / Math.max(targetCount - 1, 1);
+    const magnitude = Math.pow(10, Math.floor(Math.log10(Math.max(Math.abs(rawStep), 1e-9))));
+    let step = 10 * magnitude;
+    for (const candidate of [1, 2, 5, 10]) {
+      if (candidate * magnitude >= rawStep) { step = candidate * magnitude; break; }
+    }
+    if (minStep) step = Math.max(step, minStep);
+    const start = Math.floor(ymin / step) * step;
+    const end = Math.ceil(ymax / step) * step;
+    const ticks = [];
+    for (let tick = start, guard = 0; tick <= end + step * 0.5 && guard < 20; tick += step, guard++) {
+      ticks.push(Number(tick.toFixed(10)));
+    }
+    return ticks;
+  }
+  function draw(){
+    const active = activeSeries();
+    const dates = allDates(active);
+    const vals = active.flatMap(s => s.points.map(p => Number(p.value)).filter(Number.isFinite));
+    if (!active.length || !dates.length || !vals.length) {
+      svg.innerHTML = `<text x="20" y="30" class="svg-title">电源电网投资累计同比：无数据</text>`;
+      return;
+    }
+    let ymin = signedValues ? Math.min(0, ...vals) : Math.min(...vals);
+    let ymax = signedValues ? Math.max(0, ...vals) : Math.max(...vals);
+    if (Math.abs(ymax - ymin) < 0.001) { ymin -= 1; ymax += 1; }
+    const extra = (ymax - ymin) * 0.14;
+    ymin -= extra; ymax += extra;
+    const ticks = niceTicks(ymin, ymax, suffix === "%" ? 7 : 5, yTickStep || 5);
+    if (ticks.length) {
+      ymin = ticks[0];
+      ymax = ticks[ticks.length - 1];
+    }
+    let html = `<text x="${pad.l}" y="24" class="svg-title">电源电网投资累计同比</text>`;
+    ticks.forEach(tick => {
+      const y = yScale(tick, ymin, ymax);
+      html += `<line x1="${pad.l}" y1="${y.toFixed(1)}" x2="${pad.l+plotW}" y2="${y.toFixed(1)}" stroke="#e5e7eb"/>`;
+      html += `<text x="${pad.l-8}" y="${(y+4).toFixed(1)}" text-anchor="end" class="svg-axis">${tick.toFixed(yDigits)}${suffix}</text>`;
+    });
+    if (ymin <= 0 && ymax >= 0) {
+      const zeroY = yScale(0, ymin, ymax);
+      html += `<line x1="${pad.l}" y1="${zeroY.toFixed(1)}" x2="${pad.l+plotW}" y2="${zeroY.toFixed(1)}" stroke="#1f2937" stroke-dasharray="4 3"/>`;
+    }
+    const labelStep = Math.max(1, Math.floor(dates.length / 7));
+    let labelIdx = dates.map((_, idx) => idx).filter(idx => idx % labelStep === 0);
+    if (!labelIdx.includes(dates.length - 1)) labelIdx.push(dates.length - 1);
+    if (labelIdx.length > 1 && labelIdx[labelIdx.length - 1] - labelIdx[labelIdx.length - 2] < labelStep * 0.65) {
+      labelIdx.splice(labelIdx.length - 2, 1);
+    }
+    const labelSet = new Set(labelIdx);
+    dates.forEach((d, idx) => {
+      if (labelSet.has(idx)) {
+        const x = xScale(d, dates);
+        html += `<text x="${x.toFixed(1)}" y="${height - 24}" text-anchor="middle" class="svg-axis">${d.slice(2)}</text>`;
+      }
+    });
+    const lastItems = active.map((s, idx) => {
+      const color = colors[rawSeries.findIndex(item => item.label === s.label) % colors.length];
+      const pts = s.points.filter(p => dates.includes(p.date) && Number.isFinite(Number(p.value)));
+      const last = pts[pts.length - 1];
+      if (!last) return null;
+      const x = xScale(last.date, dates);
+      const y = yScale(Number(last.value), ymin, ymax);
+      return { label:s.label, color, x, y, value:Number(last.value), labelY:y - 5 };
+    }).filter(Boolean).sort((a, b) => a.labelY - b.labelY);
+    const minGap = 20;
+    const labelTop = pad.t + 8;
+    const labelBottom = pad.t + plotH - 8;
+    lastItems.forEach((item, idx) => {
+      item.labelY = Math.max(labelTop, idx === 0 ? item.labelY : Math.max(item.labelY, lastItems[idx - 1].labelY + minGap));
+    });
+    if (lastItems.length && lastItems[lastItems.length - 1].labelY > labelBottom) {
+      const shift = lastItems[lastItems.length - 1].labelY - labelBottom;
+      lastItems.forEach(item => { item.labelY -= shift; });
+    }
+    for (let i = lastItems.length - 2; i >= 0; i--) {
+      lastItems[i].labelY = Math.min(lastItems[i].labelY, lastItems[i + 1].labelY - minGap);
+      lastItems[i].labelY = Math.max(labelTop, lastItems[i].labelY);
+    }
+    const placedLabels = new Map(lastItems.map(item => [item.label, item]));
+    active.forEach((s, idx) => {
+      const color = colors[rawSeries.findIndex(item => item.label === s.label) % colors.length];
+      const pts = s.points.filter(p => dates.includes(p.date) && Number.isFinite(Number(p.value)));
+      const poly = pts.map(p => `${xScale(p.date, dates).toFixed(1)},${yScale(Number(p.value), ymin, ymax).toFixed(1)}`).join(" ");
+      html += `<polyline fill="none" stroke="${color}" stroke-width="2.8" points="${poly}"/>`;
+      const last = pts[pts.length - 1];
+      if (last) {
+        const x = xScale(last.date, dates), y = yScale(Number(last.value), ymin, ymax);
+        const placed = placedLabels.get(s.label) || {labelY:y - 5};
+        const labelX = Math.min(x + 18, width - 170);
+        html += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5" fill="${color}"/>`;
+        if (Math.abs(placed.labelY - (y - 5)) > 2) {
+          html += `<line x1="${(x + 4).toFixed(1)}" y1="${y.toFixed(1)}" x2="${(labelX - 4).toFixed(1)}" y2="${placed.labelY.toFixed(1)}" stroke="${color}" stroke-width="1" opacity="0.65"/>`;
+        }
+        html += `<text x="${labelX.toFixed(1)}" y="${placed.labelY.toFixed(1)}" class="svg-axis latest-label" fill="${color}">${escText(s.label)} ${fmt(Number(last.value))}</text>`;
+      }
+    });
+    svg.innerHTML = html;
+    svg.dataset.dates = JSON.stringify(dates);
+    svg.dataset.ymin = String(ymin);
+    svg.dataset.ymax = String(ymax);
+  }
+  rawSeries.forEach((s, idx) => {
+    const label = document.createElement("label");
+    label.className = "interactive-toggle";
+    label.style.setProperty("--line-color", colors[idx % colors.length]);
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.checked = true;
+    input.addEventListener("change", () => {
+      if (input.checked) selected.add(s.label); else selected.delete(s.label);
+      draw();
+    });
+    label.append(input, document.createTextNode(s.label));
+    toolbar.appendChild(label);
+  });
+  function showSeriesTip(clientX, clientY){
+    const dates = JSON.parse(svg.dataset.dates || "[]");
+    if (!dates.length) return;
+    const rect = svg.getBoundingClientRect();
+    const vx = (clientX - rect.left) / rect.width * width;
+    let best = dates[0], bestDist = Infinity;
+    dates.forEach(d => {
+      const x = xScale(d, dates);
+      const dist = Math.abs(x - vx);
+      if (dist < bestDist) { best = d; bestDist = dist; }
+    });
+    const rows = activeSeries().map(s => {
+      const p = s.points.find(item => item.date === best);
+      return p ? `<div><b>${escText(s.label)}</b> ${fmt(Number(p.value))}</div>` : "";
+    }).join("");
+    tooltip.innerHTML = `<div class="tip-date">${best}</div>${rows}`;
+    tooltip.style.display = "block";
+    tooltip.style.left = Math.min(clientX - rect.left + 14, rect.width - 180) + "px";
+    tooltip.style.top = Math.max(clientY - rect.top - 8, 8) + "px";
+  }
+  svg.addEventListener("mousemove", ev => {
+    showSeriesTip(ev.clientX, ev.clientY);
+  });
+  svg.addEventListener("touchstart", ev => {
+    const touch = ev.touches && ev.touches[0];
+    if (touch) showSeriesTip(touch.clientX, touch.clientY);
+  }, { passive:true });
+  svg.addEventListener("touchmove", ev => {
+    const touch = ev.touches && ev.touches[0];
+    if (touch) showSeriesTip(touch.clientX, touch.clientY);
+  }, { passive:true });
+  svg.addEventListener("mouseleave", () => { tooltip.style.display = "none"; });
+  draw();
+})();
+</script>
+</div></div><div class="card wide-card"><div class="card-head"><h3>累计投资完成额季节性</h3><p>电源总投资、分类型电源及电网累计完成额按月份对比，悬浮查看数值。</p></div><div class="card-body"><div class="mini-chart-grid"><svg aria-label="电源总投资" role="img" viewbox="0 0 360 230"><text class="svg-title" x="44" y="16">电源总投资</text><line stroke="#cbd5e1" x1="44" x2="344" y1="196" y2="196"></line><line stroke="#cbd5e1" x1="44" x2="44" y1="24" y2="196"></line><line stroke="#eef2f7" x1="44" x2="344" y1="196.0" y2="196.0"></line><text class="svg-axis" text-anchor="end" x="38" y="200.0">-5,000</text><line stroke="#eef2f7" x1="44" x2="344" y1="153.0" y2="153.0"></line><text class="svg-axis" text-anchor="end" x="38" y="157.0">0</text><line stroke="#eef2f7" x1="44" x2="344" y1="110.0" y2="110.0"></line><text class="svg-axis" text-anchor="end" x="38" y="114.0">5,000</text><line stroke="#eef2f7" x1="44" x2="344" y1="67.0" y2="67.0"></line><text class="svg-axis" text-anchor="end" x="38" y="71.0">10,000</text><line stroke="#eef2f7" x1="44" x2="344" y1="24.0" y2="24.0"></line><text class="svg-axis" text-anchor="end" x="38" y="28.0">15,000</text><text class="svg-axis" text-anchor="middle" x="44.0" y="220">1</text><text class="svg-axis" text-anchor="middle" x="71.3" y="220">2</text><text class="svg-axis" text-anchor="middle" x="98.5" y="220">3</text><text class="svg-axis" text-anchor="middle" x="125.8" y="220">4</text><text class="svg-axis" text-anchor="middle" x="153.1" y="220">5</text><text class="svg-axis" text-anchor="middle" x="180.4" y="220">6</text><text class="svg-axis" text-anchor="middle" x="207.6" y="220">7</text><text class="svg-axis" text-anchor="middle" x="234.9" y="220">8</text><text class="svg-axis" text-anchor="middle" x="262.2" y="220">9</text><text class="svg-axis" text-anchor="middle" x="289.5" y="220">10</text><text class="svg-axis" text-anchor="middle" x="316.7" y="220">11</text><text class="svg-axis" text-anchor="middle" x="344.0" y="220">12</text><polyline fill="none" points="71.3,148.9 98.5,146.0 125.8,142.9 153.1,140.4 180.4,134.4 207.6,130.6 234.9,125.4 262.2,119.2 289.5,113.4 316.7,105.5 344.0,91.0" stroke="#8b8f98" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="148.9" data-tip="电源总投资 2022-02: 471.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="146.0" data-tip="电源总投资 2022-03: 814.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="142.9" data-tip="电源总投资 2022-04: 1,173.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="140.4" data-tip="电源总投资 2022-05: 1,470.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="134.4" data-tip="电源总投资 2022-06: 2,158.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="130.6" data-tip="电源总投资 2022-07: 2,600.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="125.4" data-tip="电源总投资 2022-08: 3,209.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="119.2" data-tip="电源总投资 2022-09: 3,926.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="113.4" data-tip="电源总投资 2022-10: 4,607.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="105.5" data-tip="电源总投资 2022-11: 5,525.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="91.0" data-tip="电源总投资 2022-12: 7,208.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,147.2 98.5,142.1 125.8,137.5 153.1,132.5 180.4,124.5 207.6,118.5 234.9,112.6 262.2,105.4 289.5,96.1 316.7,86.7 344.0,69.8" stroke="#94a3b8" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="147.2" data-tip="电源总投资 2023-02: 676.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="142.1" data-tip="电源总投资 2023-03: 1,264.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="137.5" data-tip="电源总投资 2023-04: 1,802.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="132.5" data-tip="电源总投资 2023-05: 2,389.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="124.5" data-tip="电源总投资 2023-06: 3,319.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="118.5" data-tip="电源总投资 2023-07: 4,013.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="112.6" data-tip="电源总投资 2023-08: 4,703.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="105.4" data-tip="电源总投资 2023-09: 5,538.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="96.1" data-tip="电源总投资 2023-10: 6,621.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="86.7" data-tip="电源总投资 2023-11: 7,712.6" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="69.8" data-tip="电源总投资 2023-12: 9,675.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,146.5 98.5,141.3 125.8,136.6 153.1,130.8 180.4,123.4 207.6,117.2 234.9,110.2 262.2,101.8 289.5,91.2 316.7,78.5 344.0,52.5" stroke="#0ea5e9" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="146.5" data-tip="电源总投资 2024-02: 761.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="141.3" data-tip="电源总投资 2024-03: 1,365.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="136.6" data-tip="电源总投资 2024-04: 1,912.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="130.8" data-tip="电源总投资 2024-05: 2,578.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="123.4" data-tip="电源总投资 2024-06: 3,441.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="117.2" data-tip="电源总投资 2024-07: 4,158.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="110.2" data-tip="电源总投资 2024-08: 4,976.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="101.8" data-tip="电源总投资 2024-09: 5,959.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="91.2" data-tip="电源总投资 2024-10: 7,181.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="78.5" data-tip="电源总投资 2024-11: 8,665.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="52.5" data-tip="电源总投资 2024-12: 11,687.2" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,146.5 98.5,141.6 125.8,136.4 153.1,130.8 180.4,121.7 207.6,116.1 234.9,110.1 262.2,101.5 289.5,90.9 316.7,79.9 344.0,59.0" stroke="#0b2f66" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="146.5" data-tip="电源总投资 2025-02: 752.6" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="141.6" data-tip="电源总投资 2025-03: 1,321.6" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="136.4" data-tip="电源总投资 2025-04: 1,932.5" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="130.8" data-tip="电源总投资 2025-05: 2,577.8" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="121.7" data-tip="电源总投资 2025-06: 3,634.9" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="116.1" data-tip="电源总投资 2025-07: 4,288.3" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="110.1" data-tip="电源总投资 2025-08: 4,992.4" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="101.5" data-tip="电源总投资 2025-09: 5,986.6" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="90.9" data-tip="电源总投资 2025-10: 7,217.9" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="79.9" data-tip="电源总投资 2025-11: 8,500.1" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="59.0" data-tip="电源总投资 2025-12: 10,927.5" fill="#0b2f66" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,144.0 98.5,137.9 125.8,133.6 153.1,128.7 180.4,121.7 207.6,116.6" stroke="#dc2626" stroke-width="3"></polyline><circle class="chart-point" cx="71.3" cy="144.0" data-tip="电源总投资 2026-02: 1,043.5" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="137.9" data-tip="电源总投资 2026-03: 1,759.1" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="133.6" data-tip="电源总投资 2026-04: 2,259.3" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="128.7" data-tip="电源总投资 2026-05: 2,820.8" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="121.7" data-tip="电源总投资 2026-06: 3,637.0" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="116.6" data-tip="电源总投资 2026-07: 4,237.3" fill="#dc2626" opacity="0.001" r="3.2"></circle><rect class="chart-point hover-zone" data-tip="电源总投资\n2月\n2022: 471.0\n2023: 676.0\n2024: 761.0\n2025: 752.6\n2026: 1,043.5" fill="transparent" height="172.0" width="27.3" x="57.6" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电源总投资\n3月\n2022: 814.0\n2023: 1,264.0\n2024: 1,365.0\n2025: 1,321.6\n2026: 1,759.1" fill="transparent" height="172.0" width="27.3" x="84.9" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电源总投资\n4月\n2022: 1,173.0\n2023: 1,802.0\n2024: 1,912.0\n2025: 1,932.5\n2026: 2,259.3" fill="transparent" height="172.0" width="27.3" x="112.2" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电源总投资\n5月\n2022: 1,470.0\n2023: 2,389.0\n2024: 2,578.0\n2025: 2,577.8\n2026: 2,820.8" fill="transparent" height="172.0" width="27.3" x="139.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电源总投资\n6月\n2022: 2,158.0\n2023: 3,319.0\n2024: 3,441.0\n2025: 3,634.9\n2026: 3,637.0" fill="transparent" height="172.0" width="27.3" x="166.7" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电源总投资\n7月\n2022: 2,600.0\n2023: 4,013.0\n2024: 4,158.0\n2025: 4,288.3\n2026: 4,237.3" fill="transparent" height="172.0" width="27.3" x="194.0" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电源总投资\n8月\n2022: 3,209.0\n2023: 4,703.0\n2024: 4,976.0\n2025: 4,992.4" fill="transparent" height="172.0" width="27.3" x="221.3" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电源总投资\n9月\n2022: 3,926.0\n2023: 5,538.0\n2024: 5,959.0\n2025: 5,986.6" fill="transparent" height="172.0" width="27.3" x="248.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电源总投资\n10月\n2022: 4,607.0\n2023: 6,621.0\n2024: 7,181.0\n2025: 7,217.9" fill="transparent" height="172.0" width="27.3" x="275.8" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电源总投资\n11月\n2022: 5,525.0\n2023: 7,712.6\n2024: 8,665.0\n2025: 8,500.1" fill="transparent" height="172.0" width="27.3" x="303.1" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电源总投资\n12月\n2022: 7,208.0\n2023: 9,675.0\n2024: 11,687.2\n2025: 10,927.5" fill="transparent" height="172.0" width="13.6" x="330.4" y="24.0"></rect><circle cx="44" cy="205" fill="#8b8f98" r="3"></circle><text class="svg-axis svg-legend" x="50" y="208">2022</text><circle cx="87" cy="205" fill="#94a3b8" r="3"></circle><text class="svg-axis svg-legend" x="93" y="208">2023</text><circle cx="130" cy="205" fill="#0ea5e9" r="3"></circle><text class="svg-axis svg-legend" x="136" y="208">2024</text><circle cx="173" cy="205" fill="#0b2f66" r="3"></circle><text class="svg-axis svg-legend" x="179" y="208">2025</text><circle cx="216" cy="205" fill="#dc2626" r="3"></circle><text class="svg-axis svg-legend" x="222" y="208">2026</text></svg><svg aria-label="水电" role="img" viewbox="0 0 360 230"><text class="svg-title" x="44" y="16">水电</text><line stroke="#cbd5e1" x1="44" x2="344" y1="196" y2="196"></line><line stroke="#cbd5e1" x1="44" x2="44" y1="24" y2="196"></line><line stroke="#eef2f7" x1="44" x2="344" y1="196.0" y2="196.0"></line><text class="svg-axis" text-anchor="end" x="38" y="200.0">-500</text><line stroke="#eef2f7" x1="44" x2="344" y1="153.0" y2="153.0"></line><text class="svg-axis" text-anchor="end" x="38" y="157.0">0</text><line stroke="#eef2f7" x1="44" x2="344" y1="110.0" y2="110.0"></line><text class="svg-axis" text-anchor="end" x="38" y="114.0">500</text><line stroke="#eef2f7" x1="44" x2="344" y1="67.0" y2="67.0"></line><text class="svg-axis" text-anchor="end" x="38" y="71.0">1,000</text><line stroke="#eef2f7" x1="44" x2="344" y1="24.0" y2="24.0"></line><text class="svg-axis" text-anchor="end" x="38" y="28.0">1,500</text><text class="svg-axis" text-anchor="middle" x="44.0" y="220">1</text><text class="svg-axis" text-anchor="middle" x="71.3" y="220">2</text><text class="svg-axis" text-anchor="middle" x="98.5" y="220">3</text><text class="svg-axis" text-anchor="middle" x="125.8" y="220">4</text><text class="svg-axis" text-anchor="middle" x="153.1" y="220">5</text><text class="svg-axis" text-anchor="middle" x="180.4" y="220">6</text><text class="svg-axis" text-anchor="middle" x="207.6" y="220">7</text><text class="svg-axis" text-anchor="middle" x="234.9" y="220">8</text><text class="svg-axis" text-anchor="middle" x="262.2" y="220">9</text><text class="svg-axis" text-anchor="middle" x="289.5" y="220">10</text><text class="svg-axis" text-anchor="middle" x="316.7" y="220">11</text><text class="svg-axis" text-anchor="middle" x="344.0" y="220">12</text><polyline fill="none" points="71.3,142.4 98.5,137.3 125.8,133.9 153.1,130.0 180.4,122.6 207.6,117.2 234.9,112.2 262.2,107.1 289.5,99.9 316.7,91.3 344.0,78.8" stroke="#8b8f98" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="142.4" data-tip="水电 2022-02: 123.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="137.3" data-tip="水电 2022-03: 182.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="133.9" data-tip="水电 2022-04: 222.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="130.0" data-tip="水电 2022-05: 267.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="122.6" data-tip="水电 2022-06: 354.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="117.2" data-tip="水电 2022-07: 416.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="112.2" data-tip="水电 2022-08: 474.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="107.1" data-tip="水电 2022-09: 534.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="99.9" data-tip="水电 2022-10: 618.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="91.3" data-tip="水电 2022-11: 718.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="78.8" data-tip="水电 2022-12: 863.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,144.6 98.5,138.6 125.8,134.3 153.1,128.7 180.4,119.3 207.6,114.1 234.9,108.6 262.2,102.6 289.5,96.0 316.7,91.8 344.0,67.8" stroke="#94a3b8" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="144.6" data-tip="水电 2023-02: 98.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="138.6" data-tip="水电 2023-03: 168.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="134.3" data-tip="水电 2023-04: 217.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="128.7" data-tip="水电 2023-05: 283.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="119.3" data-tip="水电 2023-06: 392.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="114.1" data-tip="水电 2023-07: 452.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="108.6" data-tip="水电 2023-08: 516.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="102.6" data-tip="水电 2023-09: 586.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="96.0" data-tip="水电 2023-10: 663.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="91.8" data-tip="水电 2023-11: 712.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="67.8" data-tip="水电 2023-12: 991.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,143.0 98.5,138.9 125.8,134.4 153.1,128.7 180.4,123.3 207.6,116.0 234.9,107.8 262.2,99.2 289.5,90.5 316.7,79.9 344.0,59.7" stroke="#0ea5e9" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="143.0" data-tip="水电 2024-02: 116.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="138.9" data-tip="水电 2024-03: 164.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="134.4" data-tip="水电 2024-04: 216.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="128.7" data-tip="水电 2024-05: 283.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="123.3" data-tip="水电 2024-06: 345.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="116.0" data-tip="水电 2024-07: 430.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="107.8" data-tip="水电 2024-08: 525.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="99.2" data-tip="水电 2024-09: 625.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="90.5" data-tip="水电 2024-10: 727.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="79.9" data-tip="水电 2024-11: 850.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="59.7" data-tip="水电 2024-12: 1,085.2" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,146.4 98.5,140.5 125.8,136.0 153.1,130.1 180.4,120.7 207.6,114.5 234.9,107.8 262.2,98.4 289.5,91.0 316.7,80.8 344.0,64.1" stroke="#0b2f66" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="146.4" data-tip="水电 2025-02: 77.3" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="140.5" data-tip="水电 2025-03: 145.4" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="136.0" data-tip="水电 2025-04: 198.0" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="130.1" data-tip="水电 2025-05: 266.3" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="120.7" data-tip="水电 2025-06: 375.4" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="114.5" data-tip="水电 2025-07: 448.0" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="107.8" data-tip="水电 2025-08: 525.1" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="98.4" data-tip="水电 2025-09: 634.3" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="91.0" data-tip="水电 2025-10: 721.0" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="80.8" data-tip="水电 2025-11: 839.8" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="64.1" data-tip="水电 2025-12: 1,033.5" fill="#0b2f66" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,142.2 98.5,136.4 125.8,131.3 153.1,126.4 180.4,118.0 207.6,112.1" stroke="#dc2626" stroke-width="3"></polyline><circle class="chart-point" cx="71.3" cy="142.2" data-tip="水电 2026-02: 125.1" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="136.4" data-tip="水电 2026-03: 193.2" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="131.3" data-tip="水电 2026-04: 251.8" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="126.4" data-tip="水电 2026-05: 309.2" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="118.0" data-tip="水电 2026-06: 407.0" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="112.1" data-tip="水电 2026-07: 475.8" fill="#dc2626" opacity="0.001" r="3.2"></circle><rect class="chart-point hover-zone" data-tip="水电\n2月\n2022: 123.0\n2023: 98.0\n2024: 116.0\n2025: 77.3\n2026: 125.1" fill="transparent" height="172.0" width="27.3" x="57.6" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="水电\n3月\n2022: 182.0\n2023: 168.0\n2024: 164.0\n2025: 145.4\n2026: 193.2" fill="transparent" height="172.0" width="27.3" x="84.9" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="水电\n4月\n2022: 222.0\n2023: 217.0\n2024: 216.0\n2025: 198.0\n2026: 251.8" fill="transparent" height="172.0" width="27.3" x="112.2" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="水电\n5月\n2022: 267.0\n2023: 283.0\n2024: 283.0\n2025: 266.3\n2026: 309.2" fill="transparent" height="172.0" width="27.3" x="139.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="水电\n6月\n2022: 354.0\n2023: 392.0\n2024: 345.0\n2025: 375.4\n2026: 407.0" fill="transparent" height="172.0" width="27.3" x="166.7" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="水电\n7月\n2022: 416.0\n2023: 452.0\n2024: 430.0\n2025: 448.0\n2026: 475.8" fill="transparent" height="172.0" width="27.3" x="194.0" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="水电\n8月\n2022: 474.0\n2023: 516.0\n2024: 525.0\n2025: 525.1" fill="transparent" height="172.0" width="27.3" x="221.3" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="水电\n9月\n2022: 534.0\n2023: 586.0\n2024: 625.0\n2025: 634.3" fill="transparent" height="172.0" width="27.3" x="248.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="水电\n10月\n2022: 618.0\n2023: 663.0\n2024: 727.0\n2025: 721.0" fill="transparent" height="172.0" width="27.3" x="275.8" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="水电\n11月\n2022: 718.0\n2023: 712.0\n2024: 850.0\n2025: 839.8" fill="transparent" height="172.0" width="27.3" x="303.1" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="水电\n12月\n2022: 863.0\n2023: 991.0\n2024: 1,085.2\n2025: 1,033.5" fill="transparent" height="172.0" width="13.6" x="330.4" y="24.0"></rect><circle cx="44" cy="205" fill="#8b8f98" r="3"></circle><text class="svg-axis svg-legend" x="50" y="208">2022</text><circle cx="87" cy="205" fill="#94a3b8" r="3"></circle><text class="svg-axis svg-legend" x="93" y="208">2023</text><circle cx="130" cy="205" fill="#0ea5e9" r="3"></circle><text class="svg-axis svg-legend" x="136" y="208">2024</text><circle cx="173" cy="205" fill="#0b2f66" r="3"></circle><text class="svg-axis svg-legend" x="179" y="208">2025</text><circle cx="216" cy="205" fill="#dc2626" r="3"></circle><text class="svg-axis svg-legend" x="222" y="208">2026</text></svg><svg aria-label="火电" role="img" viewbox="0 0 360 230"><text class="svg-title" x="44" y="16">火电</text><line stroke="#cbd5e1" x1="44" x2="344" y1="196" y2="196"></line><line stroke="#cbd5e1" x1="44" x2="44" y1="24" y2="196"></line><line stroke="#eef2f7" x1="44" x2="344" y1="196.0" y2="196.0"></line><text class="svg-axis" text-anchor="end" x="38" y="200.0">-1,000</text><line stroke="#eef2f7" x1="44" x2="344" y1="153.0" y2="153.0"></line><text class="svg-axis" text-anchor="end" x="38" y="157.0">0</text><line stroke="#eef2f7" x1="44" x2="344" y1="110.0" y2="110.0"></line><text class="svg-axis" text-anchor="end" x="38" y="114.0">1,000</text><line stroke="#eef2f7" x1="44" x2="344" y1="67.0" y2="67.0"></line><text class="svg-axis" text-anchor="end" x="38" y="71.0">2,000</text><line stroke="#eef2f7" x1="44" x2="344" y1="24.0" y2="24.0"></line><text class="svg-axis" text-anchor="end" x="38" y="28.0">3,000</text><text class="svg-axis" text-anchor="middle" x="44.0" y="220">1</text><text class="svg-axis" text-anchor="middle" x="71.3" y="220">2</text><text class="svg-axis" text-anchor="middle" x="98.5" y="220">3</text><text class="svg-axis" text-anchor="middle" x="125.8" y="220">4</text><text class="svg-axis" text-anchor="middle" x="153.1" y="220">5</text><text class="svg-axis" text-anchor="middle" x="180.4" y="220">6</text><text class="svg-axis" text-anchor="middle" x="207.6" y="220">7</text><text class="svg-axis" text-anchor="middle" x="234.9" y="220">8</text><text class="svg-axis" text-anchor="middle" x="262.2" y="220">9</text><text class="svg-axis" text-anchor="middle" x="289.5" y="220">10</text><text class="svg-axis" text-anchor="middle" x="316.7" y="220">11</text><text class="svg-axis" text-anchor="middle" x="344.0" y="220">12</text><polyline fill="none" points="71.3,150.0 98.5,147.8 125.8,145.3 153.1,143.1 180.4,138.1 207.6,135.6 234.9,132.4 262.2,129.5 289.5,125.5 316.7,121.4 344.0,113.9" stroke="#8b8f98" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="150.0" data-tip="火电 2022-02: 70.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="147.8" data-tip="火电 2022-03: 122.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="145.3" data-tip="火电 2022-04: 179.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="143.1" data-tip="火电 2022-05: 231.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="138.1" data-tip="火电 2022-06: 347.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="135.6" data-tip="火电 2022-07: 405.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="132.4" data-tip="火电 2022-08: 480.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="129.5" data-tip="火电 2022-09: 547.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="125.5" data-tip="火电 2022-10: 640.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="121.4" data-tip="火电 2022-11: 736.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="113.9" data-tip="火电 2022-12: 909.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,150.2 98.5,147.6 125.8,144.9 153.1,141.9 180.4,136.1 207.6,132.6 234.9,129.5 262.2,125.7 289.5,121.6 316.7,117.1 344.0,108.8" stroke="#94a3b8" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="150.2" data-tip="火电 2023-02: 65.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="147.6" data-tip="火电 2023-03: 126.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="144.9" data-tip="火电 2023-04: 188.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="141.9" data-tip="火电 2023-05: 258.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="136.1" data-tip="火电 2023-06: 392.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="132.6" data-tip="火电 2023-07: 474.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="129.5" data-tip="火电 2023-08: 546.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="125.7" data-tip="火电 2023-09: 635.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="121.6" data-tip="火电 2023-10: 730.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="117.1" data-tip="火电 2023-11: 834.6" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="108.8" data-tip="火电 2023-12: 1,029.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,148.4 98.5,144.7 125.8,141.3 153.1,137.1 180.4,130.0 207.6,125.9 234.9,121.3 262.2,115.6 289.5,109.7 316.7,101.8 344.0,84.7" stroke="#0ea5e9" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="148.4" data-tip="火电 2024-02: 106.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="144.7" data-tip="火电 2024-03: 192.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="141.3" data-tip="火电 2024-04: 271.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="137.1" data-tip="火电 2024-05: 369.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="130.0" data-tip="火电 2024-06: 535.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="125.9" data-tip="火电 2024-07: 630.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="121.3" data-tip="火电 2024-08: 738.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="115.6" data-tip="火电 2024-09: 870.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="109.7" data-tip="火电 2024-10: 1,008.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="101.8" data-tip="火电 2024-11: 1,191.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="84.7" data-tip="火电 2024-12: 1,588.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,146.9 98.5,140.8 125.8,134.8 153.1,128.6 180.4,118.0 207.6,111.7 234.9,108.7 262.2,98.5 289.5,80.0 316.7,68.2 344.0,49.8" stroke="#0b2f66" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="146.9" data-tip="火电 2025-02: 142.1" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="140.8" data-tip="火电 2025-03: 283.3" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="134.8" data-tip="火电 2025-04: 424.2" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="128.6" data-tip="火电 2025-05: 567.4" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="118.0" data-tip="火电 2025-06: 813.0" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="111.7" data-tip="火电 2025-07: 960.0" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="108.7" data-tip="火电 2025-08: 1,029.4" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="98.5" data-tip="火电 2025-09: 1,268.5" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="80.0" data-tip="火电 2025-10: 1,696.8" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="68.2" data-tip="火电 2025-11: 1,972.1" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="49.8" data-tip="火电 2025-12: 2,400.1" fill="#0b2f66" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,141.8 98.5,135.1 125.8,127.6 153.1,119.5 180.4,109.7 207.6,103.1" stroke="#dc2626" stroke-width="3"></polyline><circle class="chart-point" cx="71.3" cy="141.8" data-tip="火电 2026-02: 260.1" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="135.1" data-tip="火电 2026-03: 416.4" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="127.6" data-tip="火电 2026-04: 591.7" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="119.5" data-tip="火电 2026-05: 778.9" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="109.7" data-tip="火电 2026-06: 1,007.1" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="103.1" data-tip="火电 2026-07: 1,160.6" fill="#dc2626" opacity="0.001" r="3.2"></circle><rect class="chart-point hover-zone" data-tip="火电\n2月\n2022: 70.0\n2023: 65.0\n2024: 106.0\n2025: 142.1\n2026: 260.1" fill="transparent" height="172.0" width="27.3" x="57.6" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="火电\n3月\n2022: 122.0\n2023: 126.0\n2024: 192.0\n2025: 283.3\n2026: 416.4" fill="transparent" height="172.0" width="27.3" x="84.9" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="火电\n4月\n2022: 179.0\n2023: 188.0\n2024: 271.0\n2025: 424.2\n2026: 591.7" fill="transparent" height="172.0" width="27.3" x="112.2" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="火电\n5月\n2022: 231.0\n2023: 258.0\n2024: 369.0\n2025: 567.4\n2026: 778.9" fill="transparent" height="172.0" width="27.3" x="139.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="火电\n6月\n2022: 347.0\n2023: 392.0\n2024: 535.0\n2025: 813.0\n2026: 1,007.1" fill="transparent" height="172.0" width="27.3" x="166.7" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="火电\n7月\n2022: 405.0\n2023: 474.0\n2024: 630.0\n2025: 960.0\n2026: 1,160.6" fill="transparent" height="172.0" width="27.3" x="194.0" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="火电\n8月\n2022: 480.0\n2023: 546.0\n2024: 738.0\n2025: 1,029.4" fill="transparent" height="172.0" width="27.3" x="221.3" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="火电\n9月\n2022: 547.0\n2023: 635.0\n2024: 870.0\n2025: 1,268.5" fill="transparent" height="172.0" width="27.3" x="248.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="火电\n10月\n2022: 640.0\n2023: 730.0\n2024: 1,008.0\n2025: 1,696.8" fill="transparent" height="172.0" width="27.3" x="275.8" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="火电\n11月\n2022: 736.0\n2023: 834.6\n2024: 1,191.0\n2025: 1,972.1" fill="transparent" height="172.0" width="27.3" x="303.1" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="火电\n12月\n2022: 909.0\n2023: 1,029.0\n2024: 1,588.0\n2025: 2,400.1" fill="transparent" height="172.0" width="13.6" x="330.4" y="24.0"></rect><circle cx="44" cy="205" fill="#8b8f98" r="3"></circle><text class="svg-axis svg-legend" x="50" y="208">2022</text><circle cx="87" cy="205" fill="#94a3b8" r="3"></circle><text class="svg-axis svg-legend" x="93" y="208">2023</text><circle cx="130" cy="205" fill="#0ea5e9" r="3"></circle><text class="svg-axis svg-legend" x="136" y="208">2024</text><circle cx="173" cy="205" fill="#0b2f66" r="3"></circle><text class="svg-axis svg-legend" x="179" y="208">2025</text><circle cx="216" cy="205" fill="#dc2626" r="3"></circle><text class="svg-axis svg-legend" x="222" y="208">2026</text></svg><svg aria-label="核电" role="img" viewbox="0 0 360 230"><text class="svg-title" x="44" y="16">核电</text><line stroke="#cbd5e1" x1="44" x2="344" y1="196" y2="196"></line><line stroke="#cbd5e1" x1="44" x2="44" y1="24" y2="196"></line><line stroke="#eef2f7" x1="44" x2="344" y1="196.0" y2="196.0"></line><text class="svg-axis" text-anchor="end" x="38" y="200.0">-1,000</text><line stroke="#eef2f7" x1="44" x2="344" y1="138.7" y2="138.7"></line><text class="svg-axis" text-anchor="end" x="38" y="142.7">0</text><line stroke="#eef2f7" x1="44" x2="344" y1="81.3" y2="81.3"></line><text class="svg-axis" text-anchor="end" x="38" y="85.3">1,000</text><line stroke="#eef2f7" x1="44" x2="344" y1="24.0" y2="24.0"></line><text class="svg-axis" text-anchor="end" x="38" y="28.0">2,000</text><text class="svg-axis" text-anchor="middle" x="44.0" y="220">1</text><text class="svg-axis" text-anchor="middle" x="71.3" y="220">2</text><text class="svg-axis" text-anchor="middle" x="98.5" y="220">3</text><text class="svg-axis" text-anchor="middle" x="125.8" y="220">4</text><text class="svg-axis" text-anchor="middle" x="153.1" y="220">5</text><text class="svg-axis" text-anchor="middle" x="180.4" y="220">6</text><text class="svg-axis" text-anchor="middle" x="207.6" y="220">7</text><text class="svg-axis" text-anchor="middle" x="234.9" y="220">8</text><text class="svg-axis" text-anchor="middle" x="262.2" y="220">9</text><text class="svg-axis" text-anchor="middle" x="289.5" y="220">10</text><text class="svg-axis" text-anchor="middle" x="316.7" y="220">11</text><text class="svg-axis" text-anchor="middle" x="344.0" y="220">12</text><polyline fill="none" points="71.3,135.2 98.5,132.6 125.8,130.7 153.1,129.4 180.4,125.5 207.6,122.0 234.9,119.6 262.2,115.5 289.5,111.5 316.7,108.1 344.0,99.9" stroke="#8b8f98" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="135.2" data-tip="核电 2022-02: 60.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="132.6" data-tip="核电 2022-03: 105.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="130.7" data-tip="核电 2022-04: 139.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="129.4" data-tip="核电 2022-05: 161.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="125.5" data-tip="核电 2022-06: 230.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="122.0" data-tip="核电 2022-07: 291.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="119.6" data-tip="核电 2022-08: 333.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="115.5" data-tip="核电 2022-09: 404.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="111.5" data-tip="核电 2022-10: 474.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="108.1" data-tip="核电 2022-11: 533.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="99.9" data-tip="核电 2022-12: 677.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,133.7 98.5,129.4 125.8,126.5 153.1,123.2 180.4,118.1 207.6,113.5 234.9,108.7 262.2,104.9 289.5,100.3 316.7,94.3 344.0,84.3" stroke="#94a3b8" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="133.7" data-tip="核电 2023-02: 87.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="129.4" data-tip="核电 2023-03: 161.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="126.5" data-tip="核电 2023-04: 212.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="123.2" data-tip="核电 2023-05: 269.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="118.1" data-tip="核电 2023-06: 359.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="113.5" data-tip="核电 2023-07: 439.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="108.7" data-tip="核电 2023-08: 522.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="104.9" data-tip="核电 2023-09: 589.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="100.3" data-tip="核电 2023-10: 670.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="94.3" data-tip="核电 2023-11: 774.2" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="84.3" data-tip="核电 2023-12: 949.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,131.7 98.5,127.2 125.8,123.5 153.1,119.2 180.4,115.3 207.6,106.8 234.9,100.1 262.2,92.6 289.5,81.5 316.7,72.7 344.0,54.5" stroke="#0ea5e9" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="131.7" data-tip="核电 2024-02: 122.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="127.2" data-tip="核电 2024-03: 200.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="123.5" data-tip="核电 2024-04: 265.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="119.2" data-tip="核电 2024-05: 340.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="115.3" data-tip="核电 2024-06: 407.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="106.8" data-tip="核电 2024-07: 555.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="100.1" data-tip="核电 2024-08: 673.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="92.6" data-tip="核电 2024-09: 803.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="81.5" data-tip="核电 2024-10: 997.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="72.7" data-tip="核电 2024-11: 1,150.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="54.5" data-tip="核电 2024-12: 1,468.9" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,128.3 98.5,122.9 125.8,117.9 153.1,112.7 180.4,103.1 207.6,97.1 234.9,89.5 262.2,81.9 289.5,73.6 316.7,60.9 344.0,46.3" stroke="#0b2f66" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="128.3" data-tip="核电 2025-02: 181.0" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="122.9" data-tip="核电 2025-03: 275.7" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="117.9" data-tip="核电 2025-04: 362.6" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="112.7" data-tip="核电 2025-05: 453.4" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="103.1" data-tip="核电 2025-06: 620.4" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="97.1" data-tip="核电 2025-07: 724.9" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="89.5" data-tip="核电 2025-08: 858.2" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="81.9" data-tip="核电 2025-09: 990.9" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="73.6" data-tip="核电 2025-10: 1,134.5" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="60.9" data-tip="核电 2025-11: 1,356.9" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="46.3" data-tip="核电 2025-12: 1,610.4" fill="#0b2f66" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,124.6 98.5,114.6 125.8,110.5 153.1,105.6 180.4,98.9 207.6,94.3" stroke="#dc2626" stroke-width="3"></polyline><circle class="chart-point" cx="71.3" cy="124.6" data-tip="核电 2026-02: 245.2" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="114.6" data-tip="核电 2026-03: 419.1" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="110.5" data-tip="核电 2026-04: 490.9" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="105.6" data-tip="核电 2026-05: 576.1" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="98.9" data-tip="核电 2026-06: 692.7" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="94.3" data-tip="核电 2026-07: 773.3" fill="#dc2626" opacity="0.001" r="3.2"></circle><rect class="chart-point hover-zone" data-tip="核电\n2月\n2022: 60.0\n2023: 87.0\n2024: 122.0\n2025: 181.0\n2026: 245.2" fill="transparent" height="172.0" width="27.3" x="57.6" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="核电\n3月\n2022: 105.0\n2023: 161.0\n2024: 200.0\n2025: 275.7\n2026: 419.1" fill="transparent" height="172.0" width="27.3" x="84.9" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="核电\n4月\n2022: 139.0\n2023: 212.0\n2024: 265.0\n2025: 362.6\n2026: 490.9" fill="transparent" height="172.0" width="27.3" x="112.2" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="核电\n5月\n2022: 161.0\n2023: 269.0\n2024: 340.0\n2025: 453.4\n2026: 576.1" fill="transparent" height="172.0" width="27.3" x="139.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="核电\n6月\n2022: 230.0\n2023: 359.0\n2024: 407.0\n2025: 620.4\n2026: 692.7" fill="transparent" height="172.0" width="27.3" x="166.7" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="核电\n7月\n2022: 291.0\n2023: 439.0\n2024: 555.0\n2025: 724.9\n2026: 773.3" fill="transparent" height="172.0" width="27.3" x="194.0" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="核电\n8月\n2022: 333.0\n2023: 522.0\n2024: 673.0\n2025: 858.2" fill="transparent" height="172.0" width="27.3" x="221.3" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="核电\n9月\n2022: 404.0\n2023: 589.0\n2024: 803.0\n2025: 990.9" fill="transparent" height="172.0" width="27.3" x="248.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="核电\n10月\n2022: 474.0\n2023: 670.0\n2024: 997.0\n2025: 1,134.5" fill="transparent" height="172.0" width="27.3" x="275.8" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="核电\n11月\n2022: 533.0\n2023: 774.2\n2024: 1,150.0\n2025: 1,356.9" fill="transparent" height="172.0" width="27.3" x="303.1" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="核电\n12月\n2022: 677.0\n2023: 949.0\n2024: 1,468.9\n2025: 1,610.4" fill="transparent" height="172.0" width="13.6" x="330.4" y="24.0"></rect><circle cx="44" cy="205" fill="#8b8f98" r="3"></circle><text class="svg-axis svg-legend" x="50" y="208">2022</text><circle cx="87" cy="205" fill="#94a3b8" r="3"></circle><text class="svg-axis svg-legend" x="93" y="208">2023</text><circle cx="130" cy="205" fill="#0ea5e9" r="3"></circle><text class="svg-axis svg-legend" x="136" y="208">2024</text><circle cx="173" cy="205" fill="#0b2f66" r="3"></circle><text class="svg-axis svg-legend" x="179" y="208">2025</text><circle cx="216" cy="205" fill="#dc2626" r="3"></circle><text class="svg-axis svg-legend" x="222" y="208">2026</text></svg><svg aria-label="风电" role="img" viewbox="0 0 360 230"><text class="svg-title" x="44" y="16">风电</text><line stroke="#cbd5e1" x1="44" x2="344" y1="196" y2="196"></line><line stroke="#cbd5e1" x1="44" x2="44" y1="24" y2="196"></line><line stroke="#eef2f7" x1="44" x2="344" y1="196.0" y2="196.0"></line><text class="svg-axis" text-anchor="end" x="38" y="200.0">-2,000</text><line stroke="#eef2f7" x1="44" x2="344" y1="138.7" y2="138.7"></line><text class="svg-axis" text-anchor="end" x="38" y="142.7">0</text><line stroke="#eef2f7" x1="44" x2="344" y1="81.3" y2="81.3"></line><text class="svg-axis" text-anchor="end" x="38" y="85.3">2,000</text><line stroke="#eef2f7" x1="44" x2="344" y1="24.0" y2="24.0"></line><text class="svg-axis" text-anchor="end" x="38" y="28.0">4,000</text><text class="svg-axis" text-anchor="middle" x="44.0" y="220">1</text><text class="svg-axis" text-anchor="middle" x="71.3" y="220">2</text><text class="svg-axis" text-anchor="middle" x="98.5" y="220">3</text><text class="svg-axis" text-anchor="middle" x="125.8" y="220">4</text><text class="svg-axis" text-anchor="middle" x="153.1" y="220">5</text><text class="svg-axis" text-anchor="middle" x="180.4" y="220">6</text><text class="svg-axis" text-anchor="middle" x="207.6" y="220">7</text><text class="svg-axis" text-anchor="middle" x="234.9" y="220">8</text><text class="svg-axis" text-anchor="middle" x="262.2" y="220">9</text><text class="svg-axis" text-anchor="middle" x="289.5" y="220">10</text><text class="svg-axis" text-anchor="middle" x="316.7" y="220">11</text><text class="svg-axis" text-anchor="middle" x="344.0" y="220">12</text><polyline fill="none" points="71.3,135.1 98.5,132.5 125.8,129.1 153.1,127.5 180.4,122.4 207.6,119.1 234.9,114.9 262.2,108.9 289.5,104.1 316.7,95.4 344.0,82.5" stroke="#8b8f98" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="135.1" data-tip="风电 2022-02: 124.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="132.5" data-tip="风电 2022-03: 216.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="129.1" data-tip="风电 2022-04: 332.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="127.5" data-tip="风电 2022-05: 390.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="122.4" data-tip="风电 2022-06: 567.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="119.1" data-tip="风电 2022-07: 684.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="114.9" data-tip="风电 2022-08: 828.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="108.9" data-tip="风电 2022-09: 1,037.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="104.1" data-tip="风电 2022-10: 1,205.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="95.4" data-tip="风电 2022-11: 1,511.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="82.5" data-tip="风电 2022-12: 1,960.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,134.6 98.5,131.5 125.8,127.2 153.1,122.8 180.4,116.9 207.6,111.1 234.9,105.7 262.2,99.0 289.5,89.4 316.7,80.8 344.0,65.2" stroke="#94a3b8" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="134.6" data-tip="风电 2023-02: 143.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="131.5" data-tip="风电 2023-03: 249.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="127.2" data-tip="风电 2023-04: 400.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="122.8" data-tip="风电 2023-05: 553.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="116.9" data-tip="风电 2023-06: 761.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="111.1" data-tip="风电 2023-07: 960.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="105.7" data-tip="风电 2023-08: 1,149.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="99.0" data-tip="风电 2023-09: 1,383.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="89.4" data-tip="风电 2023-10: 1,717.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="80.8" data-tip="风电 2023-11: 2,020.3" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="65.2" data-tip="风电 2023-12: 2,564.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,134.3 98.5,130.4 125.8,126.4 153.1,121.8 180.4,116.0 207.6,111.7 234.9,106.2 262.2,99.8 289.5,89.5 316.7,76.0 344.0,50.3" stroke="#0ea5e9" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="134.3" data-tip="风电 2024-02: 151.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="130.4" data-tip="风电 2024-03: 288.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="126.4" data-tip="风电 2024-04: 428.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="121.8" data-tip="风电 2024-05: 588.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="116.0" data-tip="风电 2024-06: 790.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="111.7" data-tip="风电 2024-07: 939.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="106.2" data-tip="风电 2024-08: 1,133.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="99.8" data-tip="风电 2024-09: 1,355.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="89.5" data-tip="风电 2024-10: 1,714.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="76.0" data-tip="风电 2024-11: 2,187.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="50.3" data-tip="风电 2024-12: 3,081.8" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,135.2 98.5,131.4 125.8,127.6 153.1,123.2 180.4,116.3 207.6,111.4 234.9,104.3 262.2,96.0 289.5,87.6 316.7,76.4 344.0,50.4" stroke="#0b2f66" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="135.2" data-tip="风电 2025-02: 120.4" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="131.4" data-tip="风电 2025-03: 252.7" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="127.6" data-tip="风电 2025-04: 386.8" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="123.2" data-tip="风电 2025-05: 540.5" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="116.3" data-tip="风电 2025-06: 780.7" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="111.4" data-tip="风电 2025-07: 950.8" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="104.3" data-tip="风电 2025-08: 1,199.8" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="96.0" data-tip="风电 2025-09: 1,488.9" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="87.6" data-tip="风电 2025-10: 1,780.2" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="76.4" data-tip="风电 2025-11: 2,171.6" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="50.4" data-tip="风电 2025-12: 3,078.1" fill="#0b2f66" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,131.9 98.5,126.2 125.8,122.9 153.1,118.8 180.4,112.4 207.6,106.9" stroke="#dc2626" stroke-width="3"></polyline><circle class="chart-point" cx="71.3" cy="131.9" data-tip="风电 2026-02: 236.9" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="126.2" data-tip="风电 2026-03: 435.5" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="122.9" data-tip="风电 2026-04: 549.1" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="118.8" data-tip="风电 2026-05: 691.3" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="112.4" data-tip="风电 2026-06: 917.3" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="106.9" data-tip="风电 2026-07: 1,106.5" fill="#dc2626" opacity="0.001" r="3.2"></circle><rect class="chart-point hover-zone" data-tip="风电\n2月\n2022: 124.0\n2023: 143.0\n2024: 151.0\n2025: 120.4\n2026: 236.9" fill="transparent" height="172.0" width="27.3" x="57.6" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="风电\n3月\n2022: 216.0\n2023: 249.0\n2024: 288.0\n2025: 252.7\n2026: 435.5" fill="transparent" height="172.0" width="27.3" x="84.9" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="风电\n4月\n2022: 332.0\n2023: 400.0\n2024: 428.0\n2025: 386.8\n2026: 549.1" fill="transparent" height="172.0" width="27.3" x="112.2" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="风电\n5月\n2022: 390.0\n2023: 553.0\n2024: 588.0\n2025: 540.5\n2026: 691.3" fill="transparent" height="172.0" width="27.3" x="139.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="风电\n6月\n2022: 567.0\n2023: 761.0\n2024: 790.0\n2025: 780.7\n2026: 917.3" fill="transparent" height="172.0" width="27.3" x="166.7" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="风电\n7月\n2022: 684.0\n2023: 960.0\n2024: 939.0\n2025: 950.8\n2026: 1,106.5" fill="transparent" height="172.0" width="27.3" x="194.0" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="风电\n8月\n2022: 828.0\n2023: 1,149.0\n2024: 1,133.0\n2025: 1,199.8" fill="transparent" height="172.0" width="27.3" x="221.3" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="风电\n9月\n2022: 1,037.0\n2023: 1,383.0\n2024: 1,355.0\n2025: 1,488.9" fill="transparent" height="172.0" width="27.3" x="248.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="风电\n10月\n2022: 1,205.0\n2023: 1,717.0\n2024: 1,714.0\n2025: 1,780.2" fill="transparent" height="172.0" width="27.3" x="275.8" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="风电\n11月\n2022: 1,511.0\n2023: 2,020.3\n2024: 2,187.0\n2025: 2,171.6" fill="transparent" height="172.0" width="27.3" x="303.1" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="风电\n12月\n2022: 1,960.0\n2023: 2,564.0\n2024: 3,081.8\n2025: 3,078.1" fill="transparent" height="172.0" width="13.6" x="330.4" y="24.0"></rect><circle cx="44" cy="205" fill="#8b8f98" r="3"></circle><text class="svg-axis svg-legend" x="50" y="208">2022</text><circle cx="87" cy="205" fill="#94a3b8" r="3"></circle><text class="svg-axis svg-legend" x="93" y="208">2023</text><circle cx="130" cy="205" fill="#0ea5e9" r="3"></circle><text class="svg-axis svg-legend" x="136" y="208">2024</text><circle cx="173" cy="205" fill="#0b2f66" r="3"></circle><text class="svg-axis svg-legend" x="179" y="208">2025</text><circle cx="216" cy="205" fill="#dc2626" r="3"></circle><text class="svg-axis svg-legend" x="222" y="208">2026</text></svg><svg aria-label="太阳能" role="img" viewbox="0 0 360 230"><text class="svg-title" x="44" y="16">太阳能</text><line stroke="#cbd5e1" x1="44" x2="344" y1="196" y2="196"></line><line stroke="#cbd5e1" x1="44" x2="44" y1="24" y2="196"></line><line stroke="#eef2f7" x1="44" x2="344" y1="196.0" y2="196.0"></line><text class="svg-axis" text-anchor="end" x="38" y="200.0">-2,000</text><line stroke="#eef2f7" x1="44" x2="344" y1="138.7" y2="138.7"></line><text class="svg-axis" text-anchor="end" x="38" y="142.7">0</text><line stroke="#eef2f7" x1="44" x2="344" y1="81.3" y2="81.3"></line><text class="svg-axis" text-anchor="end" x="38" y="85.3">2,000</text><line stroke="#eef2f7" x1="44" x2="344" y1="24.0" y2="24.0"></line><text class="svg-axis" text-anchor="end" x="38" y="28.0">4,000</text><text class="svg-axis" text-anchor="middle" x="44.0" y="220">1</text><text class="svg-axis" text-anchor="middle" x="71.3" y="220">2</text><text class="svg-axis" text-anchor="middle" x="98.5" y="220">3</text><text class="svg-axis" text-anchor="middle" x="125.8" y="220">4</text><text class="svg-axis" text-anchor="middle" x="153.1" y="220">5</text><text class="svg-axis" text-anchor="middle" x="180.4" y="220">6</text><text class="svg-axis" text-anchor="middle" x="207.6" y="220">7</text><text class="svg-axis" text-anchor="middle" x="234.9" y="220">8</text><text class="svg-axis" text-anchor="middle" x="262.2" y="220">9</text><text class="svg-axis" text-anchor="middle" x="289.5" y="220">10</text><text class="svg-axis" text-anchor="middle" x="316.7" y="220">11</text><text class="svg-axis" text-anchor="middle" x="344.0" y="220">12</text><polyline fill="none" points="71.3,136.0 98.5,133.3 125.8,130.4 153.1,126.9 180.4,120.6 207.6,116.5 234.9,109.3 262.2,100.6 289.5,93.5 316.7,81.3" stroke="#8b8f98" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="136.0" data-tip="太阳能 2022-02: 94.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="133.3" data-tip="太阳能 2022-03: 188.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="130.4" data-tip="太阳能 2022-04: 290.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="126.9" data-tip="太阳能 2022-05: 409.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="120.6" data-tip="太阳能 2022-06: 631.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="116.5" data-tip="太阳能 2022-07: 773.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="109.3" data-tip="太阳能 2022-08: 1,025.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="100.6" data-tip="太阳能 2022-09: 1,328.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="93.5" data-tip="太阳能 2022-10: 1,574.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="81.3" data-tip="太阳能 2022-11: 2,000.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,130.6 98.5,123.7 125.8,117.4 153.1,110.5 180.4,100.0 207.6,92.5 234.9,85.0 262.2,74.8 289.5,61.4 316.7,46.7" stroke="#94a3b8" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="130.6" data-tip="太阳能 2023-02: 283.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="123.7" data-tip="太阳能 2023-03: 522.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="117.4" data-tip="太阳能 2023-04: 743.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="110.5" data-tip="太阳能 2023-05: 982.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="100.0" data-tip="太阳能 2023-06: 1,349.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="92.5" data-tip="太阳能 2023-07: 1,612.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="85.0" data-tip="太阳能 2023-08: 1,873.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="74.8" data-tip="太阳能 2023-09: 2,229.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="61.4" data-tip="太阳能 2023-10: 2,694.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="46.7" data-tip="太阳能 2023-11: 3,208.6" fill="#94a3b8" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,131.0 98.5,123.7 125.8,117.7 153.1,110.1 180.4,99.6 207.6,92.7 234.9,84.0 262.2,72.6 289.5,60.3 316.7,44.4" stroke="#0ea5e9" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="131.0" data-tip="太阳能 2024-02: 266.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="123.7" data-tip="太阳能 2024-03: 521.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="117.7" data-tip="太阳能 2024-04: 731.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="110.1" data-tip="太阳能 2024-05: 998.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="99.6" data-tip="太阳能 2024-06: 1,364.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="92.7" data-tip="太阳能 2024-07: 1,604.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="84.0" data-tip="太阳能 2024-08: 1,907.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="72.6" data-tip="太阳能 2024-09: 2,305.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="60.3" data-tip="太阳能 2024-10: 2,735.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="44.4" data-tip="太阳能 2024-11: 3,287.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,132.0 98.5,128.2 125.8,122.6 153.1,117.2 180.4,108.7 207.6,104.1 234.9,99.1 262.2,92.7 289.5,84.6 316.7,76.8" stroke="#0b2f66" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="132.0" data-tip="太阳能 2025-02: 231.9" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="128.2" data-tip="太阳能 2025-03: 364.5" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="122.6" data-tip="太阳能 2025-04: 560.9" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="117.2" data-tip="太阳能 2025-05: 750.2" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="108.7" data-tip="太阳能 2025-06: 1,045.5" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="104.1" data-tip="太阳能 2025-07: 1,204.6" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="99.1" data-tip="太阳能 2025-08: 1,379.8" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="92.7" data-tip="太阳能 2025-09: 1,604.0" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="84.6" data-tip="太阳能 2025-10: 1,885.5" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="76.8" data-tip="太阳能 2025-11: 2,159.7" fill="#0b2f66" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,133.6 98.5,130.2 125.8,127.9 153.1,125.3 180.4,121.1 207.6,118.0" stroke="#dc2626" stroke-width="3"></polyline><circle class="chart-point" cx="71.3" cy="133.6" data-tip="太阳能 2026-02: 176.3" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="130.2" data-tip="太阳能 2026-03: 294.9" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="127.9" data-tip="太阳能 2026-04: 375.7" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="125.3" data-tip="太阳能 2026-05: 465.3" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="121.1" data-tip="太阳能 2026-06: 612.8" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="118.0" data-tip="太阳能 2026-07: 721.0" fill="#dc2626" opacity="0.001" r="3.2"></circle><rect class="chart-point hover-zone" data-tip="太阳能\n2月\n2022: 94.0\n2023: 283.0\n2024: 266.0\n2025: 231.9\n2026: 176.3" fill="transparent" height="172.0" width="27.3" x="57.6" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="太阳能\n3月\n2022: 188.0\n2023: 522.0\n2024: 521.0\n2025: 364.5\n2026: 294.9" fill="transparent" height="172.0" width="27.3" x="84.9" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="太阳能\n4月\n2022: 290.0\n2023: 743.0\n2024: 731.0\n2025: 560.9\n2026: 375.7" fill="transparent" height="172.0" width="27.3" x="112.2" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="太阳能\n5月\n2022: 409.0\n2023: 982.0\n2024: 998.0\n2025: 750.2\n2026: 465.3" fill="transparent" height="172.0" width="27.3" x="139.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="太阳能\n6月\n2022: 631.0\n2023: 1,349.0\n2024: 1,364.0\n2025: 1,045.5\n2026: 612.8" fill="transparent" height="172.0" width="27.3" x="166.7" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="太阳能\n7月\n2022: 773.0\n2023: 1,612.0\n2024: 1,604.0\n2025: 1,204.6\n2026: 721.0" fill="transparent" height="172.0" width="27.3" x="194.0" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="太阳能\n8月\n2022: 1,025.0\n2023: 1,873.0\n2024: 1,907.0\n2025: 1,379.8" fill="transparent" height="172.0" width="27.3" x="221.3" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="太阳能\n9月\n2022: 1,328.0\n2023: 2,229.0\n2024: 2,305.0\n2025: 1,604.0" fill="transparent" height="172.0" width="27.3" x="248.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="太阳能\n10月\n2022: 1,574.0\n2023: 2,694.0\n2024: 2,735.0\n2025: 1,885.5" fill="transparent" height="172.0" width="27.3" x="275.8" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="太阳能\n11月\n2022: 2,000.0\n2023: 3,208.6\n2024: 3,287.0\n2025: 2,159.7" fill="transparent" height="172.0" width="27.3" x="303.1" y="24.0"></rect><circle cx="44" cy="205" fill="#8b8f98" r="3"></circle><text class="svg-axis svg-legend" x="50" y="208">2022</text><circle cx="87" cy="205" fill="#94a3b8" r="3"></circle><text class="svg-axis svg-legend" x="93" y="208">2023</text><circle cx="130" cy="205" fill="#0ea5e9" r="3"></circle><text class="svg-axis svg-legend" x="136" y="208">2024</text><circle cx="173" cy="205" fill="#0b2f66" r="3"></circle><text class="svg-axis svg-legend" x="179" y="208">2025</text><circle cx="216" cy="205" fill="#dc2626" r="3"></circle><text class="svg-axis svg-legend" x="222" y="208">2026</text></svg><svg aria-label="电网投资" role="img" viewbox="0 0 360 230"><text class="svg-title" x="44" y="16">电网投资</text><line stroke="#cbd5e1" x1="44" x2="344" y1="196" y2="196"></line><line stroke="#cbd5e1" x1="44" x2="44" y1="24" y2="196"></line><line stroke="#eef2f7" x1="44" x2="344" y1="196.0" y2="196.0"></line><text class="svg-axis" text-anchor="end" x="38" y="200.0">-5,000</text><line stroke="#eef2f7" x1="44" x2="344" y1="138.7" y2="138.7"></line><text class="svg-axis" text-anchor="end" x="38" y="142.7">0</text><line stroke="#eef2f7" x1="44" x2="344" y1="81.3" y2="81.3"></line><text class="svg-axis" text-anchor="end" x="38" y="85.3">5,000</text><line stroke="#eef2f7" x1="44" x2="344" y1="24.0" y2="24.0"></line><text class="svg-axis" text-anchor="end" x="38" y="28.0">10,000</text><text class="svg-axis" text-anchor="middle" x="44.0" y="220">1</text><text class="svg-axis" text-anchor="middle" x="71.3" y="220">2</text><text class="svg-axis" text-anchor="middle" x="98.5" y="220">3</text><text class="svg-axis" text-anchor="middle" x="125.8" y="220">4</text><text class="svg-axis" text-anchor="middle" x="153.1" y="220">5</text><text class="svg-axis" text-anchor="middle" x="180.4" y="220">6</text><text class="svg-axis" text-anchor="middle" x="207.6" y="220">7</text><text class="svg-axis" text-anchor="middle" x="234.9" y="220">8</text><text class="svg-axis" text-anchor="middle" x="262.2" y="220">9</text><text class="svg-axis" text-anchor="middle" x="289.5" y="220">10</text><text class="svg-axis" text-anchor="middle" x="316.7" y="220">11</text><text class="svg-axis" text-anchor="middle" x="344.0" y="220">12</text><polyline fill="none" points="71.3,135.1 98.5,131.5 125.8,128.4 153.1,124.2 180.4,116.8 207.6,113.0 234.9,108.1 262.2,102.5 289.5,98.4 316.7,90.4 344.0,81.2" stroke="#8b8f98" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="135.1" data-tip="电网投资 2022-02: 313.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="131.5" data-tip="电网投资 2022-03: 621.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="128.4" data-tip="电网投资 2022-04: 893.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="124.2" data-tip="电网投资 2022-05: 1,263.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="116.8" data-tip="电网投资 2022-06: 1,905.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="113.0" data-tip="电网投资 2022-07: 2,239.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="108.1" data-tip="电网投资 2022-08: 2,667.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="102.5" data-tip="电网投资 2022-09: 3,154.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="98.4" data-tip="电网投资 2022-10: 3,511.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="90.4" data-tip="电网投资 2022-11: 4,209.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="81.2" data-tip="电网投资 2022-12: 5,012.0" fill="#8b8f98" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,135.0 98.5,131.0 125.8,127.4 153.1,122.6 180.4,115.1 207.6,110.3 234.9,107.6 262.2,101.0 289.5,95.9 316.7,87.6 344.0,78.2" stroke="#94a3b8" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="135.0" data-tip="电网投资 2023-02: 319.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="131.0" data-tip="电网投资 2023-03: 668.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="127.4" data-tip="电网投资 2023-04: 984.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="122.6" data-tip="电网投资 2023-05: 1,400.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="115.1" data-tip="电网投资 2023-06: 2,054.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="110.3" data-tip="电网投资 2023-07: 2,473.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="107.6" data-tip="电网投资 2023-08: 2,705.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="101.0" data-tip="电网投资 2023-09: 3,287.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="95.9" data-tip="电网投资 2023-10: 3,731.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="87.6" data-tip="电网投资 2023-11: 4,457.5" fill="#94a3b8" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="78.2" data-tip="电网投资 2023-12: 5,275.0" fill="#94a3b8" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,134.9 98.5,129.9 125.8,124.6 153.1,119.1 180.4,109.5 207.6,104.9 234.9,100.5 262.2,93.0 289.5,87.0 316.7,78.0 344.0,68.9" stroke="#0ea5e9" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="134.9" data-tip="电网投资 2024-02: 327.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="129.9" data-tip="电网投资 2024-03: 766.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="124.6" data-tip="电网投资 2024-04: 1,229.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="119.1" data-tip="电网投资 2024-05: 1,703.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="109.5" data-tip="电网投资 2024-06: 2,540.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="104.9" data-tip="电网投资 2024-07: 2,947.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="100.5" data-tip="电网投资 2024-08: 3,330.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="93.0" data-tip="电网投资 2024-09: 3,982.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="87.0" data-tip="电网投资 2024-10: 4,502.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="78.0" data-tip="电网投资 2024-11: 5,290.0" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="68.9" data-tip="电网投资 2024-12: 6,082.6" fill="#0ea5e9" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,133.7 98.5,127.7 125.8,122.5 153.1,115.3 180.4,105.3 207.6,100.7 234.9,95.1 262.2,88.5 289.5,83.3 316.7,74.4 344.0,65.3" stroke="#0b2f66" stroke-width="2"></polyline><circle class="chart-point" cx="71.3" cy="133.7" data-tip="电网投资 2025-02: 436.2" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="127.7" data-tip="电网投资 2025-03: 956.2" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="122.5" data-tip="电网投资 2025-04: 1,408.2" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="115.3" data-tip="电网投资 2025-05: 2,039.9" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="105.3" data-tip="电网投资 2025-06: 2,910.7" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="100.7" data-tip="电网投资 2025-07: 3,315.0" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="234.9" cy="95.1" data-tip="电网投资 2025-08: 3,795.8" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="262.2" cy="88.5" data-tip="电网投资 2025-09: 4,378.1" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="289.5" cy="83.3" data-tip="电网投资 2025-10: 4,824.3" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="316.7" cy="74.4" data-tip="电网投资 2025-11: 5,603.9" fill="#0b2f66" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="344.0" cy="65.3" data-tip="电网投资 2025-12: 6,395.0" fill="#0b2f66" opacity="0.001" r="3.2"></circle><polyline fill="none" points="71.3,129.1 98.5,123.0 125.8,117.3 153.1,112.2 180.4,104.0 207.6,100.4" stroke="#dc2626" stroke-width="3"></polyline><circle class="chart-point" cx="71.3" cy="129.1" data-tip="电网投资 2026-02: 837.5" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="98.5" cy="123.0" data-tip="电网投资 2026-03: 1,370.5" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="125.8" cy="117.3" data-tip="电网投资 2026-04: 1,864.5" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="153.1" cy="112.2" data-tip="电网投资 2026-05: 2,309.0" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="180.4" cy="104.0" data-tip="电网投资 2026-06: 3,026.9" fill="#dc2626" opacity="0.001" r="3.2"></circle><circle class="chart-point" cx="207.6" cy="100.4" data-tip="电网投资 2026-07: 3,339.8" fill="#dc2626" opacity="0.001" r="3.2"></circle><rect class="chart-point hover-zone" data-tip="电网投资\n2月\n2022: 313.0\n2023: 319.0\n2024: 327.0\n2025: 436.2\n2026: 837.5" fill="transparent" height="172.0" width="27.3" x="57.6" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电网投资\n3月\n2022: 621.0\n2023: 668.0\n2024: 766.0\n2025: 956.2\n2026: 1,370.5" fill="transparent" height="172.0" width="27.3" x="84.9" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电网投资\n4月\n2022: 893.0\n2023: 984.0\n2024: 1,229.0\n2025: 1,408.2\n2026: 1,864.5" fill="transparent" height="172.0" width="27.3" x="112.2" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电网投资\n5月\n2022: 1,263.0\n2023: 1,400.0\n2024: 1,703.0\n2025: 2,039.9\n2026: 2,309.0" fill="transparent" height="172.0" width="27.3" x="139.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电网投资\n6月\n2022: 1,905.0\n2023: 2,054.0\n2024: 2,540.0\n2025: 2,910.7\n2026: 3,026.9" fill="transparent" height="172.0" width="27.3" x="166.7" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电网投资\n7月\n2022: 2,239.0\n2023: 2,473.0\n2024: 2,947.0\n2025: 3,315.0\n2026: 3,339.8" fill="transparent" height="172.0" width="27.3" x="194.0" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电网投资\n8月\n2022: 2,667.0\n2023: 2,705.0\n2024: 3,330.0\n2025: 3,795.8" fill="transparent" height="172.0" width="27.3" x="221.3" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电网投资\n9月\n2022: 3,154.0\n2023: 3,287.0\n2024: 3,982.0\n2025: 4,378.1" fill="transparent" height="172.0" width="27.3" x="248.5" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电网投资\n10月\n2022: 3,511.0\n2023: 3,731.0\n2024: 4,502.0\n2025: 4,824.3" fill="transparent" height="172.0" width="27.3" x="275.8" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电网投资\n11月\n2022: 4,209.0\n2023: 4,457.5\n2024: 5,290.0\n2025: 5,603.9" fill="transparent" height="172.0" width="27.3" x="303.1" y="24.0"></rect><rect class="chart-point hover-zone" data-tip="电网投资\n12月\n2022: 5,012.0\n2023: 5,275.0\n2024: 6,082.6\n2025: 6,395.0" fill="transparent" height="172.0" width="13.6" x="330.4" y="24.0"></rect><circle cx="44" cy="205" fill="#8b8f98" r="3"></circle><text class="svg-axis svg-legend" x="50" y="208">2022</text><circle cx="87" cy="205" fill="#94a3b8" r="3"></circle><text class="svg-axis svg-legend" x="93" y="208">2023</text><circle cx="130" cy="205" fill="#0ea5e9" r="3"></circle><text class="svg-axis svg-legend" x="136" y="208">2024</text><circle cx="173" cy="205" fill="#0b2f66" r="3"></circle><text class="svg-axis svg-legend" x="179" y="208">2025</text><circle cx="216" cy="205" fill="#dc2626" r="3"></circle><text class="svg-axis svg-legend" x="222" y="208">2026</text></svg></div></div></div></div></section></section>
+
+
+
+
+
+
+</main>
+<div class="sources">
+<strong>源与口径：</strong>
+      现货电价来自“电力现货价格日度”；代理电价来自“代理电价月度钢联”；发电、用电来自“发电用电”；分地区发电来自“分类型分地区”；
+      累计装机来自“发电装机容量-wind”；新增装机来自“新增发电装机容量-ifind”；投资来自“电源电网投资”。
+      省份净输出来自“输出电量”和“输入电量”，按输出-输入计算；海外电价来自 pb/全球电价.xlsx 的图表公式对应序列。
+      储能装机和政策事件先来自项目内 JSON 底表；核电检修来源固定为生态环境部核电运行状态监测页面，后续接入日度/事件级抓取。
+      最新数据日期：发用电 2026-07-31，现货电价 2026-09-07，代理电价 2026-09-01，分地区发电 2026-07-31，装机 2026-07-31，交易 2026-06-01，输出/输入电量 2026-07-01/2026-07-01，投资 2026-07-31。
+    </div>
+</div>
+<div class="chart-tooltip global-chart-tooltip" id="global-chart-tooltip"></div>
+<script>
+  const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+  const panels = Array.from(document.querySelectorAll('.report-panel'));
+  function activatePanel(target) {
+    tabs.forEach((tab) => {
+      const active = tab.dataset.target === target;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    panels.forEach((panel) => panel.classList.toggle('active', panel.id === target));
+  }
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      activatePanel(tab.dataset.target);
+      history.replaceState(null, '', '#' + tab.dataset.target);
+    });
+  });
+  const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+  const tocTargetPanel = Object.fromEntries(tocLinks.map((link) => [link.getAttribute('href').replace('#', ''), link.dataset.panel]));
+  function jumpToSubpanel(targetId, panelId) {
+    if (!targetId || !panelId) return;
+    activatePanel(panelId);
+    requestAnimationFrame(() => {
+      const target = document.getElementById(targetId);
+      if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  }
+  tocLinks.forEach((link) => {
+    link.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const targetId = link.getAttribute('href').replace('#', '');
+      jumpToSubpanel(targetId, link.dataset.panel);
+      history.replaceState(null, '', '#' + targetId);
+    });
+  });
+  const initial = location.hash.replace('#', '');
+  if (['overview', 'price', 'supply', 'demand', 'trade'].includes(initial)) activatePanel(initial);
+  if (tocTargetPanel[initial]) jumpToSubpanel(initial, tocTargetPanel[initial]);
+  function summaryStorageKey(card) {
+    return 'power-dashboard-summary:' + (card.dataset.summaryKey || 'default');
+  }
+  function setSummaryStatus(card, text) {
+    const status = card.querySelector('.editable-summary-status');
+    if (status) status.textContent = text;
+  }
+  document.querySelectorAll('.editable-summary-card').forEach((card) => {
+    const body = card.querySelector('.editable-summary-body');
+    if (!body) return;
+    const key = summaryStorageKey(card);
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      body.innerHTML = saved;
+      setSummaryStatus(card, '已载入保存稿');
+    }
+    card.addEventListener('click', (ev) => {
+      const button = ev.target.closest ? ev.target.closest('[data-summary-action]') : null;
+      if (!button) return;
+      const action = button.dataset.summaryAction;
+      if (action === 'edit') {
+        const enabled = body.getAttribute('contenteditable') === 'true';
+        body.setAttribute('contenteditable', enabled ? 'false' : 'true');
+        button.textContent = enabled ? '编辑' : '完成编辑';
+        if (!enabled) {
+          body.focus();
+          setSummaryStatus(card, '编辑中');
+        } else {
+          setSummaryStatus(card, '待保存');
+        }
+      }
+      if (action === 'save') {
+        localStorage.setItem(key, body.innerHTML);
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已保存 ' + new Date().toLocaleTimeString('zh-CN', { hour12:false }));
+      }
+      if (action === 'reset') {
+        if (!confirm('恢复为本次数据自动生成的汇总文字？')) return;
+        localStorage.removeItem(key);
+        body.innerHTML = body.dataset.defaultHtml || '';
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已恢复生成稿');
+      }
+      if (action === 'export') {
+        const title = card.querySelector('.card-head h3')?.textContent || 'summary';
+        const html = '<!doctype html><meta charset="utf-8"><title>' + title + '</title><body>' + body.innerHTML + '</body>';
+        const blob = new Blob([html], { type:'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = '电力月报-汇总编辑稿.html';
+        link.click();
+        URL.revokeObjectURL(url);
+        setSummaryStatus(card, '已导出');
+      }
+    });
+  });
+  const globalTip = document.getElementById('global-chart-tooltip');
+  function showGlobalTip(ev, text) {
+    if (!globalTip || !text) return;
+    const rawText = String(text).replace(/\r?\n/g, '\n').replace(/\\n/g, '\n');
+    globalTip.innerHTML = rawText
+      .split('\n')
+      .map((line, idx) => {
+        const safe = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return idx === 0 ? `<div class="tip-date">${safe}</div>` : `<div>${safe}</div>`;
+      })
+      .join('');
+    globalTip.style.display = 'block';
+    const margin = 16;
+    const boxW = globalTip.offsetWidth || 240;
+    const boxH = globalTip.offsetHeight || 90;
+    let left = ev.clientX + 16;
+    let top = ev.clientY - Math.min(40, boxH / 2);
+    if (left + boxW + margin > window.innerWidth) left = ev.clientX - boxW - 16;
+    if (top + boxH + margin > window.innerHeight) top = window.innerHeight - boxH - margin;
+    if (top < margin) top = margin;
+    globalTip.style.left = left + 'px';
+    globalTip.style.top = top + 'px';
+  }
+  document.addEventListener('mousemove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    if (!target) {
+      if (globalTip) globalTip.style.display = 'none';
+      return;
+    }
+    showGlobalTip(ev, target.dataset.tip);
+  });
+  document.addEventListener('touchstart', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('touchmove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('mouseleave', () => {
+    if (globalTip) globalTip.style.display = 'none';
+  });
+</script>
+</body>
+</html>

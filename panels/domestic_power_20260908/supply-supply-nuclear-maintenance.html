@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>国内电力月报 手机版 - 3.7 核电检修</title>
+<style>
+    :root {
+      --bg:#f5f1ea; --paper:#fffdf9; --ink:#111827; --muted:#687080; --line:#cfd6e3;
+      --navy:#0b2f66; --blue:#4f7dbf; --red:#dc2626; --soft:#f8fafc;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; padding-left:154px; background:var(--bg); color:var(--ink); font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .page { position:relative; width:min(1680px, calc(100% - 28px)); margin:14px auto 40px; background:var(--paper); border:1px solid #d7d0c6; box-shadow:0 8px 28px rgba(64,46,26,.08); }
+    header { padding:22px 28px 16px; border-bottom:3px solid var(--navy); }
+    h1 { margin:0; font-size:30px; letter-spacing:0; color:var(--navy); }
+    .subtitle { margin-top:7px; color:var(--muted); font-size:13px; }
+    main { padding:0 22px 28px; }
+    .report-section { padding:18px 0 22px; border-bottom:1px solid #d7dde8; }
+    h2 { margin:0 0 12px; font-size:24px; color:#111; }
+    h2::before { content:attr(id); display:none; }
+    .placeholder { min-height:90px; border:1px dashed #b8c0cf; background:#fbfaf7; color:#7b8190; padding:24px; font-size:16px; }
+    .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:8px; padding:18px 0 10px; border-bottom:1px solid #d7dde8; background:rgba(255,253,249,.96); backdrop-filter:blur(8px); }
+    .panel-tab { appearance:none; border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:8px 16px; min-height:42px; border-radius:3px; font-family:inherit; font-size:18px; font-weight:700; cursor:pointer; }
+    .panel-tab:hover { border-color:#b4493f; color:#0b2f66; }
+    .panel-tab.active { background:#b4493f; border-color:#b4493f; color:white; }
+    .report-panel { display:none; }
+    .report-panel.active { display:block; }
+    .subpanel { scroll-margin-top:76px; margin:12px 0 18px; padding:10px; border:1px solid #d7dde8; background:#fbfcff; }
+    .subpanel > h3 { margin:0 0 10px; font-size:20px; color:#0b2f66; border-left:5px solid #0b2f66; padding-left:9px; }
+    .stack { display:grid; gap:14px; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
+    .card { border:1px solid #bfc8d8; background:white; overflow:hidden; }
+    .wide-card { grid-column:1 / -1; }
+    .card-head { background:#d9e2f3; border-bottom:1px solid #aeb8c8; padding:7px 10px; text-align:center; }
+    .card-head h3 { margin:0; font-size:17px; color:#001f55; }
+    .card-head p { margin:2px 0 0; font-size:12px; color:#475569; }
+    .card-body { padding:10px; overflow:auto; }
+    table { width:100%; border-collapse:collapse; font-size:12px; background:white; }
+    th, td { border:1px solid #c9ced8; padding:5px 7px; text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    th { background:#e5ebf6; color:#0f2d5c; font-weight:700; }
+    th:first-child, td:first-child { text-align:left; }
+    .spot-summary-table { font-size:13px; }
+    .recent-values { text-align:left; white-space:normal; min-width:260px; }
+    .recent-values span { display:inline-block; margin:1px 5px 1px 0; padding:1px 5px; border:1px solid #d7dde8; background:#f8fafc; border-radius:3px; }
+    .date-value { display:inline-flex; flex-direction:column; align-items:flex-end; gap:1px; line-height:1.18; }
+    .date-value span { color:#64748b; font-size:11px; font-weight:400; }
+    .date-value b { color:#0f172a; font-size:13px; font-weight:700; }
+    .table-card .card-body { max-height:520px; }
+    .full-table .card-body { max-height:none; overflow:visible; }
+    .storage-summary-block + .storage-summary-block { margin-top:12px; }
+    .storage-summary-block h4 { margin:0; padding:6px 8px; border:1px solid #c9ced8; border-bottom:0; background:#f8fafc; color:#0f2d5c; font-size:15px; }
+    .image-card .card-body { overflow:visible; }
+    .reference-image { display:block; width:100%; height:auto; background:white; }
+    .heat td { min-width:72px; }
+    .table-note { margin:8px 2px 0; color:#64748b; font-size:12px; }
+    .summary-text { font-size:16px; line-height:1.8; color:#111827; }
+    .summary-text p { margin:0 0 8px; }
+    .summary-text strong { color:#b91c1c; }
+    .editable-summary-tools { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:8px 10px; border-bottom:1px solid #d7dde8; background:#f8fafc; }
+    .summary-tool-btn { appearance:none; border:1px solid #b9c3d3; background:white; color:#0f2d5c; min-height:32px; padding:5px 12px; border-radius:3px; font-family:inherit; font-size:14px; font-weight:700; cursor:pointer; }
+    .summary-tool-btn:hover { border-color:#b4493f; color:#b4493f; }
+    .summary-tool-btn.primary { background:#0b2f66; border-color:#0b2f66; color:white; }
+    .editable-summary-status { margin-left:auto; color:#64748b; font-size:12px; }
+    .editable-summary-body { min-height:118px; outline:none; border:1px solid transparent; padding:4px 6px; }
+    .editable-summary-body[contenteditable="true"] { border-color:#b4493f; background:#fffaf2; box-shadow:inset 0 0 0 1px rgba(180,73,63,.18); }
+    .editable-summary-body[contenteditable="true"] p { cursor:text; }
+    .pos { color:#b91c1c; font-weight:700; }
+    .neg { color:#1d4ed8; font-weight:700; }
+    .mini-chart-row { display:grid; grid-template-columns:repeat(4, minmax(260px,1fr)); gap:10px; }
+    .mini-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(280px,1fr)); gap:10px; }
+    .storage-smm-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-xunxi-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-headline-weekly-grid { grid-template-columns:repeat(4, minmax(240px,1fr)); }
+    .storage-headline-price-wide { margin-top:14px; padding-top:10px; border-top:1px solid #d7dde8; }
+    .chart-group-title { margin:12px 0 8px; color:#0b2f66; font-size:18px; text-align:center; }
+    .overseas-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:12px; }
+    .spot-season-grid { display:grid; grid-template-columns:repeat(3, minmax(420px,1fr)); gap:16px; align-items:start; }
+    .spot-season-grid .svg-title { font-size:16px; }
+    .spot-season-grid .svg-axis { font-size:12px; }
+    .spot-season-grid .svg-legend { font-size:11px; }
+    .decadal-chart-grid { display:grid; grid-template-columns:repeat(2, minmax(520px,1fr)); gap:14px; }
+    .net-transfer-grid { display:grid; grid-template-columns:repeat(2, minmax(560px,1fr)); gap:14px; align-items:start; }
+    .regional-structure-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:10px; align-items:start; }
+    .regional-structure-svg { border:1px solid #d7dde8; background:#fff; }
+    .regional-structure-title { font-size:18px; font-weight:700; fill:#0b2f66; }
+    .regional-structure-date { font-size:12px; fill:#64748b; }
+    .regional-structure-total { font-size:13px; fill:#334155; }
+    .regional-structure-inside { font-size:11px; font-weight:700; fill:white; paint-order:stroke; stroke:#334155; stroke-width:2px; }
+    .regional-structure-legend { font-size:11px; fill:#111827; }
+    .industry-chain-svg { border:1px solid #d7dde8; }
+    .industry-chain-title { font-size:22px; font-weight:700; fill:#0b2f66; }
+    .industry-chain-col-title { font-size:18px; font-weight:700; fill:white; }
+    .industry-chain-item { font-size:14px; fill:#0f172a; }
+    .industry-chain-note { font-size:15px; fill:#334155; }
+    .industry-panorama-image { max-height:760px; object-fit:contain; }
+    svg { width:100%; height:auto; display:block; background:white; }
+    svg text { font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .svg-title { font-size:14px; font-weight:700; fill:#0b2f66; }
+    .svg-axis { font-size:10px; fill:#334155; }
+    .svg-legend { font-size:8px; }
+    .latest-label { font-size:11px; font-weight:700; paint-order:stroke; stroke:white; stroke-width:3px; }
+    .chart-point { cursor:crosshair; }
+    .interactive-chart { position:relative; background:white; }
+    .interactive-toolbar { display:flex; flex-wrap:wrap; gap:8px 12px; padding:2px 0 8px; }
+    .interactive-toggle { display:inline-flex; align-items:center; gap:5px; color:#0f172a; font-size:12px; cursor:pointer; }
+    .interactive-toggle::before { content:""; width:18px; height:3px; background:var(--line-color); display:inline-block; }
+    .interactive-toggle input { width:13px; height:13px; margin:0; accent-color:#0b2f66; }
+    .interactive-stage { position:relative; }
+    .spot-line-card .interactive-toggle { font-size:15px; font-weight:700; }
+    .spot-line-card .interactive-toggle::before { width:24px; height:4px; }
+    .spot-line-card .interactive-toggle input { width:16px; height:16px; }
+    .spot-line-card .svg-title { font-size:18px; }
+    .spot-line-card .svg-axis { font-size:13px; }
+    .spot-line-card .latest-label { font-size:13px; }
+    .chart-tooltip { display:none; position:absolute; z-index:20; min-width:190px; max-width:320px; pointer-events:none; background:rgba(15,23,42,.94); color:white; border-radius:6px; padding:10px 12px; font-size:14px; line-height:1.55; box-shadow:0 12px 30px rgba(15,23,42,.28); }
+    .chart-tooltip .tip-date { font-weight:700; color:#dbeafe; margin-bottom:5px; font-size:17px; }
+    .global-chart-tooltip { position:fixed; white-space:normal; }
+    .rotated { writing-mode:tb; glyph-orientation-vertical:0; }
+    .industry-bar-svg { width:100%; }
+    .industry-axis { font-size:16px; dominant-baseline:hanging; }
+    .net-transfer-axis { font-size:13px; fill:#0f2d5c; text-anchor:end; dominant-baseline:middle; }
+    .capacity-title { font-size:26px; fill:#4b5563; }
+    .capacity-axis { font-size:18px; fill:#4b5563; text-anchor:end; dominant-baseline:middle; }
+    .side-toc { position:fixed; left:0; top:0; bottom:0; z-index:70; width:154px; overflow:auto; padding:42px 12px 18px; background:rgba(255,253,249,.98); border-right:1px solid #cbd5e1; box-shadow:8px 0 22px rgba(15,23,42,.08); }
+    .side-toc div { color:#0b2f66; font-size:16px; font-weight:700; margin:0 0 8px; }
+    .side-toc a { display:block; color:#334155; text-decoration:none; font-size:13px; line-height:1.2; padding:7px 6px; border-left:3px solid transparent; }
+    .side-toc a:hover { color:#0b2f66; background:#eef3fb; border-left-color:#b4493f; }
+    .sources { padding:16px 22px 26px; font-size:12px; color:#596273; line-height:1.7; }
+    @media(max-width:1100px) {
+      .grid-2, .mini-chart-row, .mini-chart-grid, .overseas-chart-grid, .spot-season-grid, .decadal-chart-grid, .net-transfer-grid, .regional-structure-grid { grid-template-columns:1fr; }
+      .page { width:100%; margin:0; border:0; box-shadow:none; }
+      body { padding-left:0; }
+      header { padding:14px 14px 10px; }
+      h1 { font-size:24px; }
+      .panel-tabs { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:8px; white-space:nowrap; }
+      .panel-tab { flex:0 0 auto; min-height:34px; padding:6px 10px; font-size:14px; }
+      .side-toc { position:sticky; top:50px; z-index:75; width:100%; max-height:none; padding:7px 8px; display:flex; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; border-right:0; border-bottom:1px solid #cbd5e1; box-shadow:none; }
+      .side-toc div { display:none; }
+      .side-toc a { flex:0 0 auto; padding:5px 9px; border:1px solid #d7dde8; border-left:0; border-radius:3px; background:#f8fafc; font-size:13px; line-height:1.15; white-space:nowrap; }
+      .side-toc a:hover { border-left:0; border-color:#b4493f; }
+      main { padding:0 10px 18px; }
+    }
+    @media(max-width:720px) {
+      body { font-size:14px; }
+      header { padding:10px 10px 8px; }
+      h1 { font-size:22px; }
+      main { padding:0 6px 14px; }
+      h2 { margin:8px 0; font-size:20px; }
+      .report-section { padding:8px 0 16px; }
+      .subpanel { scroll-margin-top:92px; margin:8px 0 12px; padding:6px; }
+      .subpanel > h3 { font-size:17px; padding-left:7px; }
+      .card-head { padding:6px 8px; }
+      .card-head h3 { font-size:16px; }
+      .card-head p { font-size:11px; line-height:1.35; }
+      .card-body { padding:7px; }
+      table { min-width:720px; font-size:11px; }
+      .spot-summary-table { min-width:860px; font-size:11px; }
+      th, td { padding:4px 5px; }
+      .table-card .card-body, .full-table .card-body { max-height:none; overflow-x:auto; overflow-y:visible; -webkit-overflow-scrolling:touch; }
+      .full-table table th:first-child, .full-table table td:first-child,
+      .table-card table th:first-child, .table-card table td:first-child { position:sticky; left:0; z-index:2; background:white; }
+      .full-table table th:first-child, .table-card table th:first-child { z-index:3; background:#e5ebf6; }
+      .summary-text { font-size:14px; line-height:1.65; }
+      .editable-summary-tools { gap:6px; padding:6px; }
+      .summary-tool-btn { min-height:30px; padding:4px 9px; font-size:12px; }
+      .editable-summary-status { width:100%; margin-left:0; font-size:11px; }
+      .interactive-toolbar { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px; }
+      .interactive-toggle { flex:0 0 auto; gap:4px; font-size:10px; white-space:nowrap; }
+      .interactive-toggle::before { width:16px; height:3px; }
+      .interactive-toggle input { width:12px; height:12px; }
+      .spot-line-card .interactive-toggle { font-size:11px; }
+      .spot-line-card .interactive-toggle::before { width:18px; height:3px; }
+      .spot-line-card .interactive-toggle input { width:13px; height:13px; }
+      .svg-title { font-size:12px; }
+      .svg-axis { font-size:8px; }
+      .svg-legend { font-size:7px; }
+      .latest-label { font-size:8px; }
+      .spot-line-card .svg-title { font-size:13px; }
+      .spot-line-card .svg-axis { font-size:9px; }
+      .spot-line-card .latest-label { font-size:9px; }
+      .industry-axis { font-size:11px; }
+      .net-transfer-axis { font-size:9px; }
+      .capacity-title { font-size:18px; }
+      .capacity-axis { font-size:12px; }
+      .regional-structure-title { font-size:15px; }
+      .regional-structure-date, .regional-structure-total, .regional-structure-legend { font-size:10px; }
+      .regional-structure-inside { font-size:9px; }
+      .chart-tooltip { min-width:160px; max-width:calc(100vw - 28px); padding:8px 10px; font-size:12px; }
+      .chart-tooltip .tip-date { font-size:14px; }
+      .sources { padding:12px 10px 18px; font-size:10px; }
+    }
+  </style>
+<style id="mobile-pages-overrides">
+      html { scroll-behavior: smooth; }
+      body { min-width: 0; }
+      .side-toc { display: none !important; }
+      main { margin-left: 0 !important; min-width: 0; }
+      .split-page-tabs {
+        position: sticky; top: 0; z-index: 95; display: flex; flex-wrap: nowrap;
+        gap: 6px; overflow-x: auto; padding: 8px 0; white-space: nowrap;
+        background: rgba(255,253,249,.98); border-bottom: 1px solid var(--line);
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      }
+      .split-page-tabs::-webkit-scrollbar, .section-page-nav::-webkit-scrollbar { display: none; }
+      .split-tab, .section-link {
+        flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none;
+        background: #f8fafc; color: #344054; font-weight: 750; white-space: nowrap;
+      }
+      .split-tab { min-width: 4.4rem; min-height: 36px; padding: 7px 10px; font-size: 14px; }
+      .split-tab.active { color: #fff; background: #b4493f; border-color: #b4493f; }
+      .section-page-nav {
+        position: sticky; top: 53px; z-index: 90; display: flex; gap: 6px;
+        overflow-x: auto; padding: 8px 0 10px; margin: -2px 0 8px;
+        background: rgba(255,253,249,.98); scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .section-link { min-height: 32px; max-width: 82vw; padding: 6px 9px; font-size: 13px; }
+      .section-link.active { color: #fff; background: #183a6b; border-color: #183a6b; }
+      .report-panel > h2 { margin-top: 10px; }
+      img { max-width: 100%; height: auto; }
+      .card-body, .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      @media (max-width: 760px) {
+        header, main { width: auto !important; max-width: none !important; }
+        header { padding-left: 12px !important; padding-right: 12px !important; }
+        main { padding: 0 8px 28px !important; }
+        h1 { font-size: 23px !important; line-height: 1.2; }
+        .subpanel { padding: 6px; margin: 8px 0 12px; }
+        .subpanel > h3 { font-size: 17px; }
+        .grid-2, .chart-grid, .spot-season-grid, .overseas-chart-grid { grid-template-columns: minmax(0, 1fr) !important; }
+        table { min-width: 620px; }
+        svg { min-width: 560px; }
+        .card-head h3 { font-size: 16px !important; }
+        .card-head p, .table-note, .source-note { font-size: 12px !important; }
+      }
+    </style></head>
+<body>
+<div class="page">
+<nav aria-label="子面板目录" class="side-toc"><div>目录</div><a href="index.html#overview-core">1.1 发电用电</a><a href="overview-overview-investment.html#overview-investment">1.2 电源电网</a><a href="price.html#price-spot">2.1 现货电价</a><a href="price-price-table.html#price-table">2.2 代理电价</a><a href="price-overseas-americas-daily.html#price-overseas">2.3 海外电价</a><a href="price-price-long-contract.html#price-long-contract">2.4 长协电价</a><a href="price-price-capacity.html#price-capacity">2.5 容量电价</a><a href="supply.html#supply-generation">3.1 发电量</a><a href="supply-supply-capacity.html#supply-capacity">3.2 装机</a><a href="supply-supply-regional.html#supply-regional">3.3 分地区发电</a><a href="supply-supply-decadal.html#supply-decadal">3.4 旬度发电</a><a href="supply-supply-utilization-hours.html#supply-utilization-hours">3.5 利用小时</a><a href="supply-supply-regional-structure.html#supply-regional-structure">3.6 分省结构</a><a href="supply-supply-nuclear-maintenance.html#supply-nuclear-maintenance">3.7 核电检修</a><a href="demand.html#demand-total">4.1 用电总量</a><a href="demand-demand-industry.html#demand-industry">4.2 分行业用电</a><a href="trade.html#trade-long-term">5.1 中长期交易</a><a href="trade-trade-center.html#trade-center">5.2 交易中心</a><a href="trade-trade-net-transfer.html#trade-net-transfer">5.3 净输出</a><a href="policy.html#policy-market">6.1 电力市场政策</a><a href="policy-policy-renewable.html#policy-renewable">6.2 新能源政策</a><a href="policy-policy-storage.html#policy-storage">6.3 储能政策</a><a href="storage.html#storage-monthly-install">7.1 储能装机</a><a href="storage-storage-headline-weekly.html#storage-headline-weekly">7.2 储能头条周度</a></nav>
+<header>
+<h1>国内电力月报 手机版</h1>
+</header>
+<main>
+<nav aria-label="一级栏目" class="panel-tabs split-page-tabs"><a class="split-tab" href="index.html">汇总</a><a class="split-tab" href="price.html">价格</a><a class="split-tab active" href="supply.html">供给</a><a class="split-tab" href="demand.html">需求</a><a class="split-tab" href="trade.html">交易</a><a class="split-tab" href="policy.html">政策</a><a class="split-tab" href="storage.html">储能</a></nav>
+
+
+<section class="report-section report-panel active" id="supply"><h2>供给</h2><nav aria-label="专题栏目" class="section-page-nav"><a class="section-link" href="supply.html#supply-generation">3.1 发电量</a><a class="section-link" href="supply-supply-capacity.html#supply-capacity">3.2 装机</a><a class="section-link" href="supply-supply-regional.html#supply-regional">3.3 分地区分类型发电</a><a class="section-link" href="supply-supply-decadal.html#supply-decadal">3.4 旬度日均发电</a><a class="section-link" href="supply-supply-utilization-hours.html#supply-utilization-hours">3.5 发电利用小时数</a><a class="section-link" href="supply-supply-regional-structure.html#supply-regional-structure">3.6 分省份发电结构</a><a class="section-link active" href="supply-supply-nuclear-maintenance.html#supply-nuclear-maintenance">3.7 核电检修</a></nav><section class="subpanel" id="supply-nuclear-maintenance"><h3>3.7 核电检修</h3><div class="grid-2"><div class="card table-card full-table wide-card"><div class="card-head"><h3>核电运行/检修/调试GW</h3><p>最新节点：2026-08-09；运行按当前功率，检修和调试按额定容量折算。</p></div><div class="card-body"><table><thead><tr><th>指标</th><th>最新节点</th><th>GW</th><th>台数</th><th>口径</th></tr></thead><tbody><tr><td class="" style="">运行GW</td><td class="" style="">2026-08-09</td><td class="" style="">60.93</td><td class="" style="">60</td><td class="" style="">当前功率</td></tr><tr><td class="" style="">检修/停堆GW</td><td class="" style="">2026-08-09</td><td class="" style="">2.59</td><td class="" style="">2</td><td class="" style="">额定容量</td></tr><tr><td class="" style="">调试GW</td><td class="" style="">2026-08-09</td><td class="" style="">2.40</td><td class="" style="">2</td><td class="" style="">额定容量</td></tr></tbody></table></div></div><div class="card wide-card"><div class="card-head"><h3>当前核电状态GW</h3><p>官方当前状态，检修/停堆含大修和临时小修。</p></div><div class="card-body"><svg aria-label="核电当前状态GW" role="img" viewbox="0 0 1180 330"><text class="svg-title" x="70" y="24">核电当前状态GW</text><text class="svg-axis" text-anchor="end" x="1150" y="24">GW</text><line stroke="#cbd5e1" x1="70" x2="1150" y1="272" y2="272"></line><line stroke="#cbd5e1" x1="70" x2="70" y1="42" y2="272"></line><line stroke="#e5e7eb" x1="70" x2="1150" y1="272.0" y2="272.0"></line><text class="svg-axis" text-anchor="end" x="62" y="276.0">0</text><line stroke="#e5e7eb" x1="70" x2="1150" y1="214.5" y2="214.5"></line><text class="svg-axis" text-anchor="end" x="62" y="218.5">20</text><line stroke="#e5e7eb" x1="70" x2="1150" y1="157.0" y2="157.0"></line><text class="svg-axis" text-anchor="end" x="62" y="161.0">40</text><line stroke="#e5e7eb" x1="70" x2="1150" y1="99.5" y2="99.5"></line><text class="svg-axis" text-anchor="end" x="62" y="103.5">60</text><line stroke="#e5e7eb" x1="70" x2="1150" y1="42.0" y2="42.0"></line><text class="svg-axis" text-anchor="end" x="62" y="46.0">80</text><rect class="chart-point" data-tip="运行GW\n60.93GW\n60台；当前功率" fill="#0b2f66" height="175.2" width="130.0" x="185.0" y="96.8"></rect><text class="svg-axis" text-anchor="middle" x="250.0" y="89.8">60.93</text><text class="svg-axis" text-anchor="middle" x="250.0" y="308">运行GW</text><rect class="chart-point" data-tip="检修/停堆GW\n2.59GW\n2台；额定容量" fill="#dc2626" height="7.4" width="130.0" x="545.0" y="264.6"></rect><text class="svg-axis" text-anchor="middle" x="610.0" y="257.6">2.59</text><text class="svg-axis" text-anchor="middle" x="610.0" y="308">检修/停堆GW</text><rect class="chart-point" data-tip="调试GW\n2.40GW\n2台；额定容量" fill="#4f7dbf" height="6.9" width="130.0" x="905.0" y="265.1"></rect><text class="svg-axis" text-anchor="middle" x="970.0" y="258.1">2.40</text><text class="svg-axis" text-anchor="middle" x="970.0" y="308">调试GW</text></svg></div></div><div class="card table-card full-table wide-card"><div class="card-head"><h3>当前停堆/调试机组</h3><p>列出非正常功率运行机组，用于跟踪可用核电出力。</p></div><div class="card-body"><table><thead><tr><th>核电厂</th><th>机组</th><th>额定GW</th><th>当前MWe</th><th>状态</th><th>省份</th></tr></thead><tbody><tr><td class="" style="">国和一号示范工程</td><td class="" style="">1号机组</td><td class="" style="">1.50</td><td class="" style="">0</td><td class="" style="">临时停堆（小修）</td><td class="" style=""></td></tr><tr><td class="" style="">太平岭核电厂</td><td class="" style="">2号机组</td><td class="" style="">1.20</td><td class="" style="">0</td><td class="" style="">运行（调试）</td><td class="" style="">广东</td></tr><tr><td class="" style="">防城港核电厂</td><td class="" style="">2号机组</td><td class="" style="">1.09</td><td class="" style="">0</td><td class="" style="">大修</td><td class="" style="">广西</td></tr><tr><td class="" style="">昌江核电厂</td><td class="" style="">3号机组</td><td class="" style="">1.20</td><td class="" style="">0</td><td class="" style="">运行（调试）</td><td class="" style="">海南</td></tr></tbody></table></div></div><div class="card table-card full-table wide-card"><div class="card-head"><h3>核电检修计划表</h3><p>智核云谷3月更新计划叠加官方当前检修状态，按来源期倒序。</p></div><div class="card-body"><table><thead><tr><th>来源期</th><th>核电厂</th><th>机组</th><th>检修事项</th><th>开始</th><th>结束</th><th>GW</th><th>状态</th></tr></thead><tbody><tr><td class="" style="">2026-08-09</td><td class="" style="">国和一号示范工程</td><td class="" style="">1号机组</td><td class="" style="">临时停堆（小修）</td><td class="" style=""></td><td class="" style=""></td><td class="" style="">1.50</td><td class="" style="">官方当前状态</td></tr><tr><td class="" style="">2026-08-09</td><td class="" style="">防城港核电厂</td><td class="" style="">2号机组</td><td class="" style="">大修</td><td class="" style=""></td><td class="" style=""></td><td class="" style="">1.09</td><td class="" style="">官方当前状态</td></tr><tr><td class="" style="">2026-03-31</td><td class="" style="">防城港核电厂</td><td class="" style="">1号机组</td><td class="" style="">107大修开始</td><td class="" style="">2026-03-31</td><td class="" style=""></td><td class="" style="">1.09</td><td class="" style="">3月底开始</td></tr><tr><td class="" style="">2026-03-31</td><td class="" style="">秦山第二核电厂</td><td class="" style="">3号机组</td><td class="" style="">312大修开始</td><td class="" style="">2026-03-21</td><td class="" style=""></td><td class="" style="">0.67</td><td class="" style="">开始</td></tr><tr><td class="" style="">2026-03-31</td><td class="" style="">田湾核电厂</td><td class="" style="">3号机组</td><td class="" style="">306大修开始</td><td class="" style="">2026-03-20</td><td class="" style=""></td><td class="" style="">1.13</td><td class="" style="">开始</td></tr><tr><td class="" style="">2026-03-31</td><td class="" style="">漳州核电厂</td><td class="" style="">1号机组</td><td class="" style="">101大修开始</td><td class="" style="">2026-03-18</td><td class="" style=""></td><td class="" style="">1.21</td><td class="" style="">开始</td></tr><tr><td class="" style="">2026-03-31</td><td class="" style="">海阳核电厂</td><td class="" style="">1号机组</td><td class="" style="">105大修开始</td><td class="" style="">2026-03-16</td><td class="" style=""></td><td class="" style="">1.25</td><td class="" style="">开始</td></tr><tr><td class="" style="">2026-03-31</td><td class="" style="">福清核电厂</td><td class="" style="">3号机组</td><td class="" style="">307大修开始</td><td class="" style="">2026-03-08</td><td class="" style=""></td><td class="" style="">1.09</td><td class="" style="">开始</td></tr><tr><td class="" style="">2026-03-31</td><td class="" style="">红沿河核电厂</td><td class="" style="">2号机组</td><td class="" style="">209大修</td><td class="" style="">2026-02-28</td><td class="" style="">2026-03-31</td><td class="" style="">1.12</td><td class="" style="">3月大修结束</td></tr><tr><td class="" style="">2026-03-31</td><td class="" style="">宁德核电厂</td><td class="" style="">1号机组</td><td class="" style="">109大修</td><td class="" style="">2026-02-28</td><td class="" style="">2026-03-31</td><td class="" style="">1.09</td><td class="" style="">3月大修结束</td></tr><tr><td class="" style="">2026-03-31</td><td class="" style="">昌江核电厂</td><td class="" style="">1号机组</td><td class="" style="">108大修</td><td class="" style="">2026-02-24</td><td class="" style="">2026-03-31</td><td class="" style="">0.65</td><td class="" style="">3月底正在进行中</td></tr><tr><td class="" style="">2026-03-31</td><td class="" style="">福清核电厂</td><td class="" style="">5号机组</td><td class="" style="">504大修</td><td class="" style="">2026-02-07</td><td class="" style="">2026-03-31</td><td class="" style="">1.16</td><td class="" style="">3月底正在进行中</td></tr><tr><td class="" style="">2026-03-31</td><td class="" style="">阳江核电厂</td><td class="" style="">6号机组</td><td class="" style="">605大修</td><td class="" style="">2026-02-01</td><td class="" style="">2026-03-31</td><td class="" style="">1.09</td><td class="" style="">3月大修结束</td></tr><tr><td class="" style="">2026-03-31</td><td class="" style="">福清核电厂</td><td class="" style="">4号机组</td><td class="" style="">406大修</td><td class="" style="">2026-01-14</td><td class="" style="">2026-03-31</td><td class="" style="">1.09</td><td class="" style="">3月大修结束</td></tr><tr><td class="" style="">2026-03-31</td><td class="" style="">阳江核电厂</td><td class="" style="">3号机组</td><td class="" style="">307大修</td><td class="" style="">2026-01-01</td><td class="" style="">2026-03-31</td><td class="" style="">1.09</td><td class="" style="">3月大修结束</td></tr><tr><td class="" style="">2026-03-31</td><td class="" style="">红沿河核电厂</td><td class="" style="">3号机组</td><td class="" style="">309大修</td><td class="" style="">2026-01-01</td><td class="" style="">2026-03-31</td><td class="" style="">1.12</td><td class="" style="">3月大修结束</td></tr><tr><td class="" style="">2026-03-31</td><td class="" style="">台山核电厂</td><td class="" style="">2号机组</td><td class="" style="">204大修</td><td class="" style="">2025-12-01</td><td class="" style="">2026-03-31</td><td class="" style="">1.75</td><td class="" style="">3月底正在进行中</td></tr></tbody></table></div></div><div class="card wide-card"><div class="card-head"><h3>检修/停堆GW走势</h3><p>公众号计划按月汇总，8月为官方当前状态快照。</p></div><div class="card-body"><svg aria-label="核电检修/停堆GW" role="img" viewbox="0 0 1180 350"><text class="svg-title" x="58" y="22">核电检修/停堆GW</text><text class="svg-axis" text-anchor="end" x="1156" y="22">GW</text><line stroke="#e5e7eb" x1="58" x2="1156" y1="266.0" y2="266.0"></line><text class="svg-axis" text-anchor="end" x="50" y="270.0">0</text><line stroke="#e5e7eb" x1="58" x2="1156" y1="209.0" y2="209.0"></line><text class="svg-axis" text-anchor="end" x="50" y="213.0">5</text><line stroke="#e5e7eb" x1="58" x2="1156" y1="152.0" y2="152.0"></line><text class="svg-axis" text-anchor="end" x="50" y="156.0">10</text><line stroke="#e5e7eb" x1="58" x2="1156" y1="95.0" y2="95.0"></line><text class="svg-axis" text-anchor="end" x="50" y="99.0">15</text><line stroke="#e5e7eb" x1="58" x2="1156" y1="38.0" y2="38.0"></line><text class="svg-axis" text-anchor="end" x="50" y="42.0">20</text><rect class="chart-point" data-tip="核电检修/停堆GW\n25-12: 1.8GW\n\n" fill="#4f7dbf" height="20.0" width="24.0" x="155.8" y="246.0"></rect><text class="svg-axis rotated" text-anchor="end" transform="rotate(-35 167.8,332)" x="167.8" y="332">25-12</text><rect class="chart-point" data-tip="核电检修/停堆GW\n26-01: 5.0GW\n\n" fill="#4f7dbf" height="57.5" width="24.0" x="375.4" y="208.5"></rect><text class="svg-axis rotated" text-anchor="end" transform="rotate(-35 387.4,332)" x="387.4" y="332">26-01</text><rect class="chart-point" data-tip="核电检修/停堆GW\n26-02: 10.1GW\n\n" fill="#4f7dbf" height="115.7" width="24.0" x="595.0" y="150.3"></rect><text class="svg-axis rotated" text-anchor="end" transform="rotate(-35 607.0,332)" x="607.0" y="332">26-02</text><rect class="chart-point" data-tip="核电检修/停堆GW\n26-03: 16.6GW\n\n" fill="#4f7dbf" height="189.0" width="24.0" x="814.6" y="77.0"></rect><text class="svg-axis rotated" text-anchor="end" transform="rotate(-35 826.6,332)" x="826.6" y="332">26-03</text><rect class="chart-point" data-tip="核电检修/停堆GW\n26-08: 2.6GW\n\n" fill="#4f7dbf" height="29.5" width="24.0" x="1034.2" y="236.5"></rect><text class="svg-axis rotated" text-anchor="end" transform="rotate(-35 1046.2,332)" x="1046.2" y="332">26-08</text></svg></div></div></div></section></section>
+
+
+
+
+</main>
+<div class="sources">
+<strong>源与口径：</strong>
+      现货电价来自“电力现货价格日度”；代理电价来自“代理电价月度钢联”；发电、用电来自“发电用电”；分地区发电来自“分类型分地区”；
+      累计装机来自“发电装机容量-wind”；新增装机来自“新增发电装机容量-ifind”；投资来自“电源电网投资”。
+      省份净输出来自“输出电量”和“输入电量”，按输出-输入计算；海外电价来自 pb/全球电价.xlsx 的图表公式对应序列。
+      储能装机和政策事件先来自项目内 JSON 底表；核电检修来源固定为生态环境部核电运行状态监测页面，后续接入日度/事件级抓取。
+      最新数据日期：发用电 2026-07-31，现货电价 2026-09-07，代理电价 2026-09-01，分地区发电 2026-07-31，装机 2026-07-31，交易 2026-06-01，输出/输入电量 2026-07-01/2026-07-01，投资 2026-07-31。
+    </div>
+</div>
+<div class="chart-tooltip global-chart-tooltip" id="global-chart-tooltip"></div>
+<script>
+  const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+  const panels = Array.from(document.querySelectorAll('.report-panel'));
+  function activatePanel(target) {
+    tabs.forEach((tab) => {
+      const active = tab.dataset.target === target;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    panels.forEach((panel) => panel.classList.toggle('active', panel.id === target));
+  }
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      activatePanel(tab.dataset.target);
+      history.replaceState(null, '', '#' + tab.dataset.target);
+    });
+  });
+  const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+  const tocTargetPanel = Object.fromEntries(tocLinks.map((link) => [link.getAttribute('href').replace('#', ''), link.dataset.panel]));
+  function jumpToSubpanel(targetId, panelId) {
+    if (!targetId || !panelId) return;
+    activatePanel(panelId);
+    requestAnimationFrame(() => {
+      const target = document.getElementById(targetId);
+      if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  }
+  tocLinks.forEach((link) => {
+    link.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const targetId = link.getAttribute('href').replace('#', '');
+      jumpToSubpanel(targetId, link.dataset.panel);
+      history.replaceState(null, '', '#' + targetId);
+    });
+  });
+  const initial = location.hash.replace('#', '');
+  if (['overview', 'price', 'supply', 'demand', 'trade'].includes(initial)) activatePanel(initial);
+  if (tocTargetPanel[initial]) jumpToSubpanel(initial, tocTargetPanel[initial]);
+  function summaryStorageKey(card) {
+    return 'power-dashboard-summary:' + (card.dataset.summaryKey || 'default');
+  }
+  function setSummaryStatus(card, text) {
+    const status = card.querySelector('.editable-summary-status');
+    if (status) status.textContent = text;
+  }
+  document.querySelectorAll('.editable-summary-card').forEach((card) => {
+    const body = card.querySelector('.editable-summary-body');
+    if (!body) return;
+    const key = summaryStorageKey(card);
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      body.innerHTML = saved;
+      setSummaryStatus(card, '已载入保存稿');
+    }
+    card.addEventListener('click', (ev) => {
+      const button = ev.target.closest ? ev.target.closest('[data-summary-action]') : null;
+      if (!button) return;
+      const action = button.dataset.summaryAction;
+      if (action === 'edit') {
+        const enabled = body.getAttribute('contenteditable') === 'true';
+        body.setAttribute('contenteditable', enabled ? 'false' : 'true');
+        button.textContent = enabled ? '编辑' : '完成编辑';
+        if (!enabled) {
+          body.focus();
+          setSummaryStatus(card, '编辑中');
+        } else {
+          setSummaryStatus(card, '待保存');
+        }
+      }
+      if (action === 'save') {
+        localStorage.setItem(key, body.innerHTML);
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已保存 ' + new Date().toLocaleTimeString('zh-CN', { hour12:false }));
+      }
+      if (action === 'reset') {
+        if (!confirm('恢复为本次数据自动生成的汇总文字？')) return;
+        localStorage.removeItem(key);
+        body.innerHTML = body.dataset.defaultHtml || '';
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已恢复生成稿');
+      }
+      if (action === 'export') {
+        const title = card.querySelector('.card-head h3')?.textContent || 'summary';
+        const html = '<!doctype html><meta charset="utf-8"><title>' + title + '</title><body>' + body.innerHTML + '</body>';
+        const blob = new Blob([html], { type:'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = '电力月报-汇总编辑稿.html';
+        link.click();
+        URL.revokeObjectURL(url);
+        setSummaryStatus(card, '已导出');
+      }
+    });
+  });
+  const globalTip = document.getElementById('global-chart-tooltip');
+  function showGlobalTip(ev, text) {
+    if (!globalTip || !text) return;
+    const rawText = String(text).replace(/\r?\n/g, '\n').replace(/\\n/g, '\n');
+    globalTip.innerHTML = rawText
+      .split('\n')
+      .map((line, idx) => {
+        const safe = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return idx === 0 ? `<div class="tip-date">${safe}</div>` : `<div>${safe}</div>`;
+      })
+      .join('');
+    globalTip.style.display = 'block';
+    const margin = 16;
+    const boxW = globalTip.offsetWidth || 240;
+    const boxH = globalTip.offsetHeight || 90;
+    let left = ev.clientX + 16;
+    let top = ev.clientY - Math.min(40, boxH / 2);
+    if (left + boxW + margin > window.innerWidth) left = ev.clientX - boxW - 16;
+    if (top + boxH + margin > window.innerHeight) top = window.innerHeight - boxH - margin;
+    if (top < margin) top = margin;
+    globalTip.style.left = left + 'px';
+    globalTip.style.top = top + 'px';
+  }
+  document.addEventListener('mousemove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    if (!target) {
+      if (globalTip) globalTip.style.display = 'none';
+      return;
+    }
+    showGlobalTip(ev, target.dataset.tip);
+  });
+  document.addEventListener('touchstart', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('touchmove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('mouseleave', () => {
+    if (globalTip) globalTip.style.display = 'none';
+  });
+</script>
+</body>
+</html>
