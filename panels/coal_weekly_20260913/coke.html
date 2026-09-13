@@ -917,8 +917,7 @@
               });
               return nearest ? `${nearest.year} ${nearest.date}：${formatPointValue(nearest)}` : '';
             }).filter(Boolean);
-            chartTip.textContent = [points[0].title || '', ...lines].filter(Boolean).join('
-');
+            chartTip.textContent = [points[0].title || '', ...lines].filter(Boolean).join('\n');
           } else {
             let nearest = points[0];
             points.forEach(point => { if (Math.abs(point.x - x) < Math.abs(nearest.x - x)) nearest = point; });
@@ -930,19 +929,11 @@
         });
         canvas.addEventListener('mouseleave', () => chartTip.style.display = 'none');
       };
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(entries => {
-          entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            bindOne(entry.target);
-            observer.unobserve(entry.target);
-          });
-        }, {rootMargin: '360px 0px'});
-        canvases.forEach(canvas => observer.observe(canvas));
-      } else {
-        canvases.slice(0, 8).forEach(bindOne);
-        canvases.slice(8).forEach((canvas, idx) => window.setTimeout(() => bindOne(canvas), 160 * (idx + 1)));
-      }
+      // Split pages are already lightweight; render canvases eagerly so GitHub Pages
+      // and WeChat WebView do not depend on IntersectionObserver timing.
+      canvases.forEach(bindOne);
+      window.setTimeout(() => Array.from(root.querySelectorAll('.chart-canvas:not([data-rendered])')).forEach(bindOne), 250);
+      window.setTimeout(() => Array.from(root.querySelectorAll('.chart-canvas:not([data-rendered])')).forEach(bindOne), 1000);
     }
     function bindChartInteractions(root = document) {
       bindCanvasCharts(root);
