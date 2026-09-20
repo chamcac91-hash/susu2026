@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>海外电力月报 手机版 - 1.3 全球电力供给</title>
+<style>
+    :root { --bg:#f5f1ea; --paper:#fffdf9; --ink:#111827; --muted:#687080; --line:#cfd6e3; --navy:#0b2f66; --accent:#b4493f; }
+    * { box-sizing:border-box; }
+    body { margin:0; padding-left:176px; background:var(--bg); color:var(--ink); font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .page { width:min(1680px, calc(100% - 28px)); margin:14px auto 40px; background:var(--paper); border:1px solid #d7d0c6; box-shadow:0 8px 28px rgba(64,46,26,.08); }
+    header { padding:22px 28px 14px; border-bottom:3px solid var(--navy); }
+    header h1 { margin:0; color:var(--navy); font-size:30px; }
+    header p { margin:6px 0 0; color:var(--muted); }
+    main { padding:0 22px 28px; }
+    .side-toc { position:fixed; left:0; top:0; bottom:0; z-index:70; width:176px; overflow:auto; padding:42px 12px 18px; background:rgba(255,253,249,.98); border-right:1px solid #cbd5e1; box-shadow:8px 0 22px rgba(15,23,42,.08); }
+    .side-toc div { color:var(--navy); font-size:16px; font-weight:700; margin:0 0 8px; }
+    .side-toc a { display:block; color:#334155; text-decoration:none; font-size:13px; line-height:1.2; padding:7px 6px; border-left:3px solid transparent; }
+    .side-toc a:hover { color:var(--navy); background:#eef3fb; border-left-color:var(--accent); }
+    .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:8px; padding:18px 0 10px; border-bottom:1px solid #d7dde8; background:rgba(255,253,249,.96); }
+    .panel-tab { border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:8px 16px; min-height:42px; border-radius:3px; font-family:inherit; font-size:18px; font-weight:700; cursor:pointer; }
+    .panel-tab.active { background:var(--accent); border-color:var(--accent); color:white; }
+    body { padding-left:224px; }
+    .side-toc { width:224px; padding:24px 12px 18px; }
+    .toc-title { color:var(--navy); font-size:17px; font-weight:800; margin:0 0 10px; padding:0 6px 8px; border-bottom:1px solid #d7dde8; }
+    .toc-group { margin:0 0 8px; }
+    .toc-group-title { width:100%; display:flex; align-items:center; justify-content:space-between; gap:8px; border:1px solid #d7dde8; background:#f8fafc; color:#1f2937; padding:8px 8px; min-height:38px; border-radius:4px; font-family:inherit; font-size:14px; font-weight:800; text-align:left; cursor:pointer; }
+    .toc-group-title b { min-width:24px; height:20px; padding:1px 6px; border-radius:10px; background:#e8edf6; color:#475569; font-size:12px; text-align:center; }
+    .toc-group.active .toc-group-title { background:#0b2f66; border-color:#0b2f66; color:white; }
+    .toc-group.active .toc-group-title b { background:rgba(255,255,255,.18); color:white; }
+    .toc-group-links { display:none; padding:5px 0 2px; }
+    .toc-group.active .toc-group-links { display:block; }
+    .side-toc a { line-height:1.22; padding:7px 7px; margin:1px 0; border-radius:3px; }
+    .side-toc a:hover { border-left-color:#9aa9bf; }
+    .side-toc a.active { color:var(--navy); background:#f3e8e4; border-left-color:var(--accent); font-weight:800; }
+    .toc-depth-2 { padding-left:16px !important; font-size:12.6px !important; }
+    .toc-depth-3 { padding-left:28px !important; font-size:12px !important; color:#64748b !important; }
+    .report-panel { display:none; padding-top:16px; }
+    .report-panel.active { display:block; }
+    .report-panel > h1 { margin:0 0 14px; color:var(--navy); font-size:26px; }
+    .subpanel { scroll-margin-top:78px; margin:14px 0 22px; padding:12px; border:1px solid #d7dde8; background:#fbfcff; }
+    .subpanel > h2 { margin:0 0 10px; font-size:22px; color:var(--navy); border-left:5px solid var(--navy); padding-left:10px; }
+    .card { border:1px solid #bfc8d8; background:white; overflow:hidden; }
+    .card + .card { margin-top:12px; }
+    .wide { width:100%; }
+    .card-head { background:#d9e2f3; border-bottom:1px solid #aeb8c8; padding:8px 10px; text-align:center; }
+    .card-head h3 { margin:0; font-size:18px; color:#001f55; }
+    .card-head p { margin:3px 0 0; color:#475569; font-size:12px; }
+    .card-body { padding:10px; overflow:auto; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th, td { border:1px solid #c9ced8; padding:6px 8px; text-align:left; vertical-align:top; }
+    th { background:#e5ebf6; color:#0f2d5c; font-weight:700; }
+    td.num { text-align:right; font-variant-numeric:tabular-nums; }
+    .metric-matrix-wrap { margin:0 0 12px; overflow-x:auto; border:1px solid #d8dee9; background:#fff; }
+    .metric-matrix { min-width:1320px; width:max-content; }
+    .compact-metric-matrix { min-width:0; width:100%; }
+    .metric-matrix th { text-align:center; white-space:nowrap; }
+    .metric-matrix td { white-space:nowrap; }
+    .metric-matrix .metric-name { position:sticky; left:0; z-index:2; min-width:112px; background:#eef3fb; color:#0f2d5c; font-weight:700; }
+    .metric-matrix tbody .metric-name { background:#fffdf9; }
+    .combo-chart { margin:0 0 12px; border:1px solid #d8dee9; background:#fff; }
+    .combo-chart-head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 12px 4px; }
+    .combo-chart-head h4 { margin:0; color:#0f2d5c; font-size:17px; }
+    .chart-controls { display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-end; }
+    .chart-toggle { min-height:28px; padding:3px 10px; border:1px solid #cbd5e1; background:#f8fafc; color:#334155; border-radius:3px; font-family:inherit; cursor:pointer; }
+    .chart-toggle.active { background:var(--navy); border-color:var(--navy); color:white; }
+    .combo-chart canvas { display:block; width:100%; height:360px; }
+    .combo-chart.chart-heatmap canvas { height:520px; }
+    .combo-chart.chart-sparkline canvas { height:460px; }
+    .combo-chart.chart-seasonality canvas { height:1180px; }
+    .chart-note { margin:0; padding:0 12px 10px; color:#64748b; font-size:12px; }
+    .chart-tooltip { position:fixed; z-index:999; display:none; min-width:168px; max-width:280px; padding:8px 10px; background:rgba(15,23,42,.94); color:white; border:1px solid rgba(255,255,255,.18); border-radius:4px; box-shadow:0 10px 24px rgba(15,23,42,.22); pointer-events:none; font-size:12px; line-height:1.45; }
+    .chart-tooltip .tip-title { margin:0 0 5px; font-weight:700; color:#fff; }
+    .chart-tooltip .tip-row { display:flex; justify-content:space-between; gap:16px; border-top:1px solid rgba(255,255,255,.12); padding-top:4px; margin-top:4px; }
+    .chart-tooltip span { color:#cbd5e1; }
+    .chart-tooltip b { color:#fff; font-weight:700; text-align:right; }
+    .takeaways { margin:10px 0 0; padding-left:20px; color:#1f2937; line-height:1.65; font-size:14px; }
+    .summary-analysis { padding:8px 10px 4px; color:#1f2937; font-size:15px; line-height:1.75; }
+    .summary-analysis p { margin:0 0 10px; }
+    .summary-analysis .summary-lead { font-weight:700; color:#0f2d5c; }
+    .summary-analysis .takeaways { margin-top:8px; }
+    .data-note { margin:8px 0 12px; color:#64748b; font-size:12px; line-height:1.6; }
+    .inline-section-title { margin:16px 0 6px; color:#0f2d5c; font-size:15px; }
+    .sources { padding:16px 22px 26px; font-size:12px; color:#596273; line-height:1.7; border-top:1px solid #d7dde8; }
+    @media(max-width:1320px) {
+      .combo-chart.chart-seasonality canvas { height:1500px; }
+    }
+    @media(max-width:900px) {
+      body { padding-left:0; }
+      .page { width:100%; margin:0; border:0; }
+      .side-toc { position:sticky; top:0; width:100%; max-height:none; padding:7px 8px; display:flex; gap:6px; overflow-x:auto; border-right:0; border-bottom:1px solid #cbd5e1; box-shadow:none; }
+      .side-toc div { display:none; }
+      .side-toc a { flex:0 0 auto; border:1px solid #d7dde8; border-radius:3px; background:#f8fafc; white-space:nowrap; }
+      .toc-title { display:none; }
+      .toc-group { flex:0 0 auto; margin:0; }
+      .toc-group-title { min-height:34px; padding:6px 10px; white-space:nowrap; }
+      .toc-group-title b { display:none; }
+      .toc-group-links { position:absolute; left:0; right:0; top:49px; padding:6px 8px; background:rgba(255,253,249,.98); border-bottom:1px solid #cbd5e1; overflow-x:auto; white-space:nowrap; }
+      .toc-depth-2, .toc-depth-3 { padding-left:7px !important; font-size:12px !important; }
+      .panel-tabs { flex-wrap:nowrap; overflow-x:auto; padding:8px; }
+      .panel-tab { flex:0 0 auto; font-size:14px; min-height:34px; padding:6px 10px; }
+      main { padding:0 8px 18px; }
+      .combo-chart-head { display:block; }
+      .chart-controls { justify-content:flex-start; margin-top:8px; }
+      .combo-chart canvas { height:320px; }
+      .combo-chart.chart-heatmap canvas { height:520px; }
+      .combo-chart.chart-sparkline canvas { height:460px; }
+      .combo-chart.chart-seasonality canvas { height:2600px; }
+      table { min-width:760px; font-size:12px; }
+    }
+  </style>
+<link href="data:," rel="icon"/><style id="mobile-pages-overrides">
+      html { scroll-behavior: smooth; }
+      body { min-width: 0; padding-left: 0 !important; }
+      .page { width: 100%; max-width: 1120px; margin: 0 auto 28px; border-top: 0; }
+      main { min-width: 0; padding-top: 0 !important; }
+      .split-page-tabs {
+        position: sticky; top: 0; z-index: 95; display: flex; flex-wrap: nowrap;
+        gap: 6px; overflow-x: auto; padding: 8px 0; white-space: nowrap;
+        background: rgba(255,253,249,.98); border-bottom: 1px solid var(--line);
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      }
+      .split-page-tabs::-webkit-scrollbar, .section-page-nav::-webkit-scrollbar { display: none; }
+      .split-tab, .section-link {
+        flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none;
+        background: #f8fafc; color: #344054; font-weight: 750; white-space: nowrap;
+      }
+      .split-tab { min-width: 4.2rem; min-height: 36px; padding: 7px 10px; font-size: 14px; }
+      .split-tab.active { color: #fff; background: var(--accent); border-color: var(--accent); }
+      .section-page-nav {
+        position: sticky; top: 53px; z-index: 90; display: flex; gap: 6px;
+        overflow-x: auto; padding: 8px 0 10px; margin: -2px 0 8px;
+        background: rgba(255,253,249,.98); scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .section-link { min-height: 32px; max-width: 82vw; padding: 6px 9px; font-size: 13px; }
+      .section-link.active { color: #fff; background: var(--navy); border-color: var(--navy); }
+      .report-panel { display: block !important; padding-top: 8px; }
+      .report-panel > h1 { margin-top: 8px; }
+      img { max-width: 100%; height: auto; }
+      .card-body, .metric-matrix-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      @media (max-width: 760px) {
+        header, main { width: auto !important; max-width: none !important; }
+        header { padding: 14px 12px 10px !important; }
+        header h1 { font-size: 23px !important; line-height: 1.2; }
+        header p { font-size: 12px; line-height: 1.45; }
+        main { padding: 0 8px 28px !important; }
+        .subpanel { padding: 6px; margin: 8px 0 12px; }
+        .subpanel > h2 { font-size: 17px; line-height: 1.35; }
+        .grid-2, .chart-grid, .chart-grid-2, .chart-grid-3 { grid-template-columns: minmax(0, 1fr) !important; }
+        .combo-chart-head { align-items: flex-start; flex-direction: column; gap: 6px; }
+        .chart-controls { justify-content: flex-start; }
+        .combo-chart canvas { min-width: 680px; }
+        .combo-chart.chart-heatmap canvas { min-width: 760px; }
+        table { min-width: 620px; }
+        .card-head h3 { font-size: 16px !important; }
+        .card-head p, .data-note, .chart-note, .sources { font-size: 12px !important; }
+      }
+    </style></head>
+<body>
+<div class="page">
+
+<header>
+<h1>海外电力月报 手机版</h1>
+<p>按全球、美洲、欧洲、亚洲、大洋洲、非洲六部分组织；先建数据源和指标底表，再逐步转为交互式图。</p>
+</header>
+<main>
+
+<section class="report-panel active" id="global"><nav aria-label="区域栏目" class="panel-tabs split-page-tabs"><a class="split-tab active" href="index.html">全球</a><a class="split-tab" href="americas.html">美洲</a><a class="split-tab" href="europe.html">欧洲</a><a class="split-tab" href="asia.html">亚洲</a><a class="split-tab" href="oceania.html">大洋洲</a><a class="split-tab" href="africa.html">非洲</a></nav><h1>1. 全球电力</h1><nav aria-label="专题栏目" class="section-page-nav"><a class="section-link" href="index.html#global-summary">1.1 小结</a><a class="section-link" href="global-policy.html#global-policy">1.2 全球重点电力政策</a><a class="section-link active" href="global-supply.html#global-supply">1.3 全球电力供给</a><a class="section-link" href="global-demand.html#global-demand">1.4 全球总用电</a><a class="section-link" href="global-structure.html#global-structure">1.5 全球电力结构</a><a class="section-link" href="global-capacity.html#global-capacity">1.6 全球电力装机</a></nav><section class="subpanel" id="global-supply"><h2>1.3 全球电力供给</h2><div class="card wide"><div class="card-head"><h3>年度总发电和预测</h3><p>IEA 年度口径，含 2026-2027 预测。</p></div><div class="card-body"><div class="combo-chart" data-chart-id="global-total-generation-chart"><div class="combo-chart-head"><h4>IEA年度全球总发电量与同比</h4></div><canvas aria-label="IEA年度全球总发电量与同比" height="430" id="global-total-generation-chart" width="1200"></canvas><p class="chart-note">柱为年度总发电量，折线为总发电量同比；2026-2027 为 IEA 预测。</p><script id="global-total-generation-chart-data" type="application/json">{"mode":"total","barLabel":"总发电量","lineLabel":"同比","unit":"TWh","series":[{"year":2019,"value":26303.7,"yoy":null,"status":"历史/估计"},{"year":2020,"value":26153.4,"yoy":-0.57,"status":"历史/估计"},{"year":2021,"value":27741.0,"yoy":6.07,"status":"历史/估计"},{"year":2022,"value":28330.8,"yoy":2.13,"status":"历史/估计"},{"year":2023,"value":29277.8,"yoy":3.34,"status":"历史/估计"},{"year":2024,"value":30629.1,"yoy":4.62,"status":"历史/估计"},{"year":2025,"value":31490.3,"yoy":2.81,"status":"历史/估计"},{"year":2026,"value":32573.1,"yoy":3.44,"status":"预测"},{"year":2027,"value":33831.2,"yoy":3.86,"status":"预测"}]}</script></div></div></div><div class="card wide"><div class="card-head"><h3>Ember月度全球总发电</h3><p>World 月度口径，最新到 2026-07。</p></div><div class="card-body"><div class="combo-chart chart-combo" data-chart-id="ember-monthly-world-generation"><div class="combo-chart-head"><h4>Ember全球月度总发电与同比</h4></div><canvas aria-label="Ember全球月度总发电与同比" height="430" id="ember-monthly-world-generation" width="1200"></canvas><p class="chart-note">单位 TWh；折线为月度同比，最新 World 口径到 2026-07。</p><script id="ember-monthly-world-generation-data" type="application/json">{"mode":"combo","barLabel":"月度总发电","lineLabel":"同比","unit":"TWh","series":[{"label":"2022-08","value":2587.84,"yoy":4.833},{"label":"2022-09","value":2295.693,"yoy":1.915},{"label":"2022-10","value":2204.858,"yoy":-0.041},{"label":"2022-11","value":2215.979,"yoy":0.624},{"label":"2022-12","value":2442.647,"yoy":2.575},{"label":"2023-01","value":2395.055,"yoy":-2.848},{"label":"2023-02","value":2174.738,"yoy":3.496},{"label":"2023-03","value":2342.065,"yoy":1.737},{"label":"2023-04","value":2176.937,"yoy":1.106},{"label":"2023-05","value":2288.396,"yoy":1.752},{"label":"2023-06","value":2386.966,"yoy":0.365},{"label":"2023-07","value":2651.353,"yoy":2.895},{"label":"2023-08","value":2668.191,"yoy":3.105},{"label":"2023-09","value":2421.748,"yoy":5.491},{"label":"2023-10","value":2337.975,"yoy":6.037},{"label":"2023-11","value":2334.01,"yoy":5.326},{"label":"2023-12","value":2532.934,"yoy":3.696},{"label":"2024-01","value":2541.846,"yoy":6.129},{"label":"2024-02","value":2344.508,"yoy":7.806},{"label":"2024-03","value":2424.966,"yoy":3.54},{"label":"2024-04","value":2283.129,"yoy":4.878},{"label":"2024-05","value":2419.762,"yoy":5.741},{"label":"2024-06","value":2524.487,"yoy":5.761},{"label":"2024-07","value":2770.201,"yoy":4.483},{"label":"2024-08","value":2775.835,"yoy":4.034},{"label":"2024-09","value":2521.622,"yoy":4.124},{"label":"2024-10","value":2409.814,"yoy":3.073},{"label":"2024-11","value":2385.514,"yoy":2.207},{"label":"2024-12","value":2603.922,"yoy":2.803},{"label":"2025-01","value":2620.485,"yoy":3.094},{"label":"2025-02","value":2361.68,"yoy":0.732},{"label":"2025-03","value":2497.331,"yoy":2.984},{"label":"2025-04","value":2357.388,"yoy":3.253},{"label":"2025-05","value":2455.141,"yoy":1.462},{"label":"2025-06","value":2594.1,"yoy":2.758},{"label":"2025-07","value":2878.725,"yoy":3.918},{"label":"2025-08","value":2836.463,"yoy":2.184},{"label":"2025-09","value":2582.978,"yoy":2.433},{"label":"2025-10","value":2505.693,"yoy":3.979},{"label":"2025-11","value":2451.027,"yoy":2.746},{"label":"2025-12","value":2682.016,"yoy":2.999},{"label":"2026-01","value":2678.613,"yoy":2.218},{"label":"2026-02","value":2447.769,"yoy":3.645},{"label":"2026-03","value":2567.075,"yoy":2.793},{"label":"2026-04","value":2428.408,"yoy":3.013},{"label":"2026-05","value":2550.452,"yoy":3.882},{"label":"2026-06","value":2673.07,"yoy":3.044},{"label":"2026-07","value":2939.641,"yoy":2.116}]}</script></div><table><thead><tr><th>月份</th><th>总发电量TWh</th><th>同比%</th></tr></thead><tbody><tr><td class="">2025-08</td><td class="num">2,836.5</td><td class="num">+2.18%</td></tr><tr><td class="">2025-09</td><td class="num">2,583.0</td><td class="num">+2.43%</td></tr><tr><td class="">2025-10</td><td class="num">2,505.7</td><td class="num">+3.98%</td></tr><tr><td class="">2025-11</td><td class="num">2,451.0</td><td class="num">+2.75%</td></tr><tr><td class="">2025-12</td><td class="num">2,682.0</td><td class="num">+3.00%</td></tr><tr><td class="">2026-01</td><td class="num">2,678.6</td><td class="num">+2.22%</td></tr><tr><td class="">2026-02</td><td class="num">2,447.8</td><td class="num">+3.65%</td></tr><tr><td class="">2026-03</td><td class="num">2,567.1</td><td class="num">+2.79%</td></tr><tr><td class="">2026-04</td><td class="num">2,428.4</td><td class="num">+3.01%</td></tr><tr><td class="">2026-05</td><td class="num">2,550.5</td><td class="num">+3.88%</td></tr><tr><td class="">2026-06</td><td class="num">2,673.1</td><td class="num">+3.04%</td></tr><tr><td class="">2026-07</td><td class="num">2,939.6</td><td class="num">+2.12%</td></tr></tbody></table></div></div><div class="card wide"><div class="card-head"><h3>洲别与国家发电增速</h3><p>先看洲别近10年发电增速和最新YTD，再看全部可比国家累计增速热力图；国家季节性图先放YTD累计发电量前10，再放YTD累计增速前10，并标注洲别。</p></div><div class="card-body"><div class="combo-chart chart-line_multi" data-chart-id="ember-region-generation-ytd"><div class="combo-chart-head"><h4>洲别近10年发电增速与最新YTD</h4></div><canvas aria-label="洲别近10年发电增速与最新YTD" height="430" id="ember-region-generation-ytd" width="1200"></canvas><p class="chart-note">按 Ember 月度数据计算：历史点为全年总发电同比，最新点为各洲最新可得月份的年初至今累计同比；区域历史长度按本地 Ember 可得数据展示，Ember 当前未提供 Africa 区域合计。</p><script id="ember-region-generation-ytd-data" type="application/json">{"mode":"line_multi","title":"洲别发电增速","series":[{"label":"Asia","points":[{"label":"2020","value":1.81},{"label":"2021","value":8.36},{"label":"2022","value":4.15},{"label":"2023","value":5.3},{"label":"2024","value":5.73},{"label":"2025","value":3.76},{"label":"2026YTD","value":4.02}]},{"label":"Europe","points":[{"label":"2017","value":0.79},{"label":"2018","value":0.62},{"label":"2019","value":-0.7},{"label":"2020","value":-3.12},{"label":"2021","value":4.81},{"label":"2022","value":-2.56},{"label":"2023","value":-1.69},{"label":"2024","value":2.63},{"label":"2025","value":0.38},{"label":"2026YTD","value":1.76}]},{"label":"North America","points":[{"label":"2016","value":1.22},{"label":"2017","value":-0.68},{"label":"2018","value":3.01},{"label":"2019","value":-0.91},{"label":"2020","value":-2.5},{"label":"2021","value":2.19},{"label":"2022","value":3.05},{"label":"2023","value":-1.17},{"label":"2024","value":2.7},{"label":"2025","value":2.89},{"label":"2026YTD","value":2.2}]},{"label":"Latin America and Caribbean","points":[{"label":"2020","value":-1.34},{"label":"2021","value":3.97},{"label":"2022","value":1.51},{"label":"2023","value":3.98},{"label":"2024","value":3.02},{"label":"2025","value":1.25},{"label":"2026YTD","value":1.79}]},{"label":"Oceania","points":[{"label":"2020","value":-1.1},{"label":"2021","value":0.24},{"label":"2022","value":2.11},{"label":"2023","value":0.73},{"label":"2024","value":3.04},{"label":"2025","value":1.55},{"label":"2026YTD","value":0.49}]}],"unit":"%"}</script></div><div class="combo-chart chart-heatmap" data-chart-id="ember-country-generation-heatmap"><div class="combo-chart-head"><h4>分国家月度发电累计增速热力图</h4></div><canvas aria-label="分国家月度发电累计增速热力图" height="430" id="ember-country-generation-heatmap" width="1200"></canvas><p class="chart-note">按 2026-07 当年累计发电同比排序，按洲别分组展示全部可比国家最近12个月当年累计发电同比；正增长为红色，负增长为绿色。</p><script id="ember-country-generation-heatmap-data" type="application/json">{"mode":"heatmap","title":"国家发电累计增速热力图","x":["2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"],"y":["蒙古 Mongolia","印度 India","中国 China","中国台湾 Taiwan (China)","土耳其 Türkiye","韩国 South Korea","孟加拉国 Bangladesh","日本 Japan","格鲁吉亚 Georgia","黑山 Montenegro","拉脱维亚 Latvia","丹麦 Denmark","立陶宛 Lithuania","希腊 Greece","德国 Germany","芬兰 Finland","克罗地亚 Croatia","波兰 Poland","塞浦路斯 Cyprus","意大利 Italy","保加利亚 Bulgaria","法国 France","斯洛伐克 Slovakia","波黑 Bosnia Herzegovina","爱尔兰 Ireland","罗马尼亚 Romania","马耳他 Malta","捷克 Czechia","西班牙 Spain","英国 United Kingdom","俄罗斯 Russia","匈牙利 Hungary","荷兰 Netherlands","卢森堡 Luxembourg","奥地利 Austria","摩尔多瓦 Moldova","瑞典 Sweden","葡萄牙 Portugal","塞尔维亚 Serbia","斯洛文尼亚 Slovenia","爱沙尼亚 Estonia","挪威 Norway","Iceland","比利时 Belgium","墨西哥 Mexico","美国 United States","哥斯达黎加 Costa Rica","乌拉圭 Uruguay","秘鲁 Peru","玻利维亚 Bolivia","巴西 Brazil","阿根廷 Argentina","澳大利亚 Australia","新西兰 New Zealand","Nigeria","南非 South Africa"],"rows":[{"continent":"亚洲","country":"蒙古 Mongolia","latestYtdYoy":7.92},{"continent":"亚洲","country":"印度 India","latestYtdYoy":7.39},{"continent":"亚洲","country":"中国 China","latestYtdYoy":4.3},{"continent":"亚洲","country":"中国台湾 Taiwan (China)","latestYtdYoy":1.4},{"continent":"亚洲","country":"土耳其 Türkiye","latestYtdYoy":1.29},{"continent":"亚洲","country":"韩国 South Korea","latestYtdYoy":-0.04},{"continent":"亚洲","country":"孟加拉国 Bangladesh","latestYtdYoy":-1.4},{"continent":"亚洲","country":"日本 Japan","latestYtdYoy":-2.32},{"continent":"亚洲","country":"格鲁吉亚 Georgia","latestYtdYoy":-2.35},{"continent":"欧洲","country":"黑山 Montenegro","latestYtdYoy":54.01},{"continent":"欧洲","country":"拉脱维亚 Latvia","latestYtdYoy":17.31},{"continent":"欧洲","country":"丹麦 Denmark","latestYtdYoy":15.19},{"continent":"欧洲","country":"立陶宛 Lithuania","latestYtdYoy":13.12},{"continent":"欧洲","country":"希腊 Greece","latestYtdYoy":10.32},{"continent":"欧洲","country":"德国 Germany","latestYtdYoy":6.54},{"continent":"欧洲","country":"芬兰 Finland","latestYtdYoy":6.25},{"continent":"欧洲","country":"克罗地亚 Croatia","latestYtdYoy":5.34},{"continent":"欧洲","country":"波兰 Poland","latestYtdYoy":5.12},{"continent":"欧洲","country":"塞浦路斯 Cyprus","latestYtdYoy":4.81},{"continent":"欧洲","country":"意大利 Italy","latestYtdYoy":4.59},{"continent":"欧洲","country":"保加利亚 Bulgaria","latestYtdYoy":4.49},{"continent":"欧洲","country":"法国 France","latestYtdYoy":4.47},{"continent":"欧洲","country":"斯洛伐克 Slovakia","latestYtdYoy":3.98},{"continent":"欧洲","country":"波黑 Bosnia Herzegovina","latestYtdYoy":3.85},{"continent":"欧洲","country":"爱尔兰 Ireland","latestYtdYoy":3.85},{"continent":"欧洲","country":"罗马尼亚 Romania","latestYtdYoy":3.83},{"continent":"欧洲","country":"马耳他 Malta","latestYtdYoy":3.65},{"continent":"欧洲","country":"捷克 Czechia","latestYtdYoy":3.28},{"continent":"欧洲","country":"西班牙 Spain","latestYtdYoy":1.66},{"continent":"欧洲","country":"英国 United Kingdom","latestYtdYoy":1.54},{"continent":"欧洲","country":"俄罗斯 Russia","latestYtdYoy":0.09},{"continent":"欧洲","country":"匈牙利 Hungary","latestYtdYoy":-0.48},{"continent":"欧洲","country":"荷兰 Netherlands","latestYtdYoy":-0.59},{"continent":"欧洲","country":"卢森堡 Luxembourg","latestYtdYoy":-1.22},{"continent":"欧洲","country":"奥地利 Austria","latestYtdYoy":-1.81},{"continent":"欧洲","country":"摩尔多瓦 Moldova","latestYtdYoy":-2.29},{"continent":"欧洲","country":"瑞典 Sweden","latestYtdYoy":-3.22},{"continent":"欧洲","country":"葡萄牙 Portugal","latestYtdYoy":-3.97},{"continent":"欧洲","country":"塞尔维亚 Serbia","latestYtdYoy":-6.33},{"continent":"欧洲","country":"斯洛文尼亚 Slovenia","latestYtdYoy":-6.72},{"continent":"欧洲","country":"爱沙尼亚 Estonia","latestYtdYoy":-7.51},{"continent":"欧洲","country":"挪威 Norway","latestYtdYoy":-8.05},{"continent":"欧洲","country":"Iceland","latestYtdYoy":-9.71},{"continent":"欧洲","country":"比利时 Belgium","latestYtdYoy":-14.68},{"continent":"北美","country":"墨西哥 Mexico","latestYtdYoy":3.21},{"continent":"北美","country":"美国 United States","latestYtdYoy":2.36},{"continent":"北美","country":"哥斯达黎加 Costa Rica","latestYtdYoy":-1.02},{"continent":"南美","country":"乌拉圭 Uruguay","latestYtdYoy":7.12},{"continent":"南美","country":"秘鲁 Peru","latestYtdYoy":4.78},{"continent":"南美","country":"玻利维亚 Bolivia","latestYtdYoy":2.39},{"continent":"南美","country":"巴西 Brazil","latestYtdYoy":0.88},{"continent":"南美","country":"阿根廷 Argentina","latestYtdYoy":0.84},{"continent":"大洋洲","country":"澳大利亚 Australia","latestYtdYoy":0.64},{"continent":"大洋洲","country":"新西兰 New Zealand","latestYtdYoy":-0.6},{"continent":"非洲","country":"Nigeria","latestYtdYoy":-6.37},{"continent":"非洲","country":"南非 South Africa","latestYtdYoy":-7.09}],"values":[[10.0,9.6,9.3,9.6,10.2,9.1,8.7,7.6,6.4,5.8,6.9,7.9],[2.7,3.0,2.2,2.0,2.5,6.6,5.1,4.0,4.5,6.0,7.0,7.4],[4.5,4.5,5.0,5.1,4.8,2.0,5.4,4.8,4.7,5.1,4.9,4.3],[-0.6,-0.5,0.1,0.2,0.1,6.4,2.1,1.5,2.1,1.9,1.3,1.4],[4.3,4.4,4.0,3.5,3.4,5.4,1.6,2.5,2.5,1.1,2.0,1.3],[0.2,0.1,-0.1,-0.1,-0.1,5.6,-0.1,-0.3,-0.2,-0.1,0.1,-0.0],[0.3,1.5,2.1,2.0,1.8,1.1,0.4,-4.2,-3.8,-4.2,-2.5,-1.4],[2.2,1.8,1.7,1.7,1.5,1.8,-1.7,-0.9,-1.1,-0.7,-1.7,-2.3],[-9.3,-8.6,-6.3,-4.4,-2.8,-1.6,6.7,6.4,3.7,0.5,-2.9,-2.3],[-26.6,-29.0,-34.2,-34.6,-32.4,54.8,62.1,36.8,37.6,39.5,47.7,54.0],[-12.2,-10.7,-8.0,-4.9,-1.9,23.3,10.1,15.8,24.3,26.0,22.1,17.3],[-8.2,-5.2,-3.6,-2.2,-2.1,20.6,21.7,15.7,19.1,16.0,12.2,15.2],[27.6,26.1,26.7,22.9,20.4,13.1,18.4,9.5,8.0,8.2,8.2,13.1],[2.5,3.4,3.1,1.6,1.6,20.7,10.2,15.1,16.1,14.7,13.4,10.3],[0.6,0.6,1.8,1.5,1.1,7.7,8.4,7.4,7.4,6.1,5.3,6.5],[-0.2,-0.3,0.1,0.3,-0.2,5.0,5.1,8.5,8.5,6.8,6.8,6.3],[-2.1,-4.0,-4.4,-3.9,-4.2,20.3,31.2,15.0,6.1,4.9,4.7,5.3],[1.4,0.8,1.0,0.6,0.2,2.5,1.4,2.5,4.2,4.7,5.1,5.1],[-0.6,0.3,0.1,0.2,-0.0,16.5,2.5,7.1,7.2,5.8,4.8,4.8],[-1.4,-1.4,-1.2,-1.2,-0.7,12.4,8.6,4.9,3.9,3.6,3.5,4.6],[0.0,-0.6,0.2,-0.4,-0.6,-0.6,-7.5,-2.8,-0.8,2.2,2.6,4.5],[0.4,0.8,1.0,1.4,1.9,-0.2,1.1,2.2,3.4,4.4,4.6,4.5],[-4.8,-4.5,-3.6,-2.3,-1.5,3.4,5.3,6.1,5.7,4.7,3.7,4.0],[-6.6,-6.5,-6.2,-5.0,-5.9,-6.8,2.1,2.0,-0.4,2.5,2.8,3.8],[1.0,0.8,0.7,0.6,0.7,1.1,1.9,4.0,4.6,5.1,6.0,3.9],[-9.7,-9.3,-8.0,-6.8,-5.3,10.7,9.3,8.9,7.9,5.6,4.3,3.8],[-1.3,0.0,0.0,0.0,0.6,3.8,7.8,6.6,2.9,2.3,1.9,3.6],[7.1,5.2,4.8,4.6,3.8,5.3,-0.9,-2.5,-2.0,-1.2,2.1,3.3],[2.8,2.5,2.4,3.0,2.9,2.3,0.8,-1.1,-1.0,0.0,0.6,1.7],[3.2,3.3,3.3,3.7,3.4,2.7,1.1,2.1,3.0,2.3,1.8,1.5],[-1.6,-1.4,-1.2,-1.4,-1.3,4.7,3.4,2.0,1.5,0.9,0.6,0.1],[7.9,8.2,8.8,7.4,6.1,2.4,-2.0,0.0,0.3,-2.0,-0.2,-0.5],[12.1,12.0,12.0,11.0,10.2,11.6,5.5,0.9,0.5,-1.0,-0.3,-0.6],[5.7,3.0,0.9,0.8,2.3,-25.0,5.0,-5.9,-4.3,-5.1,-4.2,-1.2],[-4.9,-5.3,-6.3,-6.7,-7.6,-9.0,-6.3,3.0,1.3,0.8,0.7,-1.8],[-58.4,-59.5,-60.1,-59.3,-58.0,0.8,0.2,3.1,4.0,2.9,-0.7,-2.3],[-0.3,-0.8,-1.5,-1.5,-1.0,6.6,4.4,1.1,0.3,-0.4,-1.6,-3.2],[8.6,9.6,7.9,7.9,9.2,8.8,9.6,4.3,-1.3,-4.2,-4.0,-4.0],[1.3,1.4,-0.7,-1.1,-0.9,-0.9,-0.8,-1.0,-2.8,-4.4,-5.5,-6.3],[-8.5,-10.2,-14.6,-13.2,-12.1,-2.3,0.3,-3.8,-6.7,-7.5,-6.3,-6.7],[3.3,1.3,0.0,-0.6,-2.3,6.0,6.2,-3.1,-7.5,-7.6,-8.5,-7.5],[3.6,3.2,3.0,2.8,2.5,2.0,-6.1,-9.8,-11.5,-9.9,-7.9,-8.0],[-0.9,-1.1,-1.7,-2.9,-4.0,-13.1,-12.3,-12.3,-12.4,-11.5,-10.5,-9.7],[-7.3,-6.5,-5.6,-5.2,-5.5,0.9,-7.7,-7.9,-10.5,-13.0,-14.4,-14.7],[-0.1,-0.1,0.1,0.2,0.4,0.6,0.5,1.9,2.4,2.3,2.5,3.2],[2.4,2.5,2.5,2.7,2.9,-0.5,0.4,1.7,2.1,2.4,2.3,2.4],[7.8,7.6,6.7,6.5,5.3,-12.4,-4.9,-1.5,-1.4,-1.3,-1.1,-1.0],[-10.2,-8.1,-9.6,-10.7,-9.6,9.1,6.5,7.7,10.6,13.6,7.7,7.1],[2.1,2.1,2.2,2.0,2.1,4.0,3.4,2.8,3.2,3.7,4.3,4.8],[0.4,1.0,0.6,0.5,0.8,3.7,1.8,3.9,4.5,2.6,2.1,2.4],[1.7,1.2,0.9,0.7,0.9,-0.1,-1.5,-1.0,-0.2,0.4,0.7,0.9],[-0.9,-0.7,-0.7,-0.8,0.4,-2.2,-4.0,-1.7,-0.2,0.7,0.2,0.8],[2.0,2.1,2.4,2.4,2.2,2.9,2.0,1.1,1.5,1.4,0.7,0.6],[-3.4,-2.5,-2.0,-1.7,-1.6,-0.3,-2.6,-0.8,-0.3,-0.5,-0.8,-0.6],[17.1,15.1,15.6,16.4,15.6,0.7,-5.6,-10.5,-9.1,-8.4,-7.8,-6.4],[0.3,-0.4,-0.9,-1.5,-2.0,-6.1,-4.9,-5.4,-6.3,-6.7,-6.9,-7.1]],"unit":"%","positiveColor":"red","negativeColor":"green"}</script></div><div class="combo-chart chart-seasonality" data-chart-id="ember-generation-ytd-value-top10-seasonality"><div class="combo-chart-head"><h4>累计发电量前10国家月度发电量季节性</h4></div><canvas aria-label="累计发电量前10国家月度发电量季节性" height="430" id="ember-generation-ytd-value-top10-seasonality" width="1200"></canvas><p class="chart-note">按 2026-07 当年累计发电量排序；小图按排名展示，并标注洲别。折线为各年份月度发电量，红线为最新年份，柱为2026年当年累计同比。</p><script id="ember-generation-ytd-value-top10-seasonality-data" type="application/json">{"mode":"seasonality","title":"累计发电量前10国家月度发电量季节性","panels":[{"country":"中国 China","rank":1,"continent":"亚洲","ytdValue":6127.95,"ytdYoy":4.3,"lines":[{"year":"2022","points":[{"month":1,"value":779.978},{"month":2,"value":582.297},{"month":3,"value":696.736},{"month":4,"value":640.332},{"month":5,"value":673.684},{"month":6,"value":740.774},{"month":7,"value":837.199},{"month":8,"value":855.818},{"month":9,"value":712.292},{"month":10,"value":690.343},{"month":11,"value":692.34},{"month":12,"value":786.438}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":739.791},{"month":2,"value":666.931},{"month":3,"value":747.892},{"month":4,"value":692.677},{"month":5,"value":727.496},{"month":6,"value":778.89},{"month":7,"value":888.034},{"month":8,"value":885.708},{"month":9,"value":783.851},{"month":10,"value":746.421},{"month":11,"value":775.408},{"month":12,"value":869.193}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":793.049},{"month":2,"value":764.025},{"month":3,"value":792.072},{"month":4,"value":737.485},{"month":5,"value":774.054},{"month":6,"value":823.149},{"month":7,"value":940.525},{"month":8,"value":966.489},{"month":9,"value":852.899},{"month":10,"value":780.873},{"month":11,"value":793.614},{"month":12,"value":893.238}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":834.429},{"month":2,"value":742.565},{"month":3,"value":832.066},{"month":4,"value":774.712},{"month":5,"value":808.187},{"month":6,"value":871.675},{"month":7,"value":1011.611},{"month":8,"value":1012.635},{"month":9,"value":892.164},{"month":10,"value":856.239},{"month":11,"value":838.335},{"month":12,"value":914.61}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":850.915},{"month":2,"value":812.023},{"month":3,"value":860.948},{"month":4,"value":810.311},{"month":5,"value":859.729},{"month":6,"value":908.32},{"month":7,"value":1025.706},{"month":8,"value":1021.987}],"isCurrent":true}],"bars":[{"month":1,"value":1.98},{"month":2,"value":5.45},{"month":3,"value":4.77},{"month":4,"value":4.72},{"month":5,"value":5.06},{"month":6,"value":4.91},{"month":7,"value":4.3},{"month":8,"value":3.8}]},{"country":"美国 United States","rank":2,"continent":"北美","ytdValue":2695.57,"ytdYoy":2.36,"lines":[{"year":"2022","points":[{"month":1,"value":376.771},{"month":2,"value":327.579},{"month":3,"value":329.34},{"month":4,"value":309.298},{"month":5,"value":347.98},{"month":6,"value":384.845},{"month":7,"value":429.098},{"month":8,"value":417.926},{"month":9,"value":356.71},{"month":10,"value":318.543},{"month":11,"value":325.414},{"month":12,"value":363.393}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":351.685},{"month":2,"value":315.088},{"month":3,"value":337.557},{"month":4,"value":308.501},{"month":5,"value":334.863},{"month":6,"value":366.409},{"month":7,"value":432.688},{"month":8,"value":429.931},{"month":9,"value":366.661},{"month":10,"value":332.691},{"month":11,"value":325.727},{"month":12,"value":352.121}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":385.674},{"month":2,"value":327.515},{"month":3,"value":332.025},{"month":4,"value":318.491},{"month":5,"value":356.896},{"month":6,"value":399.964},{"month":7,"value":437.809},{"month":8,"value":431.283},{"month":9,"value":366.842},{"month":10,"value":340.672},{"month":11,"value":327.703},{"month":12,"value":366.164}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":407.389},{"month":2,"value":344.231},{"month":3,"value":341.36},{"month":4,"value":329.092},{"month":5,"value":353.161},{"month":6,"value":402.446},{"month":7,"value":455.769},{"month":8,"value":429.216},{"month":9,"value":376.082},{"month":10,"value":352.575},{"month":11,"value":340.817},{"month":12,"value":387.652}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":405.348},{"month":2,"value":349.055},{"month":3,"value":357.608},{"month":4,"value":340.315},{"month":5,"value":365.153},{"month":6,"value":410.15},{"month":7,"value":467.936},{"month":8,"value":465.153}],"isCurrent":true}],"bars":[{"month":1,"value":-0.5},{"month":2,"value":0.37},{"month":3,"value":1.74},{"month":4,"value":2.13},{"month":5,"value":2.38},{"month":6,"value":2.29},{"month":7,"value":2.36},{"month":8,"value":3.2}]},{"country":"印度 India","rank":3,"continent":"亚洲","ytdValue":1194.06,"ytdYoy":7.39,"lines":[{"year":"2022","points":[{"month":1,"value":121.762},{"month":2,"value":118.328},{"month":3,"value":140.369},{"month":4,"value":142.723},{"month":5,"value":146.74},{"month":6,"value":143.912},{"month":7,"value":137.819},{"month":8,"value":139.307},{"month":9,"value":136.571},{"month":10,"value":123.758},{"month":11,"value":122.507},{"month":12,"value":131.934}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":137.184},{"month":2,"value":127.979},{"month":3,"value":138.558},{"month":4,"value":141.269},{"month":5,"value":148.565},{"month":6,"value":150.647},{"month":7,"value":148.499},{"month":8,"value":160.582},{"month":9,"value":150.224},{"month":10,"value":149.896},{"month":11,"value":129.845},{"month":12,"value":133.909}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":145.154},{"month":2,"value":138.04},{"month":3,"value":151.669},{"month":4,"value":156.8},{"month":5,"value":169.293},{"month":6,"value":163.873},{"month":7,"value":161.298},{"month":8,"value":155.352},{"month":9,"value":151.203},{"month":10,"value":152.831},{"month":11,"value":136.032},{"month":12,"value":142.744}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":149.587},{"month":2,"value":144.083},{"month":3,"value":162.725},{"month":4,"value":160.897},{"month":5,"value":162.586},{"month":6,"value":163.136},{"month":7,"value":168.832},{"month":8,"value":163.629},{"month":9,"value":158.709},{"month":10,"value":144.581},{"month":11,"value":136.408},{"month":12,"value":154.22}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":159.425},{"month":2,"value":149.222},{"month":3,"value":166.183},{"month":4,"value":170.271},{"month":5,"value":181.392},{"month":6,"value":182.779},{"month":7,"value":184.784}],"isCurrent":true}],"bars":[{"month":1,"value":6.58},{"month":2,"value":5.1},{"month":3,"value":4.04},{"month":4,"value":4.5},{"month":5,"value":5.98},{"month":6,"value":7.03},{"month":7,"value":7.39}]},{"country":"俄罗斯 Russia","rank":4,"continent":"欧洲","ytdValue":666.92,"ytdYoy":0.09,"lines":[{"year":"2022","points":[{"month":1,"value":109.382},{"month":2,"value":96.981},{"month":3,"value":103.758},{"month":4,"value":90.815},{"month":5,"value":85.834},{"month":6,"value":79.377},{"month":7,"value":82.544},{"month":8,"value":85.387},{"month":9,"value":84.593},{"month":10,"value":93.877},{"month":11,"value":100.129},{"month":12,"value":110.285}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":109.529},{"month":2,"value":99.016},{"month":3,"value":101.261},{"month":4,"value":90.804},{"month":5,"value":86.413},{"month":6,"value":80.533},{"month":7,"value":84.379},{"month":8,"value":86.925},{"month":9,"value":84.177},{"month":10,"value":96.26},{"month":11,"value":101.277},{"month":12,"value":113.576}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":114.273},{"month":2,"value":105.322},{"month":3,"value":105.157},{"month":4,"value":91.539},{"month":5,"value":88.842},{"month":6,"value":84.576},{"month":7,"value":88.704},{"month":8,"value":87.277},{"month":9,"value":85.509},{"month":10,"value":97.863},{"month":11,"value":103.81},{"month":12,"value":112.588}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":110.144},{"month":2,"value":101.898},{"month":3,"value":103.528},{"month":4,"value":92.371},{"month":5,"value":88.141},{"month":6,"value":82.212},{"month":7,"value":88.036},{"month":8,"value":86.757},{"month":9,"value":86.168},{"month":10,"value":98.258},{"month":11,"value":100.875},{"month":12,"value":111.754}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":115.325},{"month":2,"value":103.837},{"month":3,"value":102.722},{"month":4,"value":92.354},{"month":5,"value":86.461},{"month":6,"value":81.276},{"month":7,"value":84.947}],"isCurrent":true}],"bars":[{"month":1,"value":4.7},{"month":2,"value":3.36},{"month":3,"value":2.0},{"month":4,"value":1.54},{"month":5,"value":0.93},{"month":6,"value":0.64},{"month":7,"value":0.09}]},{"country":"日本 Japan","rank":5,"continent":"亚洲","ytdValue":526.36,"ytdYoy":-2.32,"lines":[{"year":"2022","points":[{"month":1,"value":92.47},{"month":2,"value":84.54},{"month":3,"value":78.9},{"month":4,"value":68.13},{"month":5,"value":66.43},{"month":6,"value":72.89},{"month":7,"value":84.88},{"month":8,"value":85.8},{"month":9,"value":76.17},{"month":10,"value":69.3},{"month":11,"value":68.19},{"month":12,"value":83.84}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":86.69},{"month":2,"value":78.04},{"month":3,"value":72.88},{"month":4,"value":65.19},{"month":5,"value":65.68},{"month":6,"value":70.39},{"month":7,"value":85.57},{"month":8,"value":88.43},{"month":9,"value":79.98},{"month":10,"value":68.17},{"month":11,"value":69.46},{"month":12,"value":80.91}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":84.21},{"month":2,"value":77.37},{"month":3,"value":79.04},{"month":4,"value":64.68},{"month":5,"value":64.84},{"month":6,"value":68.27},{"month":7,"value":87.23},{"month":8,"value":87.91},{"month":9,"value":80.63},{"month":10,"value":70.17},{"month":11,"value":68.03},{"month":12,"value":81.25}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":86.35},{"month":2,"value":81.38},{"month":3,"value":77.34},{"month":4,"value":66.24},{"month":5,"value":64.9},{"month":6,"value":72.83},{"month":7,"value":89.84},{"month":8,"value":88.14},{"month":9,"value":79.96},{"month":10,"value":70.17},{"month":11,"value":69.4},{"month":12,"value":80.91}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":87.91},{"month":2,"value":76.99},{"month":3,"value":77.98},{"month":4,"value":64.91},{"month":5,"value":65.67},{"month":6,"value":67.75},{"month":7,"value":85.15}],"isCurrent":true}],"bars":[{"month":1,"value":1.81},{"month":2,"value":-1.69},{"month":3,"value":-0.89},{"month":4,"value":-1.13},{"month":5,"value":-0.73},{"month":6,"value":-1.74},{"month":7,"value":-2.32}]},{"country":"巴西 Brazil","rank":6,"continent":"南美","ytdValue":447.1,"ytdYoy":0.88,"lines":[{"year":"2022","points":[{"month":1,"value":58.828},{"month":2,"value":54.927},{"month":3,"value":60.794},{"month":4,"value":55.343},{"month":5,"value":55.706},{"month":6,"value":53.35},{"month":7,"value":55.45},{"month":8,"value":55.965},{"month":9,"value":55.027},{"month":10,"value":57.29},{"month":11,"value":55.251},{"month":12,"value":57.776}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":59.716},{"month":2,"value":56.803},{"month":3,"value":63.311},{"month":4,"value":57.063},{"month":5,"value":58.093},{"month":6,"value":55.269},{"month":7,"value":56.641},{"month":8,"value":58.613},{"month":9,"value":59.103},{"month":10,"value":61.942},{"month":11,"value":62.564},{"month":12,"value":64.477}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":63.473},{"month":2,"value":62.302},{"month":3,"value":65.814},{"month":4,"value":61.862},{"month":5,"value":62.124},{"month":6,"value":58.085},{"month":7,"value":60.466},{"month":8,"value":61.694},{"month":9,"value":62.347},{"month":10,"value":64.426},{"month":11,"value":62.544},{"month":12,"value":63.654}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":66.327},{"month":2,"value":64.627},{"month":3,"value":68.009},{"month":4,"value":62.122},{"month":5,"value":61.56},{"month":6,"value":59.372},{"month":7,"value":61.175},{"month":8,"value":61.187},{"month":9,"value":60.532},{"month":10,"value":63.064},{"month":11,"value":61.695},{"month":12,"value":65.588}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":66.27},{"month":2,"value":62.766},{"month":3,"value":68.013},{"month":4,"value":63.589},{"month":5,"value":63.423},{"month":6,"value":60.748},{"month":7,"value":62.286}],"isCurrent":true}],"bars":[{"month":1,"value":-0.09},{"month":2,"value":-1.46},{"month":3,"value":-0.96},{"month":4,"value":-0.17},{"month":5,"value":0.44},{"month":6,"value":0.73},{"month":7,"value":0.88}]},{"country":"韩国 South Korea","rank":7,"continent":"亚洲","ytdValue":341.3,"ytdYoy":-0.04,"lines":[{"year":"2022","points":[{"month":1,"value":54.462},{"month":2,"value":48.203},{"month":3,"value":49.156},{"month":4,"value":44.547},{"month":5,"value":45.887},{"month":6,"value":47.321},{"month":7,"value":54.731},{"month":8,"value":53.623},{"month":9,"value":45.992},{"month":10,"value":45.417},{"month":11,"value":45.906},{"month":12,"value":55.255}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":53.802},{"month":2,"value":47.453},{"month":3,"value":47.59},{"month":4,"value":43.717},{"month":5,"value":45.176},{"month":6,"value":46.826},{"month":7,"value":52.975},{"month":8,"value":54.941},{"month":9,"value":47.754},{"month":10,"value":44.584},{"month":11,"value":47.436},{"month":12,"value":52.101}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":53.837},{"month":2,"value":46.814},{"month":3,"value":48.957},{"month":4,"value":43.633},{"month":5,"value":44.945},{"month":6,"value":46.993},{"month":7,"value":54.075},{"month":8,"value":58.388},{"month":9,"value":50.386},{"month":10,"value":45.77},{"month":11,"value":45.417},{"month":12,"value":51.805}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":51.963},{"month":2,"value":48.646},{"month":3,"value":48.123},{"month":4,"value":43.99},{"month":5,"value":44.984},{"month":6,"value":47.157},{"month":7,"value":56.591},{"month":8,"value":56.858},{"month":9,"value":50.308},{"month":10,"value":44.887},{"month":11,"value":45.303},{"month":12,"value":51.709}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":54.859},{"month":2,"value":45.677},{"month":3,"value":47.685},{"month":4,"value":44.103},{"month":5,"value":45.205},{"month":6,"value":47.545},{"month":7,"value":56.23}],"isCurrent":true}],"bars":[{"month":1,"value":5.57},{"month":2,"value":-0.07},{"month":3,"value":-0.34},{"month":4,"value":-0.21},{"month":5,"value":-0.07},{"month":6,"value":0.07},{"month":7,"value":-0.04}]},{"country":"法国 France","rank":8,"continent":"欧洲","ytdValue":316.0,"ytdYoy":4.47,"lines":[{"year":"2022","points":[{"month":1,"value":50.488},{"month":2,"value":43.822},{"month":3,"value":40.448},{"month":4,"value":34.58},{"month":5,"value":32.681},{"month":6,"value":30.566},{"month":7,"value":29.818},{"month":8,"value":28.008},{"month":9,"value":27.878},{"month":10,"value":31.441},{"month":11,"value":35.163},{"month":12,"value":43.168}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":47.248},{"month":2,"value":41.45},{"month":3,"value":40.559},{"month":4,"value":36.738},{"month":5,"value":37.541},{"month":6,"value":34.713},{"month":7,"value":35.621},{"month":8,"value":34.363},{"month":9,"value":35.961},{"month":10,"value":38.661},{"month":11,"value":43.145},{"month":12,"value":48.247}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":52.708},{"month":2,"value":45.637},{"month":3,"value":45.344},{"month":4,"value":39.413},{"month":5,"value":40.13},{"month":6,"value":37.969},{"month":7,"value":39.981},{"month":8,"value":38.649},{"month":9,"value":38.084},{"month":10,"value":41.512},{"month":11,"value":45.82},{"month":12,"value":51.54}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":55.501},{"month":2,"value":46.235},{"month":3,"value":45.946},{"month":4,"value":38.533},{"month":5,"value":37.494},{"month":6,"value":37.87},{"month":7,"value":40.884},{"month":8,"value":38.89},{"month":9,"value":39.423},{"month":10,"value":42.88},{"month":11,"value":48.164},{"month":12,"value":54.847}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":55.394},{"month":2,"value":47.446},{"month":3,"value":48.163},{"month":4,"value":41.503},{"month":5,"value":40.983},{"month":6,"value":40.193},{"month":7,"value":42.314},{"month":8,"value":38.062}],"isCurrent":true}],"bars":[{"month":1,"value":-0.19},{"month":2,"value":1.09},{"month":3,"value":2.25},{"month":4,"value":3.38},{"month":5,"value":4.37},{"month":6,"value":4.63},{"month":7,"value":4.47},{"month":8,"value":3.72}]},{"country":"德国 Germany","rank":9,"continent":"欧洲","ytdValue":296.9,"ytdYoy":6.54,"lines":[{"year":"2022","points":[{"month":1,"value":52.832},{"month":2,"value":50.662},{"month":3,"value":50.143},{"month":4,"value":46.511},{"month":5,"value":43.26},{"month":6,"value":41.637},{"month":7,"value":44.036},{"month":8,"value":42.291},{"month":9,"value":42.722},{"month":10,"value":42.873},{"month":11,"value":45.883},{"month":12,"value":47.29}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":47.922},{"month":2,"value":44.316},{"month":3,"value":46.092},{"month":4,"value":39.426},{"month":5,"value":35.957},{"month":6,"value":34.516},{"month":7,"value":36.407},{"month":8,"value":33.958},{"month":9,"value":34.489},{"month":10,"value":40.32},{"month":11,"value":43.281},{"month":12,"value":45.435}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":47.699},{"month":2,"value":42.313},{"month":3,"value":41.336},{"month":4,"value":38.487},{"month":5,"value":35.865},{"month":6,"value":35.398},{"month":7,"value":36.142},{"month":8,"value":35.342},{"month":9,"value":36.689},{"month":10,"value":38.462},{"month":11,"value":42.115},{"month":12,"value":43.64}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":45.51},{"month":2,"value":40.875},{"month":3,"value":41.833},{"month":4,"value":37.339},{"month":5,"value":37.95},{"month":6,"value":38.133},{"month":7,"value":37.039},{"month":8,"value":35.635},{"month":9,"value":37.195},{"month":10,"value":43.23},{"month":11,"value":41.487},{"month":12,"value":42.477}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":49.003},{"month":2,"value":44.671},{"month":3,"value":43.976},{"month":4,"value":40.211},{"month":5,"value":37.975},{"month":6,"value":38.69},{"month":7,"value":42.378},{"month":8,"value":40.759}],"isCurrent":true}],"bars":[{"month":1,"value":7.68},{"month":2,"value":8.44},{"month":3,"value":7.36},{"month":4,"value":7.43},{"month":5,"value":6.06},{"month":6,"value":5.33},{"month":7,"value":6.54},{"month":8,"value":7.43}]},{"country":"墨西哥 Mexico","rank":10,"continent":"北美","ytdValue":212.18,"ytdYoy":3.21,"lines":[{"year":"2022","points":[{"month":1,"value":24.86},{"month":2,"value":23.1},{"month":3,"value":26.56},{"month":4,"value":27.52},{"month":5,"value":31.1},{"month":6,"value":30.76},{"month":7,"value":32.15},{"month":8,"value":31.23},{"month":9,"value":28.5},{"month":10,"value":27.64},{"month":11,"value":25.45},{"month":12,"value":24.99}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":25.55},{"month":2,"value":23.82},{"month":3,"value":27.81},{"month":4,"value":27.28},{"month":5,"value":30.43},{"month":6,"value":32.8},{"month":7,"value":33.77},{"month":8,"value":33.59},{"month":9,"value":31.82},{"month":10,"value":29.22},{"month":11,"value":25.56},{"month":12,"value":24.63}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":25.87},{"month":2,"value":24.35},{"month":3,"value":27.32},{"month":4,"value":29.05},{"month":5,"value":33.73},{"month":6,"value":32.59},{"month":7,"value":32.71},{"month":8,"value":33.96},{"month":9,"value":31.08},{"month":10,"value":29.8},{"month":11,"value":26.6},{"month":12,"value":25.08}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":26.29},{"month":2,"value":24.4},{"month":3,"value":27.98},{"month":4,"value":28.82},{"month":5,"value":32.84},{"month":6,"value":32.23},{"month":7,"value":33.03},{"month":8,"value":33.83},{"month":9,"value":31.08},{"month":10,"value":30.33},{"month":11,"value":26.76},{"month":12,"value":26.05}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":26.45},{"month":2,"value":24.51},{"month":3,"value":29.18},{"month":4,"value":29.89},{"month":5,"value":33.46},{"month":6,"value":33.42},{"month":7,"value":35.27}],"isCurrent":true}],"bars":[{"month":1,"value":0.61},{"month":2,"value":0.53},{"month":3,"value":1.87},{"month":4,"value":2.36},{"month":5,"value":2.25},{"month":6,"value":2.52},{"month":7,"value":3.21}]}],"unit":"TWh","barLabel":"2026累计同比","latestYear":2026}</script></div><table><thead><tr><th>排名</th><th>洲别</th><th>国家</th><th>最新月份</th><th>累计发电量TWh</th><th>累计同比%</th></tr></thead><tbody><tr><td class="">1</td><td class="">亚洲</td><td class="">中国 China</td><td class="">2026-07</td><td class="num">6,127.9</td><td class="num">+4.30%</td></tr><tr><td class="">2</td><td class="">北美</td><td class="">美国 United States</td><td class="">2026-07</td><td class="num">2,695.6</td><td class="num">+2.36%</td></tr><tr><td class="">3</td><td class="">亚洲</td><td class="">印度 India</td><td class="">2026-07</td><td class="num">1,194.1</td><td class="num">+7.39%</td></tr><tr><td class="">4</td><td class="">欧洲</td><td class="">俄罗斯 Russia</td><td class="">2026-07</td><td class="num">666.9</td><td class="num">+0.09%</td></tr><tr><td class="">5</td><td class="">亚洲</td><td class="">日本 Japan</td><td class="">2026-07</td><td class="num">526.4</td><td class="num">-2.32%</td></tr><tr><td class="">6</td><td class="">南美</td><td class="">巴西 Brazil</td><td class="">2026-07</td><td class="num">447.1</td><td class="num">+0.88%</td></tr><tr><td class="">7</td><td class="">亚洲</td><td class="">韩国 South Korea</td><td class="">2026-07</td><td class="num">341.3</td><td class="num">-0.04%</td></tr><tr><td class="">8</td><td class="">欧洲</td><td class="">法国 France</td><td class="">2026-07</td><td class="num">316.0</td><td class="num">+4.47%</td></tr><tr><td class="">9</td><td class="">欧洲</td><td class="">德国 Germany</td><td class="">2026-07</td><td class="num">296.9</td><td class="num">+6.54%</td></tr><tr><td class="">10</td><td class="">北美</td><td class="">墨西哥 Mexico</td><td class="">2026-07</td><td class="num">212.2</td><td class="num">+3.21%</td></tr></tbody></table><div class="combo-chart chart-seasonality" data-chart-id="ember-generation-ytd-growth-top10-seasonality"><div class="combo-chart-head"><h4>累计发电增速前10国家月度发电量季节性</h4></div><canvas aria-label="累计发电增速前10国家月度发电量季节性" height="430" id="ember-generation-ytd-growth-top10-seasonality" width="1200"></canvas><p class="chart-note">按 2026-07 当年累计发电同比排序；小图按排名展示，并标注洲别。折线为各年份月度发电量，红线为最新年份，柱为2026年当年累计同比。</p><script id="ember-generation-ytd-growth-top10-seasonality-data" type="application/json">{"mode":"seasonality","title":"累计发电增速前10国家月度发电量季节性","panels":[{"country":"黑山 Montenegro","rank":1,"continent":"欧洲","ytdValue":2.11,"ytdYoy":54.01,"lines":[{"year":"2022","points":[{"month":1,"value":0.35},{"month":2,"value":0.28},{"month":3,"value":0.33},{"month":4,"value":0.26},{"month":5,"value":0.09},{"month":6,"value":0.13},{"month":7,"value":0.22},{"month":8,"value":0.21},{"month":9,"value":0.16},{"month":10,"value":0.19},{"month":11,"value":0.31},{"month":12,"value":0.49}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":0.51},{"month":2,"value":0.4},{"month":3,"value":0.43},{"month":4,"value":0.23},{"month":5,"value":0.27},{"month":6,"value":0.23},{"month":7,"value":0.25},{"month":8,"value":0.23},{"month":9,"value":0.24},{"month":10,"value":0.24},{"month":11,"value":0.41},{"month":12,"value":0.44}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":0.37},{"month":2,"value":0.36},{"month":3,"value":0.38},{"month":4,"value":0.15},{"month":5,"value":0.09},{"month":6,"value":0.16},{"month":7,"value":0.23},{"month":8,"value":0.25},{"month":9,"value":0.22},{"month":10,"value":0.36},{"month":11,"value":0.35},{"month":12,"value":0.38}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":0.31},{"month":2,"value":0.27},{"month":3,"value":0.37},{"month":4,"value":0.14},{"month":5,"value":0.1},{"month":6,"value":0.09},{"month":7,"value":0.09},{"month":8,"value":0.09},{"month":9,"value":0.11},{"month":10,"value":0.12},{"month":11,"value":0.22},{"month":12,"value":0.32}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":0.48},{"month":2,"value":0.46},{"month":3,"value":0.36},{"month":4,"value":0.2},{"month":5,"value":0.16},{"month":6,"value":0.23},{"month":7,"value":0.22}],"isCurrent":true}],"bars":[{"month":1,"value":54.84},{"month":2,"value":62.07},{"month":3,"value":36.84},{"month":4,"value":37.61},{"month":5,"value":39.5},{"month":6,"value":47.66},{"month":7,"value":54.01}]},{"country":"拉脱维亚 Latvia","rank":2,"continent":"欧洲","ytdValue":4.31,"ytdYoy":17.31,"lines":[{"year":"2022","points":[{"month":1,"value":0.519},{"month":2,"value":0.453},{"month":3,"value":0.449},{"month":4,"value":0.638},{"month":5,"value":0.386},{"month":6,"value":0.257},{"month":7,"value":0.189},{"month":8,"value":0.239},{"month":9,"value":0.177},{"month":10,"value":0.189},{"month":11,"value":0.449},{"month":12,"value":0.588}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":0.884},{"month":2,"value":0.658},{"month":3,"value":0.819},{"month":4,"value":0.967},{"month":5,"value":0.342},{"month":6,"value":0.196},{"month":7,"value":0.131},{"month":8,"value":0.224},{"month":9,"value":0.267},{"month":10,"value":0.269},{"month":11,"value":0.48},{"month":12,"value":0.577}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":0.832},{"month":2,"value":0.771},{"month":3,"value":0.948},{"month":4,"value":0.786},{"month":5,"value":0.495},{"month":6,"value":0.239},{"month":7,"value":0.291},{"month":8,"value":0.316},{"month":9,"value":0.292},{"month":10,"value":0.219},{"month":11,"value":0.347},{"month":12,"value":0.37}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":0.622},{"month":2,"value":0.72},{"month":3,"value":0.56},{"month":4,"value":0.42},{"month":5,"value":0.4},{"month":6,"value":0.487},{"month":7,"value":0.465},{"month":8,"value":0.433},{"month":9,"value":0.33},{"month":10,"value":0.336},{"month":11,"value":0.491},{"month":12,"value":0.527}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":0.767},{"month":2,"value":0.711},{"month":3,"value":0.725},{"month":4,"value":0.683},{"month":5,"value":0.543},{"month":6,"value":0.49},{"month":7,"value":0.391},{"month":8,"value":0.343}],"isCurrent":true}],"bars":[{"month":1,"value":23.31},{"month":2,"value":10.13},{"month":3,"value":15.83},{"month":4,"value":24.29},{"month":5,"value":25.97},{"month":6,"value":22.13},{"month":7,"value":17.31},{"month":8,"value":13.29}]},{"country":"丹麦 Denmark","rank":3,"continent":"欧洲","ytdValue":21.77,"ytdYoy":15.19,"lines":[{"year":"2022","points":[{"month":1,"value":3.929},{"month":2,"value":3.775},{"month":3,"value":3.146},{"month":4,"value":2.795},{"month":5,"value":2.567},{"month":6,"value":1.885},{"month":7,"value":2.528},{"month":8,"value":1.806},{"month":9,"value":2.464},{"month":10,"value":2.565},{"month":11,"value":3.234},{"month":12,"value":3.382}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":3.597},{"month":2,"value":3.147},{"month":3,"value":3.16},{"month":4,"value":2.797},{"month":5,"value":2.615},{"month":6,"value":1.883},{"month":7,"value":2.476},{"month":8,"value":1.99},{"month":9,"value":2.009},{"month":10,"value":2.77},{"month":11,"value":2.782},{"month":12,"value":3.542}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":3.998},{"month":2,"value":3.483},{"month":3,"value":3.416},{"month":4,"value":2.909},{"month":5,"value":2.508},{"month":6,"value":2.327},{"month":7,"value":2.257},{"month":8,"value":2.26},{"month":9,"value":2.163},{"month":10,"value":2.857},{"month":11,"value":2.911},{"month":12,"value":3.416}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":3.384},{"month":2,"value":2.847},{"month":3,"value":3.153},{"month":4,"value":2.182},{"month":5,"value":2.561},{"month":6,"value":2.581},{"month":7,"value":2.195},{"month":8,"value":2.357},{"month":9,"value":2.738},{"month":10,"value":3.157},{"month":11,"value":3.241},{"month":12,"value":3.374}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":4.08},{"month":2,"value":3.505},{"month":3,"value":3.273},{"month":4,"value":2.921},{"month":5,"value":2.606},{"month":6,"value":2.356},{"month":7,"value":3.033},{"month":8,"value":2.919}],"isCurrent":true}],"bars":[{"month":1,"value":20.57},{"month":2,"value":21.73},{"month":3,"value":15.71},{"month":4,"value":19.13},{"month":5,"value":15.98},{"month":6,"value":12.17},{"month":7,"value":15.19},{"month":8,"value":16.15}]},{"country":"立陶宛 Lithuania","rank":4,"continent":"欧洲","ytdValue":6.0,"ytdYoy":13.12,"lines":[{"year":"2022","points":[{"month":1,"value":0.328},{"month":2,"value":0.353},{"month":3,"value":0.331},{"month":4,"value":0.302},{"month":5,"value":0.265},{"month":6,"value":0.233},{"month":7,"value":0.302},{"month":8,"value":0.307},{"month":9,"value":0.21},{"month":10,"value":0.27},{"month":11,"value":0.246},{"month":12,"value":0.35}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":0.37},{"month":2,"value":0.322},{"month":3,"value":0.43},{"month":4,"value":0.359},{"month":5,"value":0.339},{"month":6,"value":0.343},{"month":7,"value":0.38},{"month":8,"value":0.416},{"month":9,"value":0.418},{"month":10,"value":0.599},{"month":11,"value":0.396},{"month":12,"value":0.552}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":0.653},{"month":2,"value":0.532},{"month":3,"value":0.579},{"month":4,"value":0.593},{"month":5,"value":0.589},{"month":6,"value":0.553},{"month":7,"value":0.572},{"month":8,"value":0.556},{"month":9,"value":0.551},{"month":10,"value":0.559},{"month":11,"value":0.619},{"month":12,"value":0.74}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":0.81},{"month":2,"value":0.63},{"month":3,"value":0.803},{"month":4,"value":0.857},{"month":5,"value":0.823},{"month":6,"value":0.772},{"month":7,"value":0.608},{"month":8,"value":0.602},{"month":9,"value":0.624},{"month":10,"value":0.74},{"month":11,"value":0.541},{"month":12,"value":0.732}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":0.916},{"month":2,"value":0.789},{"month":3,"value":0.752},{"month":4,"value":0.891},{"month":5,"value":0.896},{"month":6,"value":0.838},{"month":7,"value":0.917},{"month":8,"value":0.879}],"isCurrent":true}],"bars":[{"month":1,"value":13.09},{"month":2,"value":18.4},{"month":3,"value":9.54},{"month":4,"value":8.0},{"month":5,"value":8.18},{"month":6,"value":8.24},{"month":7,"value":13.12},{"month":8,"value":16.48}]},{"country":"希腊 Greece","rank":5,"continent":"欧洲","ytdValue":32.05,"ytdYoy":10.32,"lines":[{"year":"2022","points":[{"month":1,"value":3.942},{"month":2,"value":3.289},{"month":3,"value":4.507},{"month":4,"value":2.6},{"month":5,"value":2.967},{"month":6,"value":3.89},{"month":7,"value":5.27},{"month":8,"value":4.776},{"month":9,"value":3.208},{"month":10,"value":2.883},{"month":11,"value":3.004},{"month":12,"value":3.353}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":2.839},{"month":2,"value":3.19},{"month":3,"value":3.116},{"month":4,"value":2.864},{"month":5,"value":2.748},{"month":6,"value":3.281},{"month":7,"value":4.706},{"month":8,"value":4.593},{"month":9,"value":3.902},{"month":10,"value":3.613},{"month":11,"value":3.141},{"month":12,"value":3.593}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":4.033},{"month":2,"value":3.383},{"month":3,"value":3.493},{"month":4,"value":3.502},{"month":5,"value":3.548},{"month":6,"value":4.562},{"month":7,"value":5.582},{"month":8,"value":4.906},{"month":9,"value":3.691},{"month":10,"value":3.711},{"month":11,"value":4.448},{"month":12,"value":4.465}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":4.557},{"month":2,"value":4.511},{"month":3,"value":3.855},{"month":4,"value":2.892},{"month":5,"value":3.427},{"month":6,"value":4.342},{"month":7,"value":5.464},{"month":8,"value":4.796},{"month":9,"value":4.089},{"month":10,"value":3.719},{"month":11,"value":3.903},{"month":12,"value":4.553}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":5.501},{"month":2,"value":4.491},{"month":3,"value":4.876},{"month":4,"value":3.489},{"month":5,"value":3.711},{"month":6,"value":4.688},{"month":7,"value":5.289},{"month":8,"value":5.683}],"isCurrent":true}],"bars":[{"month":1,"value":20.72},{"month":2,"value":10.19},{"month":3,"value":15.05},{"month":4,"value":16.07},{"month":5,"value":14.69},{"month":6,"value":13.45},{"month":7,"value":10.32},{"month":8,"value":11.48}]},{"country":"蒙古 Mongolia","rank":6,"continent":"亚洲","ytdValue":5.85,"ytdYoy":7.92,"lines":[{"year":"2022","points":[{"month":1,"value":0.807},{"month":2,"value":0.708},{"month":3,"value":0.756},{"month":4,"value":0.656},{"month":5,"value":0.598},{"month":6,"value":0.541},{"month":7,"value":0.491},{"month":8,"value":0.521},{"month":9,"value":0.577},{"month":10,"value":0.687},{"month":11,"value":0.746},{"month":12,"value":0.845}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":0.85},{"month":2,"value":0.721},{"month":3,"value":0.746},{"month":4,"value":0.703},{"month":5,"value":0.615},{"month":6,"value":0.553},{"month":7,"value":0.538},{"month":8,"value":0.55},{"month":9,"value":0.613},{"month":10,"value":0.705},{"month":11,"value":0.79},{"month":12,"value":0.868}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":0.872},{"month":2,"value":0.797},{"month":3,"value":0.859},{"month":4,"value":0.704},{"month":5,"value":0.632},{"month":6,"value":0.558},{"month":7,"value":0.556},{"month":8,"value":0.568},{"month":9,"value":0.64},{"month":10,"value":0.778},{"month":11,"value":0.836},{"month":12,"value":0.908}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":0.9},{"month":2,"value":0.864},{"month":3,"value":0.899},{"month":4,"value":0.798},{"month":5,"value":0.743},{"month":6,"value":0.624},{"month":7,"value":0.591},{"month":8,"value":0.679},{"month":9,"value":0.679},{"month":10,"value":0.833},{"month":11,"value":0.942},{"month":12,"value":1.046}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":0.982},{"month":2,"value":0.936},{"month":3,"value":0.948},{"month":4,"value":0.816},{"month":5,"value":0.764},{"month":6,"value":0.716},{"month":7,"value":0.686}],"isCurrent":true}],"bars":[{"month":1,"value":9.11},{"month":2,"value":8.73},{"month":3,"value":7.62},{"month":4,"value":6.39},{"month":5,"value":5.76},{"month":6,"value":6.92},{"month":7,"value":7.92}]},{"country":"印度 India","rank":7,"continent":"亚洲","ytdValue":1194.06,"ytdYoy":7.39,"lines":[{"year":"2022","points":[{"month":1,"value":121.762},{"month":2,"value":118.328},{"month":3,"value":140.369},{"month":4,"value":142.723},{"month":5,"value":146.74},{"month":6,"value":143.912},{"month":7,"value":137.819},{"month":8,"value":139.307},{"month":9,"value":136.571},{"month":10,"value":123.758},{"month":11,"value":122.507},{"month":12,"value":131.934}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":137.184},{"month":2,"value":127.979},{"month":3,"value":138.558},{"month":4,"value":141.269},{"month":5,"value":148.565},{"month":6,"value":150.647},{"month":7,"value":148.499},{"month":8,"value":160.582},{"month":9,"value":150.224},{"month":10,"value":149.896},{"month":11,"value":129.845},{"month":12,"value":133.909}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":145.154},{"month":2,"value":138.04},{"month":3,"value":151.669},{"month":4,"value":156.8},{"month":5,"value":169.293},{"month":6,"value":163.873},{"month":7,"value":161.298},{"month":8,"value":155.352},{"month":9,"value":151.203},{"month":10,"value":152.831},{"month":11,"value":136.032},{"month":12,"value":142.744}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":149.587},{"month":2,"value":144.083},{"month":3,"value":162.725},{"month":4,"value":160.897},{"month":5,"value":162.586},{"month":6,"value":163.136},{"month":7,"value":168.832},{"month":8,"value":163.629},{"month":9,"value":158.709},{"month":10,"value":144.581},{"month":11,"value":136.408},{"month":12,"value":154.22}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":159.425},{"month":2,"value":149.222},{"month":3,"value":166.183},{"month":4,"value":170.271},{"month":5,"value":181.392},{"month":6,"value":182.779},{"month":7,"value":184.784}],"isCurrent":true}],"bars":[{"month":1,"value":6.58},{"month":2,"value":5.1},{"month":3,"value":4.04},{"month":4,"value":4.5},{"month":5,"value":5.98},{"month":6,"value":7.03},{"month":7,"value":7.39}]},{"country":"乌拉圭 Uruguay","rank":8,"continent":"南美","ytdValue":7.78,"ytdYoy":7.12,"lines":[{"year":"2022","points":[{"month":1,"value":1.131},{"month":2,"value":0.955},{"month":3,"value":0.914},{"month":4,"value":0.911},{"month":5,"value":1.025},{"month":6,"value":1.222},{"month":7,"value":1.502},{"month":8,"value":1.411},{"month":9,"value":1.0},{"month":10,"value":0.898},{"month":11,"value":0.922},{"month":12,"value":1.05}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":1.097},{"month":2,"value":0.752},{"month":3,"value":0.811},{"month":4,"value":0.627},{"month":5,"value":0.709},{"month":6,"value":0.786},{"month":7,"value":1.036},{"month":8,"value":1.064},{"month":9,"value":1.001},{"month":10,"value":0.885},{"month":11,"value":0.907},{"month":12,"value":0.986}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":1.05},{"month":2,"value":1.119},{"month":3,"value":1.014},{"month":4,"value":0.901},{"month":5,"value":1.398},{"month":6,"value":1.258},{"month":7,"value":1.322},{"month":8,"value":1.515},{"month":9,"value":1.154},{"month":10,"value":1.329},{"month":11,"value":1.209},{"month":12,"value":1.021}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":1.032},{"month":2,"value":0.93},{"month":3,"value":0.908},{"month":4,"value":0.794},{"month":5,"value":1.001},{"month":6,"value":1.285},{"month":7,"value":1.309},{"month":8,"value":1.339},{"month":9,"value":1.267},{"month":10,"value":1.037},{"month":11,"value":0.942},{"month":12,"value":1.079}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":1.126},{"month":2,"value":0.964},{"month":3,"value":1.0},{"month":4,"value":0.962},{"month":5,"value":1.249},{"month":6,"value":1.107},{"month":7,"value":1.368},{"month":8,"value":1.572}],"isCurrent":true}],"bars":[{"month":1,"value":9.11},{"month":2,"value":6.52},{"month":3,"value":7.67},{"month":4,"value":10.59},{"month":5,"value":13.63},{"month":6,"value":7.7},{"month":7,"value":7.12},{"month":8,"value":8.72}]},{"country":"德国 Germany","rank":9,"continent":"欧洲","ytdValue":296.9,"ytdYoy":6.54,"lines":[{"year":"2022","points":[{"month":1,"value":52.832},{"month":2,"value":50.662},{"month":3,"value":50.143},{"month":4,"value":46.511},{"month":5,"value":43.26},{"month":6,"value":41.637},{"month":7,"value":44.036},{"month":8,"value":42.291},{"month":9,"value":42.722},{"month":10,"value":42.873},{"month":11,"value":45.883},{"month":12,"value":47.29}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":47.922},{"month":2,"value":44.316},{"month":3,"value":46.092},{"month":4,"value":39.426},{"month":5,"value":35.957},{"month":6,"value":34.516},{"month":7,"value":36.407},{"month":8,"value":33.958},{"month":9,"value":34.489},{"month":10,"value":40.32},{"month":11,"value":43.281},{"month":12,"value":45.435}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":47.699},{"month":2,"value":42.313},{"month":3,"value":41.336},{"month":4,"value":38.487},{"month":5,"value":35.865},{"month":6,"value":35.398},{"month":7,"value":36.142},{"month":8,"value":35.342},{"month":9,"value":36.689},{"month":10,"value":38.462},{"month":11,"value":42.115},{"month":12,"value":43.64}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":45.51},{"month":2,"value":40.875},{"month":3,"value":41.833},{"month":4,"value":37.339},{"month":5,"value":37.95},{"month":6,"value":38.133},{"month":7,"value":37.039},{"month":8,"value":35.635},{"month":9,"value":37.195},{"month":10,"value":43.23},{"month":11,"value":41.487},{"month":12,"value":42.477}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":49.003},{"month":2,"value":44.671},{"month":3,"value":43.976},{"month":4,"value":40.211},{"month":5,"value":37.975},{"month":6,"value":38.69},{"month":7,"value":42.378},{"month":8,"value":40.759}],"isCurrent":true}],"bars":[{"month":1,"value":7.68},{"month":2,"value":8.44},{"month":3,"value":7.36},{"month":4,"value":7.43},{"month":5,"value":6.06},{"month":6,"value":5.33},{"month":7,"value":6.54},{"month":8,"value":7.43}]},{"country":"芬兰 Finland","rank":10,"continent":"欧洲","ytdValue":49.16,"ytdYoy":6.25,"lines":[{"year":"2022","points":[{"month":1,"value":6.999},{"month":2,"value":6.213},{"month":3,"value":6.66},{"month":4,"value":5.946},{"month":5,"value":5.663},{"month":6,"value":4.876},{"month":7,"value":4.508},{"month":8,"value":5.045},{"month":9,"value":5.443},{"month":10,"value":5.986},{"month":11,"value":5.823},{"month":12,"value":7.353}],"isCurrent":false},{"year":"2023","points":[{"month":1,"value":7.512},{"month":2,"value":6.374},{"month":3,"value":7.401},{"month":4,"value":6.387},{"month":5,"value":6.344},{"month":6,"value":5.48},{"month":7,"value":5.29},{"month":8,"value":5.79},{"month":9,"value":5.884},{"month":10,"value":6.894},{"month":11,"value":7.399},{"month":12,"value":7.847}],"isCurrent":false},{"year":"2024","points":[{"month":1,"value":8.891},{"month":2,"value":7.744},{"month":3,"value":6.347},{"month":4,"value":6.065},{"month":5,"value":5.583},{"month":6,"value":5.616},{"month":7,"value":6.031},{"month":8,"value":5.706},{"month":9,"value":5.718},{"month":10,"value":7.073},{"month":11,"value":7.375},{"month":12,"value":8.412}],"isCurrent":false},{"year":"2025","points":[{"month":1,"value":8.429},{"month":2,"value":7.563},{"month":3,"value":7.092},{"month":4,"value":5.836},{"month":5,"value":6.182},{"month":6,"value":5.495},{"month":7,"value":5.67},{"month":8,"value":5.593},{"month":9,"value":5.655},{"month":10,"value":7.311},{"month":11,"value":7.514},{"month":12,"value":8.066}],"isCurrent":false},{"year":"2026","points":[{"month":1,"value":8.849},{"month":2,"value":7.953},{"month":3,"value":8.244},{"month":4,"value":6.323},{"month":5,"value":6.136},{"month":6,"value":5.87},{"month":7,"value":5.786},{"month":8,"value":6.137}],"isCurrent":true}],"bars":[{"month":1,"value":4.98},{"month":2,"value":5.07},{"month":3,"value":8.5},{"month":4,"value":8.47},{"month":5,"value":6.85},{"month":6,"value":6.84},{"month":7,"value":6.25},{"month":8,"value":6.63}]}],"unit":"TWh","barLabel":"2026累计同比","latestYear":2026}</script></div><table><thead><tr><th>排名</th><th>洲别</th><th>国家</th><th>最新月份</th><th>累计发电量TWh</th><th>累计同比%</th></tr></thead><tbody><tr><td class="">1</td><td class="">欧洲</td><td class="">黑山 Montenegro</td><td class="">2026-07</td><td class="num">2.1</td><td class="num">+54.01%</td></tr><tr><td class="">2</td><td class="">欧洲</td><td class="">拉脱维亚 Latvia</td><td class="">2026-07</td><td class="num">4.3</td><td class="num">+17.31%</td></tr><tr><td class="">3</td><td class="">欧洲</td><td class="">丹麦 Denmark</td><td class="">2026-07</td><td class="num">21.8</td><td class="num">+15.19%</td></tr><tr><td class="">4</td><td class="">欧洲</td><td class="">立陶宛 Lithuania</td><td class="">2026-07</td><td class="num">6.0</td><td class="num">+13.12%</td></tr><tr><td class="">5</td><td class="">欧洲</td><td class="">希腊 Greece</td><td class="">2026-07</td><td class="num">32.0</td><td class="num">+10.32%</td></tr><tr><td class="">6</td><td class="">亚洲</td><td class="">蒙古 Mongolia</td><td class="">2026-07</td><td class="num">5.8</td><td class="num">+7.92%</td></tr><tr><td class="">7</td><td class="">亚洲</td><td class="">印度 India</td><td class="">2026-07</td><td class="num">1,194.1</td><td class="num">+7.39%</td></tr><tr><td class="">8</td><td class="">南美</td><td class="">乌拉圭 Uruguay</td><td class="">2026-07</td><td class="num">7.8</td><td class="num">+7.12%</td></tr><tr><td class="">9</td><td class="">欧洲</td><td class="">德国 Germany</td><td class="">2026-07</td><td class="num">296.9</td><td class="num">+6.54%</td></tr><tr><td class="">10</td><td class="">欧洲</td><td class="">芬兰 Finland</td><td class="">2026-07</td><td class="num">49.2</td><td class="num">+6.25%</td></tr></tbody></table></div></div></section></section>
+</main>
+<div class="sources">
+<strong>源与口径：</strong>IEA 用于全球发电预测和结构短期展望；Ember 用于历史年度发电、需求、结构、排放和排放强度。IEA 预测段与 Ember 历史段后续画图时必须分段标注。
+      最新数据：IEA 发电到 2027，IEA 净用电需求到 2027，Ember 年度到 2025，Ember 月度 World 到 2026-07。
+    </div>
+</div>
+<script>
+
+  const powerCanvasCharts = new Map();
+  const chartHitAreas = new Map();
+  let chartTooltip = null;
+  const chartPalette = { total:'#b4493f', line:'#0b2f66', forecast:'#9ca3af', grid:'#d8dee9' };
+  const multiColors = ['#0b2f66','#b4493f','#0f766e','#7c3aed','#d97706','#2563eb','#16a34a','#9333ea','#dc2626','#64748b'];
+  let canvasRenderScheduled = false;
+  function fmtNumber(value, digits) {
+    const n = Number(value);
+    if (!Number.isFinite(n)) return '-';
+    return n.toLocaleString('en-US', { maximumFractionDigits: digits ?? 1 });
+  }
+  function hasNumericValue(value) {
+    return value !== null && value !== undefined && value !== '' && Number.isFinite(Number(value));
+  }
+  function fmtPct(value) {
+    if (!hasNumericValue(value)) return '-';
+    const n = Number(value);
+    return (n > 0 ? '+' : '') + n.toFixed(2) + '%';
+  }
+  function ensureChartTooltip() {
+    if (chartTooltip) return chartTooltip;
+    chartTooltip = document.createElement('div');
+    chartTooltip.className = 'chart-tooltip';
+    document.body.appendChild(chartTooltip);
+    return chartTooltip;
+  }
+  function tooltipHtml(title, rows) {
+    return `<div class="tip-title">${title}</div>` + rows
+      .map((row) => `<div class="tip-row"><span>${row[0]}</span><b>${row[1]}</b></div>`)
+      .join('');
+  }
+  function showChartTooltip(event, hit) {
+    if (!hit || !hit.html) return;
+    const tip = ensureChartTooltip();
+    tip.innerHTML = hit.html;
+    tip.style.display = 'block';
+    const pad = 14;
+    const rect = tip.getBoundingClientRect();
+    let left = event.clientX + pad;
+    let top = event.clientY + pad;
+    if (left + rect.width > window.innerWidth - 8) left = event.clientX - rect.width - pad;
+    if (top + rect.height > window.innerHeight - 8) top = event.clientY - rect.height - pad;
+    tip.style.left = Math.max(8, left) + 'px';
+    tip.style.top = Math.max(8, top) + 'px';
+  }
+  function hideChartTooltip() {
+    if (chartTooltip) chartTooltip.style.display = 'none';
+  }
+  function pointerInCanvas(canvas, event) {
+    const rect = canvas.getBoundingClientRect();
+    return { x:event.clientX - rect.left, y:event.clientY - rect.top };
+  }
+  function findCanvasHit(canvas, point) {
+    const hits = chartHitAreas.get(canvas.id) || [];
+    for (const hit of hits) {
+      if (hit.kind === 'xband' && point.x >= hit.x0 && point.x <= hit.x1 && point.y >= hit.y0 && point.y <= hit.y1) return hit;
+    }
+    for (const hit of hits) {
+      if (hit.kind === 'rect' && point.x >= hit.x0 && point.x <= hit.x1 && point.y >= hit.y0 && point.y <= hit.y1) return hit;
+    }
+    let best = null;
+    let bestDist = Infinity;
+    for (const hit of hits) {
+      if (hit.kind !== 'point') continue;
+      const dx = point.x - hit.x;
+      const dy = point.y - hit.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const radius = hit.radius || 10;
+      if (dist <= radius && dist < bestDist) {
+        best = hit;
+        bestDist = dist;
+      }
+    }
+    return best;
+  }
+  function activeChartSelection(canvas) {
+    const chart = canvas.closest('.combo-chart');
+    const active = chart ? chart.querySelector('.chart-toggle.active') : null;
+    return active ? (active.dataset.type || active.dataset.view) : null;
+  }
+  function redrawCanvas(canvas) {
+    const payload = powerCanvasCharts.get(canvas.id) || readChartPayload(canvas.id);
+    if (payload) drawChartCanvas(canvas, payload, activeChartSelection(canvas));
+  }
+  function bindCanvasInteractions(canvas) {
+    if (canvas.dataset.boundInteractions === '1') return;
+    canvas.dataset.boundInteractions = '1';
+    canvas.addEventListener('mousemove', (event) => {
+      const hit = findCanvasHit(canvas, pointerInCanvas(canvas, event));
+      canvas.style.cursor = hit ? 'pointer' : 'default';
+      const prev = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+      const next = hit ? hit.key : '';
+      if (prev !== next) {
+        canvas.__hoverHit = hit || null;
+        redrawCanvas(canvas);
+      }
+      if (hit) showChartTooltip(event, hit);
+      else hideChartTooltip();
+    });
+    canvas.addEventListener('mouseleave', () => {
+      canvas.style.cursor = 'default';
+      canvas.__hoverHit = null;
+      hideChartTooltip();
+      redrawCanvas(canvas);
+    });
+  }
+  function canvasNearViewport(canvas, margin) {
+    const rect = canvas.getBoundingClientRect();
+    const buffer = margin || 700;
+    return rect.bottom >= -buffer && rect.top <= window.innerHeight + buffer;
+  }
+  function releaseHiddenCanvases() {
+    document.querySelectorAll('.report-panel:not(.active) canvas').forEach((canvas) => {
+      if (canvas.width > 1 || canvas.height > 1) {
+        canvas.width = 1;
+        canvas.height = 1;
+        canvas.__hoverHit = null;
+        chartHitAreas.delete(canvas.id);
+      }
+    });
+  }
+  function scheduleCanvasRender() {
+    if (canvasRenderScheduled) return;
+    canvasRenderScheduled = true;
+    requestAnimationFrame(() => {
+      canvasRenderScheduled = false;
+      renderCanvasCharts();
+    });
+  }
+  function readChartPayload(chartId) {
+    const dataEl = document.getElementById(chartId + '-data');
+    if (!dataEl) return null;
+    try { return JSON.parse(dataEl.textContent); } catch (err) { return null; }
+  }
+  function niceMax(value) {
+    if (!Number.isFinite(value) || value <= 0) return 1;
+    const p = Math.pow(10, Math.floor(Math.log10(value)));
+    return Math.ceil(value / p * 1.08) * p;
+  }
+  function setupCanvas(canvas) {
+    const rect = canvas.getBoundingClientRect();
+    const width = Math.max(680, Math.round(rect.width || canvas.clientWidth || 1000));
+    const height = Math.max(300, Math.round(rect.height || canvas.clientHeight || 360));
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, width, height);
+    ctx.font = '12px "Times New Roman","KaiTi","楷体","STKaiti",serif';
+    ctx.textBaseline = 'middle';
+    return { ctx, width, height };
+  }
+  function valueRange(values) {
+    const clean = values.map(Number).filter(Number.isFinite);
+    if (!clean.length) return { min:0, max:1 };
+    const min = Math.min(0, ...clean);
+    const max = Math.max(0, ...clean);
+    const pad = Math.max(0.5, (max - min) * 0.16);
+    return { min:Math.floor((min - pad) * 10) / 10, max:Math.ceil((max + pad) * 10) / 10 };
+  }
+  function niceStep510(range, targetTicks) {
+    const raw = Math.abs(Number(range)) / (targetTicks || 4);
+    if (!Number.isFinite(raw) || raw <= 0) return 5;
+    if (raw >= 100) return Math.ceil(raw / 50) * 50;
+    if (raw >= 10) return Math.ceil(raw / 10) * 10;
+    if (raw >= 1) return Math.ceil(raw / 5) * 5;
+    if (raw >= 0.1) return Math.ceil(raw / 0.5) * 0.5;
+    return Math.ceil(raw / 0.05) * 0.05;
+  }
+  function axisExtent510(values, targetTicks, includeZero) {
+    const clean = values.map(Number).filter(Number.isFinite);
+    if (!clean.length) return { min:0, max:10, step:5, ticks:[0,5,10] };
+    let min = Math.min(...clean);
+    let max = Math.max(...clean);
+    if (includeZero) {
+      min = Math.min(min, 0);
+      max = Math.max(max, 0);
+    }
+    if (min === max) {
+      min -= 5;
+      max += 5;
+    }
+    const step = niceStep510(max - min, targetTicks || 4);
+    const axisMin = Math.floor(min / step) * step;
+    const axisMax = Math.ceil(max / step) * step;
+    const ticks = [];
+    for (let v = axisMin; v <= axisMax + step * 0.5; v += step) ticks.push(Number(v.toFixed(6)));
+    return { min:axisMin, max:axisMax, step, ticks };
+  }
+  function seasonalityValueAxis(values, valueScale) {
+    const clean = values.map(Number).filter(Number.isFinite);
+    if (!clean.length) return { min:0, max:10, step:5, ticks:[0,5,10] };
+    const maxValue = Math.max(...clean, 0);
+    let step;
+    if (valueScale === 1000) {
+      if (maxValue <= 800) step = 100;
+      else if (maxValue <= 1600) step = 200;
+      else if (maxValue <= 5000) step = 500;
+      else if (maxValue <= 10000) step = 1000;
+      else step = niceStep510(maxValue, 6);
+    } else {
+      if (maxValue <= 12) step = 2;
+      else if (maxValue <= 35) step = 5;
+      else if (maxValue <= 80) step = 10;
+      else if (maxValue <= 160) step = 20;
+      else if (maxValue <= 400) step = 50;
+      else step = niceStep510(maxValue, 6);
+    }
+    const axisMax = Math.max(step, Math.ceil(maxValue / step) * step);
+    const ticks = [];
+    for (let v = 0; v <= axisMax + step * 0.5; v += step) ticks.push(Number(v.toFixed(6)));
+    return { min:0, max:axisMax, step, ticks };
+  }
+  function drawAxes(ctx, width, height, pad, yMap, ticks, suffix) {
+    ctx.strokeStyle = chartPalette.grid;
+    ctx.lineWidth = 1;
+    ctx.fillStyle = '#64748b';
+    ctx.textAlign = 'right';
+    ticks.forEach((value) => {
+      const y = yMap(value);
+      ctx.beginPath();
+      ctx.moveTo(pad.left, y);
+      ctx.lineTo(width - pad.right, y);
+      ctx.stroke();
+      ctx.fillText(Number(value).toLocaleString('en-US', { maximumFractionDigits: 1 }) + (suffix || ''), pad.left - 8, y);
+    });
+  }
+  function chartLabelOrder(label) {
+    const text = String(label || '');
+    const ytd = text.match(/^(\d{4})YTD$/);
+    if (ytd) return Number(ytd[1]) * 100 + 99;
+    const ym = text.match(/^(\d{4})-(\d{2})$/);
+    if (ym) return Number(ym[1]) * 100 + Number(ym[2]);
+    const year = text.match(/^(\d{4})$/);
+    if (year) return Number(year[1]) * 100;
+    return Number.MAX_SAFE_INTEGER;
+  }
+  function drawComboCanvas(canvas, payload, selectedType) {
+    const { ctx, width, height } = setupCanvas(canvas);
+    const hits = [];
+    const hoverKey = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+
+    let series = payload.series || [];
+    let barColor = chartPalette.total;
+    let label = payload.barLabel || '发电量';
+    if (payload.mode === 'type') {
+      const types = payload.types || [];
+      const item = types.find((x) => x.key === selectedType) || types[0];
+      if (!item) return;
+      series = item.series || [];
+      barColor = item.color || chartPalette.total;
+      label = item.label + '发电量';
+    }
+    const points = series.filter((d) => Number.isFinite(Number(d.value)));
+    if (!points.length) return;
+
+    const pad = { left:64, right:58, top:28, bottom:54 };
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+    const maxValue = niceMax(Math.max(...points.map((d) => Number(d.value))));
+    const yoyVals = points.map((d) => d.yoy).filter(hasNumericValue).map(Number);
+    const yoyMinRaw = Math.min(0, ...yoyVals);
+    const yoyMaxRaw = Math.max(0, ...yoyVals);
+    const yoyPad = Math.max(1, (yoyMaxRaw - yoyMinRaw) * 0.18);
+    const yoyMin = Math.floor((yoyMinRaw - yoyPad) * 10) / 10;
+    const yoyMax = Math.ceil((yoyMaxRaw + yoyPad) * 10) / 10;
+    const xStep = plotW / points.length;
+    const barW = Math.max(16, Math.min(54, xStep * 0.48));
+    const yValue = (v) => pad.top + (1 - Number(v) / maxValue) * plotH;
+    const yYoy = (v) => pad.top + (1 - (Number(v) - yoyMin) / (yoyMax - yoyMin || 1)) * plotH;
+    const xPos = (i) => pad.left + xStep * i + xStep / 2;
+    const hoverIndex = hoverKey && hoverKey.startsWith('x-') ? Number(hoverKey.slice(2)) : -1;
+
+    ctx.strokeStyle = chartPalette.grid;
+    for (let i = 0; i <= 4; i++) {
+      const value = maxValue * i / 4;
+      const y = yValue(value);
+      ctx.beginPath();
+      ctx.moveTo(pad.left, y);
+      ctx.lineTo(width - pad.right, y);
+      ctx.stroke();
+      ctx.fillText(value.toLocaleString('en-US', { maximumFractionDigits: 0 }), pad.left - 8, y);
+    }
+    ctx.textAlign = 'left';
+    for (let i = 0; i <= 4; i++) {
+      const value = yoyMin + (yoyMax - yoyMin) * i / 4;
+      const y = yYoy(value);
+      ctx.fillText(value.toFixed(1) + '%', width - pad.right + 8, y);
+    }
+
+    points.forEach((d, i) => {
+      const x = xPos(i);
+      const y = yValue(Number(d.value));
+      const base = yValue(0);
+      const key = 'bar-' + i;
+      const isForecast = d.status === '预测';
+      ctx.fillStyle = isForecast ? chartPalette.forecast : barColor;
+      ctx.globalAlpha = isForecast ? 0.62 : 0.92;
+      ctx.fillRect(x - barW / 2, y, barW, base - y);
+      ctx.globalAlpha = 1;
+      if (hoverKey === key || hoverIndex === i) {
+        ctx.strokeStyle = '#111827';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(x - barW / 2, y, barW, base - y);
+      }
+      hits.push({
+        key,
+        kind:'rect',
+        x0:x - barW / 2,
+        x1:x + barW / 2,
+        y0:Math.min(y, base),
+        y1:Math.max(y, base),
+        html:tooltipHtml(String(d.label || d.year || ''), [
+          [label, fmtNumber(d.value, 1) + ' ' + (payload.unit || 'TWh')],
+          [payload.lineLabel || '同比', fmtPct(d.yoyActual ?? d.yoy)],
+          ['状态', d.status || '-']
+        ])
+      });
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'center';
+      const shown = String(d.label || d.year || '');
+      if (i % Math.ceil(points.length / 10) === 0 || points.length <= 12) ctx.fillText(shown.replace('-01',''), x, height - 26);
+    });
+
+    const linePoints = points
+      .map((d, i) => {
+        const yoyValue = hasNumericValue(d.yoy) ? Number(d.yoy) : NaN;
+        return { x:xPos(i), y:yYoy(yoyValue), value:yoyValue, raw:d, index:i };
+      })
+      .filter((d) => Number.isFinite(d.value));
+    if (linePoints.length) {
+      ctx.strokeStyle = chartPalette.line;
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      linePoints.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
+      ctx.stroke();
+      linePoints.forEach((p) => {
+        const key = 'line-' + p.index;
+        ctx.fillStyle = '#fff';
+        ctx.strokeStyle = chartPalette.line;
+        ctx.lineWidth = hoverKey === key || hoverIndex === p.index ? 3 : 2;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, hoverKey === key || hoverIndex === p.index ? 6 : 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        hits.push({
+          key,
+          kind:'point',
+          x:p.x,
+          y:p.y,
+          radius:12,
+          html:tooltipHtml(String(p.raw.label || p.raw.year || ''), [
+            [payload.lineLabel || '同比', fmtPct(p.raw.yoy)],
+            [label, fmtNumber(p.raw.value, 1) + ' ' + (payload.unit || 'TWh')],
+            ['状态', p.raw.status || '-']
+          ])
+        });
+      });
+    }
+    if (hoverIndex >= 0 && hoverIndex < points.length) {
+      const hx = xPos(hoverIndex);
+      ctx.strokeStyle = 'rgba(15,23,42,.55)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(hx, pad.top);
+      ctx.lineTo(hx, height - pad.bottom);
+      ctx.stroke();
+    }
+    points.forEach((d, i) => {
+      hits.push({
+        key:'x-' + i,
+        kind:'xband',
+        x0:pad.left + xStep * i,
+        x1:pad.left + xStep * (i + 1),
+        y0:pad.top,
+        y1:height - pad.bottom,
+        html:tooltipHtml(String(d.label || d.year || ''), [
+          [label, fmtNumber(d.value, 1) + ' ' + (payload.unit || 'TWh')],
+          [payload.lineLabel || '同比', fmtPct(d.yoyActual ?? d.yoy)],
+          ['状态', d.status || '-']
+        ])
+      });
+    });
+
+    ctx.fillStyle = barColor;
+    ctx.fillRect(pad.left, 10, 14, 9);
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.fillText(label + '（柱，左轴） / ' + (payload.unit || 'TWh'), pad.left + 20, 15);
+    const lineLegendX = Math.max(pad.left + 260, width - pad.right - 220);
+    ctx.strokeStyle = chartPalette.line;
+    ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    ctx.moveTo(lineLegendX, 15);
+    ctx.lineTo(lineLegendX + 22, 15);
+    ctx.stroke();
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(lineLegendX + 11, 15, 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = chartPalette.line;
+    ctx.textAlign = 'left';
+    ctx.fillText((payload.lineLabel || '同比') + '（折线，右轴） / %', lineLegendX + 30, 15);
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function drawLineMulti(canvas, payload) {
+    const { ctx, width, height } = setupCanvas(canvas);
+    const hits = [];
+    const hoverKey = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+    const series = payload.series || [];
+    const labels = Array.from(new Set(series.flatMap((s) => (s.points || []).map((p) => p.label))))
+      .sort((a, b) => chartLabelOrder(a) - chartLabelOrder(b) || String(a).localeCompare(String(b)));
+    if (!series.length || !labels.length) return;
+    const values = series.flatMap((s) => (s.points || []).map((p) => Number(p.value))).filter(Number.isFinite);
+    const range = axisExtent510(values, 4, true);
+    const pad = { left:64, right:150, top:28, bottom:46 };
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+    const x = (i) => pad.left + (labels.length <= 1 ? plotW / 2 : (plotW * i / (labels.length - 1)));
+    const y = (v) => pad.top + (1 - (Number(v) - range.min) / (range.max - range.min || 1)) * plotH;
+    const hoverIndex = hoverKey && hoverKey.startsWith('x-') ? Number(hoverKey.slice(2)) : -1;
+    const ticks = range.ticks || Array.from({length:5}, (_, i) => range.min + (range.max - range.min) * i / 4);
+    drawAxes(ctx, width, height, pad, y, ticks, '%');
+    series.forEach((s, si) => {
+      const byLabel = new Map((s.points || []).map((p) => [p.label, p.value]));
+      ctx.strokeStyle = multiColors[si % multiColors.length];
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      let started = false;
+      labels.forEach((label, i) => {
+        const v = Number(byLabel.get(label));
+        if (!Number.isFinite(v)) return;
+        if (!started) { ctx.moveTo(x(i), y(v)); started = true; }
+        else ctx.lineTo(x(i), y(v));
+      });
+      ctx.stroke();
+      ctx.fillStyle = ctx.strokeStyle;
+      ctx.textAlign = 'left';
+      ctx.fillText(s.label, width - pad.right + 12, pad.top + 16 + si * 18);
+      labels.forEach((label, i) => {
+        const v = Number(byLabel.get(label));
+        if (!Number.isFinite(v)) return;
+        const key = 'line-' + si + '-' + i;
+        if (hoverKey === key || hoverIndex === i) {
+          ctx.fillStyle = '#fff';
+          ctx.strokeStyle = multiColors[si % multiColors.length];
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.arc(x(i), y(v), 6, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+        }
+        hits.push({
+          key,
+          kind:'point',
+          x:x(i),
+          y:y(v),
+          radius:12,
+          html:tooltipHtml(String(label), [
+            ['系列', s.label],
+            [payload.title || '增速', fmtPct(v)]
+          ])
+        });
+      });
+    });
+    if (hoverIndex >= 0 && hoverIndex < labels.length) {
+      const hx = x(hoverIndex);
+      ctx.strokeStyle = 'rgba(15,23,42,.55)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(hx, pad.top);
+      ctx.lineTo(hx, height - pad.bottom);
+      ctx.stroke();
+    }
+    ctx.fillStyle = '#334155';
+    ctx.textAlign = 'center';
+    labels.forEach((label, i) => {
+      if (i % Math.ceil(labels.length / 8) === 0 || labels.length <= 8) ctx.fillText(String(label).replace('-01',''), x(i), height - 24);
+    });
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.fillText((payload.title || '增速') + ' / ' + (payload.unit || '%'), pad.left, 15);
+    labels.forEach((label, i) => {
+      const rows = series.map((s) => {
+        const byLabel = new Map((s.points || []).map((p) => [p.label, p.value]));
+        return [s.label, fmtPct(byLabel.get(label))];
+      });
+      hits.push({
+        key:'x-' + i,
+        kind:'xband',
+        x0:i === 0 ? pad.left : (x(i - 1) + x(i)) / 2,
+        x1:i === labels.length - 1 ? width - pad.right : (x(i) + x(i + 1)) / 2,
+        y0:pad.top,
+        y1:height - pad.bottom,
+        html:tooltipHtml(String(label), rows)
+      });
+    });
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function drawSeasonalLines(canvas, payload) {
+    const { ctx, width, height } = setupCanvas(canvas);
+    const hits = [];
+    const hoverKey = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+    const hoverIndex = hoverKey && hoverKey.startsWith('x-') ? Number(hoverKey.slice(2)) : -1;
+    const series = payload.series || [];
+    const labels = Array.from({ length:12 }, (_, i) => String(i + 1));
+    const values = series.flatMap((s) => (s.points || []).map((p) => Number(p.value))).filter(Number.isFinite);
+    if (!series.length || !values.length) return;
+    const range = axisExtent510(values, 5, true);
+    const pad = { left:64, right:150, top:34, bottom:42 };
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+    const x = (i) => pad.left + plotW * i / 11;
+    const y = (v) => pad.top + (1 - (Number(v) - range.min) / (range.max - range.min || 1)) * plotH;
+    drawAxes(ctx, width, height, pad, y, range.ticks, '');
+    series.forEach((s, si) => {
+      const byLabel = new Map((s.points || []).map((p) => [String(p.label), p.value]));
+      ctx.strokeStyle = multiColors[si % multiColors.length];
+      ctx.lineWidth = si === series.length - 1 ? 2.8 : 2;
+      ctx.beginPath();
+      let started = false;
+      labels.forEach((label, i) => {
+        const v = Number(byLabel.get(label));
+        if (!Number.isFinite(v)) return;
+        if (!started) { ctx.moveTo(x(i), y(v)); started = true; }
+        else ctx.lineTo(x(i), y(v));
+      });
+      ctx.stroke();
+      ctx.fillStyle = ctx.strokeStyle;
+      ctx.textAlign = 'left';
+      ctx.fillText(s.label, width - pad.right + 12, pad.top + 16 + si * 18);
+      labels.forEach((label, i) => {
+        const v = Number(byLabel.get(label));
+        if (!Number.isFinite(v)) return;
+        if (hoverIndex === i) {
+          ctx.fillStyle = '#fff';
+          ctx.strokeStyle = multiColors[si % multiColors.length];
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.arc(x(i), y(v), 5.5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+        }
+      });
+    });
+    if (hoverIndex >= 0 && hoverIndex < labels.length) {
+      const hx = x(hoverIndex);
+      ctx.strokeStyle = 'rgba(15,23,42,.55)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(hx, pad.top);
+      ctx.lineTo(hx, height - pad.bottom);
+      ctx.stroke();
+    }
+    ctx.fillStyle = '#334155';
+    ctx.textAlign = 'center';
+    labels.forEach((label, i) => ctx.fillText(label, x(i), height - 22));
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.fillText((payload.title || '季节性') + ' / ' + (payload.unit || ''), pad.left, 16);
+    labels.forEach((label, i) => {
+      const rows = series.map((s) => {
+        const byLabel = new Map((s.points || []).map((p) => [String(p.label), p.value]));
+        const value = byLabel.get(label);
+        return [s.label, Number.isFinite(Number(value)) ? fmtNumber(Number(value), 2) + ' ' + (payload.unit || '') : '-'];
+      });
+      hits.push({
+        key:'x-' + i,
+        kind:'xband',
+        x0:i === 0 ? pad.left : (x(i - 1) + x(i)) / 2,
+        x1:i === labels.length - 1 ? width - pad.right : (x(i) + x(i + 1)) / 2,
+        y0:pad.top,
+        y1:height - pad.bottom,
+        html:tooltipHtml(label + '月', rows)
+      });
+    });
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function heatColor(value) {
+    const raw = Number(value);
+    if (!Number.isFinite(raw)) return '#f1f5f9';
+    const v = Math.max(-30, Math.min(30, raw));
+    if (v > 0) {
+      const t = v / 30;
+      return `rgb(${Math.round(253 - 82 * t)},${Math.round(232 - 128 * t)},${Math.round(232 - 128 * t)})`;
+    }
+    if (v < 0) {
+      const t = Math.abs(v) / 30;
+      return `rgb(${Math.round(230 - 100 * t)},${Math.round(244 - 82 * t)},${Math.round(234 - 105 * t)})`;
+    }
+    return '#eef4ef';
+  }
+  function drawHeatmap(canvas, payload) {
+    const { ctx, width, height } = setupCanvas(canvas);
+    const hits = [];
+    const hoverKey = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+    const xLabels = payload.x || [];
+    const rows = payload.rows || (payload.y || []).map((label) => ({ continent:'', country:label }));
+    const yLabels = rows.map((row) => row.country || '');
+    const values = payload.values || [];
+    if (!xLabels.length || !yLabels.length) return;
+    const pad = { left:244, right:24, top:62, bottom:18 };
+    const continentW = 58;
+    const countryW = pad.left - continentW - 18;
+    const cellW = (width - pad.left - pad.right) / xLabels.length;
+    const cellH = Math.max(20, Math.min(26, (height - pad.top - pad.bottom) / yLabels.length));
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.fillText((payload.title || '热力图') + ' / 同比%', pad.left, 15);
+    ctx.fillStyle = '#334155';
+    ctx.textAlign = 'center';
+    ctx.fillText('洲别', continentW / 2 + 8, 38);
+    ctx.fillText('国家', continentW + countryW / 2 + 8, 38);
+    ctx.textAlign = 'center';
+    xLabels.forEach((label, xi) => ctx.fillText(String(label).slice(2), pad.left + xi * cellW + cellW / 2, 38));
+    let groupStart = 0;
+    while (groupStart < rows.length) {
+      const continent = rows[groupStart].continent || '-';
+      let groupEnd = groupStart + 1;
+      while (groupEnd < rows.length && (rows[groupEnd].continent || '-') === continent) groupEnd += 1;
+      const y0 = pad.top + groupStart * cellH;
+      const y1 = pad.top + groupEnd * cellH;
+      ctx.fillStyle = '#f8fafc';
+      ctx.fillRect(8, y0, continentW - 1, y1 - y0 - 1);
+      ctx.strokeStyle = '#d8dee9';
+      ctx.strokeRect(8.5, y0 + 0.5, continentW - 1, y1 - y0 - 1);
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'center';
+      ctx.fillText(continent, 8 + continentW / 2, y0 + (y1 - y0) / 2);
+      groupStart = groupEnd;
+    }
+    yLabels.forEach((label, yi) => {
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'right';
+      ctx.fillText(label, pad.left - 8, pad.top + yi * cellH + cellH / 2);
+      xLabels.forEach((xLabel, xi) => {
+        const v = values[yi] ? values[yi][xi] : null;
+        const x0 = pad.left + xi * cellW;
+        const y0 = pad.top + yi * cellH;
+        const key = 'cell-' + yi + '-' + xi;
+        ctx.fillStyle = heatColor(v);
+        ctx.fillRect(x0, y0, cellW - 1, cellH - 1);
+        if (hoverKey === key) {
+          ctx.strokeStyle = '#111827';
+          ctx.lineWidth = 2;
+          ctx.strokeRect(x0 + 1, y0 + 1, cellW - 3, cellH - 3);
+        }
+        hits.push({
+          key,
+          kind:'rect',
+          x0,
+          y0,
+          x1:x0 + cellW,
+          y1:y0 + cellH,
+          html:tooltipHtml(`${rows[yi]?.continent || ''} ${label}`.trim(), [
+            ['月份', xLabel],
+            ['同比', fmtPct(v)]
+          ])
+        });
+        if (cellW > 48 && Number.isFinite(Number(v))) {
+          ctx.fillStyle = Math.abs(Number(v)) > 18 ? '#fff' : '#0f172a';
+          ctx.textAlign = 'center';
+          ctx.fillText(Number(v).toFixed(1), x0 + cellW / 2, y0 + cellH / 2);
+        }
+      });
+    });
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function drawSparkline(canvas, payload) {
+    const { ctx, width, height } = setupCanvas(canvas);
+    const hits = [];
+    const hoverKey = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+    const series = payload.series || [];
+    if (!series.length) return;
+    const pad = { left:150, right:36, top:24, bottom:52 };
+    const rowH = (height - pad.top - pad.bottom) / series.length;
+    const values = series.flatMap((s) => (s.points || []).map((p) => Number(p.value))).filter(Number.isFinite);
+    const range = valueRange(values);
+    const labels = payload.labels || (series[0]?.points || []).map((p) => p.label);
+    const plotW = width - pad.left - pad.right;
+    const xAt = (i) => pad.left + (labels.length <= 1 ? 0 : plotW * i / (labels.length - 1));
+    const hoverIndex = hoverKey && hoverKey.startsWith('x-') ? Number(hoverKey.slice(2)) : -1;
+    series.forEach((s, si) => {
+      const points = s.points || [];
+      const baseY = pad.top + si * rowH;
+      const y = (v) => baseY + rowH - 8 - (Number(v) - range.min) / (range.max - range.min || 1) * (rowH - 16);
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.beginPath();
+      ctx.moveTo(pad.left, baseY + rowH / 2);
+      ctx.lineTo(width - pad.right, baseY + rowH / 2);
+      ctx.stroke();
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'right';
+      ctx.fillText(s.label, pad.left - 10, baseY + rowH / 2);
+      ctx.strokeStyle = multiColors[si % multiColors.length];
+      ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      let started = false;
+      points.forEach((p, i) => {
+        const v = Number(p.value);
+        if (!Number.isFinite(v)) return;
+        if (!started) { ctx.moveTo(xAt(i), y(v)); started = true; }
+        else ctx.lineTo(xAt(i), y(v));
+      });
+      ctx.stroke();
+      points.forEach((p, i) => {
+        const v = Number(p.value);
+        if (!Number.isFinite(v)) return;
+        const key = 'spark-' + si + '-' + i;
+        if (hoverKey === key || hoverIndex === i) {
+          ctx.fillStyle = '#fff';
+          ctx.strokeStyle = multiColors[si % multiColors.length];
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.arc(xAt(i), y(v), 5.5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+        }
+        hits.push({
+          key,
+          kind:'point',
+          x:xAt(i),
+          y:y(v),
+          radius:10,
+          html:tooltipHtml(s.label, [
+            [payload.xLabel || '月份', p.label],
+            [payload.valueLabel || '同比', fmtPct(v)]
+          ])
+        });
+      });
+      const last = [...points].reverse().find((p) => Number.isFinite(Number(p.value)));
+      if (last) {
+        ctx.fillStyle = '#0f172a';
+        ctx.textAlign = 'left';
+        ctx.fillText(Number(last.value).toFixed(1) + '%', width - pad.right - 44, baseY + rowH / 2);
+      }
+    });
+    if (hoverIndex >= 0 && labels.length && hoverIndex < labels.length) {
+      const hx = xAt(hoverIndex);
+      ctx.strokeStyle = 'rgba(15,23,42,.45)';
+      ctx.lineWidth = 1.1;
+      ctx.beginPath();
+      ctx.moveTo(hx, pad.top);
+      ctx.lineTo(hx, height - pad.bottom);
+      ctx.stroke();
+    }
+    if (labels.length) {
+      const axisY = height - 30;
+      const tickSet = new Set([0, labels.length - 1]);
+      labels.forEach((label, i) => {
+        const text = String(label || '');
+        if (labels.length <= 8 || text.endsWith('-01') || i % 6 === 0) tickSet.add(i);
+      });
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(pad.left, axisY);
+      ctx.lineTo(width - pad.right, axisY);
+      ctx.stroke();
+      ctx.fillStyle = '#475569';
+      ctx.textAlign = 'center';
+      Array.from(tickSet).sort((a, b) => a - b).forEach((i) => {
+        const x = xAt(i);
+        ctx.beginPath();
+        ctx.moveTo(x, axisY);
+        ctx.lineTo(x, axisY + 5);
+        ctx.stroke();
+        ctx.fillText(String(labels[i] || ''), x, axisY + 20);
+      });
+    }
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.fillText((payload.title || '前10国家') + ' / 同比%', pad.left, 12);
+    labels.forEach((label, i) => {
+      const x0 = i === 0 ? pad.left : pad.left + plotW * (i - 0.5) / Math.max(1, labels.length - 1);
+      const x1 = i === labels.length - 1 ? width - pad.right : pad.left + plotW * (i + 0.5) / Math.max(1, labels.length - 1);
+      const rows = series.map((s) => {
+        const point = (s.points || [])[i] || {};
+        return [s.label, fmtPct(point.value)];
+      });
+      hits.push({
+        key:'x-' + i,
+        kind:'xband',
+        x0,
+        x1,
+        y0:pad.top,
+        y1:height - pad.bottom,
+        html:tooltipHtml(String(label), rows)
+      });
+    });
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function drawSeasonality(canvas, payload) {
+    const { ctx, width, height } = setupCanvas(canvas);
+    const hits = [];
+    const hoverKey = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+    const hoverParts = hoverKey && hoverKey.startsWith('cell-') ? hoverKey.split('-') : [];
+    const hoverPanel = hoverParts.length === 3 ? Number(hoverParts[1]) : -1;
+    const hoverMonth = hoverParts.length === 3 ? Number(hoverParts[2]) : -1;
+    const panels = payload.panels || [];
+    if (!panels.length) return;
+    const months = Array.from({ length:12 }, (_, i) => i + 1);
+    const yearColors = ['#cbd5e1', '#94a3b8', '#48a6df', '#173a78', '#d43c32'];
+    const currentYear = String(payload.latestYear || '2026');
+    const cols = width >= 1120 ? 3 : (width >= 760 ? 2 : 1);
+    const rows = Math.ceil(panels.length / cols);
+    const outer = { left:26, right:24, top:58, bottom:24 };
+    const gapX = 22;
+    const gapY = 22;
+    const cellW = (width - outer.left - outer.right - gapX * (cols - 1)) / cols;
+    const cellH = Math.max(244, (height - outer.top - outer.bottom - gapY * (rows - 1)) / rows);
+
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.fillText((payload.title || '月度发电量季节性') + ' / 左轴发电量，右轴同比%', outer.left, 16);
+    let legendX = outer.left;
+    ctx.fillStyle = 'rgba(190,54,54,.58)';
+    ctx.fillRect(legendX, 36, 22, 8);
+    ctx.fillStyle = '#0f172a';
+    ctx.fillText((payload.barLabel || '2026累计同比') + '>0', legendX + 28, 40);
+    legendX += 150;
+    ctx.fillStyle = 'rgba(54,126,85,.56)';
+    ctx.fillRect(legendX, 36, 22, 8);
+    ctx.fillStyle = '#0f172a';
+    ctx.fillText((payload.barLabel || '2026累计同比') + '<0', legendX + 28, 40);
+    legendX += 150;
+    const legendYears = Array.from(new Set(panels.flatMap((panel) => (panel.lines || []).map((line) => line.year))));
+    legendYears.forEach((year, i) => {
+      ctx.strokeStyle = year === currentYear ? '#d43c32' : yearColors[Math.min(i, yearColors.length - 2)];
+      ctx.lineWidth = year === currentYear ? 3 : 2;
+      ctx.beginPath();
+      ctx.moveTo(legendX, 40);
+      ctx.lineTo(legendX + 30, 40);
+      ctx.stroke();
+      ctx.fillStyle = '#0f172a';
+      ctx.textAlign = 'left';
+      ctx.fillText(year, legendX + 36, 40);
+      legendX += 82;
+    });
+
+    panels.forEach((panel, pi) => {
+      const col = pi % cols;
+      const row = Math.floor(pi / cols);
+      const cellLeft = outer.left + col * (cellW + gapX);
+      const cellTop = outer.top + row * (cellH + gapY);
+      const cellRight = cellLeft + cellW;
+      const cellBottom = cellTop + cellH;
+      const pad = { left:54, right:46, top:56, bottom:28 };
+      const plotLeft = cellLeft + pad.left;
+      const plotRight = cellRight - pad.right;
+      const plotTop = cellTop + pad.top;
+      const plotBottom = cellBottom - pad.bottom;
+      const plotW = plotRight - plotLeft;
+      const plotH = plotBottom - plotTop;
+      const monthX = (month) => plotLeft + (month - 1) * plotW / 11;
+      const lineValues = (panel.lines || []).flatMap((line) => (line.points || []).map((p) => Number(p.value))).filter(Number.isFinite);
+      const maxRaw = Math.max(...lineValues, 0);
+      const valueScale = maxRaw > 0 && maxRaw < 10 ? 1000 : 1;
+      const valueUnit = valueScale === 1000 ? 'GWh' : (payload.unit || 'TWh');
+      const scaledValues = lineValues.map((v) => v * valueScale);
+      const valueAxis = seasonalityValueAxis(scaledValues, valueScale);
+      const yoyValues = (panel.bars || []).map((p) => Number(p.value)).filter(Number.isFinite);
+      const yoyAxis = axisExtent510(yoyValues, 5, true);
+      const yValue = (v) => plotBottom - (Number(v) * valueScale - valueAxis.min) / (valueAxis.max - valueAxis.min || 1) * plotH;
+      const yYoy = (v) => plotBottom - (Number(v) - yoyAxis.min) / (yoyAxis.max - yoyAxis.min || 1) * plotH;
+
+      ctx.strokeStyle = '#d8dee9';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(cellLeft + 0.5, cellTop + 0.5, cellW - 1, cellH - 1);
+      ctx.fillStyle = '#0f2d5c';
+      ctx.textAlign = 'left';
+      ctx.font = '15px "Times New Roman","KaiTi","楷体","STKaiti",serif';
+      ctx.fillText((panel.rank ? '#' + panel.rank + ' ' : '') + panel.country, cellLeft + 10, cellTop + 18);
+      ctx.fillStyle = '#64748b';
+      ctx.font = '12px "Times New Roman","KaiTi","妤蜂綋","STKaiti",serif';
+      if (panel.continent) ctx.fillText(panel.continent, cellLeft + 10, cellTop + 32);
+      const ytdText = panel.ytdYoy !== undefined && panel.ytdYoy !== null ? 'YTD ' + fmtNumber(panel.ytdYoy, 1) + '%' : '';
+      ctx.fillText(valueUnit, cellLeft + 10, cellTop + 46);
+      if (ytdText) {
+        const unitWidth = ctx.measureText(valueUnit).width;
+        const ytdValue = Number(panel.ytdYoy);
+        ctx.fillStyle = ytdValue > 0 ? '#b23b3b' : (ytdValue < 0 ? '#2f7d54' : '#64748b');
+        ctx.fillText(' · ' + ytdText, cellLeft + 10 + unitWidth, cellTop + 46);
+      }
+      ctx.font = '12px "Times New Roman","KaiTi","楷体","STKaiti",serif';
+
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 1;
+      valueAxis.ticks.forEach((tick) => {
+        const y = plotBottom - (tick - valueAxis.min) / (valueAxis.max - valueAxis.min || 1) * plotH;
+        ctx.beginPath();
+        ctx.moveTo(plotLeft, y);
+        ctx.lineTo(plotRight, y);
+        ctx.stroke();
+      });
+      ctx.fillStyle = '#64748b';
+      ctx.textAlign = 'right';
+      valueAxis.ticks.forEach((tick) => {
+        const y = plotBottom - (tick - valueAxis.min) / (valueAxis.max - valueAxis.min || 1) * plotH;
+        ctx.fillText(fmtNumber(tick, tick >= 100 ? 0 : 1), plotLeft - 6, y);
+      });
+      ctx.textAlign = 'left';
+
+      const zeroY = yYoy(0);
+      const barW = Math.max(8, plotW / 28);
+      (panel.bars || []).forEach((bar) => {
+        const value = Number(bar.value);
+        if (!Number.isFinite(value)) return;
+        const x = monthX(Number(bar.month));
+        const y = yYoy(value);
+        ctx.fillStyle = value > 0 ? 'rgba(190,54,54,.58)' : (value < 0 ? 'rgba(54,126,85,.56)' : 'rgba(148,163,184,.35)');
+        ctx.fillRect(x - barW / 2, Math.min(y, zeroY), barW, Math.max(2, Math.abs(zeroY - y)));
+      });
+
+      (panel.lines || []).forEach((line, li) => {
+        const isCurrent = line.year === currentYear;
+        ctx.strokeStyle = isCurrent ? '#d43c32' : yearColors[Math.min(li, yearColors.length - 2)];
+        ctx.lineWidth = isCurrent ? 3.2 : 2;
+        ctx.beginPath();
+        let started = false;
+        (line.points || []).forEach((point) => {
+          const value = Number(point.value);
+          if (!Number.isFinite(value)) return;
+          const x = monthX(Number(point.month));
+          const y = yValue(value);
+          if (!started) { ctx.moveTo(x, y); started = true; }
+          else ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+        if (isCurrent) {
+          (line.points || []).forEach((point) => {
+            const value = Number(point.value);
+            if (!Number.isFinite(value)) return;
+            const month = Number(point.month);
+            if (hoverMonth === month) {
+              ctx.fillStyle = '#fff';
+              ctx.strokeStyle = '#d43c32';
+              ctx.lineWidth = 3;
+              ctx.beginPath();
+              ctx.arc(monthX(month), yValue(value), 5.5, 0, Math.PI * 2);
+              ctx.fill();
+              ctx.stroke();
+            }
+          });
+        }
+      });
+
+      ctx.fillStyle = '#64748b';
+      ctx.textAlign = 'left';
+      ctx.fillText('同比%', plotRight + 6, plotTop - 10);
+      ctx.textAlign = 'left';
+      yoyAxis.ticks.forEach((tick) => {
+        const y = plotBottom - (tick - yoyAxis.min) / (yoyAxis.max - yoyAxis.min || 1) * plotH;
+        ctx.fillText(fmtNumber(tick, Math.abs(tick) >= 100 ? 0 : 1) + '%', plotRight + 6, y);
+      });
+
+      if (hoverPanel === pi && hoverMonth >= 1 && hoverMonth <= 12) {
+        const hx = monthX(hoverMonth);
+        ctx.strokeStyle = 'rgba(15,23,42,.35)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(hx, plotTop);
+        ctx.lineTo(hx, plotBottom);
+        ctx.stroke();
+      }
+
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'center';
+      months.forEach((month) => {
+        if (month === 1 || month === 6 || month === 12) ctx.fillText(String(month), monthX(month), cellBottom - 12);
+      });
+      months.forEach((month) => {
+        const bar = (panel.bars || []).find((p) => Number(p.month) === month);
+        const lineRows = (panel.lines || []).map((line) => {
+          const sameMonth = (line.points || []).find((p) => Number(p.month) === month);
+          const lineValue = Number(sameMonth?.value);
+          return [
+            line.year,
+            Number.isFinite(lineValue) ? fmtNumber(lineValue * valueScale, valueScale === 1000 ? 0 : 2) + ' ' + valueUnit : '-'
+          ];
+        });
+        const x = monthX(month);
+        hits.push({
+          key:'cell-' + pi + '-' + month,
+          kind:'xband',
+          x0:month === 1 ? plotLeft : (monthX(month - 1) + x) / 2,
+          x1:month === 12 ? plotRight : (x + monthX(month + 1)) / 2,
+          y0:plotTop,
+          y1:plotBottom,
+          html:tooltipHtml(`${panel.country} ${String(month).padStart(2, '0')}月`, [
+            ...lineRows,
+            [`${currentYear}累计同比`, fmtPct(bar?.value)]
+          ])
+        });
+      });
+    });
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function drawStackedSources(canvas, payload, view) {
+    if (view === 'growth') {
+      const lineSeries = (payload.types || []).map((t) => ({ label:t.label, points:(t.points || []).map((p) => ({ label:p.label, value:p.yoy })) }));
+      drawLineMulti(canvas, { mode:'line_multi', title:'分类型发电增速', unit:'%', series:lineSeries });
+      return;
+    }
+    const { ctx, width, height } = setupCanvas(canvas);
+    const hits = [];
+    const hoverKey = canvas.__hoverHit ? canvas.__hoverHit.key : '';
+    const types = payload.types || [];
+    const labels = types[0] ? (types[0].points || []).map((p) => p.label) : [];
+    if (!types.length || !labels.length) return;
+    const totals = labels.map((_, i) => types.reduce((sum, t) => sum + (Number((t.points || [])[i]?.value) || 0), 0));
+    const maxValue = niceMax(Math.max(...totals));
+    const pad = { left:64, right:150, top:30, bottom:46 };
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+    const xStep = plotW / labels.length;
+    const barW = Math.max(18, Math.min(54, xStep * 0.62));
+    const y = (v) => pad.top + (1 - Number(v) / maxValue) * plotH;
+    const hoverIndex = hoverKey && hoverKey.startsWith('x-') ? Number(hoverKey.slice(2)) : -1;
+    drawAxes(ctx, width, height, pad, y, [0, maxValue * .25, maxValue * .5, maxValue * .75, maxValue], '');
+    labels.forEach((label, i) => {
+      let acc = 0;
+      types.forEach((t, ti) => {
+        const v = Number((t.points || [])[i]?.value) || 0;
+        const y0 = y(acc);
+        const y1 = y(acc + v);
+        const key = 'stack-' + ti + '-' + i;
+        const x0 = pad.left + i * xStep + (xStep - barW) / 2;
+        ctx.fillStyle = t.color || '#64748b';
+        ctx.fillRect(x0, y1, barW, Math.max(0, y0 - y1));
+        if (hoverKey === key || hoverIndex === i) {
+          ctx.strokeStyle = '#111827';
+          ctx.lineWidth = 2;
+          ctx.strokeRect(x0, y1, barW, Math.max(0, y0 - y1));
+        }
+        hits.push({
+          key,
+          kind:'rect',
+          x0,
+          y0:y1,
+          x1:x0 + barW,
+          y1:y0,
+          html:tooltipHtml(String(label), [
+            ['电源', t.label],
+            ['发电量', fmtNumber(v, 1) + ' ' + (payload.unit || 'TWh')],
+            ['同比', fmtPct((t.points || [])[i]?.yoy)],
+            ['状态', (t.points || [])[i]?.status || '-']
+          ])
+        });
+        acc += v;
+      });
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'center';
+      ctx.fillText(String(label), pad.left + i * xStep + xStep / 2, height - 24);
+    });
+    types.forEach((t, i) => {
+      ctx.fillStyle = t.color || '#64748b';
+      ctx.fillRect(width - pad.right + 12, pad.top + 8 + i * 18, 10, 10);
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'left';
+      ctx.fillText(t.label, width - pad.right + 28, pad.top + 13 + i * 18);
+    });
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.fillText((payload.title || '分类型发电量') + ' / ' + (payload.unit || 'TWh'), pad.left, 15);
+    labels.forEach((label, i) => {
+      const rows = types.map((t) => {
+        const point = (t.points || [])[i] || {};
+        return [t.label, fmtNumber(point.value, 1) + ' ' + (payload.unit || 'TWh') + ' / ' + fmtPct(point.yoy)];
+      });
+      hits.push({
+        key:'x-' + i,
+        kind:'xband',
+        x0:pad.left + xStep * i,
+        x1:pad.left + xStep * (i + 1),
+        y0:pad.top,
+        y1:height - pad.bottom,
+        html:tooltipHtml(String(label), rows)
+      });
+    });
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function drawPie(canvas, payload) {
+    const { ctx, width, height } = setupCanvas(canvas);
+    const slices = (payload.slices || []).filter((slice) => Number(slice.value) > 0);
+    const total = Number(payload.total) || slices.reduce((sum, slice) => sum + Number(slice.value || 0), 0);
+    const hits = [];
+    chartHitAreas.set(canvas.id, hits);
+    ctx.fillStyle = '#0f2d5c';
+    ctx.textAlign = 'left';
+    ctx.font = 'bold 15px "Times New Roman","KaiTi","楷体","STKaiti",serif';
+    ctx.fillText(payload.title || '结构占比', 40, 26);
+    ctx.font = '12px "Times New Roman","KaiTi","楷体","STKaiti",serif';
+    ctx.fillStyle = '#64748b';
+    ctx.fillText('合计：' + fmtNumber(total, 1) + ' ' + (payload.unit || ''), 40, 48);
+    if (!slices.length || !total) {
+      ctx.fillStyle = '#94a3b8';
+      ctx.textAlign = 'center';
+      ctx.fillText('暂无可展示数据', width / 2, height / 2);
+      return;
+    }
+    const legendW = Math.min(270, Math.max(220, width * 0.34));
+    const plotW = Math.max(300, width - legendW - 90);
+    const cx = 42 + plotW / 2;
+    const cy = height * 0.55;
+    const radius = Math.max(96, Math.min(plotW * 0.34, height * 0.34, 152));
+    let angle = -Math.PI / 2;
+    slices.forEach((slice) => {
+      const value = Number(slice.value) || 0;
+      const nextAngle = angle + (value / total) * Math.PI * 2;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, radius, angle, nextAngle);
+      ctx.closePath();
+      ctx.fillStyle = slice.color || '#64748b';
+      ctx.fill();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      const mid = (angle + nextAngle) / 2;
+      const share = Number(slice.share);
+      if (Number.isFinite(share) && share >= 6) {
+        ctx.fillStyle = '#0f172a';
+        ctx.textAlign = 'center';
+        ctx.font = '12px "Times New Roman","KaiTi","楷体","STKaiti",serif';
+        ctx.fillText(share.toFixed(1) + '%', cx + Math.cos(mid) * radius * 0.62, cy + Math.sin(mid) * radius * 0.62);
+      }
+      angle = nextAngle;
+    });
+    const legendX = width - legendW - 34;
+    const legendY = 76;
+    slices.forEach((slice, i) => {
+      const y = legendY + i * 25;
+      const shareText = Number.isFinite(Number(slice.share)) ? Number(slice.share).toFixed(1) + '%' : '-';
+      ctx.fillStyle = slice.color || '#64748b';
+      ctx.fillRect(legendX, y - 6, 11, 11);
+      ctx.fillStyle = '#334155';
+      ctx.textAlign = 'left';
+      ctx.font = '12px "Times New Roman","KaiTi","楷体","STKaiti",serif';
+      ctx.fillText(String(slice.label), legendX + 18, y);
+      ctx.fillStyle = '#64748b';
+      ctx.textAlign = 'right';
+      ctx.fillText(fmtNumber(slice.value, 1) + ' ' + (payload.unit || '') + ' / ' + shareText, width - 36, y);
+      hits.push({
+        key: 'pie-legend-' + i,
+        kind: 'rect',
+        x0: legendX,
+        y0: y - 11,
+        x1: width - 30,
+        y1: y + 11,
+        html: tooltipHtml(String(slice.label), [
+          [payload.valueLabel || '数值', fmtNumber(slice.value, 1) + ' ' + (payload.unit || '')],
+          ['占比', shareText]
+        ])
+      });
+    });
+    chartHitAreas.set(canvas.id, hits);
+  }
+  function drawChartCanvas(canvas, payload, selected) {
+    if (!payload) return;
+    if (payload.mode === 'line_multi') drawLineMulti(canvas, payload);
+    else if (payload.mode === 'seasonal_lines') drawSeasonalLines(canvas, payload);
+    else if (payload.mode === 'heatmap') drawHeatmap(canvas, payload);
+    else if (payload.mode === 'seasonality') drawSeasonality(canvas, payload);
+    else if (payload.mode === 'sparkline') drawSparkline(canvas, payload);
+    else if (payload.mode === 'pie') drawPie(canvas, payload);
+    else if (payload.mode === 'stacked_sources') drawStackedSources(canvas, payload, selected || 'stack');
+    else drawComboCanvas(canvas, payload, selected);
+  }
+  function renderCanvasCharts() {
+    releaseHiddenCanvases();
+    document.querySelectorAll('.combo-chart canvas').forEach((canvas) => {
+      if (canvas.offsetParent === null) return;
+      const chart = canvas.closest('.combo-chart');
+      const payload = powerCanvasCharts.get(canvas.id) || readChartPayload(canvas.id);
+      if (!payload) return;
+      powerCanvasCharts.set(canvas.id, payload);
+      if (payload.mode === 'heatmap') {
+        const rowCount = (payload.rows || payload.y || []).length;
+        canvas.style.height = Math.max(520, 92 + rowCount * 24) + 'px';
+      }
+      if (!canvasNearViewport(canvas, 900)) return;
+      const active = chart.querySelector('.chart-toggle.active');
+      drawChartCanvas(canvas, payload, active ? (active.dataset.type || active.dataset.view) : null);
+      if (payload.mode !== 'heatmap') bindCanvasInteractions(canvas);
+      else {
+        chartHitAreas.delete(canvas.id);
+        canvas.style.cursor = 'default';
+      }
+    });
+  }
+  document.querySelectorAll('.combo-chart .chart-toggle').forEach((button) => {
+    button.addEventListener('click', () => {
+      const chart = button.closest('.combo-chart');
+      chart.querySelectorAll('.chart-toggle').forEach((x) => x.classList.toggle('active', x === button));
+      const canvas = chart.querySelector('canvas');
+      if (canvas) canvas.__hoverHit = null;
+      hideChartTooltip();
+      scheduleCanvasRender();
+    });
+  });
+  window.addEventListener('resize', scheduleCanvasRender);
+  window.addEventListener('scroll', scheduleCanvasRender, { passive:true });
+
+  const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+  const panels = Array.from(document.querySelectorAll('.report-panel'));
+  const tocGroups = Array.from(document.querySelectorAll('.toc-group'));
+  const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+  function setTocPanel(panelId) {
+    tocGroups.forEach((group) => group.classList.toggle('active', group.dataset.panelGroup === panelId));
+  }
+  function setActiveTocLink(targetId) {
+    tocLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === '#' + targetId));
+  }
+  function updateTocFromScroll() {
+    const activePanel = panels.find((panel) => panel.classList.contains('active'));
+    if (!activePanel) return;
+    setTocPanel(activePanel.id);
+    const sections = Array.from(activePanel.querySelectorAll('.subpanel[id]'));
+    let current = activePanel.id;
+    const offset = 110;
+    sections.forEach((section) => {
+      if (section.getBoundingClientRect().top <= offset) current = section.id;
+    });
+    setActiveTocLink(current);
+  }
+  function activatePanel(target) {
+    tabs.forEach((tab) => {
+      const active = tab.dataset.target === target;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    panels.forEach((panel) => panel.classList.toggle('active', panel.id === target));
+    setTocPanel(target);
+  }
+  tabs.forEach((tab) => tab.addEventListener('click', () => {
+    activatePanel(tab.dataset.target);
+    history.replaceState(null, '', '#' + tab.dataset.target);
+    const firstLink = document.querySelector(`.side-toc a[data-panel="${tab.dataset.target}"]`);
+    if (firstLink) setActiveTocLink(firstLink.getAttribute('href').slice(1));
+    scheduleCanvasRender();
+  }));
+  document.querySelectorAll('.toc-group-title').forEach((button) => {
+    button.addEventListener('click', () => {
+      const panel = button.dataset.panel;
+      activatePanel(panel);
+      const firstLink = document.querySelector(`.side-toc a[data-panel="${panel}"]`);
+      const target = firstLink ? firstLink.getAttribute('href').slice(1) : panel;
+      history.replaceState(null, '', '#' + target);
+      setActiveTocLink(target);
+      const el = document.getElementById(target);
+      if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+      setTimeout(scheduleCanvasRender, 120);
+    });
+  });
+  document.querySelectorAll('.side-toc a[data-panel]').forEach((link) => {
+    link.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const panel = link.dataset.panel;
+      const target = link.getAttribute('href').slice(1);
+      activatePanel(panel);
+      history.replaceState(null, '', '#' + target);
+      setActiveTocLink(target);
+      requestAnimationFrame(() => {
+        const el = document.getElementById(target);
+        if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+        setTimeout(scheduleCanvasRender, 120);
+      });
+    });
+  });
+  const hash = location.hash.replace('#', '');
+  const startLink = document.querySelector(`.side-toc a[href="#${hash}"]`);
+  if (startLink) {
+    activatePanel(startLink.dataset.panel);
+    setActiveTocLink(hash);
+  }
+  else if (hash && document.getElementById(hash)) activatePanel(hash);
+  else updateTocFromScroll();
+  window.addEventListener('scroll', updateTocFromScroll, { passive:true });
+  scheduleCanvasRender();
+</script>
+</body>
+</html>
