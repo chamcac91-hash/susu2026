@@ -1,0 +1,11 @@
+{
+  "frequency": "daily/monthly_split",
+  "latest_date": "2026-09-15",
+  "children": [
+    "thermal_domestic_power_25prov_dashboard.json",
+    "thermal_domestic_power_cumulative_dashboard.json",
+    "thermal_domestic_power_17_8prov_dashboard.json",
+    "thermal_domestic_power_daily_dashboard.json",
+    "thermal_raw_coal_monthly_dashboard.json"
+  ]
+}

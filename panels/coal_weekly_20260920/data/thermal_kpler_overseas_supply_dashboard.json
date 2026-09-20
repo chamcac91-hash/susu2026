@@ -1,0 +1,9 @@
+{
+  "frequency": "weekly_split",
+  "latest_date": "2026-09-20",
+  "children": [
+    "thermal_kpler_thermal_shipments_dashboard.json",
+    "thermal_kpler_thermal_arrivals_dashboard.json"
+  ],
+  "note": "Kpler动力煤海外供给拆分为发运和到港两张汇总表及对应季节性图。"
+}
