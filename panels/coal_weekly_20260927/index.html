@@ -1,0 +1,1007 @@
+<!doctype html>
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>煤焦周报20260927 手机版｜汇总+平衡表</title>
+<style>
+    :root { --ink:#0b2f66; --accent:#b4493f; --bg:#fffdf9; --panel:#fbfcff; --line:#d7dde8; --muted:#667085; --soft:#f2f5f9; --font:"Times New Roman","KaiTi","STKaiti","SimKai",serif; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:var(--font); background:var(--bg); color:#1f2937; }
+    .layout { display:grid; grid-template-columns:188px minmax(0,1fr); min-height:100vh; }
+    .side-toc { position:sticky; top:0; height:100vh; overflow:auto; border-right:1px solid var(--line); background:#f5f7fb; padding:14px 8px; scrollbar-width:thin; }
+    .side-toc .toc-title { color:var(--ink); font-size:17px; font-weight:800; margin:2px 4px 12px; line-height:1.25; }
+    .side-toc a { display:block; color:#344054; text-decoration:none; padding:6px 6px 6px 8px; margin:1px 0; border-radius:4px; font-size:12.5px; line-height:1.24; border-left:2px solid transparent; word-break:break-word; }
+    .side-toc a.toc-level-1 { padding-left:8px; font-size:13px; font-weight:850; color:var(--ink); margin-top:5px; }
+    .side-toc a.toc-level-2 { padding-left:18px; }
+    .side-toc a.toc-level-3 { padding-left:30px; font-size:12px; color:#475467; }
+    .side-toc a.toc-level-4 { padding-left:42px; font-size:11.5px; color:#667085; }
+    .side-toc a:hover, .side-toc a.active { background:#fff; color:var(--ink); border-left-color:var(--accent); box-shadow:0 1px 4px rgba(15,23,42,.06); }
+    main { padding:0 24px 30px; min-width:0; }
+    header { padding:18px 0 10px; border-bottom:1px solid var(--line); }
+    h1 { color:var(--ink); font-size:28px; margin:0 0 6px; letter-spacing:0; }
+    .subtitle { color:var(--muted); line-height:1.55; font-size:14px; }
+    .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:7px; padding:12px 0 9px; border-bottom:1px solid var(--line); background:rgba(255,253,249,.97); backdrop-filter:blur(8px); }
+    .panel-tab { border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:7px 15px; min-height:38px; border-radius:4px; font-family:inherit; font-size:16px; font-weight:750; cursor:pointer; }
+    .panel-tab.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .report-panel { display:none; padding:12px 0 22px; }
+    .report-panel.active { display:block; }
+    h2 { color:var(--ink); margin:10px 0 12px; font-size:23px; }
+    .subpanel { scroll-margin-top:70px; margin:11px 0 16px; padding:12px 13px; border:1px solid var(--line); background:var(--panel); border-radius:4px; box-shadow:0 1px 6px rgba(15,23,42,.03); }
+    .subpanel > h3 { margin:-12px -13px 10px; font-size:19px; color:var(--ink); background:#e7ecf4; border-left:4px solid var(--ink); border-bottom:1px solid #cbd5e1; padding:8px 12px 8px 14px; letter-spacing:0; }
+    .node-meta { display:flex; flex-wrap:wrap; gap:7px; color:var(--muted); font-size:13px; margin:0 0 10px; line-height:1.5; }
+    .tag { display:inline-flex; align-items:center; min-height:22px; padding:1px 7px; border-radius:3px; font-weight:700; color:#fff; }
+    .tag.ok { background:#357f63; } .tag.data { background:#0b2f66; } .tag.report { background:#7a4b1f; } .tag.ppt { background:#b4493f; }
+    .table-toolbar { display:flex; justify-content:flex-end; align-items:center; gap:8px; margin:4px 0 8px; color:var(--muted); }
+    .table-toolbar span { display:none; }
+    .table-toolbar button { border:1px solid var(--line); background:#fff; padding:6px 10px; border-radius:3px; cursor:pointer; }
+    .table-scroll { overflow:auto; border:1px solid var(--line); background:#fff; margin:8px 0 12px; max-height:460px; border-radius:3px; }
+    .editable-table-wrap { overflow:visible; border:1px solid #b9c4d6; background:#fff; margin:8px 0 12px; max-height:none; border-radius:3px; }
+    table { border-collapse:collapse; min-width:720px; width:100%; font-size:13.5px; }
+    th, td { border:1px solid #e2e8f0; padding:6px 8px; vertical-align:top; }
+    th { background:#e9eef7; color:var(--ink); position:sticky; top:0; z-index:1; }
+    .editable-table { min-width:0; table-layout:fixed; font-size:15px; line-height:1.6; }
+    .editable-table th, .editable-table td { border-color:#cfd7e6; white-space:normal; overflow-wrap:anywhere; word-break:break-word; }
+    .editable-table th { position:static; }
+    .editable-table .editable-title th { background:#d8e0ef; color:var(--ink); text-align:center; font-size:18px; font-weight:800; padding:9px 10px 6px; }
+    .editable-table .editable-head th { background:#edf2f8; color:var(--ink); text-align:center; font-weight:800; }
+    .editable-table tr:not(.editable-title):not(.editable-head):not(.editable-merged-row) td:first-child { text-align:center; font-weight:800; color:#1f2937; vertical-align:middle; }
+    .editable-table tr:not(.editable-title):not(.editable-head):not(.editable-merged-row) td:not(:last-child) { text-align:center; vertical-align:middle; }
+    .editable-table .editable-merged-row td { background:#fffdf5; border-top:2px solid #9aa8bc; color:#1f2937; font-weight:700; }
+    .thermal-summary-wrap { border:1px solid #b9c4d6; border-radius:3px; }
+    .thermal-summary-table { font-size:15px; line-height:1.6; }
+    .thermal-summary-table th, .thermal-summary-table td { border-color:#cfd7e6; padding:6px 8px; }
+    .thermal-summary-table .thermal-summary-title th { background:#d8e0ef; color:var(--ink); text-align:center; font-size:18px; font-weight:800; padding:9px 10px 6px; }
+    .thermal-summary-table .thermal-summary-head th { background:#edf2f8; color:var(--ink); text-align:center; font-size:15px; font-weight:800; }
+    .thermal-summary-table .thermal-summary-metric { text-align:center; vertical-align:middle; font-weight:800; color:#1f2937; }
+    .thermal-summary-table .thermal-summary-change { text-align:left; vertical-align:top; color:var(--ink); }
+    .thermal-summary-table .thermal-summary-valuation td { background:#fffdf5; border-top:2px solid #9aa8bc; color:#1f2937; text-align:left; font-weight:700; }
+    .thermal-summary-table .thermal-summary-valuation td mark { background:#ffff00; padding:0 3px; }
+    .policy-table-scroll { overflow:auto; max-height:none; }
+    .policy-workbook-table { border-collapse:collapse; table-layout:fixed; min-width:1160px; width:100%; line-height:1.45; }
+    .policy-workbook-table td { overflow-wrap:anywhere; }
+    .editable-table td:focus, .editable-table th:focus { outline:2px solid var(--accent); background:#fff7ed; }
+    .edit-toolbar { position:fixed; z-index:180; display:none; align-items:center; gap:6px; padding:6px; border:1px solid #cbd5e1; background:#fff; box-shadow:0 8px 22px rgba(15,23,42,.16); border-radius:4px; }
+    .edit-toolbar.active { display:flex; }
+    .edit-toolbar button { border:1px solid #cbd5e1; background:#f8fafc; color:#0b2f66; padding:5px 9px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:13px; font-weight:800; }
+    .edit-toolbar button:hover { background:#eef3fb; }
+    .edit-toolbar .red-btn { color:#b00000; }
+    .edit-toolbar .save-btn { color:#357f63; }
+    .edit-save-hint { font-size:12px; color:#667085; padding:0 3px; }
+    .data-block { border:1px solid var(--line); background:#fff; padding:10px; margin:9px 0; border-radius:4px; }
+    .data-block.featured { border-color:#c98d4e; background:#fffaf3; }
+    .data-block.missing { color:var(--muted); display:flex; gap:12px; }
+    .interactive-data-block { border:1px solid #cfd7e6; background:#fff; padding:10px 11px; margin:9px 0 12px; border-radius:4px; }
+    .interactive-data-block .table-scroll { max-height:none; overflow:visible; }
+    .data-head { display:flex; justify-content:space-between; gap:12px; color:var(--ink); margin-bottom:8px; }
+    .file-list { display:flex; flex-wrap:wrap; gap:6px; list-style:none; padding:0; margin:0 0 8px; }
+    .file-list li { display:flex; gap:6px; align-items:center; border:1px solid #e2e8f0; background:#f8fafc; padding:4px 7px; border-radius:3px; color:var(--muted); font-size:12px; }
+    .json-summary { display:flex; flex-wrap:wrap; gap:6px; }
+    .json-summary span { background:#eef4ff; color:var(--ink); padding:4px 8px; border-radius:3px; }
+    .svg-card, .freight-svg { width:100%; max-width:980px; display:block; margin:8px 0; background:#fff; border:1px solid #e5e7eb; }
+    .svg-card svg { width:100%; display:block; }
+    .chart-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:11px; margin:10px 0; }
+    .chart-card { border:1px solid #dde5f0; background:#fff; border-radius:4px; padding:7px; min-width:0; }
+    .chart-card svg { width:100%; display:block; }
+    .chart-canvas { width:100%; height:auto; display:block; }
+    .seasonal-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .aussie-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .mongolian-grid, .overseas-profit-grid, .coal-jianghu-grid, .fenwei-inventory-grid, .fenwei-profit-grid, .available-days-grid, .coke-data-grid, .fenwei-coke-grid, .wuhai-coke-grid, .thermal-price-grid, .thermal-port-inventory-grid, .thermal-dispatch-grid, .thermal-power-grid, .thermal-demand-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .thermal-power-compact-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .weather-temperature-grid, .thermal-building-grid, .thermal-origin-grid, .raw-coal-grid { grid-template-columns:repeat(4, minmax(0, 1fr)); }
+    .hotmetal-grid, .offbalance-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .seaborne-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .auction-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .supply-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .auction-price-table { min-width:1180px; font-size:12.5px; }
+    .auction-price-table-block .table-scroll { overflow:auto; max-height:620px; }
+    .seasonal-card { padding:6px 7px; }
+    .mongolian-subsection { margin:12px 0 16px; border:1px solid var(--line); background:#fff; border-radius:4px; overflow:hidden; }
+    .mongolian-subsection > h4 { margin:0; padding:9px 13px; background:#e7ecf4; color:var(--ink); border-left:4px solid var(--ink); border-bottom:1px solid #cbd5e1; font-size:18px; font-weight:800; }
+    .mongolian-subsection .interactive-data-block { border:0; border-radius:0; margin:0; }
+    .chart-title { font-size:14px; font-weight:800; fill:var(--ink); }
+    .hover-dot { cursor:crosshair; }
+    .seasonal-hover-zone { fill:transparent; cursor:crosshair; }
+    .seasonal-guide { display:none; stroke:#111827; stroke-width:1.2; stroke-dasharray:3 3; pointer-events:none; }
+    .chart-tip { position:fixed; display:none; pointer-events:none; z-index:300; background:#0f172a; color:#fff; padding:7px 9px; border-radius:3px; font-size:12px; line-height:1.5; white-space:pre-line; max-width:320px; box-shadow:0 8px 22px rgba(15,23,42,.2); }
+    .summary-table th, .summary-table td { text-align:center; vertical-align:middle; }
+    .summary-table td:last-child { font-weight:800; }
+    .grouped-category-table .category-cell { text-align:center; vertical-align:middle; font-weight:800; color:var(--ink); background:#f3f6fb; min-width:58px; }
+    .grid { stroke:#d7dce5; stroke-dasharray:4 4; }
+    .axis { font-size:11px; fill:#667085; }
+    .legend { display:flex; flex-wrap:wrap; gap:5px 8px; color:#475467; font-size:10.5px; line-height:1.15; margin:2px 0 0; }
+    .legend span { display:inline-flex; align-items:center; gap:3px; }
+    .legend i { display:inline-block; width:8px; height:8px; }
+    .chg-pos { background:#f6c7cd !important; color:#8b0000; font-weight:800; }
+    .chg-neg { background:#c6efce !important; color:#006100; font-weight:800; }
+    .slide-grid { display:grid; grid-template-columns:1fr; gap:14px; margin-top:10px; }
+    .slide-card { margin:0; border:1px solid var(--line); background:#fff; border-radius:4px; overflow:hidden; }
+    .slide-card figcaption { border-top:0; border-bottom:1px solid var(--line); background:#f2f5fa; color:var(--ink); font-size:15px; font-weight:750; }
+    .slide-card button { display:block; border:0; padding:0; background:transparent; width:100%; cursor:zoom-in; }
+    .slide-card img { display:block; width:100%; height:auto; }
+    .report-image-list { display:grid; grid-template-columns:1fr; gap:12px; margin:10px 0 12px; }
+    .asset-gallery.cols-2 { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .asset-gallery.cols-3 { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .asset-gallery.cols-4 { grid-template-columns:repeat(4, minmax(0, 1fr)); }
+    .lightweight-assets .data-head span { font-size:12px; color:#8a94a6; font-weight:400; }
+    .section-note-line { margin:8px 0 4px; padding:8px 10px; border:1px solid #d9e1ec; background:#f8fafc; color:#475467; border-radius:4px; font-size:14px; line-height:1.6; }
+    .report-card { margin:0; border:1px solid var(--line); background:#fff; border-radius:4px; overflow:hidden; }
+    .report-card button { display:block; border:0; padding:0; background:transparent; width:100%; cursor:zoom-in; }
+    .report-card img { display:block; width:100%; height:auto; }
+    figcaption { display:flex; justify-content:space-between; gap:10px; padding:8px 10px; color:#475467; font-size:13px; border-top:1px solid var(--line); }
+    figcaption span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .source-note { display:none; }
+    .empty { color:var(--muted); line-height:1.7; }
+    .modal { position:fixed; inset:0; background:rgba(15,23,42,.82); z-index:200; display:none; align-items:center; justify-content:center; padding:22px; }
+    .modal.active { display:flex; }
+    .modal img { max-width:96vw; max-height:92vh; background:#fff; }
+    .modal button { position:absolute; top:16px; right:18px; border:1px solid #fff; color:#fff; background:transparent; padding:8px 12px; font-size:16px; cursor:pointer; }
+    @media (max-width: 1400px) { .auction-grid, .supply-grid, .seaborne-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 1180px) { .seasonal-grid, .aussie-grid, .auction-grid, .supply-grid, .seaborne-grid, .mongolian-grid, .overseas-profit-grid, .coal-jianghu-grid, .fenwei-inventory-grid, .fenwei-profit-grid, .available-days-grid, .coke-data-grid, .fenwei-coke-grid, .wuhai-coke-grid, .thermal-price-grid, .thermal-building-grid, .thermal-origin-grid, .raw-coal-grid, .thermal-port-inventory-grid, .thermal-dispatch-grid, .thermal-power-grid, .thermal-demand-grid, .weather-temperature-grid, .hotmetal-grid, .offbalance-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 1180px) { .asset-gallery.cols-3, .asset-gallery.cols-4 { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 900px) { .layout { grid-template-columns:1fr; } .side-toc { position:relative; height:auto; max-height:42vh; border-right:0; border-bottom:1px solid var(--line); } main { padding:0 12px 24px; } .panel-tab { flex:1 1 calc(50% - 8px); } .seasonal-grid, .auction-grid, .supply-grid, .seaborne-grid, .mongolian-grid, .overseas-profit-grid, .coal-jianghu-grid, .fenwei-inventory-grid, .fenwei-profit-grid, .available-days-grid, .coke-data-grid, .fenwei-coke-grid, .wuhai-coke-grid, .thermal-price-grid, .thermal-building-grid, .thermal-origin-grid, .raw-coal-grid, .thermal-port-inventory-grid, .thermal-dispatch-grid, .thermal-power-grid, .thermal-power-compact-grid, .thermal-demand-grid, .weather-temperature-grid, .hotmetal-grid, .offbalance-grid, .asset-gallery.cols-2, .asset-gallery.cols-3, .asset-gallery.cols-4 { grid-template-columns:1fr; } }
+  </style>
+<style id="mobile-publish-overrides">
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  img,
+  svg,
+  canvas {
+    max-width: 100%;
+  }
+
+  .chart-canvas {
+    touch-action: pan-y;
+  }
+
+  @media (max-width: 760px) {
+    body {
+      background: #f8fafc;
+    }
+
+    .layout {
+      display: block;
+      min-height: 100svh;
+    }
+
+    .side-toc {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      height: auto;
+      max-height: none;
+      overflow-x: auto;
+      overflow-y: hidden;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 6px;
+      padding: 8px;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(245, 247, 251, .98);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .side-toc .toc-title {
+      flex: 0 0 auto;
+      margin: 0 8px 0 0;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .side-toc a,
+    .side-toc a.toc-level-1,
+    .side-toc a.toc-level-2,
+    .side-toc a.toc-level-3,
+    .side-toc a.toc-level-4 {
+      flex: 0 0 auto;
+      white-space: nowrap;
+      padding: 7px 9px;
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.2;
+      border-left: 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    .side-toc a:hover,
+    .side-toc a.active {
+      border-left-color: transparent;
+      border-bottom-color: var(--accent);
+    }
+
+    main {
+      padding: 0 8px 18px;
+    }
+
+    header {
+      padding: 10px 0 7px;
+    }
+
+    h1 {
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin: 9px 0;
+    }
+
+    .subtitle {
+      font-size: 12.5px;
+    }
+
+    .panel-tabs {
+      top: 0;
+      z-index: 80;
+      flex-wrap: nowrap;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 8px 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .panel-tabs::-webkit-scrollbar,
+    .side-toc::-webkit-scrollbar {
+      display: none;
+    }
+
+    .panel-tab {
+      flex: 0 0 auto;
+      min-width: 6.5rem;
+      min-height: 36px;
+      padding: 7px 10px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .report-panel {
+      padding: 8px 0 18px;
+    }
+
+    .subpanel {
+      margin: 8px 0 12px;
+      padding: 8px;
+      border-radius: 4px;
+      box-shadow: none;
+      overflow: hidden;
+      scroll-margin-top: 92px;
+    }
+
+    .subpanel > h3 {
+      margin: -8px -8px 8px;
+      padding: 8px 10px;
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    .node-meta,
+    .data-head,
+    .table-toolbar {
+      font-size: 12px;
+    }
+
+    .data-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    .interactive-data-block,
+    .data-block,
+    .table-scroll,
+    .editable-table-wrap {
+      max-width: 100%;
+      overflow-x: auto !important;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .thermal-summary-wrap {
+      max-width: 100%;
+      overflow-x: hidden !important;
+      overflow-y: visible;
+    }
+
+    .interactive-data-block .table-scroll {
+      overflow-x: auto !important;
+      overflow-y: visible;
+    }
+
+    table {
+      font-size: 12.5px;
+    }
+
+    table:not(.editable-table):not(.thermal-summary-table) {
+      min-width: 720px;
+    }
+
+    .editable-table,
+    .thermal-summary-table {
+      min-width: 0 !important;
+      width: 100% !important;
+      table-layout: fixed;
+      font-size: 12.5px;
+      line-height: 1.58;
+    }
+
+    .thermal-summary-table col:first-child,
+    .editable-table col:first-child {
+      width: 24% !important;
+    }
+
+    .thermal-summary-table col:last-child,
+    .editable-table col:last-child {
+      width: 76% !important;
+    }
+
+    .thermal-summary-table th,
+    .thermal-summary-table td,
+    .editable-table th,
+    .editable-table td {
+      min-width: 0;
+      overflow: visible;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      white-space: normal;
+    }
+
+    .thermal-summary-table .thermal-summary-title th,
+    .editable-table .editable-title th {
+      font-size: 16px;
+    }
+
+    th,
+    td {
+      padding: 5px 6px;
+    }
+
+    .seasonal-grid,
+    .auction-grid,
+    .supply-grid,
+    .seaborne-grid,
+    .mongolian-grid,
+    .overseas-profit-grid,
+    .coal-jianghu-grid,
+    .fenwei-inventory-grid,
+    .fenwei-profit-grid,
+    .available-days-grid,
+    .coke-data-grid,
+    .fenwei-coke-grid,
+    .wuhai-coke-grid,
+    .thermal-price-grid,
+    .thermal-building-grid,
+    .thermal-origin-grid,
+    .raw-coal-grid,
+    .thermal-port-inventory-grid,
+    .thermal-dispatch-grid,
+    .thermal-power-grid,
+    .thermal-power-compact-grid,
+    .thermal-demand-grid,
+    .weather-temperature-grid,
+    .hotmetal-grid,
+    .offbalance-grid,
+    .asset-gallery.cols-2,
+    .asset-gallery.cols-3,
+    .asset-gallery.cols-4 {
+      grid-template-columns: 1fr !important;
+    }
+
+    .report-card,
+    .chart-card,
+    .card,
+    .wide-card {
+      min-width: 0;
+    }
+
+    .report-card img,
+    .asset-card img,
+    .interactive-data-block img {
+      width: 100%;
+      height: auto;
+    }
+
+    .svg-card,
+    .freight-svg {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .chart-canvas {
+      width: 100% !important;
+      height: auto !important;
+      max-height: 72svh;
+    }
+
+    .chart-tip {
+      max-width: calc(100vw - 18px);
+      font-size: 12.5px;
+      line-height: 1.45;
+      z-index: 1000;
+      white-space: pre-wrap;
+    }
+
+    .modal {
+      padding: 10px;
+      align-items: flex-start;
+      overflow: auto;
+    }
+
+    .modal img {
+      max-width: 96vw;
+      max-height: 86svh;
+      margin-top: 42px;
+    }
+
+    .modal button {
+      top: 8px;
+      right: 8px;
+      background: rgba(15, 23, 42, .72);
+    }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav aria-label="总目录" class="side-toc"><strong>煤焦周报总目录</strong><a class="active" href="index.html">汇总+平衡表</a><a href="jm.html">焦煤</a><a href="coke.html">焦炭</a><a href="thermal.html">动力煤</a><a href="policy.html">政策</a></nav>
+<main>
+<header>
+<h1>煤焦周报20260927</h1>
+</header>
+<div class="panel-tabs" role="tablist"><a class="panel-tab active" href="index.html">汇总+平衡表</a><a class="panel-tab" href="jm.html">焦煤</a><a class="panel-tab" href="coke.html">焦炭</a><a class="panel-tab" href="thermal.html">动力煤</a><a class="panel-tab" href="policy.html">政策</a></div>
+<section class="report-panel active" id="overview"><h2>汇总+平衡表</h2><section class="subpanel" id="summary-jm"><h3>1.1.1 焦煤汇总</h3><div class="node-meta"><span class="tag ok">可编辑表格</span><span>已转为可编辑表格。</span></div><div class="table-toolbar"><span>可编辑表格</span><button class="copy-table" type="button">复制表格</button></div><div class="editable-table-wrap thermal-summary-wrap"><table class="editable-table thermal-summary-table"><colgroup><col style="width:14%"/><col style="width:86%"/></colgroup><tr class="thermal-summary-title"><th colspan="2" contenteditable="true">焦煤基本面</th></tr><tr class="thermal-summary-head"><th contenteditable="true">指标</th><th contenteditable="true">变化</th></tr><tr><td class="thermal-summary-metric" contenteditable="true">焦煤产量及价格</td><td class="thermal-summary-change" contenteditable="true">（1）焦煤供给：①国内：本周因检查停产的煤矿逐步复产，汾渭供给环比增长较快，政策角度看产地积极推进复产，按照乐观预期下山西复产后折算铁水约232-233附近。本周折算铁水平衡点约225附近（假设蒙煤通关稍微恢复到800-1000附近）。②海外：澳大利亚发运到中国持续增加，俄罗斯发运到中国环比下滑，加拿大发运到中国同比偏低，环比维持。 （2）价格：政策转势后下游持货意愿微幅减弱，中游贸易商抛货兑现利润，竞拍流拍增多，骨架煤本轮累计下跌150-200居多，配煤下跌80-100。 （3）仓单：①蒙煤仓单：口岸报价1650附近，折算仓单01合约2050附近。低价出货的报价1620附近，折算01仓单2020附近。②澳煤仓单：一线澳煤价格276.6（-4.4），折算01合约2130左右，二线指数238.5（-4.5），对应01合约1850附近。③ 山西仓单：山西煤仓单2000+。</td></tr><tr><td class="thermal-summary-metric" contenteditable="true">焦煤库存</td><td class="thermal-summary-change" contenteditable="true">焦煤维持总量去库，但去库放缓，主要系山西个别逐步复产+铁水检修下滑，表内去库放缓，表外去库加速。</td></tr><tr><td class="thermal-summary-metric" contenteditable="true">海外煤</td><td class="thermal-summary-change" contenteditable="true">（1）澳煤：盘面走弱后美金及港口现货情绪转弱，印度实际需求相对疲弱，关注到中国市场开始走弱，海煤抛售增多，近船期装期资源offer增多，给到的进口落地利润较少，9 月下克努马 238FOB/267CFR均有报价，落地倒挂 30 以上，盘面缺少机会下贸易商观望居多。港口来看，拿货开始减少整体询盘维持，成交偏少，准一线资源 2080 成交。贸易商一线报价2410（+10），准一线报价 2080（-）。（2）俄煤：美金来看，伊娜琳188（-2），Elga报174（-），K4报208（-2），K10报239（-5）。港口现货持稳，港口氛围偏冷清，下游备库尾声采购积极性不高，全天成交不多。伊娜林1370（-），Elga 1270（-10），GJ 1370 -1390（-）K4 1600（-30）。</td></tr><tr><td class="thermal-summary-metric" contenteditable="true">蒙煤</td><td class="thermal-summary-change" contenteditable="true">（1）价格：本周蒙5报价微幅下跌20-30，蒙煤主焦基本没什么货。蒙煤预售较多，至少30万吨。（2）通关：通关仍然维持在500-600，有传闻节后要恢复到800-1000车，可能由于Q4长协价格抬高等原因，目前需要观察。其次，由于288排队的车影响效率，部分转至满都拉通关，但是由于物流不顺的原因，难有大增量。国庆节10月1至7日，甘其毛都口岸闭关7天。（3）库存：288库存164（-8）。（4）长协：蒙古大塔矿坑口长协3季度价格70.69美金，Q2 66.17，+4.52，长协均价950-1000附近。预期Q4长协价格84-85美金，粗略折算仓单1200附近。</td></tr><tr class="thermal-summary-valuation"><td colspan="2" contenteditable="true">【基本面结论+估值】政策转向导致焦煤转为反弹空策略，Q4铁水下滑，供给逐步爬坡，供需缺口逐步转为平衡/宽松，方向定性向下。节奏来看可能会出现阶段性的供给复产慢导致的阶段性反弹【调研反馈下来国庆后维持刚需补库，不存在多补，等提降周期结束再补库。】，短期01合约1450的估值偏度，近月10合约交割接货的不多，1400-1450部分贸易商愿意接货。周末省长再次喊话推进山西复工复产，目前看复产较快则供给可能爬坡到235及以上。
+套利来看，供需逐步扭转，盘面也会逐步扭转为c结构，但由于现货紧张短期仓单量压制减弱，修复也难超过无风险/近月大贴水，即11-1/12-1到-200，短期修复至-100/-100出头合理。</td></tr></table></div></section><section class="subpanel" id="summary-coke"><h3>1.1.2 焦炭汇总</h3><div class="node-meta"><span class="tag ok">可编辑表格</span><span>已转为可编辑表格。</span></div><div class="table-toolbar"><span>可编辑表格</span><button class="copy-table" type="button">复制表格</button></div><div class="editable-table-wrap thermal-summary-wrap"><table class="editable-table thermal-summary-table"><colgroup><col style="width:14%"/><col style="width:86%"/></colgroup><tr class="thermal-summary-title"><th colspan="2" contenteditable="true">焦炭基本面</th></tr><tr class="thermal-summary-head"><th contenteditable="true">指标</th><th contenteditable="true">变化</th></tr><tr><td class="thermal-summary-metric" contenteditable="true">焦炭产量及库存</td><td class="thermal-summary-change" contenteditable="true">（1）产量：焦化利润修复，化产利润较好，焦企提负荷，折算平衡点约230.5。 （2）焦企库存：总量维持去库，结构来看库存继续从上游转移至下游企业，利润修复后给下游发运焦炭有所好转，钢厂到货有所好转，内蒙地区焦炭汽运发给唐山增多，结构性也不缺了。</td></tr><tr><td class="thermal-summary-metric" contenteditable="true">提涨提降</td><td class="thermal-summary-change" contenteditable="true">（1）焦企利润汾渭：汾渭平均利润-21（+46），山西-9（+45），河北-9（+48），山东-4（+44），内蒙-39（+45），陕西-22（+47）。 （2）钢厂利润：山西好一些的毛利-30~-50，大部分-100~-150，个别差一些的-200的毛利。提降2轮后利润有所修复，故目前铁水下滑速度偏慢。 （3）提涨提降：目前预期节中+节后有2轮提降，100/110幅度，部分传节中提1轮，落1轮。</td></tr><tr><td class="thermal-summary-metric" contenteditable="true">下游需求</td><td class="thermal-summary-change" contenteditable="true">铁水：本周铁水 235.66（-1.97），预计铁水下周继续下滑，-1.5附近，到235左右。（注铁水检修以smm检修计算，绝对量与钢联存在一定误差，主要关注相对变动）</td></tr><tr><td class="thermal-summary-metric" contenteditable="true">仓单</td><td class="thermal-summary-change" contenteditable="true">①湿熄：山西准一湿熄出厂2010，仓单2500（修改指标后），港口准一湿熄1920（-60）， 仓单价2209（修改指标后）。②干熄：准一干熄出厂2300，仓单2530，港口准一干熄2080（-150），仓单价2140。锚定港口准一干熄仓单价格来看，盘面贴水近2轮，幅度100。</td></tr><tr class="thermal-summary-valuation"><td colspan="2" contenteditable="true">估值：焦炭基本面也在边际转弱，总量缺口维持，利润修复后供给增加，基本对应估值1950-2150震荡。</td></tr></table></div></section><section class="subpanel" id="summary-thermal"><h3>1.1.3 动力煤汇总</h3><div class="node-meta"><span class="tag ok">可编辑表格</span><span>已转为可编辑表格。</span></div><div class="table-toolbar"><span>可编辑表格</span><button class="copy-table" type="button">复制表格</button></div><div class="editable-table-wrap thermal-summary-wrap"><table class="editable-table thermal-summary-table"><colgroup><col style="width:14%"/><col style="width:86%"/></colgroup><tr class="thermal-summary-title"><th colspan="2" contenteditable="true">动力煤基本面</th></tr><tr class="thermal-summary-head"><th contenteditable="true">指标</th><th contenteditable="true">变化</th></tr><tr><td class="thermal-summary-metric" contenteditable="true">价格及利润</td><td class="thermal-summary-change" contenteditable="true">（1）国内：产地开始下跌，其中化工煤下跌10-30不等，电煤下跌5-15居多，个别化工煤相对坚挺+5~20，贸易商情绪转弱。（2）海外：海外动力煤涨幅放缓，印尼煤涨幅+0.5附近，南非-2美金，澳煤基本持平。（3）进口利润：印尼进口利润继续收缩，目前基本进口利润盈亏平衡附近，好一些的10-20的进口利润。（4）集港利润：集港利润继续倒挂，倒挂收缩10-20，主要系坑口跌价，港口指数涨价。</td></tr><tr><td class="thermal-summary-metric" contenteditable="true">供给</td><td class="thermal-summary-change" contenteditable="true">（1）国内：鄂尔多斯开始保供，日产恢复到250-260附近，陕西也开始保供，产量恢复至200+。（2）进口：印尼发运继续维持低位，到中国同比10月开始出现明显下滑。</td></tr><tr><td class="thermal-summary-metric" contenteditable="true">需求</td><td class="thermal-summary-change" contenteditable="true">（1）电力：①月度：2026年8月总发电9,437.8亿千瓦时，官方可比口径同比-0.8%，环比-0.0%，累计增速+2.4%。 分类型看，2026年8月太阳能700.2亿千瓦时，官方可比口径同比+10.3%，环比-0.4%，累计增速+24.4%；2026年8月水电1,522.1亿千瓦时，官方可比口径同比+2.8%，环比-5.8%，累计增速+7.6%；2026年8月风电728.5亿千瓦时，官方可比口径同比+7.9%，环比-11.2%，累计增速+3.3%。 2026年8月全社会用电10,332.0亿千瓦时，官方同比+1.7%，环比-0.7%，累计增速+4.3%。 ②日耗：近期动力煤日耗走弱明显，由于日耗走弱个别电厂补库节奏放缓。（2）化工：化工耗煤673（+2.1）。（3）建材：混凝土利用率及水泥出库继续维持好转。（4）海外需求：印度日耗维持高位，目前电厂库存偏低，但印度坑口产量最近开始抬升了，暖冬预期下Q4问题暂时不大了。</td></tr><tr><td class="thermal-summary-metric" contenteditable="true">库存、运输及天气</td><td class="thermal-summary-change" contenteditable="true">（1）产地：产地开始垒库。汾渭大样本来看，主要垒库在山西地区。（2）港口：北方港口2462（+38），近2周港口调入增加，下游调出减少，微幅垒库。（3）运输：大秦线运输基本维持120的满发，部分为贸易商，多数为保供增量，港口锚地船数减少，下游拉运没那么积极。（4）天气：近期天气偏暖。</td></tr><tr class="thermal-summary-valuation"><td colspan="2" contenteditable="true">估值：短期供应恢复，内蒙、陕西、山西都开始保供，动力煤复产较快，其次日耗同比偏低，整体供需矛盾逐步缓和。港口动力煤指数价格调整偏慢，坑口情绪转弱价格下跌，节奏上看节后回来沿海电厂刚需拿货，印尼到货少对价格存在支撑，补库反弹30-50，随后回落，供给增加需求偏差价格驱动向下。</td></tr></table></div></section><section class="subpanel" id="balance-jm"><h3>1.2.1 焦煤平衡表</h3><div class="node-meta"><span class="tag data">图表</span><span></span></div><div class="interactive-data-block lightweight-assets"><div class="data-head"><strong>焦煤平衡表</strong><span>轻量图片资产，点击放大</span></div><div class="report-image-list asset-gallery cols-1"><figure class="report-card asset-card"><button class="image-zoom" data-src="assets/asset_jm_balance_table_20260927.png" type="button"><img alt="焦煤平衡表" decoding="async" loading="eager" src="assets/asset_jm_balance_table_20260927.png"/></button><figcaption><strong>焦煤平衡表</strong><span>用户指定图</span></figcaption></figure><figure class="report-card asset-card"><button class="image-zoom" data-src="assets/asset_jm_balance_charts_20260927.png" type="button"><img alt="焦煤平衡图组" decoding="async" loading="eager" src="assets/asset_jm_balance_charts_20260927.png"/></button><figcaption><strong>焦煤平衡图组</strong><span>用户指定图</span></figcaption></figure></div></div></section><section class="subpanel" id="balance-coke"><h3>1.2.2 焦炭平衡表</h3><div class="node-meta"><span class="tag data">图表</span><span></span></div><div class="interactive-data-block lightweight-assets"><div class="data-head"><strong>焦炭平衡表</strong><span>轻量图片资产，点击放大</span></div><div class="report-image-list asset-gallery cols-1"><figure class="report-card asset-card"><button class="image-zoom" data-src="assets/asset_coke_balance_table_20260830.png" type="button"><img alt="焦炭月度平衡表" decoding="async" loading="eager" src="assets/asset_coke_balance_table_20260830.png"/></button><figcaption><strong>焦炭月度平衡表</strong><span>用户指定图</span></figcaption></figure><figure class="report-card asset-card"><button class="image-zoom" data-src="assets/asset_coke_balance_charts_20260830.png" type="button"><img alt="焦炭月平衡图组" decoding="async" loading="eager" src="assets/asset_coke_balance_charts_20260830.png"/></button><figcaption><strong>焦炭月平衡图组</strong><span>用户指定图</span></figcaption></figure></div></div></section><section class="subpanel" id="balance-thermal"><h3>1.2.3 动力煤平衡表</h3><div class="node-meta"><span class="tag data">图表</span><span></span></div><div class="interactive-data-block lightweight-assets"><div class="data-head"><strong>动力煤平衡表</strong><span>轻量图片资产，点击放大</span></div><div class="report-image-list asset-gallery cols-1"><figure class="report-card asset-card"><button class="image-zoom" data-src="assets/asset_thermal_balance_table_20260925.png" type="button"><img alt="动力煤平衡表" decoding="async" loading="eager" src="assets/asset_thermal_balance_table_20260925.png"/></button><figcaption><strong>动力煤平衡表</strong><span>用户指定图3</span></figcaption></figure><figure class="report-card asset-card"><button class="image-zoom" data-src="assets/asset_thermal_balance_charts_20260925.png" type="button"><img alt="动力煤平衡图组" decoding="async" loading="eager" src="assets/asset_thermal_balance_charts_20260925.png"/></button><figcaption><strong>动力煤平衡图组</strong><span>用户指定图4</span></figcaption></figure></div></div></section><section class="subpanel" id="balance-weekly"><h3>1.2.4 周度平衡</h3><div class="node-meta"><span class="tag data">图表</span><span></span></div><div class="interactive-data-block featured"><div class="data-head"><strong>双焦周度平衡</strong><span>汇总表 + 原四宫格图</span></div><div class="table-scroll"><table class="data-table compact summary-table period-summary-table grouped-category-table"><thead><tr><th>分类</th><th>指标</th><th>2026/09/04</th><th>2026/09/11</th><th>2026/09/18</th><th>2026/09/24</th><th>周变动</th><th>月变动</th><th>年变动</th></tr></thead><tbody><tr><td class="category-cell" rowspan="6">库存</td><td>实际铁水-理论铁水折算焦炭库存变化</td><td>-71.5</td><td>-59.2</td><td>-55.9</td><td>-34.6</td><td>#N/A</td><td class="chg-pos">+36.9</td><td class="chg-neg">-20.6</td></tr><tr><td>理论铁水-实际铁水折算焦煤库存变化</td><td>-63.6</td><td>-41.0</td><td>-61.2</td><td>-48.6</td><td>#N/A</td><td class="chg-pos">+76.0</td><td class="chg-neg">-80.9</td></tr><tr><td>焦炭显性库存环比</td><td>-45.0</td><td>-7.6</td><td>-45.1</td><td>-2.2</td><td>#N/A</td><td class="chg-pos">+34.7</td><td class="chg-neg">-12.0</td></tr><tr><td>焦煤显性库存环比</td><td>48.2</td><td>-7.86</td><td>-29.3</td><td>59.1</td><td>#N/A</td><td class="chg-pos">+89.7</td><td class="chg-pos">+96.0</td></tr><tr><td>焦炭总库存</td><td>943</td><td>935</td><td>890</td><td>888</td><td>#N/A</td><td class="chg-neg">-99.9</td><td class="chg-neg">-93.7</td></tr><tr><td>焦煤总库存</td><td>3348</td><td>3340</td><td>3311</td><td>3370</td><td>#N/A</td><td class="chg-pos">+70.2</td><td class="chg-neg">-72.6</td></tr><tr><td class="category-cell" rowspan="3">供给</td><td>247铁水产量</td><td>237</td><td>236</td><td>238</td><td>236</td><td>#N/A</td><td class="chg-neg">-0.9</td><td class="chg-neg">-6.7</td></tr><tr><td>ms焦炭对应铁水平衡点（不含库存）</td><td>221</td><td>224</td><td>226</td><td>230</td><td>#N/A</td><td class="chg-pos">+10.0</td><td class="chg-neg">-10.7</td></tr><tr><td>汾渭焦煤供应折算铁水平衡点</td><td>224</td><td>228</td><td>225</td><td>226</td><td>#N/A</td><td class="chg-pos">+14.4</td><td class="chg-neg">-23.0</td></tr></tbody></table></div><div class="report-image-list single-wide"><figure class="report-card asset-card"><button class="image-zoom" data-src="assets/balance_双焦周度平衡点_ppt.png" type="button"><img alt="双焦周度平衡点" decoding="async" loading="eager" src="assets/balance_双焦周度平衡点_ppt.png"/></button><figcaption><strong>双焦周度平衡点</strong><span>沿用原四宫格模板：供给折铁水 + 库存拟合</span></figcaption></figure></div><p class="source-note">最新可算：焦炭折算平衡点 230.5（2026-09-24），焦煤折算平衡点 225.9（2026-09-24）。口径沿用 double_coke_weekly_balance_panel：周度供应、247铁水、显性库存变化与分段焦比/煤比折算。 来源：double_coke_weekly_balance_panel.csv</p></div></section><section class="subpanel" id="balance-offbalance-inventory"><h3>1.2.5 表外库存</h3><div class="node-meta"><span class="tag data">图表</span><span></span></div><div class="interactive-data-block offbalance-inventory-block"><div class="data-head"><strong>表内库存、表外库存与总库存</strong><span>底层公式重算 + Canvas季节性图</span></div><div class="table-scroll"><table class="data-table compact summary-table period-summary-table"><thead><tr><th>指标</th><th>2026/09/04</th><th>2026/09/11</th><th>2026/09/18</th><th>2026/09/24</th><th>周变动</th><th>月变动</th><th>年变动</th></tr></thead><tbody><tr><td>表内库存</td><td>3348</td><td>3340</td><td>3311</td><td>3370</td><td>#N/A</td><td class="chg-pos">+70.2</td><td class="chg-neg">-128.4</td></tr><tr><td>表外库存</td><td>509</td><td>444</td><td>382</td><td>243</td><td>#N/A</td><td class="chg-neg">-408.8</td><td class="chg-neg">-2174.5</td></tr><tr><td>总库存</td><td>3857</td><td>3784</td><td>3692</td><td>3613</td><td>#N/A</td><td class="chg-neg">-338.6</td><td class="chg-neg">-2302.9</td></tr></tbody></table></div><div class="chart-grid seasonal-grid offbalance-grid chart-grid-live"><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"表内库存","axisMin":2500,"axisMax":5000,"ticks":[2500,3000,3500,4000,4500,5000],"series":[{"year":2023,"color":"#9bb7e5","width":2.2,"points":[[5.0,"01-06",3531.3826],[12.0,"01-13",3647.3108],[19.0,"01-20",3516.8912],[26.0,"01-27",3193.7122],[33.0,"02-03",3182.873056],[40.0,"02-10",3189.9708],[47.0,"02-17",3194.285442],[54.0,"02-24",3189.609835],[61.0,"03-03",3153.539647],[68.0,"03-10",3151.0932],[75.0,"03-17",3088.2536],[82.0,"03-24",3029.227],[89.0,"03-31",3128.7784],[96.0,"04-07",3187.5652],[103.0,"04-14",3350.4446],[110.0,"04-21",3380.5024],[117.0,"04-28",3386.3388],[124.0,"05-05",3401.1182],[131.0,"05-12",3338.907],[138.0,"05-19",3219.382],[145.0,"05-26",3079.2824],[152.0,"06-02",3044.0828],[159.0,"06-09",3011.4338],[166.0,"06-16",3098.3804],[173.0,"06-23",3096.2026],[180.0,"06-30",3137.488],[187.0,"07-07",3065.2464],[194.0,"07-14",3000.7582],[201.0,"07-21",3013.1634],[208.0,"07-28",2986.3522],[215.0,"08-04",2809.1236],[222.0,"08-11",2819.7892],[229.0,"08-18",2874.7636],[236.0,"08-25",2974.8808],[243.0,"09-01",3025.2968],[250.0,"09-08",2950.9484],[257.0,"09-15",2951.2338],[264.0,"09-22",2928.0206],[271.0,"09-29",2936.6644],[278.0,"10-06",2967.6184],[285.0,"10-13",3062.848],[292.0,"10-20",3009.6558],[299.0,"10-27",3049.9098],[306.0,"11-03",3036.9942],[313.0,"11-10",3234.4636],[320.0,"11-17",3325.663],[327.0,"11-24",3340.1838],[334.0,"12-01",3422.0034],[341.0,"12-08",3463.6902],[348.0,"12-15",3490.161],[355.0,"12-22",3544.925],[362.0,"12-29",3475.0648]]},{"year":2024,"color":"#1689d8","width":2.2,"points":[[4.0,"01-05",3640.1926],[11.0,"01-12",3611.5792],[18.0,"01-19",3695.748],[25.0,"01-26",3790.8282],[32.0,"02-02",3841.2382],[39.0,"02-09",3779.678],[46.0,"02-16",3544.7746],[53.0,"02-23",3403.9354],[59.0,"03-01",3399.9008],[66.0,"03-08",3380.9098],[73.0,"03-15",3331.2192],[80.0,"03-22",3384.4172],[87.0,"03-29",3407.0022],[94.0,"04-05",3552.9896],[101.0,"04-12",3591.6656],[108.0,"04-19",3650.2686],[115.0,"04-26",3664.0306],[122.0,"05-03",3601.8762],[129.0,"05-10",3539.7176],[136.0,"05-17",3504.822],[143.0,"05-24",3547.6766],[150.0,"05-31",3568.5734],[157.0,"06-07",3537.9208],[164.0,"06-14",3530.322],[171.0,"06-21",3570.3992],[178.0,"06-28",3631.1194],[185.0,"07-05",3667.583],[192.0,"07-12",3634.3828],[199.0,"07-19",3571.9566],[206.0,"07-26",3563.3148],[213.0,"08-02",3619.0648],[220.0,"08-09",3640.9944],[227.0,"08-16",3823.1808],[234.0,"08-23",3828.0008],[241.0,"08-30",3912.7218],[248.0,"09-06",3905.7788],[255.0,"09-13",3910.6048],[262.0,"09-20",3852.4544],[269.0,"09-27",3883.6162],[276.0,"10-04",3838.0862],[283.0,"10-11",3903.2284],[290.0,"10-18",3903.9502],[297.0,"10-25",3914.999],[304.0,"11-01",3993.5658],[311.0,"11-08",4005.6054],[318.0,"11-15",4060.9558],[325.0,"11-22",4037.6646],[332.0,"11-29",4142.1678],[339.0,"12-06",4200.818],[346.0,"12-13",4267.9682],[353.0,"12-20",4345.7826],[360.0,"12-27",4392.2034]]},{"year":2025,"color":"#0b2f66","width":2.2,"points":[[2.0,"01-03",4359.2336],[9.0,"01-10",4378.215],[16.0,"01-17",4504.4582],[23.0,"01-24",4529.8946],[30.0,"01-31",4492.7708],[37.0,"02-07",4208.4358],[44.0,"02-14",4063.4544],[51.0,"02-21",3963.349],[58.0,"02-28",3952.4712],[65.0,"03-07",3803.984],[72.0,"03-14",3780.1286],[79.0,"03-21",3789.5462],[86.0,"03-28",3806.4952],[93.0,"04-04",3856.8402],[100.0,"04-11",3866.598],[107.0,"04-18",3861.2244],[114.0,"04-25",3868.199],[121.0,"05-02",3837.5634],[128.0,"05-09",3757.1508],[135.0,"05-16",3780.4814],[142.0,"05-23",3808.4144],[149.0,"05-30",3846.2078],[156.0,"06-06",3808.4274],[163.0,"06-13",3804.6582],[170.0,"06-20",3808.8244],[177.0,"06-27",3737.2578],[184.0,"07-04",3731.4256],[191.0,"07-11",3734.012],[198.0,"07-18",3683.1752],[205.0,"07-25",3577.9778],[212.0,"08-01",3522.716],[219.0,"08-08",3462.1276],[226.0,"08-15",3430.437],[233.0,"08-22",3441.0118],[240.0,"08-29",3443.3156],[247.0,"09-05",3374.4754],[254.0,"09-12",3337.606],[261.0,"09-19",3442.4138],[268.0,"09-26",3498.1474],[275.0,"10-03",3526.1106],[282.0,"10-10",3396.693],[289.0,"10-17",3372.7458],[296.0,"10-24",3445.4094],[303.0,"10-31",3440.2618],[310.0,"11-07",3491.6912],[317.0,"11-14",3500.1528],[324.0,"11-21",3477.3148],[331.0,"11-28",3499.452],[338.0,"12-05",3548.3994],[345.0,"12-12",3640.2382],[352.0,"12-19",3714.9196],[359.0,"12-26",3782.9332]]},{"year":2026,"color":"#e00000","width":3.2,"points":[[1.0,"01-02",3845.4432],[8.0,"01-09",3859.2506],[15.0,"01-16",3971.202],[22.0,"01-23",4005.601],[29.0,"01-30",4046.529],[36.0,"02-06",4106.7296],[43.0,"02-13",4070.0734],[50.0,"02-20",3790.3952],[57.0,"02-27",3673.2422],[64.0,"03-06",3642.2782],[71.0,"03-13",3706.8056],[78.0,"03-20",3718.087],[85.0,"03-27",3757.9076],[92.0,"04-03",3737.36],[99.0,"04-10",3722.4686],[106.0,"04-17",3704.0688],[113.0,"04-24",3719.5958],[120.0,"05-01",3814.8596],[127.0,"05-08",3711.8974],[134.0,"05-15",3788.1594],[141.0,"05-22",3830.0688],[148.0,"05-29",3839.2922],[155.0,"06-05",3947.7482],[162.0,"06-12",3826.5204],[169.0,"06-19",3743.9314],[176.0,"06-26",3684.405],[183.0,"07-03",3615.1912],[190.0,"07-10",3594.1172],[197.0,"07-17",3523.7902],[204.0,"07-24",3504.307],[211.0,"07-31",3525.3984],[218.0,"08-07",3500.039],[225.0,"08-14",3411.2402],[232.0,"08-21",3330.1214],[239.0,"08-28",3299.57],[246.0,"09-04",3347.81],[253.0,"09-11",3339.95],[260.0,"09-18",3310.653],[266.0,"09-24",3369.7846]]}],"latestAnnotation":{"text":"最新 2026-09-24","value":3369.8,"color":"#e00000"}}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"表外库存","axisMin":-2000,"axisMax":6000,"ticks":[-2000,0.0,2000,4000,6000],"series":[{"year":2023,"color":"#9bb7e5","width":2.2,"points":[[5.0,"01-06",500.0],[12.0,"01-13",412.256677],[19.0,"01-20",440.800031],[26.0,"01-27",649.071766],[33.0,"02-03",642.40573],[40.0,"02-10",667.230854],[47.0,"02-17",699.10469],[54.0,"02-24",745.38114],[61.0,"03-03",872.970811],[68.0,"03-10",922.002034],[75.0,"03-17",1064.691305],[82.0,"03-24",1206.188772],[89.0,"03-31",1168.467001],[96.0,"04-07",1153.538675],[103.0,"04-14",1018.361252],[110.0,"04-21",1019.863201],[117.0,"04-28",1054.126813],[124.0,"05-05",1049.006626],[131.0,"05-12",1119.160697],[138.0,"05-19",1242.985562],[145.0,"05-26",1385.393091],[152.0,"06-02",1441.634029],[159.0,"06-09",1493.433321],[166.0,"06-16",1425.968509],[173.0,"06-23",1431.617963],[180.0,"06-30",1392.833478],[187.0,"07-07",1461.603125],[194.0,"07-14",1533.444596],[201.0,"07-21",1515.164173],[208.0,"07-28",1548.484618],[215.0,"08-04",1790.308453],[222.0,"08-11",1831.354035],[229.0,"08-18",1813.377526],[236.0,"08-25",1733.432447],[243.0,"09-01",1721.328408],[250.0,"09-08",1835.782696],[257.0,"09-15",1884.866025],[264.0,"09-22",1949.742808],[271.0,"09-29",1965.123446],[278.0,"10-06",1892.441315],[285.0,"10-13",1761.471459],[292.0,"10-20",1799.780049],[299.0,"10-27",1754.069606],[306.0,"11-03",1815.921598],[313.0,"11-10",1679.195919],[320.0,"11-17",1656.50969],[327.0,"11-24",1676.337704],[334.0,"12-01",1642.873481],[341.0,"12-08",1679.057248],[348.0,"12-15",1746.91974],[355.0,"12-22",1784.160543],[362.0,"12-29",1963.285202]]},{"year":2024,"color":"#1689d8","width":2.2,"points":[[4.0,"01-05",1884.52882],[11.0,"01-12",2012.185995],[18.0,"01-19",2009.577626],[25.0,"01-26",1997.0117],[32.0,"02-02",1938.661547],[39.0,"02-09",1870.355875],[46.0,"02-16",1899.685326],[53.0,"02-23",1916.632825],[59.0,"03-01",1913.439602],[66.0,"03-08",1945.270011],[73.0,"03-15",2007.491236],[80.0,"03-22",1965.415177],[87.0,"03-29",1958.469215],[94.0,"04-05",1872.078004],[101.0,"04-12",1899.920789],[108.0,"04-19",1902.48381],[115.0,"04-26",1952.197832],[122.0,"05-03",2045.748786],[129.0,"05-10",2130.543845],[136.0,"05-17",2147.873536],[143.0,"05-24",2094.969135],[150.0,"05-31",2069.915198],[157.0,"06-07",2103.10012],[164.0,"06-14",2093.870971],[171.0,"06-21",2044.541066],[178.0,"06-28",1991.43276],[185.0,"07-05",2003.537315],[192.0,"07-12",2070.631907],[199.0,"07-19",2160.066866],[206.0,"07-26",2231.144973],[213.0,"08-02",2253.452786],[220.0,"08-09",2334.863404],[227.0,"08-16",2269.853238],[234.0,"08-23",2404.091143],[241.0,"08-30",2477.589333],[248.0,"09-06",2616.098367],[255.0,"09-13",2740.673977],[262.0,"09-20",2926.397447],[269.0,"09-27",3019.421981],[276.0,"10-04",3164.130473],[283.0,"10-11",3156.154193],[290.0,"10-18",3223.882777],[297.0,"10-25",3262.157764],[304.0,"11-01",3291.887712],[311.0,"11-08",3402.297051],[318.0,"11-15",3469.310834],[325.0,"11-22",3614.004886],[332.0,"11-29",3632.064853],[339.0,"12-06",3668.000349],[346.0,"12-13",3691.645514],[353.0,"12-20",3710.75065],[360.0,"12-27",3750.551734]]},{"year":2025,"color":"#0b2f66","width":2.2,"points":[[2.0,"01-03",3803.570474],[9.0,"01-10",3844.804438],[16.0,"01-17",3776.671594],[23.0,"01-24",3771.660434],[30.0,"01-31",3829.209474],[37.0,"02-07",3859.302542],[44.0,"02-14",3997.99277],[51.0,"02-21",4107.600942],[58.0,"02-28",4128.09821],[65.0,"03-07",4267.077282],[72.0,"03-14",4272.76523],[79.0,"03-21",4217.742902],[86.0,"03-28",4151.633918],[93.0,"04-04",4038.849374],[100.0,"04-11",3963.117058],[107.0,"04-18",3894.382922],[114.0,"04-25",3788.165642],[121.0,"05-02",3691.511666],[128.0,"05-09",3647.640674],[135.0,"05-16",3508.309318],[142.0,"05-23",3361.870738],[149.0,"05-30",3211.08529],[156.0,"06-06",3161.48765],[163.0,"06-13",3069.947142],[170.0,"06-20",2960.625738],[177.0,"06-27",2921.754626],[184.0,"07-04",2852.272946],[191.0,"07-11",2782.024878],[198.0,"07-18",2749.969046],[205.0,"07-25",2770.304602],[212.0,"08-01",2768.072714],[219.0,"08-08",2762.754318],[226.0,"08-15",2727.56487],[233.0,"08-22",2656.59147],[240.0,"08-29",2600.662206],[247.0,"09-05",2638.999854],[254.0,"09-12",2634.920714],[261.0,"09-19",2503.473158],[268.0,"09-26",2417.26525],[275.0,"10-03",2341.233782],[282.0,"10-10",2383.41777],[289.0,"10-17",2347.33731],[296.0,"10-24",2210.23249],[303.0,"10-31",2171.556082],[310.0,"11-07",2086.355966],[317.0,"11-14",2036.451502],[324.0,"11-21",2017.099318],[331.0,"11-28",1970.793914],[338.0,"12-05",1959.320074],[345.0,"12-12",1909.526014],[352.0,"12-19",1888.406774],[359.0,"12-26",1864.80665]]},{"year":2026,"color":"#e00000","width":3.2,"points":[[1.0,"01-02",1806.290746],[8.0,"01-09",1806.191746],[15.0,"01-16",1754.697718],[22.0,"01-23",1784.962038],[29.0,"01-30",1819.708094],[36.0,"02-06",1754.55737],[43.0,"02-13",1715.777898],[50.0,"02-20",1920.020426],[57.0,"02-27",1795.446142],[64.0,"03-06",1913.81059],[71.0,"03-13",1974.07683],[78.0,"03-20",2058.35811],[85.0,"03-27",2094.027158],[92.0,"04-03",2130.594766],[99.0,"04-10",2153.086302],[106.0,"04-17",2176.911002],[113.0,"04-24",2164.752006],[120.0,"05-01",2075.702786],[127.0,"05-08",2178.741338],[134.0,"05-15",2100.487614],[141.0,"05-22",2047.320246],[148.0,"05-29",1908.757046],[155.0,"06-05",1669.25513],[162.0,"06-12",1645.907014],[169.0,"06-19",1584.330098],[176.0,"06-26",1478.986738],[183.0,"07-03",1412.248438],[190.0,"07-10",1299.938982],[197.0,"07-17",1256.515494],[204.0,"07-24",1172.442634],[211.0,"07-31",1053.833194],[218.0,"08-07",916.58651],[225.0,"08-14",855.13585],[232.0,"08-21",776.18569],[239.0,"08-28",651.59061],[246.0,"09-04",509.017614],[253.0,"09-11",444.450202],[260.0,"09-18",381.515738],[266.0,"09-24",242.75759]]}],"latestAnnotation":{"text":"最新 2026-09-24","value":242.8,"color":"#e00000"}}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"总库存","axisMin":2000,"axisMax":10000,"ticks":[2000,4000,6000,8000,10000],"series":[{"year":2023,"color":"#9bb7e5","width":2.2,"points":[[5.0,"01-06",4031.3826],[12.0,"01-13",4059.567477],[19.0,"01-20",3957.691231],[26.0,"01-27",3842.783966],[33.0,"02-03",3825.278786],[40.0,"02-10",3857.201654],[47.0,"02-17",3893.390131],[54.0,"02-24",3934.990975],[61.0,"03-03",4026.510458],[68.0,"03-10",4073.095234],[75.0,"03-17",4152.944905],[82.0,"03-24",4235.415772],[89.0,"03-31",4297.245401],[96.0,"04-07",4341.103875],[103.0,"04-14",4368.805852],[110.0,"04-21",4400.365601],[117.0,"04-28",4440.465613],[124.0,"05-05",4450.124826],[131.0,"05-12",4458.067697],[138.0,"05-19",4462.367562],[145.0,"05-26",4464.675491],[152.0,"06-02",4485.716829],[159.0,"06-09",4504.867121],[166.0,"06-16",4524.348909],[173.0,"06-23",4527.820563],[180.0,"06-30",4530.321478],[187.0,"07-07",4526.849525],[194.0,"07-14",4534.202796],[201.0,"07-21",4528.327573],[208.0,"07-28",4534.836818],[215.0,"08-04",4599.432053],[222.0,"08-11",4651.143235],[229.0,"08-18",4688.141126],[236.0,"08-25",4708.313247],[243.0,"09-01",4746.625208],[250.0,"09-08",4786.731096],[257.0,"09-15",4836.099825],[264.0,"09-22",4877.763408],[271.0,"09-29",4901.787846],[278.0,"10-06",4860.059715],[285.0,"10-13",4824.319459],[292.0,"10-20",4809.435849],[299.0,"10-27",4803.979406],[306.0,"11-03",4852.915798],[313.0,"11-10",4913.659519],[320.0,"11-17",4982.17269],[327.0,"11-24",5016.521504],[334.0,"12-01",5064.876881],[341.0,"12-08",5142.747448],[348.0,"12-15",5237.08074],[355.0,"12-22",5329.085543],[362.0,"12-29",5438.350002]]},{"year":2024,"color":"#1689d8","width":2.2,"points":[[4.0,"01-05",5524.72142],[11.0,"01-12",5623.765195],[18.0,"01-19",5705.325626],[25.0,"01-26",5787.8399],[32.0,"02-02",5779.899747],[39.0,"02-09",5650.033875],[46.0,"02-16",5444.459926],[53.0,"02-23",5320.568225],[59.0,"03-01",5313.340402],[66.0,"03-08",5326.179811],[73.0,"03-15",5338.710436],[80.0,"03-22",5349.832377],[87.0,"03-29",5365.471415],[94.0,"04-05",5425.067604],[101.0,"04-12",5491.586389],[108.0,"04-19",5552.75241],[115.0,"04-26",5616.228432],[122.0,"05-03",5647.624986],[129.0,"05-10",5670.261445],[136.0,"05-17",5652.695536],[143.0,"05-24",5642.645735],[150.0,"05-31",5638.488598],[157.0,"06-07",5641.02092],[164.0,"06-14",5624.192971],[171.0,"06-21",5614.940266],[178.0,"06-28",5622.55216],[185.0,"07-05",5671.120315],[192.0,"07-12",5705.014707],[199.0,"07-19",5732.023466],[206.0,"07-26",5794.459773],[213.0,"08-02",5872.517586],[220.0,"08-09",5975.857804],[227.0,"08-16",6093.034038],[234.0,"08-23",6232.091943],[241.0,"08-30",6390.311133],[248.0,"09-06",6521.877167],[255.0,"09-13",6651.278777],[262.0,"09-20",6778.851847],[269.0,"09-27",6903.038181],[276.0,"10-04",7002.216673],[283.0,"10-11",7059.382593],[290.0,"10-18",7127.832977],[297.0,"10-25",7177.156764],[304.0,"11-01",7285.453512],[311.0,"11-08",7407.902451],[318.0,"11-15",7530.266634],[325.0,"11-22",7651.669486],[332.0,"11-29",7774.232653],[339.0,"12-06",7868.818349],[346.0,"12-13",7959.613714],[353.0,"12-20",8056.53325],[360.0,"12-27",8142.755134]]},{"year":2025,"color":"#0b2f66","width":2.2,"points":[[2.0,"01-03",8162.804074],[9.0,"01-10",8223.019438],[16.0,"01-17",8281.129794],[23.0,"01-24",8301.555034],[30.0,"01-31",8321.980274],[37.0,"02-07",8067.738342],[44.0,"02-14",8061.44717],[51.0,"02-21",8070.949942],[58.0,"02-28",8080.56941],[65.0,"03-07",8071.061282],[72.0,"03-14",8052.89383],[79.0,"03-21",8007.289102],[86.0,"03-28",7958.129118],[93.0,"04-04",7895.689574],[100.0,"04-11",7829.715058],[107.0,"04-18",7755.607322],[114.0,"04-25",7656.364642],[121.0,"05-02",7529.075066],[128.0,"05-09",7404.791474],[135.0,"05-16",7288.790718],[142.0,"05-23",7170.285138],[149.0,"05-30",7057.29309],[156.0,"06-06",6969.91505],[163.0,"06-13",6874.605342],[170.0,"06-20",6769.450138],[177.0,"06-27",6659.012426],[184.0,"07-04",6583.698546],[191.0,"07-11",6516.036878],[198.0,"07-18",6433.144246],[205.0,"07-25",6348.282402],[212.0,"08-01",6290.788714],[219.0,"08-08",6224.881918],[226.0,"08-15",6158.00187],[233.0,"08-22",6097.60327],[240.0,"08-29",6043.977806],[247.0,"09-05",6013.475254],[254.0,"09-12",5972.526714],[261.0,"09-19",5945.886958],[268.0,"09-26",5915.41265],[275.0,"10-03",5867.344382],[282.0,"10-10",5780.11077],[289.0,"10-17",5720.08311],[296.0,"10-24",5655.64189],[303.0,"10-31",5611.817882],[310.0,"11-07",5578.047166],[317.0,"11-14",5536.604302],[324.0,"11-21",5494.414118],[331.0,"11-28",5470.245914],[338.0,"12-05",5507.719474],[345.0,"12-12",5549.764214],[352.0,"12-19",5603.326374],[359.0,"12-26",5647.73985]]},{"year":2026,"color":"#e00000","width":3.2,"points":[[1.0,"01-02",5651.733946],[8.0,"01-09",5665.442346],[15.0,"01-16",5725.899718],[22.0,"01-23",5790.563038],[29.0,"01-30",5866.237094],[36.0,"02-06",5861.28697],[43.0,"02-13",5785.851298],[50.0,"02-20",5710.415626],[57.0,"02-27",5468.688342],[64.0,"03-06",5556.08879],[71.0,"03-13",5680.88243],[78.0,"03-20",5776.44511],[85.0,"03-27",5851.934758],[92.0,"04-03",5867.954766],[99.0,"04-10",5875.554902],[106.0,"04-17",5880.979802],[113.0,"04-24",5884.347806],[120.0,"05-01",5890.562386],[127.0,"05-08",5890.638738],[134.0,"05-15",5888.647014],[141.0,"05-22",5877.389046],[148.0,"05-29",5748.049246],[155.0,"06-05",5617.00333],[162.0,"06-12",5472.427414],[169.0,"06-19",5328.261498],[176.0,"06-26",5163.391738],[183.0,"07-03",5027.439638],[190.0,"07-10",4894.056182],[197.0,"07-17",4780.305694],[204.0,"07-24",4676.749634],[211.0,"07-31",4579.231594],[218.0,"08-07",4416.62551],[225.0,"08-14",4266.37605],[232.0,"08-21",4106.30709],[239.0,"08-28",3951.16061],[246.0,"09-04",3856.827614],[253.0,"09-11",3784.400202],[260.0,"09-18",3692.168738],[266.0,"09-24",3612.54219]]}],"latestAnnotation":{"text":"最新 2026-09-24","value":3612.5,"color":"#e00000"}}' height="420" width="760"></canvas><div class="legend"><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article></div><p class="source-note">来源：build_fenwei_supply082_coalratio143146148_combo_20260816.py；炼焦煤周度进口按1.2.1焦煤平衡表月度进口数值/4折算；表外库存变化=供需差-表内库存变化，锚点为2023-01-06的500万吨，并跨年度连续滚动；总库存=表内库存+表外库存。</p></div></section></section>
+</main>
+</div>
+<div class="modal" id="image-modal"><button type="button">关闭</button><img alt="放大预览"/></div>
+<div aria-label="可编辑文字工具条" class="edit-toolbar" id="edit-toolbar">
+<button data-cmd="bold" type="button">加粗</button>
+<button class="red-btn" data-cmd="foreColor" data-value="#c00000" type="button">标红</button>
+<button data-cmd="removeFormat" type="button">清格式</button>
+<button class="save-btn" id="save-edits" title="保存当前所有可编辑文字" type="button">保存文字</button>
+<span class="edit-save-hint">自动保存</span>
+</div>
+<div class="chart-tip" id="chart-tip"></div>
+<script>
+    const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+    const panels = Array.from(document.querySelectorAll('.report-panel'));
+    const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+    function activatePanel(target) {
+      tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.target === target));
+      panels.forEach(panel => panel.classList.toggle('active', panel.id === target));
+    }
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      activatePanel(tab.dataset.target);
+      history.replaceState(null, '', '#' + tab.dataset.target);
+    }));
+    tocLinks.forEach(link => link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const id = link.getAttribute('href').slice(1);
+      activatePanel(link.dataset.panel);
+      document.getElementById(id)?.scrollIntoView({behavior:'smooth', block:'start'});
+      history.replaceState(null, '', '#' + id);
+      tocLinks.forEach(a => a.classList.toggle('active', a === link));
+    }));
+    const initial = location.hash.replace('#', '');
+    const initialLink = tocLinks.find(link => link.getAttribute('href') === '#' + initial);
+    if (initialLink) {
+      activatePanel(initialLink.dataset.panel);
+      setTimeout(() => document.getElementById(initial)?.scrollIntoView({block:'start'}), 0);
+    } else if (tabs.some(tab => tab.dataset.target === initial)) activatePanel(initial);
+    document.querySelectorAll('.copy-table').forEach(button => button.addEventListener('click', () => {
+      const table = button.closest('.subpanel').querySelector('table');
+      const text = Array.from(table.rows).map(row => Array.from(row.cells).map(cell => cell.innerText.trim()).join('\t')).join('\n');
+      navigator.clipboard?.writeText(text);
+      button.textContent = '已复制';
+      setTimeout(() => button.textContent = '复制表格', 1200);
+    }));
+    const editToolbar = document.getElementById('edit-toolbar');
+    const editStoragePrefix = 'coal-weekly-dashboard-edit:' + location.pathname + ':';
+    let activeEditable = null;
+    function positionEditToolbar(target) {
+      const rect = target.getBoundingClientRect();
+      editToolbar.style.left = Math.min(window.innerWidth - 280, Math.max(8, rect.left)) + 'px';
+      editToolbar.style.top = Math.max(8, rect.top - 46) + 'px';
+      editToolbar.classList.add('active');
+    }
+    function persistEditable(target) {
+      if (!target?.dataset?.editId) return;
+      try {
+        localStorage.setItem(editStoragePrefix + target.dataset.editId, target.innerHTML);
+      } catch (err) {}
+    }
+    function stableEditId(el, idx) {
+      const section = el.closest('section[id]');
+      const table = el.closest('table');
+      const row = el.closest('tr');
+      const cell = el.closest('th,td');
+      const rowIndex = row ? Array.from(row.parentElement.children).indexOf(row) : -1;
+      const cellIndex = cell && row ? Array.from(row.children).indexOf(cell) : -1;
+      const tag = el.tagName.toLowerCase();
+      return [section?.id || 'page', table?.className || 'note', tag, rowIndex, cellIndex, idx].join(':');
+    }
+    function persistAllEditables() {
+      document.querySelectorAll('[contenteditable="true"]').forEach(el => persistEditable(el));
+      const btn = document.getElementById('save-edits');
+      if (btn) {
+        btn.textContent = '已保存';
+        setTimeout(() => btn.textContent = '保存文字', 1200);
+      }
+    }
+    document.querySelectorAll('[contenteditable="true"]').forEach((el, idx) => {
+      el.dataset.editId = stableEditId(el, idx);
+      try {
+        const saved = localStorage.getItem(editStoragePrefix + el.dataset.editId) ?? localStorage.getItem(editStoragePrefix + String(idx));
+        if (saved !== null) el.innerHTML = saved;
+      } catch (err) {}
+      el.addEventListener('focus', () => {
+        activeEditable = el;
+        positionEditToolbar(el);
+      });
+      el.addEventListener('input', () => persistEditable(el));
+      el.addEventListener('mouseup', () => positionEditToolbar(el));
+      el.addEventListener('keyup', () => positionEditToolbar(el));
+    });
+    editToolbar.querySelectorAll('button[data-cmd]').forEach(button => button.addEventListener('mousedown', event => {
+      event.preventDefault();
+      if (!activeEditable) return;
+      activeEditable.focus();
+      document.execCommand(button.dataset.cmd, false, button.dataset.value || null);
+      persistEditable(activeEditable);
+    }));
+    document.getElementById('save-edits')?.addEventListener('mousedown', event => {
+      event.preventDefault();
+      persistAllEditables();
+    });
+    document.addEventListener('mousedown', event => {
+      if (event.target.closest('[contenteditable="true"]') || event.target.closest('#edit-toolbar')) return;
+      editToolbar.classList.remove('active');
+    });
+    window.addEventListener('scroll', () => {
+      if (activeEditable && document.activeElement === activeEditable) positionEditToolbar(activeEditable);
+    }, { passive:true });
+    const modal = document.getElementById('image-modal');
+    const modalImg = modal.querySelector('img');
+    document.querySelectorAll('.image-zoom').forEach(btn => btn.addEventListener('click', () => {
+      const embeddedImg = btn.querySelector('img');
+      modalImg.src = embeddedImg?.currentSrc || embeddedImg?.src || btn.dataset.src;
+      modal.classList.add('active');
+    }));
+    modal.querySelector('button').addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', event => { if (event.target === modal) modal.classList.remove('active'); });
+    const chartTip = document.getElementById('chart-tip');
+    function fmtChartValue(value) {
+      if (!Number.isFinite(value)) return '';
+      if (Math.abs(value) >= 100) return value.toFixed(0);
+      if (Math.abs(value) >= 10) return value.toFixed(1);
+      return value.toFixed(2).replace(/\.00$/, '').replace(/0$/, '');
+    }
+    function fmtDisplayValue(value, format) {
+      if (!Number.isFinite(value)) return '';
+      if (format === 'percent') {
+        const percentValue = value * 100;
+        const label = Math.abs(percentValue - Math.round(percentValue)) < 1e-9 ? String(Math.round(percentValue)) : percentValue.toFixed(1).replace(/\.0$/, '');
+        return `${label}%`;
+      }
+      return fmtChartValue(value);
+    }
+    function cleanTick(value, format) {
+      if (format === 'percent') return `${Math.round(value * 100)}%`;
+      return Math.abs(value - Math.round(value)) < 1e-9 ? String(Math.round(value)) : fmtChartValue(value);
+    }
+    function drawCanvasChart(canvas) {
+      const data = JSON.parse(canvas.dataset.chart || '{}');
+      const ctx = canvas.getContext('2d');
+      const w = Number(canvas.getAttribute('width')) || 760;
+      const h = Number(canvas.getAttribute('height')) || 420;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      canvas.style.aspectRatio = `${w} / ${h}`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      const left = data.type === 'seasonal' ? 66 : 56;
+      const top = data.type === 'seasonal' ? 34 : 30;
+      const right = 24;
+      const bottom = data.type === 'seasonal' ? 46 : 40;
+      const pw = w - left - right;
+      const ph = h - top - bottom;
+      ctx.fillStyle = '#0b2f66';
+      ctx.font = '800 16px "Times New Roman", KaiTi, STKaiti, SimKai, serif';
+      ctx.fillText(data.title || '', left, 23);
+      ctx.font = '13px "Times New Roman", KaiTi, STKaiti, SimKai, serif';
+      ctx.strokeStyle = '#d7dce5';
+      ctx.setLineDash([4, 4]);
+      ctx.fillStyle = '#667085';
+      const hoverPoints = [];
+      if (data.type === 'seasonal') {
+        const mn = Number(data.axisMin);
+        const mx = Number(data.axisMax);
+        const valueFormat = data.valueFormat || '';
+        const chartKind = data.chartKind || 'line';
+        (data.ticks || []).slice().reverse().forEach(value => {
+          const y = top + ph * (mx - value) / (mx - mn);
+          ctx.beginPath();
+          ctx.moveTo(left, y);
+          ctx.lineTo(w - right, y);
+          ctx.stroke();
+          ctx.fillText(cleanTick(value, valueFormat), left - 54, y + 4);
+        });
+        [['1月',0], ['3月',59], ['5月',120], ['7月',181], ['9月',243], ['11月',304]].forEach(([label, day]) => {
+          const x = left + pw * day / 364;
+          ctx.beginPath();
+          ctx.moveTo(x, top);
+          ctx.lineTo(x, top + ph);
+          ctx.stroke();
+          ctx.textAlign = 'center';
+          ctx.fillText(label, x, h - 18);
+          ctx.textAlign = 'left';
+        });
+        ctx.setLineDash([]);
+        const seriesList = data.series || [];
+        seriesList.forEach((s, seriesIdx) => {
+          const pts = (s.points || []).filter(p => Number.isFinite(Number(p[2])));
+          if (!pts.length) return;
+          if (chartKind === 'bar') {
+            const count = Math.max(1, seriesList.length);
+            const slot = Math.max(3, Math.min(8, pw / 140));
+            const barWidth = Math.max(2, slot * 0.78);
+            const baseValue = Math.max(mn, Math.min(mx, 0));
+            const baseY = top + ph * (mx - baseValue) / (mx - mn);
+            ctx.fillStyle = s.color || '#0b2f66';
+            pts.forEach(p => {
+              const x = left + pw * Number(p[0]) / 364 + (seriesIdx - (count - 1) / 2) * slot;
+              const rawValue = Number(p[2]);
+              const cappedValue = Math.max(mn, Math.min(mx, rawValue));
+              const y = top + ph * (mx - cappedValue) / (mx - mn);
+              const barTop = Math.min(y, baseY);
+              const barHeight = Math.max(1, Math.abs(baseY - y));
+              ctx.globalAlpha = Number(s.year) === Number((seriesList[seriesList.length - 1] || {}).year) ? 0.9 : 0.45;
+              ctx.fillRect(x - barWidth / 2, barTop, barWidth, barHeight);
+              ctx.globalAlpha = 1;
+              hoverPoints.push({type:'seasonal', year:s.year, date:p[1], value:rawValue, format:valueFormat, x, y, title:data.title});
+            });
+          } else {
+            ctx.strokeStyle = s.color || '#0b2f66';
+            ctx.lineWidth = Number(s.width) || 2.2;
+            ctx.beginPath();
+            pts.forEach((p, idx) => {
+              const x = left + pw * Number(p[0]) / 364;
+              const y = top + ph * (mx - Number(p[2])) / (mx - mn);
+              if (idx === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+              hoverPoints.push({type:'seasonal', year:s.year, date:p[1], value:Number(p[2]), format:valueFormat, x, y, title:data.title});
+            });
+            ctx.stroke();
+            const last = pts[pts.length - 1];
+            const lx = left + pw * Number(last[0]) / 364;
+            const ly = top + ph * (mx - Number(last[2])) / (mx - mn);
+            ctx.fillStyle = s.color || '#0b2f66';
+            ctx.beginPath();
+            ctx.arc(lx, ly, 3.8, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+        if (data.latestAnnotation) {
+          ctx.save();
+          ctx.textAlign = 'right';
+          ctx.fillStyle = data.latestAnnotation.color || '#e00000';
+          ctx.font = '700 17px KaiTi, "Microsoft YaHei", sans-serif';
+          ctx.fillText(data.latestAnnotation.text || '', w - right, top - 10);
+          ctx.restore();
+        }
+      } else {
+        const pairs = (data.pairs || []).filter(p => Number.isFinite(Number(p[1])));
+        const vals = pairs.map(p => Number(p[1]));
+        let mn = Math.min(...vals);
+        let mx = Math.max(...vals);
+        if (Math.abs(mx - mn) < 1e-9) { mn -= 1; mx += 1; }
+        const pad = (mx - mn) * 0.08;
+        mn -= pad; mx += pad;
+        for (let t = 0; t < 5; t += 1) {
+          const y = top + ph * t / 4;
+          const val = mx - (mx - mn) * t / 4;
+          ctx.beginPath();
+          ctx.moveTo(left, y);
+          ctx.lineTo(w - right, y);
+          ctx.stroke();
+          ctx.fillText(cleanTick(val), left - 42, y + 4);
+        }
+        ctx.setLineDash([]);
+        ctx.strokeStyle = data.color || '#0b2f66';
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        pairs.forEach((p, idx) => {
+          const x = left + pw * idx / Math.max(1, pairs.length - 1);
+          const y = top + ph * (mx - Number(p[1])) / (mx - mn);
+          if (idx === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          hoverPoints.push({type:'line', date:p[0], value:Number(p[1]), x, y, title:data.title});
+        });
+        ctx.stroke();
+        ctx.fillStyle = data.color || '#0b2f66';
+        const last = hoverPoints[hoverPoints.length - 1];
+        if (last) {
+          ctx.beginPath();
+          ctx.arc(last.x, last.y, 4.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.fillStyle = '#667085';
+        if (pairs[0]) ctx.fillText(pairs[0][0], left, h - 10);
+        if (pairs[pairs.length - 1]) {
+          ctx.textAlign = 'right';
+          ctx.fillText(pairs[pairs.length - 1][0], w - right, h - 10);
+          ctx.textAlign = 'left';
+        }
+      }
+      canvas._hoverPoints = hoverPoints;
+    }
+    function bindCanvasCharts(root = document) {
+      root.querySelectorAll('.chart-canvas:not([data-rendered])').forEach(canvas => {
+        canvas.dataset.rendered = '1';
+        drawCanvasChart(canvas);
+        canvas.addEventListener('mousemove', event => {
+          const rect = canvas.getBoundingClientRect();
+          const w = Number(canvas.getAttribute('width')) || 620;
+          const x = (event.clientX - rect.left) * w / rect.width;
+          const points = canvas._hoverPoints || [];
+          if (!points.length) return;
+          if (points[0].type === 'seasonal') {
+            const byYear = new Map();
+            points.forEach(point => {
+              const prev = byYear.get(point.year);
+              if (!prev || Math.abs(point.x - x) < Math.abs(prev.x - x)) byYear.set(point.year, point);
+            });
+            const lines = Array.from(byYear.values())
+              .sort((a, b) => Number(b.year) - Number(a.year))
+              .map(point => `${point.year} ${point.date}：${fmtDisplayValue(point.value, point.format)}`);
+            chartTip.textContent = [points[0].title || '', ...lines].filter(Boolean).join('\n');
+          } else {
+            let nearest = points[0];
+            points.forEach(point => { if (Math.abs(point.x - x) < Math.abs(nearest.x - x)) nearest = point; });
+            chartTip.textContent = `${nearest.title} ${nearest.date}：${fmtChartValue(nearest.value)}`;
+          }
+          chartTip.style.display = 'block';
+          chartTip.style.left = Math.min(window.innerWidth - 340, event.clientX + 12) + 'px';
+          chartTip.style.top = (event.clientY + 12) + 'px';
+        });
+        canvas.addEventListener('mouseleave', () => chartTip.style.display = 'none');
+      });
+    }
+    function bindChartInteractions(root = document) {
+      bindCanvasCharts(root);
+      root.querySelectorAll('.hover-dot:not([data-bound])').forEach(dot => {
+        dot.dataset.bound = '1';
+        dot.addEventListener('mouseenter', () => {
+          chartTip.textContent = dot.dataset.tip || '';
+          chartTip.style.display = 'block';
+        });
+        dot.addEventListener('mousemove', event => {
+          chartTip.style.left = Math.min(window.innerWidth - 280, event.clientX + 12) + 'px';
+          chartTip.style.top = (event.clientY + 12) + 'px';
+        });
+        dot.addEventListener('mouseleave', () => chartTip.style.display = 'none');
+      });
+      root.querySelectorAll('.seasonal-hover-zone:not([data-bound])').forEach(zone => {
+        zone.dataset.bound = '1';
+        zone.addEventListener('mousemove', event => {
+          const svg = zone.closest('svg');
+          const guide = svg?.querySelector('.seasonal-guide');
+          const rect = svg.getBoundingClientRect();
+          const viewBox = svg.viewBox.baseVal;
+          const x = (event.clientX - rect.left) * viewBox.width / rect.width;
+          if (guide) {
+            guide.setAttribute('x1', x.toFixed(1));
+            guide.setAttribute('x2', x.toFixed(1));
+            guide.style.display = 'block';
+          }
+          const points = zone._points || (zone._points = JSON.parse(zone.dataset.points || '[]'));
+          const byYear = new Map();
+          points.forEach(point => {
+            const prev = byYear.get(point.year);
+            if (!prev || Math.abs(point.x - x) < Math.abs(prev.x - x)) byYear.set(point.year, point);
+          });
+          const lines = Array.from(byYear.values())
+            .sort((a, b) => Number(b.year) - Number(a.year))
+            .map(point => `${point.year} ${point.date}：${point.value}`);
+          chartTip.textContent = [zone.dataset.title || '', ...lines].filter(Boolean).join('\n');
+          chartTip.style.display = 'block';
+          chartTip.style.left = Math.min(window.innerWidth - 340, event.clientX + 12) + 'px';
+          chartTip.style.top = (event.clientY + 12) + 'px';
+        });
+        zone.addEventListener('mouseleave', () => {
+          const guide = zone.closest('svg')?.querySelector('.seasonal-guide');
+          if (guide) guide.style.display = 'none';
+          chartTip.style.display = 'none';
+        });
+      });
+    }
+    // Chart painting is deferred by mobile-touch-overrides.
+  </script>
+<script id="mobile-touch-overrides">
+  (() => {
+    // Mobile WebViews can discard the backing stores of many high-resolution
+    // canvases.  The desktop page paints every chart at once; here charts are
+    // painted only when approaching the viewport and re-painted after a
+    // WebView resume / resize.
+    const paintCanvas = (canvas, force = false) => {
+      if (!force && canvas.dataset.mobilePainted === '1') return;
+      try {
+        drawCanvasChart(canvas);
+        canvas.dataset.mobilePainted = '1';
+      } catch (error) {
+        console.warn('Mobile chart render retry failed', error);
+      }
+    };
+
+    const paintVisibleCanvases = (force = false) => {
+      document.querySelectorAll('.chart-canvas').forEach(canvas => {
+        const rect = canvas.getBoundingClientRect();
+        if (rect.bottom >= -180 && rect.top <= window.innerHeight + 720) {
+          paintCanvas(canvas, force);
+        }
+      });
+    };
+
+    const prepareCanvasRendering = () => {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            paintCanvas(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '720px 0px' });
+      document.querySelectorAll('.chart-canvas').forEach(canvas => observer.observe(canvas));
+      paintVisibleCanvases();
+      window.setTimeout(() => paintVisibleCanvases(true), 300);
+      window.setTimeout(() => paintVisibleCanvases(true), 1200);
+    };
+
+    const tip = () => {
+      let node = document.getElementById('chart-tip');
+      if (!node) {
+        node = document.createElement('div');
+        node.id = 'chart-tip';
+        node.className = 'chart-tip';
+        document.body.appendChild(node);
+      }
+      return node;
+    };
+
+    const fmt = value => {
+      const num = Number(value);
+      if (!Number.isFinite(num)) return String(value ?? '');
+      if (Math.abs(num) >= 100) return num.toFixed(0);
+      if (Math.abs(num) >= 10) return num.toFixed(1);
+      return num.toFixed(2).replace(/\.00$/, '').replace(/0$/, '');
+    };
+
+    const placeTip = (event, content) => {
+      const node = tip();
+      node.textContent = content;
+      node.style.display = 'block';
+      const pointer = event.touches ? event.touches[0] : event;
+      const x = pointer.clientX || 12;
+      const y = pointer.clientY || 12;
+      const width = Math.min(340, window.innerWidth - 18);
+      node.style.maxWidth = width + 'px';
+      node.style.left = Math.max(8, Math.min(window.innerWidth - width - 8, x + 10)) + 'px';
+      node.style.top = Math.max(8, Math.min(window.innerHeight - 96, y + 12)) + 'px';
+    };
+
+    const bindCanvasTouch = canvas => {
+      if (canvas.dataset.mobileTouchBound === '1') return;
+      canvas.dataset.mobileTouchBound = '1';
+      const show = event => {
+        const rect = canvas.getBoundingClientRect();
+        const width = Number(canvas.getAttribute('width')) || 760;
+        const pointer = event.touches ? event.touches[0] : event;
+        const x = (pointer.clientX - rect.left) * width / Math.max(1, rect.width);
+        const points = canvas._hoverPoints || [];
+        if (!points.length) return;
+        let content = '';
+        if (points[0].type === 'seasonal') {
+          const grouped = new Map();
+          points.forEach(point => {
+            if (!grouped.has(point.year)) grouped.set(point.year, []);
+            grouped.get(point.year).push(point);
+          });
+          const years = Array.from(grouped.keys()).sort((a, b) => Number(b) - Number(a));
+          const anchorYear = years[0];
+          const anchorPoints = grouped.get(anchorYear) || [];
+          let anchor = anchorPoints[0];
+          anchorPoints.forEach(point => {
+            if (!anchor || Math.abs(point.x - x) < Math.abs(anchor.x - x)) anchor = point;
+          });
+          const anchorX = anchor ? anchor.x : x;
+          const lines = years.map(year => {
+            let nearest = (grouped.get(year) || [])[0];
+            (grouped.get(year) || []).forEach(point => {
+              if (!nearest || Math.abs(point.x - anchorX) < Math.abs(nearest.x - anchorX)) nearest = point;
+            });
+            if (!nearest) return '';
+            const rawValue = nearest.format === 'percent' || points[0].yFormat === 'percent'
+              ? `${fmt(Math.abs(nearest.value) <= 1.5 ? nearest.value * 100 : nearest.value)}%`
+              : fmt(nearest.value);
+            return `${nearest.year} ${nearest.date}: ${rawValue}`;
+          }).filter(Boolean);
+          content = [points[0].title || '', ...lines].filter(Boolean).join('\n');
+        } else {
+          let nearest = points[0];
+          points.forEach(point => {
+            if (Math.abs(point.x - x) < Math.abs(nearest.x - x)) nearest = point;
+          });
+          content = `${nearest.title} ${nearest.date}: ${fmt(nearest.value)}`;
+        }
+        if (content) placeTip(event, content);
+      };
+      canvas.addEventListener('pointerdown', show, { passive: true });
+      canvas.addEventListener('pointermove', show, { passive: true });
+      canvas.addEventListener('touchstart', show, { passive: true });
+      canvas.addEventListener('touchmove', show, { passive: true });
+    };
+
+    const bindSvgTouch = node => {
+      if (node.dataset.mobileTouchBound === '1') return;
+      node.dataset.mobileTouchBound = '1';
+      const show = event => {
+        const content = node.dataset.tip || node.dataset.title || '';
+        if (content) placeTip(event, content);
+      };
+      node.addEventListener('pointerdown', show, { passive: true });
+      node.addEventListener('pointermove', show, { passive: true });
+      node.addEventListener('touchstart', show, { passive: true });
+      node.addEventListener('touchmove', show, { passive: true });
+    };
+
+    const bindAll = () => {
+      document.querySelectorAll('.chart-canvas').forEach(bindCanvasTouch);
+      document.querySelectorAll('[data-tip], .hover-dot, .seasonal-hover-zone').forEach(bindSvgTouch);
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Do not rely on iOS/WeChat lazy-loading for report figures below the
+      // fold: all referenced PNGs are local, lightweight release assets.
+      document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+        img.loading = 'eager';
+      });
+      prepareCanvasRendering();
+      bindAll();
+      window.setTimeout(bindAll, 500);
+      window.setTimeout(bindAll, 1500);
+    });
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => paintVisibleCanvases(true), 180);
+    });
+    window.addEventListener('pageshow', () => window.setTimeout(() => paintVisibleCanvases(true), 180));
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) window.setTimeout(() => paintVisibleCanvases(true), 180);
+    });
+
+    document.addEventListener('pointerdown', event => {
+      if (!event.target.closest('.chart-canvas, [data-tip], .hover-dot, .seasonal-hover-zone')) {
+        const node = document.getElementById('chart-tip');
+        if (node) node.style.display = 'none';
+      }
+    });
+  })();
+</script>
+</body>
+</html>

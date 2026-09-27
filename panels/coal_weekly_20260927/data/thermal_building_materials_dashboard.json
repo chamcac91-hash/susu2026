@@ -1,0 +1,12 @@
+{
+  "source_files": [
+    "D:\\all remain\\FangcloudV2\\太和致远\\AI-workspace\\data remian\\ms_power_demand_side\\ms_weekly_concrete_utilization_arrays.npz",
+    "D:\\all remain\\FangcloudV2\\太和致远\\AI-workspace\\data remian\\ms_power_demand_side\\ms_weekly_cement_shipment_arrays.npz"
+  ],
+  "frequency": "weekly_split",
+  "latest_date": "2026-09-18",
+  "children": [
+    "thermal_concrete_utilization_dashboard.json",
+    "thermal_cement_shipment_dashboard.json"
+  ]
+}
