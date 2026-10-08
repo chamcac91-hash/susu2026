@@ -669,8 +669,8 @@
     function drawCanvasChart(canvas) {
       const data = JSON.parse(canvas.dataset.chart || '{}');
       const ctx = canvas.getContext('2d');
-      const w = 500;
-      const h = 320;
+      const w = Number(canvas.dataset.logicalWidth || canvas.getAttribute('width')) || 760; canvas.dataset.logicalWidth = w;
+      const h = Number(canvas.dataset.logicalHeight || canvas.getAttribute('height')) || 420; canvas.dataset.logicalHeight = h;
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
@@ -853,7 +853,7 @@
             });
             const anchorX = anchor ? anchor.x : x;
             const formatPointValue = point => {
-              if (point.format === 'percent' || data.yFormat === 'percent') {
+              if (point.format === 'percent') {
                 const pct = Math.abs(point.value) <= 1.5 ? point.value * 100 : point.value;
                 return `${Number.isInteger(pct) ? pct.toFixed(0) : pct.toFixed(1)}%`;
               }
@@ -930,6 +930,56 @@
     }
     // Mobile lazy chart rendering.
   </script>
+<script id="coal-axis-interaction">(() => {
+  if(window.__coalAxisInteraction)return;window.__coalAxisInteraction=true;
+  const tip=document.createElement('div'),line=document.createElement('div');
+  tip.id='coal-axis-tooltip';line.id='coal-axis-line';
+  tip.style.cssText='position:fixed;display:none;z-index:10002;pointer-events:none;background:rgba(255,255,255,.98);border:1px solid #cbd7e6;padding:10px 13px;box-shadow:0 5px 18px #17345b25;color:#17345b;font:15px "Times New Roman",KaiTi,serif;line-height:1.6;max-width:calc(100vw - 20px)';
+  line.style.cssText='position:fixed;display:none;z-index:10001;pointer-events:none;border-left:1px dashed #728aa7';
+  document.body.append(tip,line);
+  function hide(){tip.style.display=line.style.display='none';}
+  const fmt=(v,f)=>f==='percent'?`${(v*100).toFixed(1)}%`:Number(v).toLocaleString('en-US',{maximumFractionDigits:2});
+  function show(e){
+    const c=e.target.closest?.('canvas[data-chart]');if(!c){hide();return;}
+    const pos=e.touches?.[0]||e,rect=c.getBoundingClientRect();
+    if(!rect.width)return;
+    const data=JSON.parse(c.dataset.chart||'{}'),w=Number(c.dataset.logicalWidth)||500,h=Number(c.dataset.logicalHeight)||320;
+    const left=data.type==='seasonal'?66:56,top=data.type==='seasonal'?34:30,bottom=data.type==='seasonal'?46:40,right=24;
+    const x=(pos.clientX-rect.left)*w/rect.width;
+    if(x<left||x>w-right){hide();return;}
+    const pts=c._hoverPoints||[];if(!pts.length){hide();return;}
+    e.stopImmediatePropagation();document.querySelectorAll('.chart-tip').forEach(t=>t.style.display='none');
+    const anchor=pts.reduce((a,p)=>Math.abs(p.x-x)<Math.abs(a.x-x)?p:a,pts[0]);
+    let entries=[];
+    if(data.type==='seasonal'){
+      entries=(data.series||[]).slice().sort((a,b)=>Number(b.year)-Number(a.year)).map(s=>{
+        const arr=pts.filter(p=>String(p.year)===String(s.year));
+        if(!arr.length)return {year:s.year,color:s.color,missing:true};
+        const near=arr.reduce((a,p)=>Math.abs(p.x-anchor.x)<Math.abs(a.x-anchor.x)?p:a,arr[0]);
+        const gaps=arr.slice(1).map((p,i)=>Math.abs(p.x-arr[i].x)).filter(v=>v>0).sort((a,b)=>a-b);
+        const tolerance=Math.max(1,(gaps[Math.floor(gaps.length/2)]||1)/2+.5);
+        const missing=anchor.x<arr[0].x-.5||anchor.x>arr[arr.length-1].x+.5||Math.abs(near.x-anchor.x)>tolerance;
+        return {year:s.year,color:s.color,point:near,missing};
+      });
+    }else entries=[{year:'',point:anchor,color:'#17345b'}];
+    tip.replaceChildren();const title=document.createElement('strong');title.textContent=data.title||'';tip.append(title);
+    const date=document.createElement('div');date.textContent=`对应位置：${anchor.date}`;date.style.color='#728198';tip.append(date);
+    entries.forEach(v=>{const row=document.createElement('div');row.style.cssText='display:flex;gap:12px;justify-content:space-between';
+      const label=document.createElement('span'),dot=document.createElement('span');dot.textContent='● ';dot.style.color=v.color||'#17345b';label.append(dot,`${v.year}${v.missing?'':`  ${v.point.date}`}`);
+      const value=document.createElement('b');value.textContent=v.missing?'#N/A':fmt(v.point.value,v.point.format||data.valueFormat||data.yFormat);row.append(label,value);tip.append(row);
+    });
+    line.style.left=(rect.left+anchor.x/w*rect.width)+'px';line.style.top=(rect.top+top/h*rect.height)+'px';line.style.height=((h-top-bottom)/h*rect.height)+'px';line.style.display='block';
+    tip.style.display='block';const tr=tip.getBoundingClientRect();
+    tip.style.left=Math.max(8,Math.min(innerWidth-tr.width-8,pos.clientX+14))+'px';
+    tip.style.top=Math.max(8,Math.min(innerHeight-tr.height-8,pos.clientY+14))+'px';
+  }
+  document.addEventListener('mousemove',show,true);
+  document.addEventListener('touchstart',show,{capture:true,passive:true});
+  document.addEventListener('touchmove',show,{capture:true,passive:true});
+  document.addEventListener('mouseout',e=>{if(e.target.matches?.('canvas[data-chart]')&&!e.target.contains(e.relatedTarget))hide();},true);
+  window.addEventListener('scroll',hide,true);window.addEventListener('resize',hide);
+})();
+</script>
 <script id="mobile-touch-overrides">
   (() => {
     // Mobile WebViews can discard the backing stores of many high-resolution
