@@ -3842,7 +3842,7 @@ canvas{touch-action:pan-y}.edit-toolbar,.table-toolbar,#save-edits{display:none!
     return Number(v).toLocaleString('en-US',{maximumFractionDigits:a<1?6:2});
   }
   function axis(g,range,L,T,PW,PH,format,right=false) {
-    const [lo,hi]=range;g.font='13px "Times New Roman",serif';
+    const [lo,hi]=range;g.font='16px "Times New Roman",serif';
     for(let k=0;k<=4;k++){
       const v=lo+(hi-lo)*k/4,y=T+PH-PH*k/4;
       if(!right){g.strokeStyle='#e0e6ef';g.setLineDash([3,3]);g.beginPath();g.moveTo(L,y);g.lineTo(L+PW,y);g.stroke();}
@@ -3857,7 +3857,7 @@ canvas{touch-action:pan-y}.edit-toolbar,.table-toolbar,#save-edits{display:none!
     c._oceGeometry={W,H,L,R,T,B,PW,PH};
     axis(g,q.leftRange||[q.axisMin,q.axisMax],L,T,PW,PH,q.leftFormat||'number');
     if(q.rightRange)axis(g,q.rightRange,L,T,PW,PH,'percentPoints',true);
-    g.fillStyle='#667085';g.font='13px "Times New Roman",KaiTi,serif';g.fillText(q.unit==='比例'?'%':q.unit||'Mt',L,12);
+    g.fillStyle='#667085';g.font='16px "Times New Roman",KaiTi,serif';g.fillText(q.unit==='比例'?'%':q.unit||'Mt',L,12);
     const hits=[],labels=[];
     if(quarterly){
       const x=quarter=>L+PW*(quarter-1)/3;
@@ -3869,7 +3869,7 @@ canvas{touch-action:pan-y}.edit-toolbar,.table-toolbar,#save-edits{display:none!
       }
     }else{
       const n=q.categories.length,slot=PW/n,x=i=>L+slot*(i+.5),bars=q.series.filter(s=>s.kind==='bar');
-      g.font='13px "Times New Roman",KaiTi,serif';g.textAlign='center';q.categories.forEach((cat,i)=>g.fillText(cat.label,x(i),H-24));g.textAlign='left';
+      g.font='16px "Times New Roman",KaiTi,serif';g.textAlign='center';q.categories.forEach((cat,i)=>g.fillText(cat.label,x(i),H-24));g.textAlign='left';
       for(const [j,series] of q.series.entries()){
         const range=series.axis==='right'?q.rightRange:q.leftRange;
         if(series.kind==='bar'){
@@ -3887,7 +3887,7 @@ canvas{touch-action:pan-y}.edit-toolbar,.table-toolbar,#save-edits{display:none!
       }
       q.categories.forEach((category,i)=>hits.push({x:x(i),index:i,category}));
     }
-    const occupied=[];g.font='bold 13px "Times New Roman",serif';
+    const occupied=[];g.font='bold 16px "Times New Roman",serif';
     for(const label of labels){
       const width=label.text.length*7.5+6;let selected;
       for(const offset of [0,-20,20,-40,40,-60,60]){
@@ -3937,7 +3937,7 @@ canvas{touch-action:pan-y}.edit-toolbar,.table-toolbar,#save-edits{display:none!
     const ratio=Math.min(window.devicePixelRatio||1,2);
     canvas.width=W*ratio;canvas.height=H*ratio;
     const c=canvas.getContext('2d');c.setTransform(ratio,0,0,ratio,0,0);
-    c.fillStyle='#fff';c.fillRect(0,0,W,H);c.font='12px "Microsoft YaHei",sans-serif';
+    c.fillStyle='#fff';c.fillRect(0,0,W,H);c.font='16px "Microsoft YaHei",sans-serif';
     const ss=d.series.filter((s,i)=>!hidden.has(i));
     const vv=ss.flatMap(s=>s.points.map(p=>p[1]).filter(v=>v!==null));
     let min=d.min ?? Math.min(0,...vv), max=d.max ?? Math.max(min+1,...vv);
@@ -4014,22 +4014,22 @@ canvas{touch-action:pan-y}.edit-toolbar,.table-toolbar,#save-edits{display:none!
   function draw(canvas, hover=null){
     const d=canvas._supplyData ||= JSON.parse(canvas.dataset.chart);
     const hidden=canvas._hidden ||= new Set();
-    const W=d.w||520,H=d.h||320,L=60,R=d.axes?(d.axes.length>2?160:75):20,T=30,B=45;
+    const W=innerWidth<=760?520:(d.w||520),H=innerWidth<=760?320:(d.h||320),L=60,R=d.axes?(d.axes.length>2?160:75):20,T=30,B=45;
     const ratio=Math.min(window.devicePixelRatio||1,2);
     canvas.width=W*ratio;canvas.height=H*ratio;
     const c=canvas.getContext('2d');c.setTransform(ratio,0,0,ratio,0,0);
-    c.fillStyle='#fff';c.fillRect(0,0,W,H);c.font='12px "Microsoft YaHei",sans-serif';
+    c.fillStyle='#fff';c.fillRect(0,0,W,H);c.font='16px "Microsoft YaHei",sans-serif';
     const ss=d.series.filter((s,i)=>!hidden.has(i));
     if(d.kind==='pie'){
       const sum=ss.reduce((n,s)=>n+(s.points[0]?.[1]||0),0),cx=W/2,cy=H/2,rad=Math.min(H*.37,W*.29);let angle=-Math.PI/2;const hits=[];
-      ss.forEach(s=>{const value=s.points[0]?.[1];if(value==null||value<=0)return;const end=angle+2*Math.PI*value/sum;c.beginPath();c.moveTo(cx,cy);c.arc(cx,cy,rad,angle,end);c.closePath();c.fillStyle=s.color;c.fill();const a=(angle+end)/2;c.fillStyle='#fff';c.font='bold 13px "Microsoft YaHei",sans-serif';c.textAlign='center';if(value/sum>.04)c.fillText((value/sum*100).toFixed(1)+'%',cx+Math.cos(a)*rad*.68,cy+Math.sin(a)*rad*.68);hits.push({x:cx+Math.cos(a)*rad*.7,y:cy+Math.sin(a)*rad*.7,p:s.points[0],s,start:angle,end,share:value/sum*100});angle=end;});
+      ss.forEach(s=>{const value=s.points[0]?.[1];if(value==null||value<=0)return;const end=angle+2*Math.PI*value/sum;c.beginPath();c.moveTo(cx,cy);c.arc(cx,cy,rad,angle,end);c.closePath();c.fillStyle=s.color;c.fill();const a=(angle+end)/2;c.fillStyle='#fff';c.font='bold 16px "Microsoft YaHei",sans-serif';c.textAlign='center';if(value/sum>.04)c.fillText((value/sum*100).toFixed(1)+'%',cx+Math.cos(a)*rad*.68,cy+Math.sin(a)*rad*.68);hits.push({x:cx+Math.cos(a)*rad*.7,y:cy+Math.sin(a)*rad*.7,p:s.points[0],s,start:angle,end,share:value/sum*100});angle=end;});
       canvas._pie={cx,cy,rad};canvas._supplyHits=hits;return;
     }
     if(d.axes){
       const xx=v=>L+(W-L-R)*(v-d.xMin)/(d.xMax-d.xMin||1),hits=[];
       const ranges=d.axes.map((a,i)=>{const vv=ss.filter(s=>(s.axis||0)===i).flatMap(s=>s.points.filter(p=>p[1]!=null).map(p=>p[1]));let low=a.min??Math.min(...vv),high=a.max??Math.max(...vv);if(!vv.length){low=0;high=1;}const pad=(high-low||1)*.05;low=a.zero?0:low-pad;high+=pad;const rounding=a.round||10**Math.floor(Math.log10((high-low)/5||1));low=Math.floor(low/rounding)*rounding;high=Math.ceil(high/rounding)*rounding;if(high<=low)high=low+rounding;return {low,high,step:a.step||rounding};});
       const yy=(v,i)=>H-B-(H-T-B)*(v-ranges[i].low)/(ranges[i].high-ranges[i].low);
-      ranges.forEach((a,i)=>{const ax=i===0?L:W-R+(i-1)*72;c.fillStyle=d.axes[i].color||'#667085';c.textAlign=i===0?'left':'right';c.font='12px "Microsoft YaHei",sans-serif';c.fillText(d.axes[i].unit,i===0?L:i===ranges.length-1?W-8:ax+40,18);c.textAlign=i===0?'right':'left';let step=a.step;if((a.high-a.low)/step>8)step*=Math.ceil((a.high-a.low)/step/8);for(let v=a.low;v<=a.high+step*.001;v+=step){const y=yy(v,i);if(i===0){c.strokeStyle='#e2e8f0';c.beginPath();c.moveTo(L,y);c.lineTo(W-R,y);c.stroke();}c.fillText(number(v),ax+(i===0?-7:8),y+4);}});
+      ranges.forEach((a,i)=>{const ax=i===0?L:W-R+(i-1)*72;c.fillStyle=d.axes[i].color||'#667085';c.textAlign=i===0?'left':'right';c.font='16px "Microsoft YaHei",sans-serif';c.fillText(d.axes[i].unit,i===0?L:i===ranges.length-1?W-8:ax+40,18);c.textAlign=i===0?'right':'left';let step=a.step;if((a.high-a.low)/step>8)step*=Math.ceil((a.high-a.low)/step/8);for(let v=a.low;v<=a.high+step*.001;v+=step){const y=yy(v,i);if(i===0){c.strokeStyle='#e2e8f0';c.beginPath();c.moveTo(L,y);c.lineTo(W-R,y);c.stroke();}c.fillText(number(v),ax+(i===0?-7:8),y+4);}});
       c.textAlign='center';c.fillStyle='#667085';d.ticks.forEach(([v,t])=>c.fillText(t,xx(v),H-15));
       ss.forEach(s=>{const ai=s.axis||0;c.fillStyle=s.color;c.strokeStyle=s.color;c.lineWidth=s.width||1.6;c.beginPath();let started=false;const ps=s.points.filter(p=>p[1]!=null);ps.forEach(p=>{const x=xx(p[0]),y=yy(p[1],ai);if(s.kind==='bar'){const bw=s.barWidth||Math.max(1,Math.min(12,(W-L-R)/(d.xMax-d.xMin+1)*.72));c.fillRect(x-bw/2,y,bw,yy(0,ai)-y);}else{if(started)c.lineTo(x,y);else{c.moveTo(x,y);started=true;}}hits.push({x,y,p,s});});if(s.kind!=='bar')c.stroke();});
       canvas._supplyHits=hits;if(hover!=null){c.setLineDash([3,3]);c.strokeStyle='#667085';c.beginPath();c.moveTo(hover,T);c.lineTo(hover,H-B);c.stroke();c.setLineDash([]);}return;
@@ -4114,7 +4114,7 @@ canvas{touch-action:pan-y}.edit-toolbar,.table-toolbar,#save-edits{display:none!
 })();
 </script><script>
 document.querySelectorAll('canvas').forEach(c=>{
- const move=e=>{const t=e.touches[0];if(t)c.dispatchEvent(new MouseEvent('mousemove',{bubbles:true,clientX:t.clientX,clientY:t.clientY}));};
+ const move=e=>{const t=e.touches[0];if(t){const init={bubbles:true,clientX:t.clientX,clientY:t.clientY};c.dispatchEvent(new MouseEvent('mousemove',init));c.dispatchEvent(new PointerEvent('pointermove',init));}};
  c.addEventListener('touchstart',move,{passive:true});c.addEventListener('touchmove',move,{passive:true});
 });
 document.addEventListener('pointerdown',e=>{if(!e.target.closest('canvas'))document.querySelectorAll('.chart-tip,.supply-chart-tip,.india-chart-tip').forEach(t=>t.style.display='none');});
