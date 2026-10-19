@@ -1,0 +1,4121 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<title>欧洲｜海外煤炭周报 20261019</title>
+<style>
+    :root { --ink:#0b2f66; --accent:#b4493f; --bg:#fffdf9; --panel:#fbfcff; --line:#d7dde8; --muted:#667085; --soft:#f2f5f9; --font:"Times New Roman","KaiTi","STKaiti","SimKai",serif; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:var(--font); background:var(--bg); color:#1f2937; }
+    .layout { display:grid; grid-template-columns:188px minmax(0,1fr); min-height:100vh; }
+    .side-toc { position:sticky; top:0; height:100vh; overflow:auto; border-right:1px solid var(--line); background:#f5f7fb; padding:14px 8px; scrollbar-width:thin; }
+    .side-toc .toc-title { color:var(--ink); font-size:17px; font-weight:800; margin:2px 4px 12px; line-height:1.25; }
+    .side-toc a { display:block; color:#344054; text-decoration:none; padding:6px 6px 6px 8px; margin:1px 0; border-radius:4px; font-size:12.5px; line-height:1.24; border-left:2px solid transparent; word-break:break-word; }
+    .side-toc a.toc-level-1 { padding-left:8px; font-size:13px; font-weight:850; color:var(--ink); margin-top:5px; }
+    .side-toc a.toc-level-2 { padding-left:18px; }
+    .side-toc a.toc-level-3 { padding-left:30px; font-size:12px; color:#475467; }
+    .side-toc a.toc-level-4 { padding-left:42px; font-size:11.5px; color:#667085; }
+    .side-toc a:hover, .side-toc a.active { background:#fff; color:var(--ink); border-left-color:var(--accent); box-shadow:0 1px 4px rgba(15,23,42,.06); }
+    main { padding:0 24px 30px; min-width:0; }
+    header { padding:18px 0 10px; border-bottom:1px solid var(--line); }
+    h1 { color:var(--ink); font-size:28px; margin:0 0 6px; letter-spacing:0; }
+    .subtitle { color:var(--muted); line-height:1.55; font-size:14px; }
+    .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:7px; padding:12px 0 9px; border-bottom:1px solid var(--line); background:rgba(255,253,249,.97); backdrop-filter:blur(8px); }
+    .panel-tab { border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:7px 15px; min-height:38px; border-radius:4px; font-family:inherit; font-size:16px; font-weight:750; cursor:pointer; }
+    .panel-tab.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .report-panel { display:none; padding:12px 0 22px; }
+    .report-panel.active { display:block; }
+    h2 { color:var(--ink); margin:10px 0 12px; font-size:23px; }
+    .subpanel { scroll-margin-top:70px; margin:11px 0 16px; padding:12px 13px; border:1px solid var(--line); background:var(--panel); border-radius:4px; box-shadow:0 1px 6px rgba(15,23,42,.03); }
+    .subpanel > h3 { margin:-12px -13px 10px; font-size:19px; color:var(--ink); background:#e7ecf4; border-left:4px solid var(--ink); border-bottom:1px solid #cbd5e1; padding:8px 12px 8px 14px; letter-spacing:0; }
+    .node-meta { display:flex; flex-wrap:wrap; gap:7px; color:var(--muted); font-size:13px; margin:0 0 10px; line-height:1.5; }
+    .tag { display:inline-flex; align-items:center; min-height:22px; padding:1px 7px; border-radius:3px; font-weight:700; color:#fff; }
+    .tag.ok { background:#357f63; } .tag.data { background:#0b2f66; } .tag.report { background:#7a4b1f; } .tag.ppt { background:#b4493f; }
+    .table-toolbar { display:flex; justify-content:flex-end; align-items:center; gap:8px; margin:4px 0 8px; color:var(--muted); }
+    .table-toolbar span { display:none; }
+    .table-toolbar button { border:1px solid var(--line); background:#fff; padding:6px 10px; border-radius:3px; cursor:pointer; }
+    .table-scroll { overflow:auto; border:1px solid var(--line); background:#fff; margin:8px 0 12px; max-height:460px; border-radius:3px; }
+    .editable-table-wrap { overflow:visible; border:1px solid #b9c4d6; background:#fff; margin:8px 0 12px; max-height:none; border-radius:3px; }
+    table { border-collapse:collapse; min-width:720px; width:100%; font-size:13.5px; }
+    th, td { border:1px solid #e2e8f0; padding:6px 8px; vertical-align:top; }
+    th { background:#e9eef7; color:var(--ink); position:sticky; top:0; z-index:1; }
+    .editable-table { min-width:0; table-layout:fixed; font-size:15px; line-height:1.6; }
+    .editable-table th, .editable-table td { border-color:#cfd7e6; white-space:normal; overflow-wrap:anywhere; word-break:break-word; }
+    .editable-table th { position:static; }
+    .editable-table .editable-title th { background:#d8e0ef; color:var(--ink); text-align:center; font-size:18px; font-weight:800; padding:9px 10px 6px; }
+    .editable-table .editable-head th { background:#edf2f8; color:var(--ink); text-align:center; font-weight:800; }
+    .editable-table tr:not(.editable-title):not(.editable-head):not(.editable-merged-row) td:first-child { text-align:center; font-weight:800; color:#1f2937; vertical-align:middle; }
+    .editable-table tr:not(.editable-title):not(.editable-head):not(.editable-merged-row) td:not(:last-child) { text-align:center; vertical-align:middle; }
+    .editable-table .editable-merged-row td { background:#fffdf5; border-top:2px solid #9aa8bc; color:#1f2937; font-weight:700; }
+    .thermal-summary-wrap { border:1px solid #b9c4d6; border-radius:3px; }
+    .thermal-summary-table { font-size:15px; line-height:1.6; }
+    .thermal-summary-table th, .thermal-summary-table td { border-color:#cfd7e6; padding:6px 8px; }
+    .thermal-summary-table .thermal-summary-title th { background:#d8e0ef; color:var(--ink); text-align:center; font-size:18px; font-weight:800; padding:9px 10px 6px; }
+    .thermal-summary-table .thermal-summary-head th { background:#edf2f8; color:var(--ink); text-align:center; font-size:15px; font-weight:800; }
+    .thermal-summary-table .thermal-summary-metric { text-align:center; vertical-align:middle; font-weight:800; color:#1f2937; }
+    .thermal-summary-table .thermal-summary-change { text-align:left; vertical-align:top; color:var(--ink); }
+    .thermal-summary-table .thermal-summary-valuation td { background:#fffdf5; border-top:2px solid #9aa8bc; color:#1f2937; text-align:left; font-weight:700; }
+    .thermal-summary-table .thermal-summary-valuation td mark { background:#ffff00; padding:0 3px; }
+    .policy-table-scroll { overflow:auto; max-height:none; }
+    .policy-workbook-table { border-collapse:collapse; table-layout:fixed; min-width:1160px; width:100%; line-height:1.45; }
+    .policy-workbook-table td { overflow-wrap:anywhere; }
+    .editable-table td:focus, .editable-table th:focus { outline:2px solid var(--accent); background:#fff7ed; }
+    .edit-toolbar { position:fixed; z-index:180; display:none; align-items:center; gap:6px; padding:6px; border:1px solid #cbd5e1; background:#fff; box-shadow:0 8px 22px rgba(15,23,42,.16); border-radius:4px; }
+    .edit-toolbar.active { display:flex; }
+    .edit-toolbar button { border:1px solid #cbd5e1; background:#f8fafc; color:#0b2f66; padding:5px 9px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:13px; font-weight:800; }
+    .edit-toolbar button:hover { background:#eef3fb; }
+    .edit-toolbar .red-btn { color:#b00000; }
+    .edit-toolbar .save-btn { color:#357f63; }
+    .edit-save-hint { font-size:12px; color:#667085; padding:0 3px; }
+    .data-block { border:1px solid var(--line); background:#fff; padding:10px; margin:9px 0; border-radius:4px; }
+    .data-block.featured { border-color:#c98d4e; background:#fffaf3; }
+    .data-block.missing { color:var(--muted); display:flex; gap:12px; }
+    .interactive-data-block { border:1px solid #cfd7e6; background:#fff; padding:10px 11px; margin:9px 0 12px; border-radius:4px; }
+    .interactive-data-block .table-scroll { max-height:none; overflow:visible; }
+    .data-head { display:flex; justify-content:space-between; gap:12px; color:var(--ink); margin-bottom:8px; }
+    .file-list { display:flex; flex-wrap:wrap; gap:6px; list-style:none; padding:0; margin:0 0 8px; }
+    .file-list li { display:flex; gap:6px; align-items:center; border:1px solid #e2e8f0; background:#f8fafc; padding:4px 7px; border-radius:3px; color:var(--muted); font-size:12px; }
+    .json-summary { display:flex; flex-wrap:wrap; gap:6px; }
+    .json-summary span { background:#eef4ff; color:var(--ink); padding:4px 8px; border-radius:3px; }
+    .svg-card, .freight-svg { width:100%; max-width:980px; display:block; margin:8px 0; background:#fff; border:1px solid #e5e7eb; }
+    .svg-card svg { width:100%; display:block; }
+    .chart-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:11px; margin:10px 0; }
+    .chart-card { border:1px solid #dde5f0; background:#fff; border-radius:4px; padding:7px; min-width:0; }
+    .chart-card svg { width:100%; display:block; }
+    .chart-canvas { width:100%; height:auto; display:block; }
+    .seasonal-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .aussie-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .mongolian-grid, .overseas-profit-grid, .coal-jianghu-grid, .fenwei-inventory-grid, .fenwei-profit-grid, .available-days-grid, .coke-data-grid, .fenwei-coke-grid, .wuhai-coke-grid, .thermal-price-grid, .thermal-port-inventory-grid, .thermal-dispatch-grid, .thermal-power-grid, .thermal-demand-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .thermal-power-compact-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .weather-temperature-grid, .thermal-building-grid, .thermal-origin-grid, .raw-coal-grid { grid-template-columns:repeat(4, minmax(0, 1fr)); }
+    .hotmetal-grid, .offbalance-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .seaborne-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .auction-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .supply-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .auction-price-table { min-width:1180px; font-size:12.5px; }
+    .auction-price-table-block .table-scroll { overflow:auto; max-height:620px; }
+    .seasonal-card { padding:6px 7px; }
+    .mongolian-subsection { margin:12px 0 16px; border:1px solid var(--line); background:#fff; border-radius:4px; overflow:hidden; }
+    .mongolian-subsection > h4 { margin:0; padding:9px 13px; background:#e7ecf4; color:var(--ink); border-left:4px solid var(--ink); border-bottom:1px solid #cbd5e1; font-size:18px; font-weight:800; }
+    .mongolian-subsection .interactive-data-block { border:0; border-radius:0; margin:0; }
+    .chart-title { font-size:14px; font-weight:800; fill:var(--ink); }
+    .hover-dot { cursor:crosshair; }
+    .seasonal-hover-zone { fill:transparent; cursor:crosshair; }
+    .seasonal-guide { display:none; stroke:#111827; stroke-width:1.2; stroke-dasharray:3 3; pointer-events:none; }
+    .chart-tip { position:fixed; display:none; pointer-events:none; z-index:300; background:#0f172a; color:#fff; padding:7px 9px; border-radius:3px; font-size:12px; line-height:1.5; white-space:pre-line; max-width:320px; box-shadow:0 8px 22px rgba(15,23,42,.2); }
+    .summary-table th, .summary-table td { text-align:center; vertical-align:middle; }
+    .summary-table td:last-child { font-weight:800; }
+    .grouped-category-table .category-cell { text-align:center; vertical-align:middle; font-weight:800; color:var(--ink); background:#f3f6fb; min-width:58px; }
+    .grid { stroke:#d7dce5; stroke-dasharray:4 4; }
+    .axis { font-size:11px; fill:#667085; }
+    .legend { display:flex; flex-wrap:wrap; gap:5px 8px; color:#475467; font-size:10.5px; line-height:1.15; margin:2px 0 0; }
+    .legend span { display:inline-flex; align-items:center; gap:3px; }
+    .legend i { display:inline-block; width:8px; height:8px; }
+    .chg-pos { background:#f6c7cd !important; color:#8b0000; font-weight:800; }
+    .chg-neg { background:#c6efce !important; color:#006100; font-weight:800; }
+    .slide-grid { display:grid; grid-template-columns:1fr; gap:14px; margin-top:10px; }
+    .slide-card { margin:0; border:1px solid var(--line); background:#fff; border-radius:4px; overflow:hidden; }
+    .slide-card figcaption { border-top:0; border-bottom:1px solid var(--line); background:#f2f5fa; color:var(--ink); font-size:15px; font-weight:750; }
+    .slide-card button { display:block; border:0; padding:0; background:transparent; width:100%; cursor:zoom-in; }
+    .slide-card img { display:block; width:100%; height:auto; }
+    .report-image-list { display:grid; grid-template-columns:1fr; gap:12px; margin:10px 0 12px; }
+    .asset-gallery.cols-2 { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .asset-gallery.cols-3 { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .asset-gallery.cols-4 { grid-template-columns:repeat(4, minmax(0, 1fr)); }
+    .lightweight-assets .data-head span { font-size:12px; color:#8a94a6; font-weight:400; }
+    .section-note-line { margin:8px 0 4px; padding:8px 10px; border:1px solid #d9e1ec; background:#f8fafc; color:#475467; border-radius:4px; font-size:14px; line-height:1.6; }
+    .report-card { margin:0; border:1px solid var(--line); background:#fff; border-radius:4px; overflow:hidden; }
+    .report-card button { display:block; border:0; padding:0; background:transparent; width:100%; cursor:zoom-in; }
+    .report-card img { display:block; width:100%; height:auto; }
+    figcaption { display:flex; justify-content:space-between; gap:10px; padding:8px 10px; color:#475467; font-size:13px; border-top:1px solid var(--line); }
+    figcaption span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .source-note { display:none; }
+    .empty { color:var(--muted); line-height:1.7; }
+    .modal { position:fixed; inset:0; background:rgba(15,23,42,.82); z-index:200; display:none; align-items:center; justify-content:center; padding:22px; }
+    .modal.active { display:flex; }
+    .modal img { max-width:96vw; max-height:92vh; background:#fff; }
+    .modal button { position:absolute; top:16px; right:18px; border:1px solid #fff; color:#fff; background:transparent; padding:8px 12px; font-size:16px; cursor:pointer; }
+    @media (max-width: 1400px) { .auction-grid, .supply-grid, .seaborne-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 1180px) { .seasonal-grid, .aussie-grid, .auction-grid, .supply-grid, .seaborne-grid, .mongolian-grid, .overseas-profit-grid, .coal-jianghu-grid, .fenwei-inventory-grid, .fenwei-profit-grid, .available-days-grid, .coke-data-grid, .fenwei-coke-grid, .wuhai-coke-grid, .thermal-price-grid, .thermal-building-grid, .thermal-origin-grid, .raw-coal-grid, .thermal-port-inventory-grid, .thermal-dispatch-grid, .thermal-power-grid, .thermal-demand-grid, .weather-temperature-grid, .hotmetal-grid, .offbalance-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 1180px) { .asset-gallery.cols-3, .asset-gallery.cols-4 { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 900px) { .layout { grid-template-columns:1fr; } .side-toc { position:relative; height:auto; max-height:42vh; border-right:0; border-bottom:1px solid var(--line); } main { padding:0 12px 24px; } .panel-tab { flex:1 1 calc(50% - 8px); } .seasonal-grid, .auction-grid, .supply-grid, .seaborne-grid, .mongolian-grid, .overseas-profit-grid, .coal-jianghu-grid, .fenwei-inventory-grid, .fenwei-profit-grid, .available-days-grid, .coke-data-grid, .fenwei-coke-grid, .wuhai-coke-grid, .thermal-price-grid, .thermal-building-grid, .thermal-origin-grid, .raw-coal-grid, .thermal-port-inventory-grid, .thermal-dispatch-grid, .thermal-power-grid, .thermal-power-compact-grid, .thermal-demand-grid, .weather-temperature-grid, .hotmetal-grid, .offbalance-grid, .asset-gallery.cols-2, .asset-gallery.cols-3, .asset-gallery.cols-4 { grid-template-columns:1fr; } }
+  </style>
+<style>
+.cjh-gallery, .cjh-gallery.cols-3, .raw-coal-static-block .cols-3, .ms-inventory-block .chart-grid-live { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.thermal-power-compact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 900px) { .thermal-power-compact-grid { grid-template-columns: 1fr; } }
+.cjh-card img { width: 100%; height: auto; display: block; }
+.full-width-image-card img { width: 100%; height: auto; display: block; }
+.shanxi-daily-tracker-block .full-width-image-card { margin: 0; }
+    .auction-title-band { text-align: center; font-size: 24px; font-weight: 800; color: #0b2f66; background: #dbeaf7; padding: 12px 10px; margin: 18px 0 12px; }
+    .auction-kpi-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+    .auction-kpi-card { border: 1px solid #d5dfed; border-radius: 6px; background: #fff; padding: 9px 12px; }
+    .auction-kpi-card span { display: block; color: #5f6c7c; font-size: 13px; margin-bottom: 3px; }
+    .auction-kpi-card strong { display: block; color: #0b2f66; font-size: 20px; line-height: 1.25; }
+    .auction-kpi-card em { display: block; color: #6d7786; font-size: 12px; font-style: normal; margin-top: 2px; }
+    .auction-daily-summary-wrap { margin: 10px 0 14px; }
+    .auction-daily-summary th, .auction-daily-summary td { text-align: center; }
+    .auction-source-gallery { margin-top: 12px; border: 1px solid #d5dfed; border-radius: 8px; background: #f8fbff; padding: 10px 12px; }
+    .auction-source-gallery summary { cursor: pointer; color: #0b2f66; font-weight: 700; }
+    .auction-source-gallery > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+    .auction-source-shot { margin: 0; background: #fff; border: 1px solid #d5dfed; border-radius: 6px; padding: 6px; }
+    .auction-source-shot img { width: 100%; height: auto; display: block; }
+    .auction-source-shot figcaption { margin-top: 4px; color: #5f6c7c; font-size: 12px; text-align: center; }
+    .zhangshang-weekly-auction-block .auction-price-table th, .zhangshang-weekly-auction-block .auction-price-table td { text-align: center; white-space: nowrap; }
+    .zhangshang-weekly-auction-block .auction-price-table td:nth-child(5), .zhangshang-weekly-auction-block .auction-price-table td:nth-child(13) { text-align: left; white-space: normal; min-width: 150px; }
+    .jm-spread-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .freight-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .freight-subhead { margin-top: 22px; }
+    .jm-spread-summary-table th, .jm-spread-summary-table td { text-align: center; }
+.jm-spread-summary-table .metric-name { font-weight: 700; color: #0b2f66; }
+.jm-spread-summary-table .latest-col { background: #e8f8e8; }
+.cjh-static-table th, .cjh-static-table td, .raw-coal-top5-table th, .raw-coal-top5-table td { text-align: center; }
+.cjh-static-table .divider td { border-top: 2px solid #9aa8bf; font-weight: 700; }
+.hotmetal-expectation-table th, .hotmetal-expectation-table td { text-align: center; white-space: nowrap; }
+.hotmetal-expectation-table .metric-name { font-weight: 700; color: #0b2f66; min-width: 120px; }
+.hotmetal-expectation-svg-wrap { margin-top: 14px; border: 1px solid #d8e0ee; border-radius: 10px; background: #fff; padding: 10px; }
+.hotmetal-expectation-chart { display: block; width: 100%; height: auto; }
+.weather-prompt-image-block img { display: block; width: min(100%, 1180px); height: auto; margin: 0 auto; border: 1px solid #d7dfea; }
+@media print { .side-toc, .tabs, .table-toolbar, .node-meta .tag.ok { display: none !important; } .subpanel, .shanxi-price-extra-block { break-inside: avoid; page-break-inside: avoid; } body { background: #fff; } }
+</style><style>.auction-detail-table{min-width:1450px;font-size:15px}.auction-day .table-scroll{max-height:none;overflow-x:auto}.auction-detail-table td,.auction-detail-table th{padding:7px 9px;white-space:nowrap}.auction-detail-table td:last-child{white-space:normal;min-width:250px;text-align:left}.auction-day{margin:12px 0}.auction-day summary{font-size:18px;font-weight:bold;color:#16365d;padding:10px;background:#e8eef7;cursor:pointer}</style><style id="weekly-desktop-grid-20261011">@media(min-width:1000px){.chart-grid,.seasonal-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}</style><style id="confirmed-four-chart-layout">#balance-weekly .balance-weekly-fourgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.weekly-balance-canvas{display:block}@media(max-width:700px){#balance-weekly .balance-weekly-fourgrid{grid-template-columns:1fr}}</style><style>#jm-supply > h3{margin-bottom:16px} #jm-supply > .subpanel{margin:16px 0} #jm-fw-monthly-supply .supply-monthly-table{font-size:14px;min-width:1120px} #jm-fw-monthly-supply .supply-monthly-table th,#jm-fw-monthly-supply .supply-monthly-table td{padding:8px 6px} #jm-fw-shutdown-daily .shutdown-commentary{font-family:KaiTi,STKaiti,serif}</style><style id="supply-interactive-repair-style">#jm-fw-shutdown-daily .shutdown-capacity-grid,#jm-fw-monthly-supply .chart-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px} #jm-fw-shutdown-daily .shutdown-capacity-canvas{display:block;width:100%;height:auto;aspect-ratio:760/280} #jm-fw-monthly-supply .chart-card{height:auto;min-height:0} #jm-fw-monthly-supply .chart-canvas{aspect-ratio:760/280!important;height:auto!important} @media(max-width:700px){#jm-fw-shutdown-daily .shutdown-capacity-grid,#jm-fw-monthly-supply .chart-grid{grid-template-columns:1fr}}</style><style>img{max-width:100%;height:auto} .report-panel{scroll-margin-top:18px} @media print{.report-panel{display:block!important}.side-toc,.panel-tabs{display:none!important}.layout{display:block!important}}</style><style id="overseas-supply-demand-layout">.registered-chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.registered-chart-card{min-width:0;margin:0;padding:10px;background:#fff;border:1px solid #dce4ee;border-radius:8px}.registered-chart-card canvas{display:block;width:100%;height:auto}.generated-chart-legend{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;font:13px "Times New Roman",serif}.formal-report-asset{margin:18px 0}.formal-report-asset>.image-zoom{display:block;width:100%;border:0;background:transparent;padding:0;cursor:zoom-in}.pending-title{padding:15px;border:1px dashed #c5cfdc;border-radius:7px;color:#667085}.side-toc{overflow-y:auto;max-height:100vh}@media(max-width:900px){.registered-chart-grid{grid-template-columns:1fr}}@media print{.registered-chart-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.formal-report-asset,.registered-chart-card{break-inside:avoid}}</style><style id="global-weather-layout">.weather-table-scroll{overflow-x:auto;max-width:100%;margin:14px 0}.weather-summary-table{border-collapse:collapse;min-width:920px;width:100%;font-family:"Times New Roman",KaiTi,serif;font-size:14px}.weather-summary-table th,.weather-summary-table td{border:1px solid #d5dfeb;padding:8px 10px;white-space:nowrap}.weather-summary-table th{background:#eaf0f8;color:#17345b}.weather-region{scroll-margin-top:18px;margin-top:24px}.weather-region>h4{font-size:20px;color:#17345b}.weather-region .registered-chart-card{background:#fff}.weather-region .source-note{font-size:13px}@media print{.weather-table-scroll{overflow:visible}.weather-summary-table{min-width:0;font-size:10px}.weather-summary-table td,.weather-summary-table th{white-space:normal}}</style><style id="australia-oce-interactive-style">#australia-oce-interactive-module .oce-table-scroll{overflow-x:auto;margin:15px 0}#australia-oce-interactive-module .oce-quarter-summary{min-width:1000px;width:100%;font-family:"Times New Roman",KaiTi,serif}#australia-oce-interactive-module .oce-quarter-summary td,#australia-oce-interactive-module .oce-quarter-summary th{white-space:nowrap}#australia-oce-interactive-module .oce-chart-card{margin:18px 0;padding:12px 10px;background:#fff;border:1px solid #dce4ee;border-radius:8px;min-width:0}#australia-oce-interactive-module figcaption{font:700 18px KaiTi,serif;color:#17345b;text-align:center;margin:2px 0 13px}#australia-oce-interactive-module canvas{display:block;width:100%;height:auto}#australia-oce-interactive-module .oce-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:5px 13px;font:13px "Times New Roman",KaiTi,serif;margin-top:8px}#australia-oce-interactive-module .oce-season-scroll{overflow-x:auto}#australia-oce-interactive-module .oce-season-grid{display:grid;grid-template-columns:repeat(4,minmax(245px,1fr));gap:12px;align-items:start}#australia-oce-interactive-module .oce-quarter-card{margin:8px 0}#australia-oce-interactive-module .oce-quarter-card figcaption{font-size:16px;min-height:38px;margin-bottom:4px}#australia-oce-interactive-module .oce-quarter-card .oce-legend{font-size:12px;gap:3px 8px}@media print{#australia-oce-interactive-module .oce-season-scroll,#australia-oce-interactive-module .oce-table-scroll{overflow:visible}#australia-oce-interactive-module .oce-season-grid{grid-template-columns:repeat(4,minmax(0,1fr))}#australia-oce-interactive-module .oce-chart-card{break-inside:avoid}#australia-oce-interactive-module .oce-quarter-summary{min-width:0;font-size:10px}}</style><style id="supply-country-details-style">.supply-subsection{margin:26px 0;padding-top:8px;scroll-margin-top:24px}.supply-subsection>h4{font-size:21px;color:#15365b;border-bottom:2px solid #c5d4e5;padding-bottom:8px}.supply-grid{display:grid;gap:12px;margin:14px 0}.supply-cols-1{grid-template-columns:minmax(0,1fr)}.supply-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.supply-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.supply-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.supply-chart-card{min-width:0;margin:0;padding:9px;background:white;border:1px solid #dce4ee;border-radius:8px}.supply-chart-card h5{margin:2px 0 8px;font-size:15px;color:#15365b}.supply-chart-card canvas{display:block;width:100%;height:auto}.supply-chart-card .source-note,.supply-grid .source-note{font-size:11px;line-height:1.45}.supply-legend{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}.supply-legend button{border:0;background:transparent;padding:3px;font-size:11px;cursor:pointer}.supply-table-scroll{overflow-x:auto}.supply-summary{min-width:850px;width:100%;font-size:12px}.supply-summary td,.supply-summary th{padding:8px!important;white-space:nowrap}.supply-summary td:first-child{white-space:normal;min-width:140px}.supply-summary .positive{color:#be3128}.supply-summary .negative{color:#238044}.supply-chart-tip{display:none;position:fixed;z-index:99999;white-space:pre;pointer-events:none;padding:10px 12px;border:1px solid #cbd5e1;border-radius:7px;background:rgba(255,255,255,.97);box-shadow:0 3px 14px #0002;font:12px/1.7 sans-serif;max-width:90vw}@media(max-width:900px){.supply-cols-4,.supply-cols-3{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.supply-grid{grid-template-columns:1fr}}@media print{.supply-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.supply-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.supply-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.supply-chart-card{break-inside:avoid}}#supply-indonesia-production>.supply-grid{width:50%;max-width:760px}@media(max-width:900px){#supply-indonesia-production>.supply-grid{width:100%}}</style><style id="india-country-detail-style">.india-subsection{margin:26px 0;scroll-margin-top:20px}.india-subsection>h4{font-size:21px;border-bottom:2px solid #c5d4e5;padding-bottom:8px;color:#15365b}.india-subsection>h5{font-size:18px;color:#15365b;border-bottom:1px solid #dce4ee;padding:10px 0}.india-summary{width:100%;min-width:850px;font-size:12px}.india-summary th,.india-summary td{white-space:nowrap;padding:7px!important}.india-summary td:first-child{white-space:normal;min-width:150px}.india-summary .positive{color:#be3128}.india-summary .negative{color:#238044}.india-chart-card canvas{width:100%;height:auto;display:block}.india-toc[href*="india-demand-"]{padding-left:32px;font-size:11px}#thermal-overseas-india details{padding:10px;border:1px solid #dce4ee;margin:14px 0;border-radius:6px}</style><style id="jk-europe-china-layout-style">.demand-layout-subsection{margin:22px 0;scroll-margin-top:24px}.demand-layout-subsection>h5{font-size:20px;color:#15365b;border-bottom:1px solid #cbd5e1;padding-bottom:9px}#thermal-overseas-europe-monthly .demand-three-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px}.demand-level-4{padding-left:36px!important;font-size:11px!important}#china-25prov-consumption-summary{margin:20px 0}#china-25prov-consumption-summary h4{font-size:19px;color:#15365b}@media(max-width:900px){#thermal-overseas-europe-monthly .demand-three-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}@media(max-width:600px){#thermal-overseas-europe-monthly .demand-three-grid{grid-template-columns:1fr!important}}@media print{#thermal-overseas-europe-monthly .demand-three-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}</style><style id="overseas-mobile-adaptive">
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+.mobile-navigation{display:flex;gap:7px;flex-wrap:wrap;padding:12px 0;margin-bottom:8px;border-bottom:1px solid #d7dde8}
+.mobile-navigation a{padding:8px 11px;border:1px solid #d7dde8;border-radius:6px;text-decoration:none;color:#15365b;background:#f6f8fc;font:14px/1.4 sans-serif}
+.mobile-navigation a[aria-current]{background:#15365b;color:white}
+.mobile-directory{background:#f2f5f9;border-radius:7px;padding:12px;margin:12px 0}
+.mobile-directory a{display:block;padding:7px 0;color:#15365b;font-size:14px}
+.mobile-table-scroll{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+.mobile-table-scroll table{margin:0}.mobile-table-help{font:12px/1.5 sans-serif;color:#667085;margin:7px 0}
+canvas{touch-action:pan-y}.edit-toolbar,.table-toolbar,#save-edits{display:none!important}
+.mobile-landing{max-width:1000px;margin:auto;padding:24px 16px;font-family:'Microsoft YaHei',sans-serif}
+.mobile-country-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.mobile-country-links a{display:block;padding:22px 16px;background:white;border:1px solid #d7dde8;border-radius:9px;text-decoration:none;color:#15365b;font-size:18px}
+@media(max-width:760px){
+ .layout{display:block!important}.side-toc{display:none!important}main{padding:0 10px 30px!important;min-width:0!important}
+ header{padding-top:14px!important}h1{font-size:23px!important;line-height:1.4!important}h2{font-size:21px!important}h3{font-size:20px!important}h4{font-size:18px!important}
+ .panel-tabs{display:none!important}.report-panel{padding:8px 0!important}.subpanel{padding:10px 6px!important;margin:12px 0!important;min-width:0!important}
+ .chart-grid,.chart-grid-live,.seasonal-grid,.registered-chart-grid,.supply-grid,.oce-season-grid,.demand-three-grid,.thermal-power-grid,.india-chart-grid,.india-grid{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:12px!important;width:100%!important;min-width:0!important}
+ .chart-card,.registered-chart-card,.supply-chart-card,.oce-chart-card,.india-chart-card,figure{min-width:0!important;max-width:100%!important;margin-left:0!important;margin-right:0!important}
+ canvas,svg,img{max-width:100%!important}canvas{width:100%!important;height:auto!important}
+ .source-note{overflow-wrap:anywhere;font-size:13px!important;line-height:1.6!important}
+ .data-head{display:flex!important;flex-wrap:wrap!important;gap:5px!important}.data-head>*{max-width:100%;overflow-wrap:anywhere}
+ .supply-table-scroll,.oce-table-scroll,.weather-table-scroll,.table-scroll{max-width:100%!important;min-width:0!important;overflow-x:auto!important}
+ .mobile-table-scroll table{font-size:13px!important}.mobile-table-scroll td,.mobile-table-scroll th{padding:8px!important}
+ .supply-legend,.oce-legend,.legend,.generated-chart-legend{flex-wrap:wrap!important;gap:5px!important}
+ .supply-legend button,.oce-legend button,.generated-chart-legend button{font-size:12px!important;min-height:30px}
+ #supply-indonesia-production>.supply-grid{width:100%!important}
+ .chart-tip,.supply-chart-tip,.india-chart-tip{max-width:calc(100vw - 16px)!important;max-height:65vh;overflow-y:auto;font-size:12px!important}
+ .mobile-country-links{grid-template-columns:repeat(2,minmax(0,1fr))}.mobile-country-links a{font-size:16px;padding:18px 12px}
+}
+</style></head><body><div class="layout"><nav aria-label="海外煤电目录" class="side-toc"><div class="toc-title">海外煤电重点国家数据</div><a class="toc-level-1 toc-group" data-panel="demand-side" href="#demand-side">2. 需求端</a><a class="toc-level-2" data-panel="demand-side" href="#thermal-overseas-europe">2.3 欧洲</a><a class="toc-level-3" data-panel="demand-side" href="#thermal-overseas-europe-monthly">2.3.1 欧洲煤炭（月度）</a><a class="toc-level-3 demand-level-4" data-panel="demand-side" href="#thermal-overseas-europe-monthly-imports">2.3.1.1 欧洲月度进口煤炭</a><a class="toc-level-3 demand-level-4" data-panel="demand-side" href="#thermal-overseas-europe-hard-coal">2.3.1.2 欧洲硬煤供需及库存</a><a class="toc-level-3" data-panel="demand-side" href="#thermal-overseas-europe-ara">2.3.2 欧洲ARA周度煤炭库存</a></nav><main><header><h1>欧洲｜海外煤炭周报</h1><p class="source-note">整理日期：2026-10-19｜供给端、需求端沿用既有登记数据；全球天气本次接入NASA POWER历史数据。各指标独立标明实际截止日，未部署项目仅保留标题。</p></header><nav aria-label="国家导航" class="mobile-navigation"><a href="index.html">目录</a><a href="australia.html">澳大利亚</a><a href="us.html">美国</a><a href="indonesia.html">印尼</a><a href="mongolia.html">蒙古</a><a href="south-africa-colombia.html">南非＋哥伦比亚</a><a href="india.html">印度</a><a href="japan-korea.html">日韩</a><a aria-current="page" href="europe.html">欧洲</a><a href="china.html">中国</a><a href="weather.html">全球天气</a></nav><details class="mobile-directory"><summary>本页目录</summary><a href="#thermal-overseas-europe">2.3 欧洲</a><a href="#thermal-overseas-europe-monthly">2.3.1 欧洲煤炭（月度）</a><a href="#thermal-overseas-europe-monthly-imports">2.3.1.1 欧洲月度进口煤炭</a><a href="#thermal-overseas-europe-hard-coal">2.3.1.2 欧洲硬煤供需及库存</a><a href="#thermal-overseas-europe-ara">2.3.2 欧洲ARA周度煤炭库存</a></details><div class="panel-tabs" role="tablist"><button class="panel-tab active" data-target="demand-side" type="button">2. 需求端</button></div><section class="report-panel active" id="demand-side"><section class="subpanel" id="thermal-overseas-europe"><h3>2.3 欧洲</h3><div id="thermal-overseas-europe-monthly"><h4>2.3.1 欧洲煤炭（月度）</h4><div class="demand-layout-subsection" id="thermal-overseas-europe-monthly-imports"><h5>2.3.1.1 欧洲月度进口煤炭</h5><div class="interactive-data-block thermal-data-block"><div class="data-head"><strong>欧洲煤炭进口：当月与累计</strong><span>最新：2026-07-01；万吨</span></div><div class="table-scroll"><p class="mobile-table-help">表格可左右滑动查看完整日期与指标。</p><div aria-label="数据表，可左右滑动" class="mobile-table-scroll" role="region" tabindex="0"><table class="data-table compact summary-table confirmed-four-period-table grouped-category-table"><thead><tr><th></th><th>指标</th><th>2026/04/01</th><th>2026/05/01</th><th>2026/06/01</th><th>2026/07/01</th><th>月同比（基期2026/06/01）</th></tr></thead><tbody><tr><td class="category-cell" rowspan="18">指标</td><td>EU27 动力煤进口</td><td>256.85</td><td>295.39</td><td>326.86</td><td>304.72</td><td class="chg-pos" title="实际比较基期：2025-07-01">+116.9</td></tr><tr><td>EU27 褐煤进口</td><td>0.15</td><td>0.02</td><td>0.03</td><td>0.05</td><td class="chg-neg" title="实际比较基期：2025-07-01">-0.1</td></tr><tr><td>EU27 无烟煤进口</td><td>5.78</td><td>14.82</td><td>17.08</td><td>9.74</td><td class="chg-neg" title="实际比较基期：2025-07-01">-7.12</td></tr><tr><td>EU27 炼焦煤进口</td><td>148.39</td><td>236.74</td><td>229.62</td><td>225.96</td><td class="chg-pos" title="实际比较基期：2025-07-01">+8.58</td></tr><tr><td>荷兰动力煤进口</td><td>117.5</td><td>107.15</td><td>119.91</td><td>155.65</td><td class="chg-pos" title="实际比较基期：2025-07-01">+93.01</td></tr><tr><td>波兰动力煤进口</td><td>49.51</td><td>81.29</td><td>64.31</td><td>76.85</td><td class="chg-pos" title="实际比较基期：2025-07-01">+41.37</td></tr><tr><td>德国动力煤进口</td><td>44.11</td><td>47.97</td><td>59.56</td><td>21.3</td><td class="chg-neg" title="实际比较基期：2025-07-01">-19.56</td></tr><tr><td>法国动力煤进口</td><td>14.97</td><td>13.54</td><td>19.58</td><td>15.36</td><td class="chg-pos" title="实际比较基期：2025-07-01">+11.42</td></tr><tr><td>西班牙动力煤进口</td><td>5.27</td><td>21.05</td><td>13.95</td><td>10.09</td><td class="chg-pos" title="实际比较基期：2025-07-01">+10.09</td></tr><tr><td>EU27 动力煤进口（自然年累计）</td><td>1,148.15</td><td>1,443.54</td><td>1,770.39</td><td>2,075.11</td><td class="chg-pos" title="实际比较基期：2025-07-01">+309.8</td></tr><tr><td>EU27 褐煤进口（自然年累计）</td><td>0.89</td><td>0.92</td><td>0.95</td><td>1</td><td class="chg-neg" title="实际比较基期：2025-07-01">-8.02</td></tr><tr><td>EU27 无烟煤进口（自然年累计）</td><td>29.1</td><td>43.92</td><td>61</td><td>70.74</td><td class="chg-pos" title="实际比较基期：2025-07-01">+19.09</td></tr><tr><td>EU27 炼焦煤进口（自然年累计）</td><td>693.07</td><td>929.82</td><td>1,159.44</td><td>1,385.4</td><td class="chg-neg" title="实际比较基期：2025-07-01">-3.18</td></tr><tr><td>荷兰动力煤进口（自然年累计）</td><td>549.08</td><td>656.23</td><td>776.14</td><td>931.79</td><td class="chg-pos" title="实际比较基期：2025-07-01">+166.29</td></tr><tr><td>波兰动力煤进口（自然年累计）</td><td>212.55</td><td>293.84</td><td>358.16</td><td>435</td><td class="chg-pos" title="实际比较基期：2025-07-01">+156.35</td></tr><tr><td>德国动力煤进口（自然年累计）</td><td>178.97</td><td>226.94</td><td>286.5</td><td>307.8</td><td class="chg-pos" title="实际比较基期：2025-07-01">+47.97</td></tr><tr><td>法国动力煤进口（自然年累计）</td><td>43.26</td><td>56.8</td><td>76.38</td><td>91.74</td><td class="chg-neg" title="实际比较基期：2025-07-01">-13.36</td></tr><tr><td>西班牙动力煤进口（自然年累计）</td><td>44.96</td><td>66</td><td>79.95</td><td>90.05</td><td class="chg-neg" title="实际比较基期：2025-07-01">-13.41</td></tr></tbody></table></div></div><div class="chart-grid seasonal-grid thermal-power-grid chart-grid-live demand-three-grid"><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"EU27 动力煤进口","axisMin":0,"axisMax":1000,"ticks":[0,200,400,600,800,1000],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",581.621413],[31.0,"02-01",451.758806],[59.0,"03-01",568.439415],[90.0,"04-01",449.465908],[120.0,"05-01",463.912536],[151.0,"06-01",444.688395],[181.0,"07-01",545.814395],[212.0,"08-01",634.452212],[243.0,"09-01",536.375761],[273.0,"10-01",623.777919],[304.0,"11-01",713.770892],[334.0,"12-01",642.608798]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",481.60999],[31.0,"02-01",490.876049],[59.0,"03-01",620.285501],[90.0,"04-01",523.073265],[120.0,"05-01",598.212588],[151.0,"06-01",515.792308],[181.0,"07-01",597.790758],[212.0,"08-01",651.44913],[243.0,"09-01",607.565105],[273.0,"10-01",707.821922],[304.0,"11-01",711.62749],[334.0,"12-01",820.586928]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",784.399864],[31.0,"02-01",673.50233],[59.0,"03-01",618.941353],[90.0,"04-01",422.406566],[120.0,"05-01",408.703318],[151.0,"06-01",347.717445],[181.0,"07-01",340.898115],[212.0,"08-01",274.580503],[243.0,"09-01",356.384526],[273.0,"10-01",295.776148],[304.0,"11-01",280.759755],[334.0,"12-01",328.588287]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",360.300885],[31.0,"02-01",269.856689],[59.0,"03-01",178.755843],[90.0,"04-01",167.411138],[120.0,"05-01",188.361157],[151.0,"06-01",201.372334],[181.0,"07-01",171.480808],[212.0,"08-01",267.115533],[243.0,"09-01",291.001041],[273.0,"10-01",330.974575],[304.0,"11-01",353.168648],[334.0,"12-01",367.065214]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",362.799423],[31.0,"02-01",287.280252],[59.0,"03-01",251.853304],[90.0,"04-01",245.131784],[120.0,"05-01",206.712113],[151.0,"06-01",223.714246],[181.0,"07-01",187.818466],[212.0,"08-01",325.010441],[243.0,"09-01",215.845832],[273.0,"10-01",349.472349],[304.0,"11-01",276.253966],[334.0,"12-01",287.008763]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",307.099672],[31.0,"02-01",306.904934],[59.0,"03-01",277.291739],[90.0,"04-01",256.852408],[120.0,"05-01",295.387145],[151.0,"06-01",326.855928],[181.0,"07-01",304.716083]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"EU27 褐煤进口","axisMin":0,"axisMax":15,"ticks":[0,5,10,15],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",6.298732],[31.0,"02-01",2.974849],[59.0,"03-01",0.365105],[90.0,"04-01",1.658146],[120.0,"05-01",0.970848],[151.0,"06-01",0.533602],[181.0,"07-01",0.056583],[212.0,"08-01",6.678951],[243.0,"09-01",7.192412],[273.0,"10-01",0.498859],[304.0,"11-01",0.558596],[334.0,"12-01",0.852961]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",7.173315],[31.0,"02-01",7.596928],[59.0,"03-01",0.511112],[90.0,"04-01",0.448835],[120.0,"05-01",0.721331],[151.0,"06-01",0.391121],[181.0,"07-01",0.158875],[212.0,"08-01",0.240364],[243.0,"09-01",7.857799],[273.0,"10-01",8.965604],[304.0,"11-01",1.277499],[334.0,"12-01",13.2271]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",9.10574],[31.0,"02-01",8.887356],[59.0,"03-01",1.905279],[90.0,"04-01",0.553968],[120.0,"05-01",8.697396],[151.0,"06-01",0.216781],[181.0,"07-01",7.93634],[212.0,"08-01",0.152387],[243.0,"09-01",0.267202],[273.0,"10-01",1.775002],[304.0,"11-01",5.613032],[334.0,"12-01",2.617945]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",0.588472],[31.0,"02-01",0.108426],[59.0,"03-01",0.116631],[90.0,"04-01",0.05587],[120.0,"05-01",0.116619],[151.0,"06-01",0.108057],[181.0,"07-01",0.090674],[212.0,"08-01",0.415213],[243.0,"09-01",0.166168],[273.0,"10-01",0.3191],[304.0,"11-01",0.141849],[334.0,"12-01",0.227389]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",0.136413],[31.0,"02-01",4.599411],[59.0,"03-01",3.642882],[90.0,"04-01",0.244185],[120.0,"05-01",0.151895],[151.0,"06-01",0.100388],[181.0,"07-01",0.148013],[212.0,"08-01",0.168362],[243.0,"09-01",0.147967],[273.0,"10-01",0.168084],[304.0,"11-01",8.103643],[334.0,"12-01",0.254903]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",0.336457],[31.0,"02-01",0.171242],[59.0,"03-01",0.23579],[90.0,"04-01",0.150058],[120.0,"05-01",0.024465],[151.0,"06-01",0.030056],[181.0,"07-01",0.050411]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"EU27 无烟煤进口","axisMin":0,"axisMax":50,"ticks":[0,10,20,30,40,50],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",47.17552],[31.0,"02-01",17.966567],[59.0,"03-01",16.538237],[90.0,"04-01",26.39785],[120.0,"05-01",32.479862],[151.0,"06-01",34.141173],[181.0,"07-01",27.646959],[212.0,"08-01",34.140866],[243.0,"09-01",39.498667],[273.0,"10-01",25.230007],[304.0,"11-01",33.993039],[334.0,"12-01",36.464847]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",31.250905],[31.0,"02-01",36.058733],[59.0,"03-01",30.394736],[90.0,"04-01",32.618846],[120.0,"05-01",41.934221],[151.0,"06-01",29.058992],[181.0,"07-01",37.877533],[212.0,"08-01",48.061345],[243.0,"09-01",16.143165],[273.0,"10-01",10.656754],[304.0,"11-01",9.894933],[334.0,"12-01",4.276851]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",8.374536],[31.0,"02-01",18.209938],[59.0,"03-01",3.168865],[90.0,"04-01",13.937417],[120.0,"05-01",6.621543],[151.0,"06-01",9.590428],[181.0,"07-01",12.505443],[212.0,"08-01",9.790527],[243.0,"09-01",10.522378],[273.0,"10-01",16.012796],[304.0,"11-01",4.121652],[334.0,"12-01",12.05199]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",5.770437],[31.0,"02-01",18.158204],[59.0,"03-01",14.678124],[90.0,"04-01",6.241563],[120.0,"05-01",14.725696],[151.0,"06-01",4.459646],[181.0,"07-01",8.717243],[212.0,"08-01",11.61659],[243.0,"09-01",13.211751],[273.0,"10-01",9.540459],[304.0,"11-01",1.482581],[334.0,"12-01",10.206066]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",6.270994],[31.0,"02-01",7.883473],[59.0,"03-01",1.295367],[90.0,"04-01",3.49791],[120.0,"05-01",9.274662],[151.0,"06-01",6.567232],[181.0,"07-01",16.862328],[212.0,"08-01",14.27369],[243.0,"09-01",2.728733],[273.0,"10-01",16.288318],[304.0,"11-01",14.210136],[334.0,"12-01",9.745194]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",8.050611],[31.0,"02-01",4.906249],[59.0,"03-01",10.365595],[90.0,"04-01",5.77753],[120.0,"05-01",14.816185],[151.0,"06-01",17.082225],[181.0,"07-01",9.743229]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"EU27 炼焦煤进口","axisMin":100,"axisMax":350,"ticks":[100,150,200,250,300,350],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",224.918697],[31.0,"02-01",204.318169],[59.0,"03-01",253.54206],[90.0,"04-01",286.072275],[120.0,"05-01",200.348443],[151.0,"06-01",241.149207],[181.0,"07-01",303.494188],[212.0,"08-01",160.042526],[243.0,"09-01",235.275258],[273.0,"10-01",246.539068],[304.0,"11-01",248.277213],[334.0,"12-01",259.490685]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",201.192763],[31.0,"02-01",161.819304],[59.0,"03-01",185.998308],[90.0,"04-01",274.396369],[120.0,"05-01",147.571544],[151.0,"06-01",230.843563],[181.0,"07-01",206.005163],[212.0,"08-01",228.775723],[243.0,"09-01",204.835499],[273.0,"10-01",212.585983],[304.0,"11-01",236.924475],[334.0,"12-01",189.492252]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",290.151207],[31.0,"02-01",245.546591],[59.0,"03-01",304.913879],[90.0,"04-01",212.016846],[120.0,"05-01",317.601461],[151.0,"06-01",261.803175],[181.0,"07-01",274.963837],[212.0,"08-01",264.099474],[243.0,"09-01",250.869826],[273.0,"10-01",259.492492],[304.0,"11-01",226.824135],[334.0,"12-01",215.339421]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",272.496904],[31.0,"02-01",223.290187],[59.0,"03-01",198.798321],[90.0,"04-01",287.16359],[120.0,"05-01",242.076045],[151.0,"06-01",251.014743],[181.0,"07-01",271.701438],[212.0,"08-01",232.110069],[243.0,"09-01",214.138876],[273.0,"10-01",278.862033],[304.0,"11-01",290.702082],[334.0,"12-01",175.407817]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",192.508998],[31.0,"02-01",181.563483],[59.0,"03-01",186.171104],[90.0,"04-01",219.237796],[120.0,"05-01",215.956603],[151.0,"06-01",175.758539],[181.0,"07-01",217.383852],[212.0,"08-01",236.033873],[243.0,"09-01",215.805574],[273.0,"10-01",203.179908],[304.0,"11-01",225.733972],[334.0,"12-01",158.221342]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",177.918516],[31.0,"02-01",141.465177],[59.0,"03-01",225.302284],[90.0,"04-01",148.3888],[120.0,"05-01",236.744089],[151.0,"06-01",229.618448],[181.0,"07-01",225.962975]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"荷兰动力煤进口","axisMin":0,"axisMax":400,"ticks":[0,100,200,300,400],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",230.474264],[31.0,"02-01",191.731159],[59.0,"03-01",221.456338],[90.0,"04-01",174.879972],[120.0,"05-01",187.819857],[151.0,"06-01",146.461302],[181.0,"07-01",239.704962],[212.0,"08-01",264.806045],[243.0,"09-01",188.190159],[273.0,"10-01",231.297684],[304.0,"11-01",305.468817],[334.0,"12-01",288.439979]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",90.008286],[31.0,"02-01",119.587553],[59.0,"03-01",188.299035],[90.0,"04-01",181.707368],[120.0,"05-01",206.606918],[151.0,"06-01",132.394138],[181.0,"07-01",203.306285],[212.0,"08-01",172.796961],[243.0,"09-01",142.66233],[273.0,"10-01",173.335426],[304.0,"11-01",96.630712],[334.0,"12-01",171.727916]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",244.355925],[31.0,"02-01",230.449582],[59.0,"03-01",174.062912],[90.0,"04-01",90.571571],[120.0,"05-01",81.946632],[151.0,"06-01",87.400682],[181.0,"07-01",91.241307],[212.0,"08-01",98.032297],[243.0,"09-01",83.249707],[273.0,"10-01",132.319698],[304.0,"11-01",142.518659],[334.0,"12-01",154.90987]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",171.32183],[31.0,"02-01",135.044483],[59.0,"03-01",70.854727],[90.0,"04-01",51.659],[120.0,"05-01",61.467968],[151.0,"06-01",66.830388],[181.0,"07-01",55.282467],[212.0,"08-01",103.36275],[243.0,"09-01",111.583105],[273.0,"10-01",135.652505],[304.0,"11-01",171.106037],[334.0,"12-01",186.98428]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",143.621154],[31.0,"02-01",121.339882],[59.0,"03-01",129.212602],[90.0,"04-01",126.3421],[120.0,"05-01",90.152616],[151.0,"06-01",92.192588],[181.0,"07-01",62.639576],[212.0,"08-01",123.46973],[243.0,"09-01",56.588664],[273.0,"10-01",137.186249],[304.0,"11-01",116.553476],[334.0,"12-01",126.632447]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",131.66184],[31.0,"02-01",166.048402],[59.0,"03-01",133.869539],[90.0,"04-01",117.497856],[120.0,"05-01",107.149808],[151.0,"06-01",119.914021],[181.0,"07-01",155.64506]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"波兰动力煤进口","axisMin":0,"axisMax":300,"ticks":[0,50,100,150,200,250,300],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",98.509239],[31.0,"02-01",63.150778],[59.0,"03-01",74.537571],[90.0,"04-01",79.427943],[120.0,"05-01",67.729218],[151.0,"06-01",68.69245],[181.0,"07-01",71.024641],[212.0,"08-01",89.73272],[243.0,"09-01",59.529102],[273.0,"10-01",72.041283],[304.0,"11-01",71.70139],[334.0,"12-01",64.643646]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",79.582107],[31.0,"02-01",79.586441],[59.0,"03-01",91.020273],[90.0,"04-01",76.283339],[120.0,"05-01",40.830732],[151.0,"06-01",57.630731],[181.0,"07-01",87.113414],[212.0,"08-01",138.730441],[243.0,"09-01",152.444482],[273.0,"10-01",228.527743],[304.0,"11-01",269.248813],[334.0,"12-01",235.049858]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",238.172562],[31.0,"02-01",204.047479],[59.0,"03-01",200.363402],[90.0,"04-01",108.478451],[120.0,"05-01",128.427734],[151.0,"06-01",82.885529],[181.0,"07-01",82.355295],[212.0,"08-01",93.797455],[243.0,"09-01",98.197666],[273.0,"10-01",47.919614],[304.0,"11-01",43.178805],[334.0,"12-01",55.479856]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",34.366778],[31.0,"02-01",53.340236],[59.0,"03-01",23.349824],[90.0,"04-01",36.969412],[120.0,"05-01",42.693882],[151.0,"06-01",47.042046],[181.0,"07-01",59.276559],[212.0,"08-01",75.065679],[243.0,"09-01",53.735525],[273.0,"10-01",70.866811],[304.0,"11-01",53.596738],[334.0,"12-01",34.360537]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",55.239927],[31.0,"02-01",41.829839],[59.0,"03-01",28.731915],[90.0,"04-01",30.963533],[120.0,"05-01",45.106425],[151.0,"06-01",41.304996],[181.0,"07-01",35.475004],[212.0,"08-01",76.191726],[243.0,"09-01",52.917619],[273.0,"10-01",69.00645],[304.0,"11-01",57.623091],[334.0,"12-01",52.76406]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",58.075901],[31.0,"02-01",48.78054],[59.0,"03-01",56.188696],[90.0,"04-01",49.506515],[120.0,"05-01",81.289073],[151.0,"06-01",64.314569],[181.0,"07-01",76.849435]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"德国动力煤进口","axisMin":0,"axisMax":150,"ticks":[0,50,100,150],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",53.160644],[31.0,"02-01",52.721606],[59.0,"03-01",80.459435],[90.0,"04-01",53.306322],[120.0,"05-01",46.89427],[151.0,"06-01",75.380059],[181.0,"07-01",42.856331],[212.0,"08-01",65.961668],[243.0,"09-01",92.923656],[273.0,"10-01",91.61929],[304.0,"11-01",89.804224],[334.0,"12-01",74.681059]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",64.236362],[31.0,"02-01",84.12294],[59.0,"03-01",66.273484],[90.0,"04-01",81.405739],[120.0,"05-01",139.977046],[151.0,"06-01",94.918045],[181.0,"07-01",44.059304],[212.0,"08-01",99.899153],[243.0,"09-01",73.929374],[273.0,"10-01",91.348257],[304.0,"11-01",82.412264],[334.0,"12-01",63.833711]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",81.769536],[31.0,"02-01",36.781492],[59.0,"03-01",80.623758],[90.0,"04-01",29.207494],[120.0,"05-01",53.184036],[151.0,"06-01",54.267615],[181.0,"07-01",16.725965],[212.0,"08-01",7.676271],[243.0,"09-01",44.631183],[273.0,"10-01",43.929432],[304.0,"11-01",43.90559],[334.0,"12-01",44.87167]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",75.500504],[31.0,"02-01",30.815222],[59.0,"03-01",33.62838],[90.0,"04-01",12.556355],[120.0,"05-01",19.587159],[151.0,"06-01",25.152304],[181.0,"07-01",6.931008],[212.0,"08-01",9.936305],[243.0,"09-01",42.466712],[273.0,"10-01",39.798288],[304.0,"11-01",52.934231],[334.0,"12-01",61.201583]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",70.303564],[31.0,"02-01",59.258192],[59.0,"03-01",16.832705],[90.0,"04-01",39.892336],[120.0,"05-01",19.174989],[151.0,"06-01",13.504528],[181.0,"07-01",40.858975],[212.0,"08-01",36.816369],[243.0,"09-01",41.917],[273.0,"10-01",52.71953],[304.0,"11-01",57.344814],[334.0,"12-01",29.261641]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",54.168016],[31.0,"02-01",44.017494],[59.0,"03-01",36.670738],[90.0,"04-01",44.112755],[120.0,"05-01",47.970941],[151.0,"06-01",59.555862],[181.0,"07-01",21.301655]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"法国动力煤进口","axisMin":0,"axisMax":80,"ticks":[0,20,40,60,80],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",53.026948],[31.0,"02-01",21.782284],[59.0,"03-01",50.165157],[90.0,"04-01",45.465045],[120.0,"05-01",34.836213],[151.0,"06-01",38.055661],[181.0,"07-01",18.066376],[212.0,"08-01",44.128544],[243.0,"09-01",36.455051],[273.0,"10-01",44.155031],[304.0,"11-01",43.943482],[334.0,"12-01",36.549013]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",36.361041],[31.0,"02-01",36.686749],[59.0,"03-01",48.021376],[90.0,"04-01",23.8661],[120.0,"05-01",32.510601],[151.0,"06-01",26.346425],[181.0,"07-01",29.366116],[212.0,"08-01",36.938275],[243.0,"09-01",18.872738],[273.0,"10-01",16.773107],[304.0,"11-01",12.964741],[334.0,"12-01",18.113622]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",20.212441],[31.0,"02-01",27.676307],[59.0,"03-01",13.485655],[90.0,"04-01",63.772075],[120.0,"05-01",14.973942],[151.0,"06-01",15.629596],[181.0,"07-01",21.387975],[212.0,"08-01",10.490589],[243.0,"09-01",11.915806],[273.0,"10-01",17.709326],[304.0,"11-01",6.710188],[334.0,"12-01",9.348921]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",19.2666],[31.0,"02-01",15.5374],[59.0,"03-01",5.17552],[90.0,"04-01",12.636842],[120.0,"05-01",7.700138],[151.0,"06-01",22.919334],[181.0,"07-01",0.974946],[212.0,"08-01",18.488205],[243.0,"09-01",8.942564],[273.0,"10-01",18.93617],[304.0,"11-01",15.713885],[334.0,"12-01",2.775241]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",25.832349],[31.0,"02-01",24.062749],[59.0,"03-01",20.548821],[90.0,"04-01",4.920253],[120.0,"05-01",15.31228],[151.0,"06-01",10.4857],[181.0,"07-01",3.941438],[212.0,"08-01",19.674643],[243.0,"09-01",14.222947],[273.0,"10-01",25.746432],[304.0,"11-01",7.207251],[334.0,"12-01",25.221805]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",8.984645],[31.0,"02-01",1.687801],[59.0,"03-01",17.61678],[90.0,"04-01",14.968814],[120.0,"05-01",13.537321],[151.0,"06-01",19.582885],[181.0,"07-01",15.363707]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"西班牙动力煤进口","axisMin":0,"axisMax":150,"ticks":[0,50,100,150],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",27.763962],[31.0,"02-01",30.682318],[59.0,"03-01",14.474335],[90.0,"04-01",16.561201],[120.0,"05-01",31.248562],[151.0,"06-01",2.349919],[181.0,"07-01",19.757742],[212.0,"08-01",39.818973],[243.0,"09-01",30.68097],[273.0,"10-01",35.316235],[304.0,"11-01",40.55648],[334.0,"12-01",24.781135]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",49.245132],[31.0,"02-01",36.718469],[59.0,"03-01",85.472321],[90.0,"04-01",32.68664],[120.0,"05-01",51.770518],[151.0,"06-01",3.178517],[181.0,"07-01",85.553578],[212.0,"08-01",44.250469],[243.0,"09-01",73.445664],[273.0,"10-01",64.290976],[304.0,"11-01",99.823275],[334.0,"12-01",137.366658]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",60.63183],[31.0,"02-01",30.506458],[59.0,"03-01",42.893202],[90.0,"04-01",64.491856],[120.0,"05-01",66.314204],[151.0,"06-01",42.026531],[181.0,"07-01",40.082744],[212.0,"08-01",10.014247],[243.0,"09-01",23.127193],[273.0,"10-01",14.061801],[304.0,"11-01",5.505892],[334.0,"12-01",44.055741]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",20.750835],[31.0,"02-01",17.212481],[59.0,"03-01",3.613962],[90.0,"04-01",18.123958],[120.0,"05-01",13.06788],[151.0,"06-01",19.842389],[181.0,"07-01",1.912517],[212.0,"08-01",35.412441],[243.0,"09-01",9.986456],[273.0,"10-01",7.179359],[304.0,"11-01",10.850481],[334.0,"12-01",40.227486]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",23.072086],[31.0,"02-01",9.653032],[59.0,"03-01",18.77137],[90.0,"04-01",25.986262],[120.0,"05-01",3.299287],[151.0,"06-01",22.668257],[181.0,"07-01",0.003033],[212.0,"08-01",11.845905],[243.0,"09-01",8.922632],[273.0,"10-01",12.602601],[304.0,"11-01",8.633321],[334.0,"12-01",11.299366]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",20.828676],[31.0,"02-01",9.848604],[59.0,"03-01",9.008828],[90.0,"04-01",5.27068],[120.0,"05-01",21.047105],[151.0,"06-01",13.948622],[181.0,"07-01",10.093906]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"EU27 动力煤进口（自然年累计）","axisMin":0,"axisMax":8000,"ticks":[0,2000,4000,6000,8000],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",581.621413],[31.0,"02-01",1033.380219],[59.0,"03-01",1601.819634],[90.0,"04-01",2051.285542],[120.0,"05-01",2515.198079],[151.0,"06-01",2959.886474],[181.0,"07-01",3505.700869],[212.0,"08-01",4140.153081],[243.0,"09-01",4676.528843],[273.0,"10-01",5300.306761],[304.0,"11-01",6014.077654],[334.0,"12-01",6656.686452]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",481.60999],[31.0,"02-01",972.486039],[59.0,"03-01",1592.77154],[90.0,"04-01",2115.844805],[120.0,"05-01",2714.057394],[151.0,"06-01",3229.849701],[181.0,"07-01",3827.640459],[212.0,"08-01",4479.08959],[243.0,"09-01",5086.654695],[273.0,"10-01",5794.476617],[304.0,"11-01",6506.104107],[334.0,"12-01",7326.691034]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",784.399864],[31.0,"02-01",1457.902194],[59.0,"03-01",2076.843548],[90.0,"04-01",2499.250114],[120.0,"05-01",2907.953432],[151.0,"06-01",3255.670876],[181.0,"07-01",3596.568991],[212.0,"08-01",3871.149494],[243.0,"09-01",4227.53402],[273.0,"10-01",4523.310168],[304.0,"11-01",4804.069923],[334.0,"12-01",5132.65821]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",360.300885],[31.0,"02-01",630.157574],[59.0,"03-01",808.913417],[90.0,"04-01",976.324555],[120.0,"05-01",1164.685712],[151.0,"06-01",1366.058046],[181.0,"07-01",1537.538854],[212.0,"08-01",1804.654387],[243.0,"09-01",2095.655428],[273.0,"10-01",2426.630003],[304.0,"11-01",2779.79865],[334.0,"12-01",3146.863864]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",362.799423],[31.0,"02-01",650.079675],[59.0,"03-01",901.932979],[90.0,"04-01",1147.064763],[120.0,"05-01",1353.776876],[151.0,"06-01",1577.491122],[181.0,"07-01",1765.309588],[212.0,"08-01",2090.320029],[243.0,"09-01",2306.165861],[273.0,"10-01",2655.63821],[304.0,"11-01",2931.892176],[334.0,"12-01",3218.900939]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",307.099672],[31.0,"02-01",614.004606],[59.0,"03-01",891.296345],[90.0,"04-01",1148.148754],[120.0,"05-01",1443.535898],[151.0,"06-01",1770.391827],[181.0,"07-01",2075.10791]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"EU27 褐煤进口（自然年累计）","axisMin":0,"axisMax":60,"ticks":[0,10,20,30,40,50,60],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",6.298732],[31.0,"02-01",9.27358],[59.0,"03-01",9.638685],[90.0,"04-01",11.296831],[120.0,"05-01",12.26768],[151.0,"06-01",12.801282],[181.0,"07-01",12.857865],[212.0,"08-01",19.536815],[243.0,"09-01",26.729227],[273.0,"10-01",27.228086],[304.0,"11-01",27.786681],[334.0,"12-01",28.639643]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",7.173315],[31.0,"02-01",14.770243],[59.0,"03-01",15.281355],[90.0,"04-01",15.730189],[120.0,"05-01",16.451521],[151.0,"06-01",16.842642],[181.0,"07-01",17.001517],[212.0,"08-01",17.241881],[243.0,"09-01",25.099681],[273.0,"10-01",34.065285],[304.0,"11-01",35.342784],[334.0,"12-01",48.569883]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",9.10574],[31.0,"02-01",17.993096],[59.0,"03-01",19.898375],[90.0,"04-01",20.452342],[120.0,"05-01",29.149738],[151.0,"06-01",29.366519],[181.0,"07-01",37.302859],[212.0,"08-01",37.455246],[243.0,"09-01",37.722449],[273.0,"10-01",39.49745],[304.0,"11-01",45.110483],[334.0,"12-01",47.728428]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",0.588472],[31.0,"02-01",0.696898],[59.0,"03-01",0.813529],[90.0,"04-01",0.869398],[120.0,"05-01",0.986017],[151.0,"06-01",1.094074],[181.0,"07-01",1.184748],[212.0,"08-01",1.599961],[243.0,"09-01",1.766128],[273.0,"10-01",2.085228],[304.0,"11-01",2.227077],[334.0,"12-01",2.454466]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",0.136413],[31.0,"02-01",4.735824],[59.0,"03-01",8.378706],[90.0,"04-01",8.622891],[120.0,"05-01",8.774786],[151.0,"06-01",8.875173],[181.0,"07-01",9.023187],[212.0,"08-01",9.191548],[243.0,"09-01",9.339515],[273.0,"10-01",9.5076],[304.0,"11-01",17.611243],[334.0,"12-01",17.866145]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",0.336457],[31.0,"02-01",0.507699],[59.0,"03-01",0.743488],[90.0,"04-01",0.893546],[120.0,"05-01",0.918011],[151.0,"06-01",0.948067],[181.0,"07-01",0.998479]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"EU27 无烟煤进口（自然年累计）","axisMin":0,"axisMax":400,"ticks":[0,100,200,300,400],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",47.17552],[31.0,"02-01",65.142087],[59.0,"03-01",81.680324],[90.0,"04-01",108.078174],[120.0,"05-01",140.558036],[151.0,"06-01",174.699209],[181.0,"07-01",202.346168],[212.0,"08-01",236.487033],[243.0,"09-01",275.9857],[273.0,"10-01",301.215707],[304.0,"11-01",335.208747],[334.0,"12-01",371.673593]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",31.250905],[31.0,"02-01",67.309638],[59.0,"03-01",97.704374],[90.0,"04-01",130.32322],[120.0,"05-01",172.257442],[151.0,"06-01",201.316434],[181.0,"07-01",239.193966],[212.0,"08-01",287.255311],[243.0,"09-01",303.398476],[273.0,"10-01",314.05523],[304.0,"11-01",323.950163],[334.0,"12-01",328.227014]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",8.374536],[31.0,"02-01",26.584474],[59.0,"03-01",29.753339],[90.0,"04-01",43.690756],[120.0,"05-01",50.312299],[151.0,"06-01",59.902727],[181.0,"07-01",72.408169],[212.0,"08-01",82.198696],[243.0,"09-01",92.721074],[273.0,"10-01",108.73387],[304.0,"11-01",112.855522],[334.0,"12-01",124.907513]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",5.770437],[31.0,"02-01",23.928641],[59.0,"03-01",38.606765],[90.0,"04-01",44.848328],[120.0,"05-01",59.574024],[151.0,"06-01",64.03367],[181.0,"07-01",72.750913],[212.0,"08-01",84.367504],[243.0,"09-01",97.579255],[273.0,"10-01",107.119714],[304.0,"11-01",108.602294],[334.0,"12-01",118.80836]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",6.270994],[31.0,"02-01",14.154467],[59.0,"03-01",15.449834],[90.0,"04-01",18.947744],[120.0,"05-01",28.222407],[151.0,"06-01",34.789639],[181.0,"07-01",51.651967],[212.0,"08-01",65.925657],[243.0,"09-01",68.65439],[273.0,"10-01",84.942708],[304.0,"11-01",99.152844],[334.0,"12-01",108.898038]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",8.050611],[31.0,"02-01",12.95686],[59.0,"03-01",23.322454],[90.0,"04-01",29.099984],[120.0,"05-01",43.916169],[151.0,"06-01",60.998394],[181.0,"07-01",70.741623]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"EU27 炼焦煤进口（自然年累计）","axisMin":0,"axisMax":4000,"ticks":[0,1000,2000,3000,4000],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",224.918697],[31.0,"02-01",429.236866],[59.0,"03-01",682.778926],[90.0,"04-01",968.8512],[120.0,"05-01",1169.199643],[151.0,"06-01",1410.34885],[181.0,"07-01",1713.843038],[212.0,"08-01",1873.885564],[243.0,"09-01",2109.160822],[273.0,"10-01",2355.69989],[304.0,"11-01",2603.977103],[334.0,"12-01",2863.467787]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",201.192763],[31.0,"02-01",363.012067],[59.0,"03-01",549.010375],[90.0,"04-01",823.406744],[120.0,"05-01",970.978288],[151.0,"06-01",1201.821851],[181.0,"07-01",1407.827014],[212.0,"08-01",1636.602736],[243.0,"09-01",1841.438235],[273.0,"10-01",2054.024218],[304.0,"11-01",2290.948693],[334.0,"12-01",2480.440946]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",290.151207],[31.0,"02-01",535.697798],[59.0,"03-01",840.611677],[90.0,"04-01",1052.628522],[120.0,"05-01",1370.229983],[151.0,"06-01",1632.033158],[181.0,"07-01",1906.996994],[212.0,"08-01",2171.096468],[243.0,"09-01",2421.966294],[273.0,"10-01",2681.458786],[304.0,"11-01",2908.282921],[334.0,"12-01",3123.622342]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",272.496904],[31.0,"02-01",495.787091],[59.0,"03-01",694.585412],[90.0,"04-01",981.749001],[120.0,"05-01",1223.825047],[151.0,"06-01",1474.83979],[181.0,"07-01",1746.541228],[212.0,"08-01",1978.651297],[243.0,"09-01",2192.790173],[273.0,"10-01",2471.652206],[304.0,"11-01",2762.354288],[334.0,"12-01",2937.762104]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",192.508998],[31.0,"02-01",374.072481],[59.0,"03-01",560.243585],[90.0,"04-01",779.481381],[120.0,"05-01",995.437984],[151.0,"06-01",1171.196523],[181.0,"07-01",1388.580374],[212.0,"08-01",1624.614247],[243.0,"09-01",1840.419821],[273.0,"10-01",2043.599728],[304.0,"11-01",2269.3337],[334.0,"12-01",2427.555042]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",177.918516],[31.0,"02-01",319.383693],[59.0,"03-01",544.685977],[90.0,"04-01",693.074777],[120.0,"05-01",929.818865],[151.0,"06-01",1159.437313],[181.0,"07-01",1385.400289]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"荷兰动力煤进口（自然年累计）","axisMin":0,"axisMax":3000,"ticks":[0,1000,2000,3000],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",230.474264],[31.0,"02-01",422.205423],[59.0,"03-01",643.661761],[90.0,"04-01",818.541734],[120.0,"05-01",1006.361591],[151.0,"06-01",1152.822893],[181.0,"07-01",1392.527855],[212.0,"08-01",1657.3339],[243.0,"09-01",1845.524059],[273.0,"10-01",2076.821743],[304.0,"11-01",2382.29056],[334.0,"12-01",2670.730538]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",90.008286],[31.0,"02-01",209.595838],[59.0,"03-01",397.894873],[90.0,"04-01",579.60224],[120.0,"05-01",786.209158],[151.0,"06-01",918.603297],[181.0,"07-01",1121.909582],[212.0,"08-01",1294.706543],[243.0,"09-01",1437.368872],[273.0,"10-01",1610.704299],[304.0,"11-01",1707.335011],[334.0,"12-01",1879.062926]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",244.355925],[31.0,"02-01",474.805507],[59.0,"03-01",648.868419],[90.0,"04-01",739.43999],[120.0,"05-01",821.386622],[151.0,"06-01",908.787304],[181.0,"07-01",1000.028611],[212.0,"08-01",1098.060908],[243.0,"09-01",1181.310615],[273.0,"10-01",1313.630313],[304.0,"11-01",1456.148972],[334.0,"12-01",1611.058842]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",171.32183],[31.0,"02-01",306.366313],[59.0,"03-01",377.22104],[90.0,"04-01",428.88004],[120.0,"05-01",490.348008],[151.0,"06-01",557.178396],[181.0,"07-01",612.460862],[212.0,"08-01",715.823612],[243.0,"09-01",827.406717],[273.0,"10-01",963.059222],[304.0,"11-01",1134.165259],[334.0,"12-01",1321.149539]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",143.621154],[31.0,"02-01",264.961035],[59.0,"03-01",394.173637],[90.0,"04-01",520.515737],[120.0,"05-01",610.668353],[151.0,"06-01",702.860941],[181.0,"07-01",765.500518],[212.0,"08-01",888.970248],[243.0,"09-01",945.558912],[273.0,"10-01",1082.745161],[304.0,"11-01",1199.298637],[334.0,"12-01",1325.931084]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",131.66184],[31.0,"02-01",297.710241],[59.0,"03-01",431.57978],[90.0,"04-01",549.077636],[120.0,"05-01",656.227444],[151.0,"06-01",776.141465],[181.0,"07-01",931.786524]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"波兰动力煤进口（自然年累计）","axisMin":0,"axisMax":2000,"ticks":[0,500,1000,1500,2000],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",98.509239],[31.0,"02-01",161.660017],[59.0,"03-01",236.197588],[90.0,"04-01",315.625531],[120.0,"05-01",383.35475],[151.0,"06-01",452.047199],[181.0,"07-01",523.07184],[212.0,"08-01",612.80456],[243.0,"09-01",672.333663],[273.0,"10-01",744.374945],[304.0,"11-01",816.076335],[334.0,"12-01",880.719982]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",79.582107],[31.0,"02-01",159.168547],[59.0,"03-01",250.188821],[90.0,"04-01",326.47216],[120.0,"05-01",367.302892],[151.0,"06-01",424.933624],[181.0,"07-01",512.047038],[212.0,"08-01",650.777479],[243.0,"09-01",803.221961],[273.0,"10-01",1031.749704],[304.0,"11-01",1300.998517],[334.0,"12-01",1536.048374]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",238.172562],[31.0,"02-01",442.220041],[59.0,"03-01",642.583444],[90.0,"04-01",751.061894],[120.0,"05-01",879.489628],[151.0,"06-01",962.375157],[181.0,"07-01",1044.730452],[212.0,"08-01",1138.527907],[243.0,"09-01",1236.725573],[273.0,"10-01",1284.645187],[304.0,"11-01",1327.823992],[334.0,"12-01",1383.303848]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",34.366778],[31.0,"02-01",87.707014],[59.0,"03-01",111.056838],[90.0,"04-01",148.02625],[120.0,"05-01",190.720132],[151.0,"06-01",237.762178],[181.0,"07-01",297.038737],[212.0,"08-01",372.104416],[243.0,"09-01",425.839941],[273.0,"10-01",496.706752],[304.0,"11-01",550.30349],[334.0,"12-01",584.664027]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",55.239927],[31.0,"02-01",97.069766],[59.0,"03-01",125.80168],[90.0,"04-01",156.765213],[120.0,"05-01",201.871638],[151.0,"06-01",243.176634],[181.0,"07-01",278.651638],[212.0,"08-01",354.843364],[243.0,"09-01",407.760984],[273.0,"10-01",476.767434],[304.0,"11-01",534.390524],[334.0,"12-01",587.154585]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",58.075901],[31.0,"02-01",106.85644],[59.0,"03-01",163.045137],[90.0,"04-01",212.551651],[120.0,"05-01",293.840724],[151.0,"06-01",358.155293],[181.0,"07-01",435.004728]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"德国动力煤进口（自然年累计）","axisMin":0,"axisMax":1200,"ticks":[0,200,400,600,800,1000,1200],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",53.160644],[31.0,"02-01",105.88225],[59.0,"03-01",186.341685],[90.0,"04-01",239.648008],[120.0,"05-01",286.542278],[151.0,"06-01",361.922336],[181.0,"07-01",404.778667],[212.0,"08-01",470.740336],[243.0,"09-01",563.663992],[273.0,"10-01",655.283282],[304.0,"11-01",745.087505],[334.0,"12-01",819.768564]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",64.236362],[31.0,"02-01",148.359302],[59.0,"03-01",214.632786],[90.0,"04-01",296.038525],[120.0,"05-01",436.015571],[151.0,"06-01",530.933616],[181.0,"07-01",574.99292],[212.0,"08-01",674.892073],[243.0,"09-01",748.821447],[273.0,"10-01",840.169704],[304.0,"11-01",922.581968],[334.0,"12-01",986.415679]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",81.769536],[31.0,"02-01",118.551028],[59.0,"03-01",199.174786],[90.0,"04-01",228.38228],[120.0,"05-01",281.566316],[151.0,"06-01",335.833931],[181.0,"07-01",352.559896],[212.0,"08-01",360.236167],[243.0,"09-01",404.867349],[273.0,"10-01",448.796781],[304.0,"11-01",492.702371],[334.0,"12-01",537.574041]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",75.500504],[31.0,"02-01",106.315726],[59.0,"03-01",139.944106],[90.0,"04-01",152.500461],[120.0,"05-01",172.08762],[151.0,"06-01",197.239924],[181.0,"07-01",204.170932],[212.0,"08-01",214.107236],[243.0,"09-01",256.573949],[273.0,"10-01",296.372237],[304.0,"11-01",349.306468],[334.0,"12-01",410.508051]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",70.303564],[31.0,"02-01",129.561756],[59.0,"03-01",146.394461],[90.0,"04-01",186.286797],[120.0,"05-01",205.461787],[151.0,"06-01",218.966314],[181.0,"07-01",259.825289],[212.0,"08-01",296.641658],[243.0,"09-01",338.558658],[273.0,"10-01",391.278188],[304.0,"11-01",448.623002],[334.0,"12-01",477.884642]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",54.168016],[31.0,"02-01",98.18551],[59.0,"03-01",134.856248],[90.0,"04-01",178.969002],[120.0,"05-01",226.939943],[151.0,"06-01",286.495806],[181.0,"07-01",307.79746]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"法国动力煤进口（自然年累计）","axisMin":0,"axisMax":500,"ticks":[0,100,200,300,400,500],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",53.026948],[31.0,"02-01",74.809232],[59.0,"03-01",124.974389],[90.0,"04-01",170.439434],[120.0,"05-01",205.275646],[151.0,"06-01",243.331307],[181.0,"07-01",261.397683],[212.0,"08-01",305.526228],[243.0,"09-01",341.981279],[273.0,"10-01",386.136309],[304.0,"11-01",430.079791],[334.0,"12-01",466.628805]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",36.361041],[31.0,"02-01",73.04779],[59.0,"03-01",121.069166],[90.0,"04-01",144.935266],[120.0,"05-01",177.445867],[151.0,"06-01",203.792292],[181.0,"07-01",233.158408],[212.0,"08-01",270.096682],[243.0,"09-01",288.969421],[273.0,"10-01",305.742527],[304.0,"11-01",318.707268],[334.0,"12-01",336.82089]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",20.212441],[31.0,"02-01",47.888748],[59.0,"03-01",61.374403],[90.0,"04-01",125.146478],[120.0,"05-01",140.12042],[151.0,"06-01",155.750016],[181.0,"07-01",177.137991],[212.0,"08-01",187.62858],[243.0,"09-01",199.544385],[273.0,"10-01",217.253711],[304.0,"11-01",223.963899],[334.0,"12-01",233.312819]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",19.2666],[31.0,"02-01",34.803999],[59.0,"03-01",39.97952],[90.0,"04-01",52.616362],[120.0,"05-01",60.3165],[151.0,"06-01",83.235834],[181.0,"07-01",84.210779],[212.0,"08-01",102.698984],[243.0,"09-01",111.641548],[273.0,"10-01",130.577718],[304.0,"11-01",146.291603],[334.0,"12-01",149.066844]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",25.832349],[31.0,"02-01",49.895098],[59.0,"03-01",70.443919],[90.0,"04-01",75.364172],[120.0,"05-01",90.676452],[151.0,"06-01",101.162152],[181.0,"07-01",105.103589],[212.0,"08-01",124.778232],[243.0,"09-01",139.001179],[273.0,"10-01",164.747611],[304.0,"11-01",171.954862],[334.0,"12-01",197.176667]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",8.984645],[31.0,"02-01",10.672446],[59.0,"03-01",28.289226],[90.0,"04-01",43.25804],[120.0,"05-01",56.795361],[151.0,"06-01",76.378247],[181.0,"07-01",91.741954]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"西班牙动力煤进口（自然年累计）","axisMin":0,"axisMax":800,"ticks":[0,200,400,600,800],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",27.763962],[31.0,"02-01",58.44628],[59.0,"03-01",72.920615],[90.0,"04-01",89.481816],[120.0,"05-01",120.730379],[151.0,"06-01",123.080298],[181.0,"07-01",142.83804],[212.0,"08-01",182.657013],[243.0,"09-01",213.337983],[273.0,"10-01",248.654219],[304.0,"11-01",289.210699],[334.0,"12-01",313.991834]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",49.245132],[31.0,"02-01",85.963601],[59.0,"03-01",171.435922],[90.0,"04-01",204.122562],[120.0,"05-01",255.89308],[151.0,"06-01",259.071596],[181.0,"07-01",344.625175],[212.0,"08-01",388.875644],[243.0,"09-01",462.321307],[273.0,"10-01",526.612284],[304.0,"11-01",626.435558],[334.0,"12-01",763.802217]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",60.63183],[31.0,"02-01",91.138288],[59.0,"03-01",134.03149],[90.0,"04-01",198.523347],[120.0,"05-01",264.83755],[151.0,"06-01",306.864082],[181.0,"07-01",346.946825],[212.0,"08-01",356.961073],[243.0,"09-01",380.088266],[273.0,"10-01",394.150067],[304.0,"11-01",399.655959],[334.0,"12-01",443.711699]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",20.750835],[31.0,"02-01",37.963316],[59.0,"03-01",41.577277],[90.0,"04-01",59.701236],[120.0,"05-01",72.769116],[151.0,"06-01",92.611505],[181.0,"07-01",94.524022],[212.0,"08-01",129.936463],[243.0,"09-01",139.922919],[273.0,"10-01",147.102278],[304.0,"11-01",157.952759],[334.0,"12-01",198.180244]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",23.072086],[31.0,"02-01",32.725118],[59.0,"03-01",51.496488],[90.0,"04-01",77.48275],[120.0,"05-01",80.782038],[151.0,"06-01",103.450294],[181.0,"07-01",103.453327],[212.0,"08-01",115.299232],[243.0,"09-01",124.221864],[273.0,"10-01",136.824465],[304.0,"11-01",145.457785],[334.0,"12-01",156.757152]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",20.828676],[31.0,"02-01",30.67728],[59.0,"03-01",39.686109],[90.0,"04-01",44.956789],[120.0,"05-01",66.003893],[151.0,"06-01",79.952516],[181.0,"07-01",90.046422]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article></div><p class="source-note">来源：Eurostat Comext自非欧盟进口，EU27不与成员国叠加。沿用已登记煤种与补充分项缺报假设；缺报原始项仍保存在主库。动力煤商品分类不等同最终发电用途。</p></div></div><div class="demand-layout-subsection" id="thermal-overseas-europe-hard-coal"><h5>2.3.1.2 欧洲硬煤供需及库存</h5><div class="interactive-data-block thermal-data-block"><div class="data-head"><strong>欧洲重点国硬煤供需与库存</strong><span>最新：2026-06-01；万吨；原始kt÷10</span></div><div class="table-scroll"><p class="mobile-table-help">表格可左右滑动查看完整日期与指标。</p><div aria-label="数据表，可左右滑动" class="mobile-table-scroll" role="region" tabindex="0"><table class="data-table compact summary-table confirmed-four-period-table grouped-category-table"><thead><tr><th></th><th>指标</th><th>2026/03/01</th><th>2026/04/01</th><th>2026/05/01</th><th>2026/06/01</th><th>月同比（基期2026/05/01）</th></tr></thead><tbody><tr><td class="category-cell" rowspan="1">库存</td><td>EU27硬煤月末库存</td><td>#N/A</td><td>#N/A</td><td>#N/A</td><td>#N/A</td><td class="chg-flat" title="实际比较基期：2025-06-01">#N/A</td></tr><tr><td class="category-cell" rowspan="1">指标</td><td>EU27硬煤内陆交付</td><td>#N/A</td><td>#N/A</td><td>#N/A</td><td>#N/A</td><td class="chg-flat" title="实际比较基期：2025-06-01">#N/A</td></tr><tr><td class="category-cell" rowspan="1">发电</td><td>EU27发电供热硬煤投入</td><td>#N/A</td><td>#N/A</td><td>#N/A</td><td>#N/A</td><td class="chg-flat" title="实际比较基期：2025-06-01">#N/A</td></tr><tr><td class="category-cell" rowspan="1">库存</td><td>荷兰硬煤月末库存</td><td>80.54</td><td>71.47</td><td>68.81</td><td>82.85</td><td class="chg-pos" title="实际比较基期：2025-06-01">+8.1</td></tr><tr><td class="category-cell" rowspan="1">指标</td><td>荷兰硬煤内陆交付</td><td>63.35</td><td>62.49</td><td>48.31</td><td>51.73</td><td class="chg-pos" title="实际比较基期：2025-06-01">+17.09</td></tr><tr><td class="category-cell" rowspan="1">发电</td><td>荷兰发电供热硬煤投入</td><td>31.44</td><td>31.35</td><td>18.3</td><td>20.69</td><td class="chg-pos" title="实际比较基期：2025-06-01">+15.36</td></tr><tr><td class="category-cell" rowspan="1">库存</td><td>德国硬煤月末库存</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="chg-flat" title="实际比较基期：2025-06-01">+0</td></tr><tr><td class="category-cell" rowspan="1">指标</td><td>德国硬煤内陆交付</td><td>193.05</td><td>197.65</td><td>193.16</td><td>197.94</td><td class="chg-pos" title="实际比较基期：2025-06-01">+39.74</td></tr><tr><td class="category-cell" rowspan="1">发电</td><td>德国发电供热硬煤投入</td><td>89.31</td><td>92.18</td><td>61.27</td><td>85.49</td><td class="chg-pos" title="实际比较基期：2025-06-01">+37.83</td></tr><tr><td class="category-cell" rowspan="1">库存</td><td>波兰硬煤月末库存</td><td>1,782.91</td><td>1,738.45</td><td>1,748.26</td><td>1,798.05</td><td class="chg-neg" title="实际比较基期：2025-06-01">-227.5</td></tr><tr><td class="category-cell" rowspan="1">指标</td><td>波兰硬煤内陆交付</td><td>436.34</td><td>410.93</td><td>385.68</td><td>335.17</td><td class="chg-pos" title="实际比较基期：2025-06-01">+32.86</td></tr><tr><td class="category-cell" rowspan="1">发电</td><td>波兰发电供热硬煤投入</td><td>243.89</td><td>225.06</td><td>205.64</td><td>190.85</td><td class="chg-pos" title="实际比较基期：2025-06-01">+36.96</td></tr></tbody></table></div></div><div class="chart-grid seasonal-grid thermal-power-grid chart-grid-live demand-three-grid"><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"EU27硬煤月末库存","axisMin":1000,"axisMax":3500,"ticks":[1000,1500,2000,2500,3000,3500],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",2219.9904],[31.0,"02-01",2089.7253],[59.0,"03-01",2070.6804],[90.0,"04-01",2014.598],[120.0,"05-01",1976.4831],[151.0,"06-01",1944.369],[181.0,"07-01",1911.4093],[212.0,"08-01",1864.6262],[243.0,"09-01",1700.5303],[273.0,"10-01",1719.009],[304.0,"11-01",1612.3858],[334.0,"12-01",1548.5012]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",1544.5594],[31.0,"02-01",1479.6416],[59.0,"03-01",1526.903],[90.0,"04-01",1623.767],[120.0,"05-01",1696.3337],[151.0,"06-01",1749.1833],[181.0,"07-01",1917.6846],[212.0,"08-01",2034.686],[243.0,"09-01",2174.904],[273.0,"10-01",2344.2824],[304.0,"11-01",2626.9765],[334.0,"12-01",2762.3745]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",2829.3911],[31.0,"02-01",2869.9809],[59.0,"03-01",3013.8331],[90.0,"04-01",3017.7815],[120.0,"05-01",3133.4042],[151.0,"06-01",3296.9564],[181.0,"07-01",3347.2264],[212.0,"08-01",3372.2635],[243.0,"09-01",3399.1281],[273.0,"10-01",3387.1074]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",3253.0266],[31.0,"02-01",3255.787],[59.0,"03-01",3172.6865],[90.0,"04-01",3175.3251],[120.0,"05-01",3204.0096],[151.0,"06-01",3207.3737],[181.0,"07-01",3250.5877],[212.0,"08-01",3291.6803],[243.0,"09-01",3325.7507],[273.0,"10-01",3346.9754],[304.0,"11-01",3364.8337],[334.0,"12-01",3281.5404]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",3221.0472],[31.0,"02-01",3110.1632],[59.0,"03-01",3070.7569],[90.0,"04-01",3075.7492],[120.0,"05-01",3053.9088],[151.0,"06-01",3119.4497],[181.0,"07-01",3145.5844],[212.0,"08-01",3205.2658],[243.0,"09-01",3191.628],[273.0,"10-01",3175.966],[304.0,"11-01",3129.4062],[334.0,"12-01",2996.2249]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",2924.3567],[31.0,"02-01",2853.7643]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"EU27硬煤内陆交付","axisMin":600,"axisMax":1800,"ticks":[600,800,1000,1200,1400,1600,1800],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",1374.5231],[31.0,"02-01",1251.8211],[59.0,"03-01",1398.9331],[90.0,"04-01",1178.9679],[120.0,"05-01",1129.3152],[151.0,"06-01",1195.2189],[181.0,"07-01",1279.4962],[212.0,"08-01",1264.1516],[243.0,"09-01",1442.2185],[273.0,"10-01",1358.5728],[304.0,"11-01",1428.7227],[334.0,"12-01",1626.1613]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",1475.4147],[31.0,"02-01",1383.5863],[59.0,"03-01",1499.2296],[90.0,"04-01",1304.9878],[120.0,"05-01",1221.6221],[151.0,"06-01",1276.3653],[181.0,"07-01",1274.0037],[212.0,"08-01",1210.3018],[243.0,"09-01",1300.6828],[273.0,"10-01",1289.8798],[304.0,"11-01",1389.8107],[334.0,"12-01",1451.391]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",1527.2132],[31.0,"02-01",1258.8412],[59.0,"03-01",1292.7925],[90.0,"04-01",944.9995],[120.0,"05-01",904.8559],[151.0,"06-01",838.5564],[181.0,"07-01",903.3595],[212.0,"08-01",904.5502],[243.0,"09-01",982.1361],[273.0,"10-01",1066.3529],[304.0,"11-01",1002.5014],[334.0,"12-01",1045.8062]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",1065.1783],[31.0,"02-01",826.4297],[59.0,"03-01",856.2088],[90.0,"04-01",799.2826],[120.0,"05-01",756.2453],[151.0,"06-01",776.9237],[181.0,"07-01",777.5617],[212.0,"08-01",835.9522],[243.0,"09-01",882.8494],[273.0,"10-01",949.0198],[304.0,"11-01",994.5124],[334.0,"12-01",1038.4439]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",1054.6435],[31.0,"02-01",935.8847],[59.0,"03-01",848.6347],[90.0,"04-01",782.3584],[120.0,"05-01",772.3603],[151.0,"06-01",702.7504],[181.0,"07-01",771.7101],[212.0,"08-01",786.5631],[243.0,"09-01",873.2741],[273.0,"10-01",969.4742],[304.0,"11-01",945.4855],[334.0,"12-01",930.6526]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",966.1109],[31.0,"02-01",894.7426]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"EU27发电供热硬煤投入","axisMin":0,"axisMax":1000,"ticks":[0,200,400,600,800,1000],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",650.9348],[31.0,"02-01",578.0109],[59.0,"03-01",633.4227],[90.0,"04-01",497.7678],[120.0,"05-01",436.7799],[151.0,"06-01",497.4833],[181.0,"07-01",529.1879],[212.0,"08-01",548.5353],[243.0,"09-01",698.0614],[273.0,"10-01",715.9411],[304.0,"11-01",725.412],[334.0,"12-01",863.9743]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",791.5299],[31.0,"02-01",728.6316],[59.0,"03-01",782.717],[90.0,"04-01",659.8311],[120.0,"05-01",582.5572],[151.0,"06-01",611.8779],[181.0,"07-01",606.3929],[212.0,"08-01",628.0127],[243.0,"09-01",718.1878],[273.0,"10-01",697.8033],[304.0,"11-01",781.5187],[334.0,"12-01",859.5665]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",901.9251],[31.0,"02-01",700.7933],[59.0,"03-01",684.7701],[90.0,"04-01",395.9734],[120.0,"05-01",373.3921],[151.0,"06-01",332.4564],[181.0,"07-01",327.1941],[212.0,"08-01",343.7328],[243.0,"09-01",444.2209],[273.0,"10-01",510.2185],[304.0,"11-01",536.4569],[334.0,"12-01",521.8314]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",533.5673],[31.0,"02-01",458.3125],[59.0,"03-01",361.2716],[90.0,"04-01",261.2441],[120.0,"05-01",229.3404],[151.0,"06-01",225.285],[181.0,"07-01",265.1606],[212.0,"08-01",280.2619],[243.0,"09-01",356.1016],[273.0,"10-01",479.4572],[304.0,"11-01",452.2662],[334.0,"12-01",435.9784]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",437.5482],[31.0,"02-01",427.513]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"荷兰硬煤月末库存","axisMin":40,"axisMax":120,"ticks":[40,60,80,100,120],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",55.6252],[31.0,"02-01",59.6995],[59.0,"03-01",68.9247],[90.0,"04-01",64.9527],[120.0,"05-01",59.2666],[151.0,"06-01",60.3918],[181.0,"07-01",60.7086],[212.0,"08-01",60.0959],[243.0,"09-01",52.6169],[273.0,"10-01",60.438],[304.0,"11-01",44.114],[334.0,"12-01",54.561]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",68.6387],[31.0,"02-01",68.3013],[59.0,"03-01",62.5149],[90.0,"04-01",82.1627],[120.0,"05-01",79.8766],[151.0,"06-01",53.3124],[181.0,"07-01",59.5893],[212.0,"08-01",68.5484],[243.0,"09-01",75.458],[273.0,"10-01",72.4711],[304.0,"11-01",76.6666],[334.0,"12-01",76.3957]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",98.5558],[31.0,"02-01",87.1505],[59.0,"03-01",94.3804],[90.0,"04-01",69.4435],[120.0,"05-01",78.4626],[151.0,"06-01",95.5253],[181.0,"07-01",100.0271],[212.0,"08-01",88.1068],[243.0,"09-01",85.6005],[273.0,"10-01",79.904],[304.0,"11-01",87.3202],[334.0,"12-01",87.9022]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",91.8762],[31.0,"02-01",81.0381],[59.0,"03-01",74.9004],[90.0,"04-01",67.0444],[120.0,"05-01",52.9062],[151.0,"06-01",48.204],[181.0,"07-01",63.8012],[212.0,"08-01",59.8571],[243.0,"09-01",81.4918],[273.0,"10-01",54.4603],[304.0,"11-01",67.7277],[334.0,"12-01",76.721]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",66.1773],[31.0,"02-01",49.9581],[59.0,"03-01",51.5784],[90.0,"04-01",71.7207],[120.0,"05-01",57.5049],[151.0,"06-01",74.7457],[181.0,"07-01",67.0166],[212.0,"08-01",88.4355],[243.0,"09-01",70.7381],[273.0,"10-01",83.6985],[304.0,"11-01",59.5173],[334.0,"12-01",63.4469]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",50.8427],[31.0,"02-01",68.1429],[59.0,"03-01",80.54],[90.0,"04-01",71.4663],[120.0,"05-01",68.8143],[151.0,"06-01",82.8465]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"荷兰硬煤内陆交付","axisMin":20,"axisMax":120,"ticks":[20,40,60,80,100,120],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",80.893],[31.0,"02-01",58.6492],[59.0,"03-01",66.0563],[90.0,"04-01",56.2993],[120.0,"05-01",52.3843],[151.0,"06-01",48.2066],[181.0,"07-01",82.0426],[212.0,"08-01",82.2285],[243.0,"09-01",72.3569],[273.0,"10-01",96.087],[304.0,"11-01",89.6428],[334.0,"12-01",101.3159]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",85.4808],[31.0,"02-01",58.7463],[59.0,"03-01",82.6538],[90.0,"04-01",61.3076],[120.0,"05-01",48.2794],[151.0,"06-01",73.4069],[181.0,"07-01",78.1467],[212.0,"08-01",82.0428],[243.0,"09-01",89.786],[273.0,"10-01",72.184],[304.0,"11-01",70.184],[334.0,"12-01",78.955]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",72.7709],[31.0,"02-01",73.5639],[59.0,"03-01",74.6047],[90.0,"04-01",61.5154],[120.0,"05-01",39.8708],[151.0,"06-01",28.044],[181.0,"07-01",34.4092],[212.0,"08-01",39.6073],[243.0,"09-01",39.6751],[273.0,"10-01",56.7207],[304.0,"11-01",57.9193],[334.0,"12-01",58.5478]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",57.8348],[31.0,"02-01",53.2732],[59.0,"03-01",56.3216],[90.0,"04-01",38.7079],[120.0,"05-01",44.1178],[151.0,"06-01",31.7836],[181.0,"07-01",37.5629],[212.0,"08-01",46.6943],[243.0,"09-01",49.3556],[273.0,"10-01",72.4495],[304.0,"11-01",71.6367],[334.0,"12-01",75.4108]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",85.6648],[31.0,"02-01",76.3767],[59.0,"03-01",83.5653],[90.0,"04-01",60.7512],[120.0,"05-01",35.3933],[151.0,"06-01",34.6391],[181.0,"07-01",48.2814],[212.0,"08-01",58.7436],[243.0,"09-01",49.0849],[273.0,"10-01",53.3306],[304.0,"11-01",70.7226],[334.0,"12-01",48.8443]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",77.102],[31.0,"02-01",67.2967],[59.0,"03-01",63.3547],[90.0,"04-01",62.4922],[120.0,"05-01",48.3138],[151.0,"06-01",51.7307]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"荷兰发电供热硬煤投入","axisMin":0,"axisMax":80,"ticks":[0,20,40,60,80],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",45.8152],[31.0,"02-01",28.437],[59.0,"03-01",32.4413],[90.0,"04-01",21.392],[120.0,"05-01",15.6484],[151.0,"06-01",15.0994],[181.0,"07-01",46.6001],[212.0,"08-01",44.8373],[243.0,"09-01",42.902],[273.0,"10-01",58.9121],[304.0,"11-01",55.4664],[334.0,"12-01",70.6825]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",50.0845],[31.0,"02-01",27.1497],[59.0,"03-01",46.7594],[90.0,"04-01",31.065],[120.0,"05-01",16.5776],[151.0,"06-01",37.576],[181.0,"07-01",45.3368],[212.0,"08-01",45.3074],[243.0,"09-01",60.5407],[273.0,"10-01",34.6915],[304.0,"11-01",36.585],[334.0,"12-01",50.5691]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",40.3272],[31.0,"02-01",44.1027],[59.0,"03-01",41.8252],[90.0,"04-01",33.5311],[120.0,"05-01",11.0607],[151.0,"06-01",2.0681],[181.0,"07-01",4.0837],[212.0,"08-01",8.6839],[243.0,"09-01",12.1006],[273.0,"10-01",29.1124],[304.0,"11-01",32.8006],[334.0,"12-01",29.6226]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",31.0283],[31.0,"02-01",22.9046],[59.0,"03-01",22.4038],[90.0,"04-01",8.8551],[120.0,"05-01",9.4437],[151.0,"06-01",1.19],[181.0,"07-01",1.937],[212.0,"08-01",11.7743],[243.0,"09-01",21.3652],[273.0,"10-01",38.9916],[304.0,"11-01",39.9905],[334.0,"12-01",39.5653]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",50.7303],[31.0,"02-01",49.8518],[59.0,"03-01",48.3511],[90.0,"04-01",29.7513],[120.0,"05-01",2.5469],[151.0,"06-01",5.3253],[181.0,"07-01",17.0355],[212.0,"08-01",25.3696],[243.0,"09-01",16.8845],[273.0,"10-01",24.047],[304.0,"11-01",35.9469],[334.0,"12-01",16.6033]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",45.4252],[31.0,"02-01",38.6121],[59.0,"03-01",31.4394],[90.0,"04-01",31.3452],[120.0,"05-01",18.2967],[151.0,"06-01",20.6869]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"德国硬煤月末库存","axisMin":0,"axisMax":0.2,"ticks":[0.0,0.2],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",0.0],[31.0,"02-01",0.0],[59.0,"03-01",0.0],[90.0,"04-01",0.0],[120.0,"05-01",0.0],[151.0,"06-01",0.0],[181.0,"07-01",0.0],[212.0,"08-01",0.0],[243.0,"09-01",0.0],[273.0,"10-01",0.0],[304.0,"11-01",0.0],[334.0,"12-01",0.0]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",0.0],[31.0,"02-01",0.0],[59.0,"03-01",0.0],[90.0,"04-01",0.0],[120.0,"05-01",0.0],[151.0,"06-01",0.0],[181.0,"07-01",0.0],[212.0,"08-01",0.0],[243.0,"09-01",0.0],[273.0,"10-01",0.0],[304.0,"11-01",0.0],[334.0,"12-01",0.0]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",0.0],[31.0,"02-01",0.0],[59.0,"03-01",0.0],[90.0,"04-01",0.0],[120.0,"05-01",0.0],[151.0,"06-01",0.0],[181.0,"07-01",0.0],[212.0,"08-01",0.0],[243.0,"09-01",0.0],[273.0,"10-01",0.0]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",0.0],[31.0,"02-01",0.0],[59.0,"03-01",0.0],[90.0,"04-01",0.0],[120.0,"05-01",0.0],[151.0,"06-01",0.0],[181.0,"07-01",0.0],[212.0,"08-01",0.0],[243.0,"09-01",0.0],[273.0,"10-01",0.0],[304.0,"11-01",0.0],[334.0,"12-01",0.0]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",0.0],[31.0,"02-01",0.0],[59.0,"03-01",0.0],[90.0,"04-01",0.0],[120.0,"05-01",0.0],[151.0,"06-01",0.0],[181.0,"07-01",0.0],[212.0,"08-01",0.0],[243.0,"09-01",0.0],[273.0,"10-01",0.0],[304.0,"11-01",0.0],[334.0,"12-01",0.0]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",0.0],[31.0,"02-01",0.0],[59.0,"03-01",0.0],[90.0,"04-01",0.0],[120.0,"05-01",0.0],[151.0,"06-01",0.0]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"德国硬煤内陆交付","axisMin":100,"axisMax":500,"ticks":[100,200,300,400,500],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",338.6251],[31.0,"02-01",283.0849],[59.0,"03-01",321.2369],[90.0,"04-01",225.017],[120.0,"05-01",250.5131],[151.0,"06-01",293.9932],[181.0,"07-01",272.5785],[212.0,"08-01",264.6805],[243.0,"09-01",358.4302],[273.0,"10-01",346.5625],[304.0,"11-01",291.4823],[334.0,"12-01",478.874]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",391.2579],[31.0,"02-01",354.0126],[59.0,"03-01",344.695],[90.0,"04-01",334.3438],[120.0,"05-01",322.0073],[151.0,"06-01",357.0286],[181.0,"07-01",290.2079],[212.0,"08-01",260.7167],[243.0,"09-01",341.627],[273.0,"10-01",305.3371],[304.0,"11-01",377.3577],[334.0,"12-01",312.7227]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",419.701],[31.0,"02-01",298.8838],[59.0,"03-01",343.0321],[90.0,"04-01",230.8721],[120.0,"05-01",204.8124],[151.0,"06-01",165.4136],[181.0,"07-01",207.5762],[212.0,"08-01",166.5197],[243.0,"09-01",176.6883],[273.0,"10-01",250.3313],[304.0,"11-01",227.418],[334.0,"12-01",234.004]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",308.6296],[31.0,"02-01",212.0365],[59.0,"03-01",188.3784],[90.0,"04-01",154.442],[120.0,"05-01",155.2726],[151.0,"06-01",168.7364],[181.0,"07-01",150.889],[212.0,"08-01",175.8643],[243.0,"09-01",225.1709],[273.0,"10-01",212.6216],[304.0,"11-01",242.9415],[334.0,"12-01",258.937]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",289.4133],[31.0,"02-01",238.2754],[59.0,"03-01",179.6903],[90.0,"04-01",187.0523],[120.0,"05-01",208.6173],[151.0,"06-01",158.1969],[181.0,"07-01",183.5559],[212.0,"08-01",171.1301],[243.0,"09-01",208.8962],[273.0,"10-01",207.862],[304.0,"11-01",225.124],[334.0,"12-01",213.6336]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",234.5661],[31.0,"02-01",223.4838],[59.0,"03-01",193.0454],[90.0,"04-01",197.6511],[120.0,"05-01",193.1572],[151.0,"06-01",197.9379]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"德国发电供热硬煤投入","axisMin":0,"axisMax":300,"ticks":[0,100,200,300],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",158.6464],[31.0,"02-01",129.3031],[59.0,"03-01",151.0112],[90.0,"04-01",95.9379],[120.0,"05-01",95.8777],[151.0,"06-01",142.5622],[181.0,"07-01",112.0591],[212.0,"08-01",123.003],[243.0,"09-01",176.3501],[273.0,"10-01",203.5701],[304.0,"11-01",169.7768],[334.0,"12-01",271.6526]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",237.9088],[31.0,"02-01",201.2543],[59.0,"03-01",194.9582],[90.0,"04-01",187.6774],[120.0,"05-01",169.4208],[151.0,"06-01",160.2371],[181.0,"07-01",97.7458],[212.0,"08-01",148.1692],[243.0,"09-01",206.1452],[273.0,"10-01",176.5054],[304.0,"11-01",223.6556],[334.0,"12-01",177.1815]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",256.9133],[31.0,"02-01",167.3351],[59.0,"03-01",178.3374],[90.0,"04-01",69.6478],[120.0,"05-01",80.2416],[151.0,"06-01",61.1189],[181.0,"07-01",48.2369],[212.0,"08-01",50.8664],[243.0,"09-01",70.4018],[273.0,"10-01",116.0431],[304.0,"11-01",144.186],[334.0,"12-01",108.8432]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",128.8975],[31.0,"02-01",82.1951],[59.0,"03-01",63.8186],[90.0,"04-01",25.0372],[120.0,"05-01",21.3367],[151.0,"06-01",28.3977],[181.0,"07-01",16.5045],[212.0,"08-01",43.629],[243.0,"09-01",93.2046],[273.0,"10-01",56.8035],[304.0,"11-01",96.4791],[334.0,"12-01",104.9724]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",141.2273],[31.0,"02-01",126.4189],[59.0,"03-01",87.2947],[90.0,"04-01",60.608],[120.0,"05-01",60.9515],[151.0,"06-01",47.6559],[181.0,"07-01",72.2881],[212.0,"08-01",63.4308],[243.0,"09-01",88.7151],[273.0,"10-01",113.1814],[304.0,"11-01",117.7671],[334.0,"12-01",100.716]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",125.5785],[31.0,"02-01",121.5741],[59.0,"03-01",89.3064],[90.0,"04-01",92.178],[120.0,"05-01",61.2749],[151.0,"06-01",85.4882]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"波兰硬煤月末库存","axisMin":0,"axisMax":2500,"ticks":[0,500,1000,1500,2000,2500],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",838.8667],[31.0,"02-01",789.5337],[59.0,"03-01",748.7829],[90.0,"04-01",723.1485],[120.0,"05-01",721.069],[151.0,"06-01",698.9137],[181.0,"07-01",642.2146],[212.0,"08-01",590.456],[243.0,"09-01",476.8169],[273.0,"10-01",499.3062],[304.0,"11-01",425.2115],[334.0,"12-01",423.9936]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",430.192],[31.0,"02-01",423.8786],[59.0,"03-01",425.3952],[90.0,"04-01",430.6501],[120.0,"05-01",442.2604],[151.0,"06-01",497.1682],[181.0,"07-01",528.9633],[212.0,"08-01",603.9282],[243.0,"09-01",703.4515],[273.0,"10-01",863.4288],[304.0,"11-01",1029.3678],[334.0,"12-01",1116.5282]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",1205.7873],[31.0,"02-01",1245.7886],[59.0,"03-01",1365.0],[90.0,"04-01",1413.2886],[120.0,"05-01",1536.3444],[151.0,"06-01",1680.3765],[181.0,"07-01",1750.0842],[212.0,"08-01",1826.3063],[243.0,"09-01",1848.3654],[273.0,"10-01",1872.2263],[304.0,"11-01",1931.3823],[334.0,"12-01",1883.6823]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",1861.4736],[31.0,"02-01",1941.3877],[59.0,"03-01",1927.1732],[90.0,"04-01",1925.0143],[120.0,"05-01",1965.5456],[151.0,"06-01",1979.8756],[181.0,"07-01",2048.0243],[212.0,"08-01",2071.3974],[243.0,"09-01",2076.3383],[273.0,"10-01",2134.0737],[304.0,"11-01",2131.0727],[334.0,"12-01",2076.0875]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",2053.0344],[31.0,"02-01",2015.0625],[59.0,"03-01",2021.0765],[90.0,"04-01",2015.0654],[120.0,"05-01",2017.2455],[151.0,"06-01",2025.5534],[181.0,"07-01",2041.5783],[212.0,"08-01",2058.5844],[243.0,"09-01",2038.0153],[273.0,"10-01",2015.0121],[304.0,"11-01",2012.5172],[334.0,"12-01",1921.1877]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",1854.2714],[31.0,"02-01",1812.2716],[59.0,"03-01",1782.9061],[90.0,"04-01",1738.4506],[120.0,"05-01",1748.262],[151.0,"06-01",1798.0545]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"波兰硬煤内陆交付","axisMin":200,"axisMax":700,"ticks":[200,300,400,500,600,700],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",498.5003],[31.0,"02-01",522.3945],[59.0,"03-01",604.5752],[90.0,"04-01",519.9673],[120.0,"05-01",472.9978],[151.0,"06-01",482.6779],[181.0,"07-01",527.7527],[212.0,"08-01",523.2324],[243.0,"09-01",570.0978],[273.0,"10-01",477.1334],[304.0,"11-01",573.0999],[334.0,"12-01",560.2261]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",524.1361],[31.0,"02-01",520.1557],[59.0,"03-01",610.4185],[90.0,"04-01",514.9891],[120.0,"05-01",470.7216],[151.0,"06-01",450.7042],[181.0,"07-01",482.6683],[212.0,"08-01",474.5397],[243.0,"09-01",464.3427],[273.0,"10-01",526.7089],[304.0,"11-01",553.1079],[334.0,"12-01",581.7437]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",598.1337],[31.0,"02-01",506.7536],[59.0,"03-01",491.4758],[90.0,"04-01",377.2155],[120.0,"05-01",368.868],[151.0,"06-01",329.3866],[181.0,"07-01",340.3528],[212.0,"08-01",391.2774],[243.0,"09-01",459.306],[273.0,"10-01",484.4364],[304.0,"11-01",414.1919],[334.0,"12-01",465.9137]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",414.0153],[31.0,"02-01",300.5892],[59.0,"03-01",350.8277],[90.0,"04-01",359.9705],[120.0,"05-01",313.8119],[151.0,"06-01",342.67],[181.0,"07-01",340.633],[212.0,"08-01",359.4384],[243.0,"09-01",372.3437],[273.0,"10-01",391.1947],[304.0,"11-01",409.7778],[334.0,"12-01",438.5366]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",429.3357],[31.0,"02-01",377.3117],[59.0,"03-01",339.6978],[90.0,"04-01",303.9843],[120.0,"05-01",305.3391],[151.0,"06-01",302.3126],[181.0,"07-01",329.9703],[212.0,"08-01",335.979],[243.0,"09-01",404.3476],[273.0,"10-01",487.2956],[304.0,"11-01",427.509],[334.0,"12-01",446.8943]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",424.1149],[31.0,"02-01",415.2664],[59.0,"03-01",436.3449],[90.0,"04-01",410.9332],[120.0,"05-01",385.6829],[151.0,"06-01",335.1713]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article><article class="chart-card seasonal-card"><canvas class="chart-canvas seasonal-chart-canvas" data-chart='{"type":"seasonal","title":"波兰发电供热硬煤投入","axisMin":100,"axisMax":500,"ticks":[100,200,300,400,500],"series":[{"year":2021,"color":"#9aa4b2","width":2.0,"points":[[0,"01-01",268.6527],[31.0,"02-01",298.1687],[59.0,"03-01",334.8995],[90.0,"04-01",281.8882],[120.0,"05-01",256.1853],[151.0,"06-01",248.0792],[181.0,"07-01",271.4389],[212.0,"08-01",288.6142],[243.0,"09-01",317.4985],[273.0,"10-01",301.1166],[304.0,"11-01",311.8907],[334.0,"12-01",316.0601]]},{"year":2022,"color":"#7a7f87","width":2.0,"points":[[0,"01-01",306.0746],[31.0,"02-01",311.6721],[59.0,"03-01",348.9796],[90.0,"04-01",302.592],[120.0,"05-01",278.2301],[151.0,"06-01",269.2342],[181.0,"07-01",294.3847],[212.0,"08-01",289.88],[243.0,"09-01",288.585],[273.0,"10-01",340.458],[304.0,"11-01",362.3573],[334.0,"12-01",385.3643]]},{"year":2023,"color":"#9bb7e5","width":2.0,"points":[[0,"01-01",408.5529],[31.0,"02-01",323.6583],[59.0,"03-01",308.1577],[90.0,"04-01",240.6006],[120.0,"05-01",224.2603],[151.0,"06-01",178.9018],[181.0,"07-01",190.4027],[212.0,"08-01",205.4593],[243.0,"09-01",271.3437],[273.0,"10-01",304.1347],[304.0,"11-01",265.2543],[334.0,"12-01",307.9581]]},{"year":2024,"color":"#1689d8","width":2.0,"points":[[0,"01-01",252.5639],[31.0,"02-01",188.8111],[59.0,"03-01",202.3765],[90.0,"04-01",188.0695],[120.0,"05-01",170.3148],[151.0,"06-01",177.5096],[181.0,"07-01",173.0236],[212.0,"08-01",195.5997],[243.0,"09-01",216.0323],[273.0,"10-01",229.0972],[304.0,"11-01",268.4874],[334.0,"12-01",288.7689]]},{"year":2025,"color":"#17376b","width":2.0,"points":[[0,"01-01",294.0006],[31.0,"02-01",226.7944],[59.0,"03-01",187.4866],[90.0,"04-01",140.5962],[120.0,"05-01",146.795],[151.0,"06-01",153.884],[181.0,"07-01",158.0593],[212.0,"08-01",172.6324],[243.0,"09-01",230.4202],[273.0,"10-01",317.2831],[304.0,"11-01",269.0752],[334.0,"12-01",289.601]]},{"year":2026,"color":"#d92116","width":3.6,"points":[[0,"01-01",238.5625],[31.0,"02-01",239.0539],[59.0,"03-01",243.8879],[90.0,"04-01",225.059],[120.0,"05-01",205.6394],[151.0,"06-01",190.8455]]}],"maxGapDays":0,"observationFrequency":"monthly","missingPolicy":"保留原缺值；仅连接相邻实际观测，不按日期间隔断线"}' data-logical-height="320" data-logical-width="520" height="1" style="aspect-ratio:520/320" width="1"></canvas><div class="legend"><span><i style="background:#9aa4b2"></i>2021</span><span><i style="background:#7a7f87"></i>2022</span><span><i style="background:#9bb7e5"></i>2023</span><span><i style="background:#1689d8"></i>2024</span><span><i style="background:#0b2f66"></i>2025</span><span><i style="background:#e00000"></i>2026</span></div></article></div><p class="source-note">来源：Eurostat nrg_cb_sffm国家硬煤口径；不是ARA港口库存，也不是动力煤专属库存。ARA订阅库存未接入，未作替代。</p></div></div></div><div id="thermal-overseas-europe-ara"><h4>2.3.2 欧洲ARA周度煤炭库存</h4><div class="interactive-data-block"><div class="data-head"><strong>欧洲ARA周度煤炭库存</strong><span>单位：百万吨；用户提供Argus周度原图</span></div><img alt="欧洲ARA周度煤炭库存" decoding="async" loading="lazy" src="海外煤电重点国家数据20261019_assets/0b8bfe0f1052140c4362dcd8.png" style="display:block;width:100%;height:auto;margin:8px auto;"/></div></div></section></section></main></div><div class="modal" id="image-modal"><button type="button">关闭</button><img alt="放大预览"/></div><div aria-label="可编辑文字工具条" class="edit-toolbar" id="edit-toolbar">
+<button data-cmd="bold" type="button">加粗</button>
+<button class="red-btn" data-cmd="foreColor" data-value="#c00000" type="button">标红</button>
+<button data-cmd="removeFormat" type="button">清格式</button>
+<button class="save-btn" id="save-edits" title="保存当前所有可编辑文字" type="button">保存文字</button>
+<span class="edit-save-hint">自动保存</span>
+</div><div class="chart-tip" id="chart-tip"></div><script>
+
+
+
+
+
+
+
+    const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+
+
+
+
+
+
+
+    const panels = Array.from(document.querySelectorAll('.report-panel'));
+
+
+
+
+
+
+
+    const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+
+
+
+
+
+
+
+    function activatePanel(target) {
+
+
+
+
+
+
+
+      tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.target === target));
+
+
+
+
+
+
+
+      panels.forEach(panel => panel.classList.toggle('active', panel.id === target));
+      window.releaseOverseasHidden?.();
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+
+
+
+
+
+
+
+      activatePanel(tab.dataset.target);
+
+
+
+
+
+
+
+      history.replaceState(null, '', '#' + tab.dataset.target);
+
+
+
+
+
+
+
+    }));
+
+
+
+
+
+
+
+    tocLinks.forEach(link => link.addEventListener('click', (event) => {
+
+
+
+
+
+
+
+      event.preventDefault();
+
+
+
+
+
+
+
+      const id = link.getAttribute('href').slice(1);
+
+
+
+
+
+
+
+      activatePanel(link.dataset.panel);
+
+
+
+
+
+
+
+      document.getElementById(id)?.scrollIntoView({behavior:'smooth', block:'start'});
+
+
+
+
+
+
+
+      history.replaceState(null, '', '#' + id);
+
+
+
+
+
+
+
+      tocLinks.forEach(a => a.classList.toggle('active', a === link));
+
+
+
+
+
+
+
+    }));
+
+
+
+
+
+
+
+    const initial = location.hash.replace('#', '');
+
+
+
+
+
+
+
+    const initialLink = tocLinks.find(link => link.getAttribute('href') === '#' + initial);
+
+
+
+
+
+
+
+    if (initialLink) {
+
+
+
+
+
+
+
+      activatePanel(initialLink.dataset.panel);
+
+
+
+
+
+
+
+      setTimeout(() => document.getElementById(initial)?.scrollIntoView({block:'start'}), 0);
+
+
+
+
+
+
+
+    } else if (tabs.some(tab => tab.dataset.target === initial)) activatePanel(initial);
+
+
+
+
+
+
+
+    document.querySelectorAll('.copy-table').forEach(button => button.addEventListener('click', () => {
+
+
+
+
+
+
+
+      const table = button.closest('.subpanel').querySelector('table');
+
+
+
+
+
+
+
+      const text = Array.from(table.rows).map(row => Array.from(row.cells).map(cell => cell.innerText.trim()).join('\t')).join('\n');
+
+
+
+
+
+
+
+      navigator.clipboard?.writeText(text);
+
+
+
+
+
+
+
+      button.textContent = '已复制';
+
+
+
+
+
+
+
+      setTimeout(() => button.textContent = '复制表格', 1200);
+
+
+
+
+
+
+
+    }));
+
+
+
+
+
+
+
+    const editToolbar = document.getElementById('edit-toolbar');
+
+
+
+
+
+
+
+    const editStoragePrefix = 'overseas-coal-mobile-20261019:';
+
+
+
+
+
+
+
+    let activeEditable = null;
+
+
+
+
+
+
+
+    function positionEditToolbar(target) {
+
+
+
+
+
+
+
+      const rect = target.getBoundingClientRect();
+
+
+
+
+
+
+
+      editToolbar.style.left = Math.min(window.innerWidth - 280, Math.max(8, rect.left)) + 'px';
+
+
+
+
+
+
+
+      editToolbar.style.top = Math.max(8, rect.top - 46) + 'px';
+
+
+
+
+
+
+
+      editToolbar.classList.add('active');
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+    function persistEditable(target) {
+
+
+
+
+
+
+
+      if (!target?.dataset?.editId) return;
+
+
+
+
+
+
+
+      try {
+
+
+
+
+
+
+
+        localStorage.setItem(editStoragePrefix + target.dataset.editId, target.innerHTML);
+
+
+
+
+
+
+
+      } catch (err) {}
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+    function stableEditId(el, idx) {
+
+
+
+
+
+
+
+      const section = el.closest('section[id]');
+
+
+
+
+
+
+
+      const table = el.closest('table');
+
+
+
+
+
+
+
+      const row = el.closest('tr');
+
+
+
+
+
+
+
+      const cell = el.closest('th,td');
+
+
+
+
+
+
+
+      const rowIndex = row ? Array.from(row.parentElement.children).indexOf(row) : -1;
+
+
+
+
+
+
+
+      const cellIndex = cell && row ? Array.from(row.children).indexOf(cell) : -1;
+
+
+
+
+
+
+
+      const tag = el.tagName.toLowerCase();
+
+
+
+
+
+
+
+      return [section?.id || 'page', table?.className || 'note', tag, rowIndex, cellIndex, idx].join(':');
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+    function persistAllEditables() {
+
+
+
+
+
+
+
+      document.querySelectorAll('[contenteditable="true"]').forEach(el => persistEditable(el));
+
+
+
+
+
+
+
+      const btn = document.getElementById('save-edits');
+
+
+
+
+
+
+
+      if (btn) {
+
+
+
+
+
+
+
+        btn.textContent = '已保存';
+
+
+
+
+
+
+
+        setTimeout(() => btn.textContent = '保存文字', 1200);
+
+
+
+
+
+
+
+      }
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+    document.querySelectorAll('[contenteditable="true"]').forEach((el, idx) => {
+
+
+
+
+
+
+
+      el.dataset.editId = el.dataset.editId || stableEditId(el, idx);
+
+
+
+
+
+
+
+      try {
+
+
+
+
+
+
+
+        const saved = localStorage.getItem(editStoragePrefix + el.dataset.editId);
+
+
+
+
+
+
+
+        if (saved !== null) el.innerHTML = saved;
+
+
+
+
+
+
+
+      } catch (err) {}
+
+
+
+
+
+
+
+      el.addEventListener('focus', () => {
+
+
+
+
+
+
+
+        activeEditable = el;
+
+
+
+
+
+
+
+        positionEditToolbar(el);
+
+
+
+
+
+
+
+      });
+
+
+
+
+
+
+
+      el.addEventListener('input', () => persistEditable(el));
+
+
+
+
+
+
+
+      el.addEventListener('mouseup', () => positionEditToolbar(el));
+
+
+
+
+
+
+
+      el.addEventListener('keyup', () => positionEditToolbar(el));
+
+
+
+
+
+
+
+    });
+
+
+
+
+
+
+
+    editToolbar.querySelectorAll('button[data-cmd]').forEach(button => button.addEventListener('mousedown', event => {
+
+
+
+
+
+
+
+      event.preventDefault();
+
+
+
+
+
+
+
+      if (!activeEditable) return;
+
+
+
+
+
+
+
+      activeEditable.focus();
+
+
+
+
+
+
+
+      document.execCommand(button.dataset.cmd, false, button.dataset.value || null);
+
+
+
+
+
+
+
+      persistEditable(activeEditable);
+
+
+
+
+
+
+
+    }));
+
+
+
+
+
+
+
+    document.getElementById('save-edits')?.addEventListener('mousedown', event => {
+
+
+
+
+
+
+
+      event.preventDefault();
+
+
+
+
+
+
+
+      persistAllEditables();
+
+
+
+
+
+
+
+    });
+
+
+
+
+
+
+
+    document.addEventListener('mousedown', event => {
+
+
+
+
+
+
+
+      if (event.target.closest('[contenteditable="true"]') || event.target.closest('#edit-toolbar')) return;
+
+
+
+
+
+
+
+      editToolbar.classList.remove('active');
+
+
+
+
+
+
+
+    });
+
+
+
+
+
+
+
+    window.addEventListener('scroll', () => {
+
+
+
+
+
+
+
+      if (activeEditable && document.activeElement === activeEditable) positionEditToolbar(activeEditable);
+
+
+
+
+
+
+
+    }, { passive:true });
+
+
+
+
+
+
+
+    const modal = document.getElementById('image-modal');
+
+
+
+
+
+
+
+    const modalImg = modal.querySelector('img');
+
+
+
+
+
+
+
+    document.querySelectorAll('.image-zoom').forEach(btn => btn.addEventListener('click', () => {
+
+
+
+
+
+
+
+      const embeddedImg = btn.querySelector('img');
+
+
+
+
+
+
+
+      modalImg.src = embeddedImg?.currentSrc || embeddedImg?.src || btn.dataset.src;
+
+
+
+
+
+
+
+      modal.classList.add('active');
+
+
+
+
+
+
+
+    }));
+
+
+
+
+
+
+
+    modal.querySelector('button').addEventListener('click', () => modal.classList.remove('active'));
+
+
+
+
+
+
+
+    modal.addEventListener('click', event => { if (event.target === modal) modal.classList.remove('active'); });
+
+
+
+
+
+
+
+    const chartTip = document.getElementById('chart-tip');
+
+
+
+
+
+
+
+    function fmtChartValue(value) {
+
+
+
+
+
+
+
+      if (!Number.isFinite(value)) return '';
+
+
+
+
+
+
+
+      if (Math.abs(value) >= 100) return value.toFixed(0);
+
+
+
+
+
+
+
+      if (Math.abs(value) >= 10) return value.toFixed(1);
+
+
+
+
+
+
+
+      return value.toFixed(2).replace(/\.00$/, '').replace(/0$/, '');
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+    function fmtDisplayValue(value, format) {
+
+
+
+
+
+
+
+      if (!Number.isFinite(value)) return '';
+
+
+
+
+
+
+
+      if (format === 'percent') {
+
+
+
+
+
+
+
+        const percentValue = value * 100;
+
+
+
+
+
+
+
+        const label = Math.abs(percentValue - Math.round(percentValue)) < 1e-9 ? String(Math.round(percentValue)) : percentValue.toFixed(1).replace(/\.0$/, '');
+
+
+
+
+
+
+
+        return `${label}%`;
+
+
+
+
+
+
+
+      }
+
+
+
+
+
+
+
+      return fmtChartValue(value);
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+    function cleanTick(value, format) {
+
+
+
+
+
+
+
+      if (format === 'percent') return `${Math.round(value * 100)}%`;
+
+
+
+
+
+
+
+      return Math.abs(value - Math.round(value)) < 1e-9 ? String(Math.round(value)) : fmtChartValue(value);
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+    function drawCanvasChart(canvas) {
+
+
+
+
+
+
+
+      const data = JSON.parse(canvas.dataset.chart || '{}');
+
+
+
+
+
+
+
+      const ctx = canvas.getContext('2d');
+
+
+
+
+
+
+
+      const w = Number(canvas.dataset.logicalWidth || canvas.getAttribute('width')) || 760; canvas.dataset.logicalWidth = w;
+
+
+
+
+
+
+
+      const h = Number(canvas.dataset.logicalHeight || canvas.getAttribute('height')) || 420; canvas.dataset.logicalHeight = h;
+
+
+
+
+
+
+
+      const dpr = window.devicePixelRatio || 1;
+
+
+
+
+
+
+
+      canvas.width = Math.round(w * dpr);
+
+
+
+
+
+
+
+      canvas.height = Math.round(h * dpr);
+
+
+
+
+
+
+
+      canvas.style.aspectRatio = `${w} / ${h}`;
+
+
+
+
+
+
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+
+
+
+
+
+
+      ctx.clearRect(0, 0, w, h);
+
+
+
+
+
+
+
+      ctx.lineCap = 'round';
+
+
+
+
+
+
+
+      ctx.lineJoin = 'round';
+
+
+
+
+
+
+
+      const left = data.type === 'seasonal' ? 66 : 56;
+
+
+
+
+
+
+
+      const top = data.type === 'seasonal' ? 34 : 30;
+
+
+
+
+
+
+
+      const right = 24;
+
+
+
+
+
+
+
+      const bottom = data.type === 'seasonal' ? 46 : 40;
+
+
+
+
+
+
+
+      const pw = w - left - right;
+
+
+
+
+
+
+
+      const ph = h - top - bottom;
+
+
+
+
+
+
+
+      ctx.fillStyle = '#0b2f66';
+
+
+
+
+
+
+
+      ctx.font = '800 16px "Times New Roman", KaiTi, STKaiti, SimKai, serif';
+
+
+
+
+
+
+
+      ctx.fillText(data.title || '', left, 23);
+
+
+
+
+
+
+
+      ctx.font = '13px "Times New Roman", KaiTi, STKaiti, SimKai, serif';
+
+
+
+
+
+
+
+      ctx.strokeStyle = '#d7dce5';
+
+
+
+
+
+
+
+      ctx.setLineDash([4, 4]);
+
+
+
+
+
+
+
+      ctx.fillStyle = '#667085';
+
+
+
+
+
+
+
+      const hoverPoints = [];
+
+
+
+
+
+
+
+      if (data.type === 'timeline-bar') {
+
+
+
+        const pairs = (data.pairs || []).filter(p => p[1] !== null && Number.isFinite(Number(p[1])));
+
+
+
+        const start = Date.parse(data.dateStart), end = Date.parse(data.dateEnd);
+
+
+
+        const span = Math.max(86400000, end-start);
+
+
+
+        const xpos = d => left + pw * (Date.parse(d)-start) / span;
+
+
+
+        [0,.2,.4,.6,.8,1].forEach(v => {
+
+
+
+          const y=top+ph*(1-v);ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-right,y);ctx.stroke();
+
+
+
+          ctx.fillText(`${Math.round(v*100)}%`,left-44,y+4);
+
+
+
+        });
+
+
+
+        (data.xTicks || []).forEach(d=>{
+
+
+
+          const x=xpos(d);ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,top+ph);ctx.stroke();
+
+
+
+          ctx.textAlign='center';ctx.fillText(d.slice(0,7),x,h-13);ctx.textAlign='left';
+
+
+
+        });
+
+
+
+        ctx.setLineDash([]);const barWidth=Math.max(1,pw/(span/86400000+1)*.82);
+
+
+
+        pairs.forEach(p=>{
+
+
+
+          const value=Number(p[1]),x=xpos(p[0]),y=top+ph*(1-value);
+
+
+
+          ctx.fillStyle='#c9271c';ctx.fillRect(x-barWidth/2,y,barWidth,Math.max(1,top+ph-y));
+
+
+
+          hoverPoints.push({type:'timeline-bar',date:p[0],value,format:'percent',x,y,title:data.title});
+
+
+
+        });
+
+
+
+        ctx.restore();canvas._hoverPoints=hoverPoints;return;
+
+
+
+      }
+
+
+
+
+
+
+
+      if (data.type === 'seasonal') {
+
+
+
+
+
+
+
+        const mn = Number(data.axisMin);
+
+
+
+
+
+
+
+        const mx = Number(data.axisMax);
+
+
+
+
+
+
+
+        const valueFormat = data.valueFormat || '';
+
+
+
+
+
+
+
+        const chartKind = data.chartKind || 'line';
+
+
+
+
+
+
+
+        (data.ticks || []).slice().reverse().forEach(value => {
+
+
+
+
+
+
+
+          const y = top + ph * (mx - value) / (mx - mn);
+
+
+
+
+
+
+
+          ctx.beginPath();
+
+
+
+
+
+
+
+          ctx.moveTo(left, y);
+
+
+
+
+
+
+
+          ctx.lineTo(w - right, y);
+
+
+
+
+
+
+
+          ctx.stroke();
+
+
+
+
+
+
+
+          ctx.fillText(cleanTick(value, valueFormat), left - 54, y + 4);
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+        if (mn < 0 && mx > 0) {
+
+
+
+
+
+
+
+          const y0 = top + ph * mx / (mx - mn);
+
+
+
+
+
+
+
+          ctx.save();
+
+
+
+
+
+
+
+          ctx.setLineDash([]);
+
+
+
+
+
+
+
+          ctx.strokeStyle = '#475467';
+
+
+
+
+
+
+
+          ctx.lineWidth = 2.2;
+
+
+
+
+
+
+
+          ctx.beginPath();
+
+
+
+
+
+
+
+          ctx.moveTo(left, y0);
+
+
+
+
+
+
+
+          ctx.lineTo(w - right, y0);
+
+
+
+
+
+
+
+          ctx.stroke();
+
+
+
+
+
+
+
+          ctx.restore();
+
+
+
+
+
+
+
+          ctx.strokeStyle = '#d7dce5';
+
+
+
+
+
+
+
+          ctx.setLineDash([4, 4]);
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+        [['1月',0], ['3月',59], ['5月',120], ['7月',181], ['9月',243], ['11月',304]].forEach(([label, day]) => {
+
+
+
+
+
+
+
+          const x = left + pw * day / 364;
+
+
+
+
+
+
+
+          ctx.beginPath();
+
+
+
+
+
+
+
+          ctx.moveTo(x, top);
+
+
+
+
+
+
+
+          ctx.lineTo(x, top + ph);
+
+
+
+
+
+
+
+          ctx.stroke();
+
+
+
+
+
+
+
+          ctx.textAlign = 'center';
+
+
+
+
+
+
+
+          ctx.fillText(label, x, h - 18);
+
+
+
+
+
+
+
+          ctx.textAlign = 'left';
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+        ctx.setLineDash([]);
+
+
+
+
+
+
+
+        if (data.plotClip) {ctx.save();ctx.beginPath();ctx.rect(left,top,pw,ph);ctx.clip();}
+
+        const seriesList = data.series || [];
+
+
+
+
+
+
+
+        seriesList.forEach((s, seriesIdx) => {
+
+
+
+
+
+
+
+          const pts = (s.points || []).filter(p => p[2] !== null && p[2] !== '' && Number.isFinite(Number(p[2])));
+
+
+
+
+
+
+
+          if (!pts.length) return;
+
+
+
+
+
+
+
+          if (chartKind === 'bar') {
+
+
+
+
+
+
+
+            const count = Math.max(1, seriesList.length);
+
+
+
+
+
+
+
+            const slot = Math.max(3, Math.min(8, pw / 140));
+
+
+
+
+
+
+
+            const barWidth = Math.max(2, slot * 0.78);
+
+
+
+
+
+
+
+            const baseValue = Math.max(mn, Math.min(mx, 0));
+
+
+
+
+
+
+
+            const baseY = top + ph * (mx - baseValue) / (mx - mn);
+
+
+
+
+
+
+
+            ctx.fillStyle = s.color || '#0b2f66';
+
+
+
+
+
+
+
+            pts.forEach(p => {
+
+
+
+
+
+
+
+              const x = left + pw * Number(p[0]) / 364 + (seriesIdx - (count - 1) / 2) * slot;
+
+
+
+
+
+
+
+              const rawValue = Number(p[2]);
+
+
+
+
+
+
+
+              const cappedValue = Math.max(mn, Math.min(mx, rawValue));
+
+
+
+
+
+
+
+              const y = top + ph * (mx - cappedValue) / (mx - mn);
+
+
+
+
+
+
+
+              const barTop = Math.min(y, baseY);
+
+
+
+
+
+
+
+              const barHeight = Math.max(1, Math.abs(baseY - y));
+
+
+
+
+
+
+
+              ctx.globalAlpha = Number(s.year) === Number((seriesList[seriesList.length - 1] || {}).year) ? 0.9 : 0.45;
+
+
+
+
+
+
+
+              ctx.fillRect(x - barWidth / 2, barTop, barWidth, barHeight);
+
+
+
+
+
+
+
+              ctx.globalAlpha = 1;
+
+
+
+
+
+
+
+              hoverPoints.push({type:'seasonal', year:s.year, date:p[1], value:rawValue, format:valueFormat, x, y, title:data.title});
+
+
+
+
+
+
+
+            });
+
+
+
+
+
+
+
+          } else {
+
+
+
+
+
+
+
+            ctx.strokeStyle = s.color || '#0b2f66';
+
+
+
+
+
+
+
+            ctx.lineWidth = Number(s.width) || 2.2;
+
+
+
+
+
+
+
+            ctx.beginPath();
+
+
+
+
+
+
+
+            pts.forEach((p, idx) => {
+
+
+
+
+
+
+
+              const x = left + pw * Number(p[0]) / 364;
+
+
+
+
+
+
+
+              const y = top + ph * (mx - Number(p[2])) / (mx - mn);
+
+
+
+
+
+
+
+              if (idx === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+
+
+
+
+
+
+
+              hoverPoints.push({type:'seasonal', year:s.year, date:p[1], value:Number(p[2]), format:valueFormat, x, y, title:data.title});
+
+
+
+
+
+
+
+            });
+
+
+
+
+
+
+
+            ctx.stroke();
+
+
+
+
+
+
+
+            const last = pts[pts.length - 1];
+
+
+
+
+
+
+
+            const lx = left + pw * Number(last[0]) / 364;
+
+
+
+
+
+
+
+            const ly = top + ph * (mx - Number(last[2])) / (mx - mn);
+
+
+
+
+
+
+
+            ctx.fillStyle = s.color || '#0b2f66';
+
+
+
+
+
+
+
+            ctx.beginPath();
+
+
+
+
+
+
+
+            ctx.arc(lx, ly, 3.8, 0, Math.PI * 2);
+
+
+
+
+
+
+
+            ctx.fill();
+
+
+
+
+
+
+
+          }
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+        if (data.plotClip) ctx.restore();
+
+        ctx.restore();
+
+
+
+
+
+
+
+        if (data.latestAnnotation) {
+
+
+
+
+
+
+
+          ctx.save();
+
+
+
+
+
+
+
+          ctx.textAlign = 'right';
+
+
+
+
+
+
+
+          ctx.fillStyle = data.latestAnnotation.color || '#e00000';
+
+
+
+
+
+
+
+          ctx.font = '700 17px KaiTi, "Microsoft YaHei", sans-serif';
+
+
+
+
+
+
+
+          ctx.fillText(data.latestAnnotation.text || '', w - right, top - 10);
+
+
+
+
+
+
+
+          ctx.restore();
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+      } else {
+
+
+
+
+
+
+
+        const pairs = (data.pairs || []).filter(p => Number.isFinite(Number(p[1])));
+
+
+
+
+
+
+
+        const vals = pairs.map(p => Number(p[1]));
+
+
+
+
+
+
+
+        let mn = Math.min(...vals);
+
+
+
+
+
+
+
+        let mx = Math.max(...vals);
+
+
+
+
+
+
+
+        if (Math.abs(mx - mn) < 1e-9) { mn -= 1; mx += 1; }
+
+
+
+
+
+
+
+        const pad = (mx - mn) * 0.08;
+
+
+
+
+
+
+
+        mn -= pad; mx += pad;
+
+
+
+
+
+
+
+        for (let t = 0; t < 5; t += 1) {
+
+
+
+
+
+
+
+          const y = top + ph * t / 4;
+
+
+
+
+
+
+
+          const val = mx - (mx - mn) * t / 4;
+
+
+
+
+
+
+
+          ctx.beginPath();
+
+
+
+
+
+
+
+          ctx.moveTo(left, y);
+
+
+
+
+
+
+
+          ctx.lineTo(w - right, y);
+
+
+
+
+
+
+
+          ctx.stroke();
+
+
+
+
+
+
+
+          ctx.fillText(cleanTick(val), left - 42, y + 4);
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+        ctx.setLineDash([]);
+
+
+
+
+
+
+
+        ctx.strokeStyle = data.color || '#0b2f66';
+
+
+
+
+
+
+
+        ctx.lineWidth = 2.4;
+
+
+
+
+
+
+
+        ctx.beginPath();
+
+
+
+
+
+
+
+        pairs.forEach((p, idx) => {
+
+
+
+
+
+
+
+          const x = left + pw * idx / Math.max(1, pairs.length - 1);
+
+
+
+
+
+
+
+          const y = top + ph * (mx - Number(p[1])) / (mx - mn);
+
+
+
+
+
+
+
+          if (idx === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+
+
+
+
+
+
+
+          hoverPoints.push({type:'line', date:p[0], value:Number(p[1]), x, y, title:data.title});
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+        ctx.stroke();
+
+
+
+
+
+
+
+        ctx.fillStyle = data.color || '#0b2f66';
+
+
+
+
+
+
+
+        const last = hoverPoints[hoverPoints.length - 1];
+
+
+
+
+
+
+
+        if (last) {
+
+
+
+
+
+
+
+          ctx.beginPath();
+
+
+
+
+
+
+
+          ctx.arc(last.x, last.y, 4.5, 0, Math.PI * 2);
+
+
+
+
+
+
+
+          ctx.fill();
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+        ctx.fillStyle = '#667085';
+
+
+
+
+
+
+
+        if (pairs[0]) ctx.fillText(pairs[0][0], left, h - 10);
+
+
+
+
+
+
+
+        if (pairs[pairs.length - 1]) {
+
+
+
+
+
+
+
+          ctx.textAlign = 'right';
+
+
+
+
+
+
+
+          ctx.fillText(pairs[pairs.length - 1][0], w - right, h - 10);
+
+
+
+
+
+
+
+          ctx.textAlign = 'left';
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+      }
+
+
+
+
+
+
+
+      canvas._hoverPoints = hoverPoints;
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+    function releaseChart(c) { c.width=1;c.height=1;c._hoverPoints=[];c.dataset.rendered='0'; }
+    function renderChart(c) { if(c.dataset.rendered!=='1'){drawCanvasChart(c);c.dataset.rendered='1';} }
+    const chartObserver = new IntersectionObserver(entries => entries.forEach(e => {
+      if(e.isIntersecting) renderChart(e.target); else releaseChart(e.target);
+    }), {rootMargin:'240px 0px'});
+    window.releaseOverseasHidden = () => document.querySelectorAll('.report-panel:not(.active) canvas.chart-canvas[data-chart]').forEach(releaseChart);
+    window.addEventListener('beforeprint',()=>document.querySelectorAll('canvas.chart-canvas[data-chart]').forEach(renderChart));
+    window.addEventListener('afterprint',()=>{window.releaseOverseasHidden();document.querySelectorAll('canvas.chart-canvas[data-chart]').forEach(c=>{chartObserver.unobserve(c);chartObserver.observe(c);});});
+
+    function bindCanvasCharts(root = document) {
+
+
+
+
+
+
+
+      root.querySelectorAll('.chart-canvas:not([data-rendered])').forEach(canvas => {
+
+
+
+
+
+
+
+        canvas.dataset.rendered = '0';
+
+
+
+
+
+
+
+        chartObserver.observe(canvas);
+
+
+
+
+
+
+
+        canvas.addEventListener('mousemove', event => {
+
+
+
+
+
+
+
+          const rect = canvas.getBoundingClientRect();
+
+
+
+
+
+
+
+          const w = Number(canvas.getAttribute('width')) || 620;
+
+
+
+
+
+
+
+          const x = (event.clientX - rect.left) * w / rect.width;
+
+
+
+
+
+
+
+          const points = canvas._hoverPoints || [];
+
+
+
+
+
+
+
+          if (!points.length) return;
+
+
+
+
+
+
+
+          if (points[0].type === 'seasonal') {
+
+
+
+
+
+
+
+            const grouped = new Map();
+
+
+
+
+
+
+
+            points.forEach(point => {
+
+
+
+
+
+
+
+              if (!grouped.has(point.year)) grouped.set(point.year, []);
+
+
+
+
+
+
+
+              grouped.get(point.year).push(point);
+
+
+
+
+
+
+
+            });
+
+
+
+
+
+
+
+            const years = Array.from(grouped.keys()).sort((a, b) => Number(b) - Number(a));
+
+
+
+
+
+
+
+            const anchorYear = years[0];
+
+
+
+
+
+
+
+            const anchorCandidates = grouped.get(anchorYear) || [];
+
+
+
+
+
+
+
+            let anchor = anchorCandidates[0];
+
+
+
+
+
+
+
+            anchorCandidates.forEach(point => {
+
+
+
+
+
+
+
+              if (!anchor || Math.abs(point.x - x) < Math.abs(anchor.x - x)) anchor = point;
+
+
+
+
+
+
+
+            });
+
+
+
+
+
+
+
+            const anchorX = anchor ? anchor.x : x;
+
+
+
+
+
+
+
+            const formatPointValue = point => {
+
+
+
+
+
+
+
+              if (point.format === 'percent') {
+
+
+
+
+
+
+
+                const pct = Math.abs(point.value) <= 1.5 ? point.value * 100 : point.value;
+
+
+
+
+
+
+
+                return `${Number.isInteger(pct) ? pct.toFixed(0) : pct.toFixed(1)}%`;
+
+
+
+
+
+
+
+              }
+
+
+
+
+
+
+
+              return fmtChartValue(point.value);
+
+
+
+
+
+
+
+            };
+
+
+
+
+
+
+
+            const lines = years.map(year => {
+
+
+
+
+
+
+
+              const yearPoints = grouped.get(year) || [];
+
+
+
+
+
+
+
+              let nearest = yearPoints[0];
+
+
+
+
+
+
+
+              yearPoints.forEach(point => {
+
+
+
+
+
+
+
+                if (!nearest || Math.abs(point.x - anchorX) < Math.abs(nearest.x - anchorX)) nearest = point;
+
+
+
+
+
+
+
+              });
+
+
+
+
+
+
+
+              return nearest ? `${nearest.year} ${nearest.date}：${formatPointValue(nearest)}` : '';
+
+
+
+
+
+
+
+            }).filter(Boolean);
+
+
+
+
+
+
+
+            chartTip.textContent = [points[0].title || '', ...lines].filter(Boolean).join('\n');
+
+
+
+
+
+
+
+          } else {
+
+
+
+
+
+
+
+            let nearest = points[0];
+
+
+
+
+
+
+
+            points.forEach(point => { if (Math.abs(point.x - x) < Math.abs(nearest.x - x)) nearest = point; });
+
+
+
+
+
+
+
+            chartTip.textContent = `${nearest.title} ${nearest.date}：${fmtChartValue(nearest.value)}`;
+
+
+
+
+
+
+
+          }
+
+
+
+
+
+
+
+          chartTip.style.display = 'block';
+
+
+
+
+
+
+
+          chartTip.style.left = Math.min(window.innerWidth - 340, event.clientX + 12) + 'px';
+
+
+
+
+
+
+
+          chartTip.style.top = (event.clientY + 12) + 'px';
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+        canvas.addEventListener('mouseleave', () => chartTip.style.display = 'none');
+
+
+
+
+
+
+
+      });
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+    function bindChartInteractions(root = document) {
+
+
+
+
+
+
+
+      bindCanvasCharts(root);
+
+
+
+
+
+
+
+      root.querySelectorAll('.hover-dot:not([data-bound])').forEach(dot => {
+
+
+
+
+
+
+
+        dot.dataset.bound = '1';
+
+
+
+
+
+
+
+        dot.addEventListener('mouseenter', () => {
+
+
+
+
+
+
+
+          chartTip.textContent = dot.dataset.tip || '';
+
+
+
+
+
+
+
+          chartTip.style.display = 'block';
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+        dot.addEventListener('mousemove', event => {
+
+
+
+
+
+
+
+          chartTip.style.left = Math.min(window.innerWidth - 280, event.clientX + 12) + 'px';
+
+
+
+
+
+
+
+          chartTip.style.top = (event.clientY + 12) + 'px';
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+        dot.addEventListener('mouseleave', () => chartTip.style.display = 'none');
+
+
+
+
+
+
+
+      });
+
+
+
+
+
+
+
+      root.querySelectorAll('.seasonal-hover-zone:not([data-bound])').forEach(zone => {
+
+
+
+
+
+
+
+        zone.dataset.bound = '1';
+
+
+
+
+
+
+
+        zone.addEventListener('mousemove', event => {
+
+
+
+
+
+
+
+          const svg = zone.closest('svg');
+
+
+
+
+
+
+
+          const guide = svg?.querySelector('.seasonal-guide');
+
+
+
+
+
+
+
+          const rect = svg.getBoundingClientRect();
+
+
+
+
+
+
+
+          const viewBox = svg.viewBox.baseVal;
+
+
+
+
+
+
+
+          const x = (event.clientX - rect.left) * viewBox.width / rect.width;
+
+
+
+
+
+
+
+          if (guide) {
+
+
+
+
+
+
+
+            guide.setAttribute('x1', x.toFixed(1));
+
+
+
+
+
+
+
+            guide.setAttribute('x2', x.toFixed(1));
+
+
+
+
+
+
+
+            guide.style.display = 'block';
+
+
+
+
+
+
+
+          }
+
+
+
+
+
+
+
+          const points = zone._points || (zone._points = JSON.parse(zone.dataset.points || '[]'));
+
+
+
+
+
+
+
+          const byYear = new Map();
+
+
+
+
+
+
+
+          points.forEach(point => {
+
+
+
+
+
+
+
+            const prev = byYear.get(point.year);
+
+
+
+
+
+
+
+            if (!prev || Math.abs(point.x - x) < Math.abs(prev.x - x)) byYear.set(point.year, point);
+
+
+
+
+
+
+
+          });
+
+
+
+
+
+
+
+          const lines = Array.from(byYear.values())
+
+
+
+
+
+
+
+            .sort((a, b) => Number(b.year) - Number(a.year))
+
+
+
+
+
+
+
+            .map(point => `${point.year} ${point.date}：${point.value}`);
+
+
+
+
+
+
+
+          chartTip.textContent = [zone.dataset.title || '', ...lines].filter(Boolean).join('\n');
+
+
+
+
+
+
+
+          chartTip.style.display = 'block';
+
+
+
+
+
+
+
+          chartTip.style.left = Math.min(window.innerWidth - 340, event.clientX + 12) + 'px';
+
+
+
+
+
+
+
+          chartTip.style.top = (event.clientY + 12) + 'px';
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+        zone.addEventListener('mouseleave', () => {
+
+
+
+
+
+
+
+          const guide = zone.closest('svg')?.querySelector('.seasonal-guide');
+
+
+
+
+
+
+
+          if (guide) guide.style.display = 'none';
+
+
+
+
+
+
+
+          chartTip.style.display = 'none';
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+      });
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+    bindChartInteractions();
+
+
+
+
+
+
+
+  </script><script id="coal-axis-interaction">(() => {
+
+
+
+
+
+
+
+  if(window.__coalAxisInteraction)return;window.__coalAxisInteraction=true;
+
+
+
+
+
+
+
+  const tip=document.createElement('div'),line=document.createElement('div');
+
+
+
+
+
+
+
+  tip.id='coal-axis-tooltip';line.id='coal-axis-line';
+
+
+
+
+
+
+
+  tip.style.cssText='position:fixed;display:none;z-index:10002;pointer-events:none;background:rgba(255,255,255,.98);border:1px solid #cbd7e6;padding:10px 13px;box-shadow:0 5px 18px #17345b25;color:#17345b;font:15px "Times New Roman",KaiTi,serif;line-height:1.6;max-width:calc(100vw - 20px)';
+
+
+
+
+
+
+
+  line.style.cssText='position:fixed;display:none;z-index:10001;pointer-events:none;border-left:1px dashed #728aa7';
+
+
+
+
+
+
+
+  document.body.append(tip,line);
+
+
+
+
+
+
+
+  function hide(){tip.style.display=line.style.display='none';}
+
+
+
+
+
+
+
+  const fmt=(v,f)=>f==='percentPoints'?`${Number(v).toFixed(2)}%`:f==='percent'?`${(v*100).toFixed(1)}%`:Number(v).toLocaleString('en-US',{maximumFractionDigits:2});
+
+
+
+
+
+
+
+  function show(e){
+
+
+
+
+
+
+
+    const c=e.target.closest?.('canvas[data-chart]');if(!c){hide();return;}
+
+
+
+
+
+
+
+    const pos=e.touches?.[0]||e,rect=c.getBoundingClientRect();
+
+
+
+
+
+
+
+    if(!rect.width)return;
+
+
+
+
+
+
+
+    const data=JSON.parse(c.dataset.chart||'{}'),w=Number(c.dataset.logicalWidth)||500,h=Number(c.dataset.logicalHeight)||320;
+
+
+
+
+
+
+
+    const left=data.type==='seasonal'?66:56,top=data.type==='seasonal'?34:30,bottom=data.type==='seasonal'?46:40,right=24;
+
+
+
+
+
+
+
+    const x=(pos.clientX-rect.left)*w/rect.width;
+
+
+
+
+
+
+
+    if(x<left||x>w-right){hide();return;}
+
+
+
+
+
+
+
+    const pts=c._hoverPoints||[];if(!pts.length){hide();return;}
+
+
+
+
+
+
+
+    e.stopImmediatePropagation();document.querySelectorAll('.chart-tip').forEach(t=>t.style.display='none');
+
+
+
+
+
+
+
+    const anchor=pts.reduce((a,p)=>Math.abs(p.x-x)<Math.abs(a.x-x)?p:a,pts[0]);
+
+
+
+
+
+
+
+    let entries=[];
+
+
+
+
+
+
+
+    if(data.type==='seasonal'){
+
+
+
+
+
+
+
+      entries=(data.series||[]).slice().sort((a,b)=>Number(b.year)-Number(a.year)).map(s=>{
+
+
+
+
+
+
+
+        const arr=pts.filter(p=>String(p.year)===String(s.year));
+
+
+
+
+
+
+
+        if(!arr.length)return {year:s.year,color:s.color,missing:true};
+
+
+
+
+
+
+
+        const near=arr.reduce((a,p)=>Math.abs(p.x-anchor.x)<Math.abs(a.x-anchor.x)?p:a,arr[0]);
+
+
+
+
+
+
+
+        const gaps=arr.slice(1).map((p,i)=>Math.abs(p.x-arr[i].x)).filter(v=>v>0).sort((a,b)=>a-b);
+
+
+
+
+
+
+
+        const tolerance=Math.max(1,(gaps[Math.floor(gaps.length/2)]||1)/2+.5);
+
+
+
+
+
+
+
+        const missing=anchor.x<arr[0].x-.5||anchor.x>arr[arr.length-1].x+.5||Math.abs(near.x-anchor.x)>tolerance;
+
+
+
+
+
+
+
+        return {year:s.year,color:s.color,point:near,missing};
+
+
+
+
+
+
+
+      });
+
+
+
+
+
+
+
+    }else entries=[{year:'',point:anchor,color:'#17345b'}];
+
+
+
+
+
+
+
+    tip.replaceChildren();const title=document.createElement('strong');title.textContent=data.title||'';tip.append(title);
+
+
+
+
+
+
+
+    const date=document.createElement('div');date.textContent=`对应位置：${anchor.date}`;date.style.color='#728198';tip.append(date);
+
+
+
+
+
+
+
+    entries.forEach(v=>{const row=document.createElement('div');row.style.cssText='display:flex;gap:12px;justify-content:space-between';
+
+
+
+
+
+
+
+      const label=document.createElement('span'),dot=document.createElement('span');dot.textContent='● ';dot.style.color=v.color||'#17345b';label.append(dot,`${v.year}${v.missing?'':`  ${v.point.date}`}`);
+
+
+
+
+
+
+
+      const value=document.createElement('b');value.textContent=v.missing?'#N/A':fmt(v.point.value,(data.valueFormat==='percentPoints'||data.yFormat==='percentPoints')?'percentPoints':(data.valueFormat==='percentPoints'||data.yFormat==='percentPoints')?'percentPoints':(data.valueFormat==='percentPoints'||data.yFormat==='percentPoints')?'percentPoints':(data.valueFormat==='percentPoints'||data.yFormat==='percentPoints')?'percentPoints':(data.valueFormat==='percentPoints'||data.yFormat==='percentPoints')?'percentPoints':(data.valueFormat==='percentPoints'||data.yFormat==='percentPoints')?'percentPoints':v.point.format||data.valueFormat||data.yFormat);row.append(label,value);tip.append(row);
+
+
+
+
+
+
+
+    });
+
+
+
+
+
+
+
+    line.style.left=(rect.left+anchor.x/w*rect.width)+'px';line.style.top=(rect.top+top/h*rect.height)+'px';line.style.height=((h-top-bottom)/h*rect.height)+'px';line.style.display='block';
+
+
+
+
+
+
+
+    tip.style.display='block';const tr=tip.getBoundingClientRect();
+
+
+
+
+
+
+
+    tip.style.left=Math.max(8,Math.min(innerWidth-tr.width-8,pos.clientX+14))+'px';
+
+
+
+
+
+
+
+    tip.style.top=Math.max(8,Math.min(innerHeight-tr.height-8,pos.clientY+14))+'px';
+
+
+
+
+
+
+
+  }
+
+
+
+
+
+
+
+  document.addEventListener('mousemove',show,true);
+
+
+
+
+
+
+
+  document.addEventListener('touchstart',show,{capture:true,passive:true});
+
+
+
+
+
+
+
+  document.addEventListener('touchmove',show,{capture:true,passive:true});
+
+
+
+
+
+
+
+  document.addEventListener('mouseout',e=>{if(e.target.matches?.('canvas[data-chart]')&&!e.target.contains(e.relatedTarget))hide();},true);
+
+
+
+
+
+
+
+  window.addEventListener('scroll',hide,true);window.addEventListener('resize',hide);
+
+
+
+
+
+
+
+})();
+
+
+
+
+
+
+
+</script><script id="australia-oce-interactive-renderer">(() => {
+  'use strict';
+  const cards=[...document.querySelectorAll('canvas.oce-interactive-canvas')];
+  const tip=document.createElement('div');tip.id='oce-interactive-tooltip';
+  tip.style.cssText='position:fixed;display:none;pointer-events:none;z-index:20020;max-width:440px;padding:12px 15px;background:#fff;border:1px solid #bac9dd;box-shadow:0 4px 18px #17345b22;white-space:pre-line;color:#17345b;font:14px "Times New Roman",KaiTi,serif;line-height:1.65';document.body.append(tip);
+  function num(v,format='number') {
+    if(v===null||v===undefined||!Number.isFinite(Number(v)))return '#N/A';
+    if(format==='percent')return (v*100).toFixed(1)+'%';
+    if(format==='percentPoints')return Number(v).toFixed(1)+'%';
+    const a=Math.abs(v);if(a>0&&a<.001)return Number(v).toExponential(2);
+    return Number(v).toLocaleString('en-US',{maximumFractionDigits:a<1?6:2});
+  }
+  function axis(g,range,L,T,PW,PH,format,right=false) {
+    const [lo,hi]=range;g.font='13px "Times New Roman",serif';
+    for(let k=0;k<=4;k++){
+      const v=lo+(hi-lo)*k/4,y=T+PH-PH*k/4;
+      if(!right){g.strokeStyle='#e0e6ef';g.setLineDash([3,3]);g.beginPath();g.moveTo(L,y);g.lineTo(L+PW,y);g.stroke();}
+      g.fillStyle='#667085';g.textAlign=right?'left':'right';g.fillText(num(v,format),right?L+PW+8:L-8,y+4);
+    }g.setLineDash([]);g.textAlign='left';
+  }
+  function draw(c) {
+    const q=JSON.parse(c.dataset.chart),W=Number(c.dataset.logicalWidth),H=Number(c.dataset.logicalHeight),dpr=window.devicePixelRatio||1;
+    c.width=Math.round(W*dpr);c.height=Math.round(H*dpr);const g=c.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,W,H);
+    const quarterly=q.type==='seasonal',L=quarterly?58:74,R=quarterly?18:q.rightRange?76:32,T=20,B=quarterly?43:58,PW=W-L-R,PH=H-T-B;
+    const y=(v,range=q.leftRange||[q.axisMin,q.axisMax])=>T+PH*(range[1]-v)/(range[1]-range[0]);
+    c._oceGeometry={W,H,L,R,T,B,PW,PH};
+    axis(g,q.leftRange||[q.axisMin,q.axisMax],L,T,PW,PH,q.leftFormat||'number');
+    if(q.rightRange)axis(g,q.rightRange,L,T,PW,PH,'percentPoints',true);
+    g.fillStyle='#667085';g.font='13px "Times New Roman",KaiTi,serif';g.fillText(q.unit==='比例'?'%':q.unit||'Mt',L,12);
+    const hits=[],labels=[];
+    if(quarterly){
+      const x=quarter=>L+PW*(quarter-1)/3;
+      g.textAlign='center';for(let k=1;k<=4;k++)g.fillText('Q'+k,x(k),H-16);g.textAlign='left';
+      for(const series of q.series){
+        const ps=series.points.filter(p=>p[2]!==null);g.strokeStyle=series.color;g.fillStyle=series.color;g.lineWidth=Number(series.width)||1.8;g.beginPath();
+        ps.forEach((p,i)=>{const xx=x(p[0]),yy=y(p[2]);if(i===0)g.moveTo(xx,yy);else g.lineTo(xx,yy);hits.push({x:xx,y:yy,quarter:p[0],year:series.year,date:p[3],value:p[2],name:String(series.year),color:series.color});});g.stroke();
+        for(const p of ps){g.beginPath();g.arc(x(p[0]),y(p[2]),Number(series.year)===q.latestYear?3.8:2.1,0,Math.PI*2);g.fill();}
+      }
+    }else{
+      const n=q.categories.length,slot=PW/n,x=i=>L+slot*(i+.5),bars=q.series.filter(s=>s.kind==='bar');
+      g.font='13px "Times New Roman",KaiTi,serif';g.textAlign='center';q.categories.forEach((cat,i)=>g.fillText(cat.label,x(i),H-24));g.textAlign='left';
+      for(const [j,series] of q.series.entries()){
+        const range=series.axis==='right'?q.rightRange:q.leftRange;
+        if(series.kind==='bar'){
+          const bi=bars.indexOf(series),bw=Math.min(52,slot*.78/bars.length);
+          series.values.forEach((v,i)=>{if(v===null)return;const xx=x(i)+(bi-(bars.length-1)/2)*bw,yy=y(v,range),base=y(Math.max(range[0],Math.min(range[1],0)),range);const color=(q.categories[i].partial&&series.partialColor)||series.color;g.fillStyle=color;g.globalAlpha=.8;g.fillRect(xx-bw*.45,Math.min(yy,base),bw*.9,Math.max(1,Math.abs(base-yy)));g.globalAlpha=1;if(i>=n-3)labels.push({text:v.toFixed(0),x:xx,y:yy-6,color});});
+        }else{
+          g.strokeStyle=series.color;g.fillStyle=series.color;g.lineWidth=2.3;g.beginPath();let pen=false;
+          series.values.forEach((v,i)=>{if(v===null){pen=false;return;}const xx=x(i),yy=y(v,range);if(!pen)g.moveTo(xx,yy);else g.lineTo(xx,yy);pen=true;});
+          if(series.kind==='area'){
+            const valid=series.values.map((v,i)=>v===null?null:{i,v}).filter(Boolean);
+            if(valid.length){g.lineTo(x(valid[valid.length-1].i),T+PH);g.lineTo(x(valid[0].i),T+PH);g.closePath();g.globalAlpha=.09;g.fill();g.globalAlpha=1;g.beginPath();valid.forEach((p,i)=>i?g.lineTo(x(p.i),y(p.v,range)):g.moveTo(x(p.i),y(p.v,range)));}
+          }g.stroke();
+          series.values.forEach((v,i)=>{if(v===null)return;g.beginPath();g.arc(x(i),y(v,range),3.1,0,Math.PI*2);g.fill();if(i>=n-3)labels.push({text:num(v,series.format),x:x(i),y:y(v,range)+(j%2?-12:19),color:series.color});});
+        }
+      }
+      q.categories.forEach((category,i)=>hits.push({x:x(i),index:i,category}));
+    }
+    const occupied=[];g.font='bold 13px "Times New Roman",serif';
+    for(const label of labels){
+      const width=label.text.length*7.5+6;let selected;
+      for(const offset of [0,-20,20,-40,40,-60,60]){
+        const yy=Math.max(T+14,Math.min(T+PH-4,label.y+offset)),box={x:Math.max(L,Math.min(L+PW-width,label.x-width/2)),y:yy-13,w:width,h:17};
+        if(!occupied.some(b=>box.x<b.x+b.w+2&&box.x+box.w+2>b.x&&box.y<b.y+b.h+2&&box.y+box.h+2>b.y)){selected=box;break;}
+      }
+      selected=selected||{x:label.x-width/2,y:label.y-13,w:width,h:17};occupied.push(selected);g.fillStyle='rgba(255,255,255,.94)';g.fillRect(selected.x,selected.y,selected.w,selected.h);g.fillStyle=label.color;g.textAlign='center';g.fillText(label.text,selected.x+selected.w/2,selected.y+13);
+    }g.textAlign='left';c._oceLabelBoxes=occupied;
+    c._oceHits=hits;c.dataset.oceRendered='1';
+  }
+  function release(c){c.width=1;c.height=1;c._oceHits=[];c.dataset.oceRendered='0';}
+  function render(c){if(c.dataset.oceRendered!=='1')draw(c);}
+  const observer=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting?render(e.target):release(e.target)),{rootMargin:'240px 0px'});
+  function show(c,e){
+    const q=JSON.parse(c.dataset.chart),rect=c.getBoundingClientRect(),geo=c._oceGeometry,pos=e.touches?.[0]||e;
+    if(!geo||!rect.width||!c._oceHits?.length)return;
+    const px=(pos.clientX-rect.left)*geo.W/rect.width;if(px<geo.L||px>geo.W-geo.R){tip.style.display='none';return;}
+    let lines=[q.title];
+    if(q.type==='seasonal'){
+      const quarter=Math.max(1,Math.min(4,Math.round((px-geo.L)/geo.PW*3)+1));lines.push('对应季度：Q'+quarter);
+      for(const series of [...q.series].sort((a,b)=>b.year-a.year)){
+        const p=series.points.find(p=>p[0]===quarter);
+        lines.push(series.year+'Q'+quarter+'：'+(p?num(p[2])+' '+q.unit+'｜源季度标签 '+p[3]:'#N/A'));
+      }
+    }else{
+      const hit=c._oceHits.reduce((a,b)=>Math.abs(a.x-px)<Math.abs(b.x-px)?a:b);lines.push(hit.category.label+(hit.category.partial?'（年内同季度累计）':'（全年）'));
+      for(const series of q.series)lines.push(series.name+'：'+num(series.values[hit.index],series.format)+(series.format==='number'?' '+q.unit:''));
+      if(hit.category.partial)lines.push('同比基期：'+hit.category.priorLabel+'；未将本年累计与上年全年比较。');
+    }
+    tip.textContent=lines.join('\n');tip.style.display='block';const tr=tip.getBoundingClientRect();tip.style.left=Math.max(8,Math.min(innerWidth-tr.width-8,pos.clientX+12))+'px';tip.style.top=Math.max(8,Math.min(innerHeight-tr.height-8,pos.clientY+12))+'px';
+  }
+  cards.forEach(c=>{observer.observe(c);c.addEventListener('mousemove',e=>show(c,e));c.addEventListener('touchstart',e=>show(c,e),{passive:true});c.addEventListener('touchmove',e=>show(c,e),{passive:true});c.addEventListener('mouseleave',()=>tip.style.display='none');});
+  document.querySelectorAll('.panel-tab,.side-toc a[data-panel]').forEach(el=>el.addEventListener('click',()=>{tip.style.display='none';cards.filter(c=>!c.closest('.report-panel').classList.contains('active')).forEach(release);}));
+  addEventListener('scroll',()=>tip.style.display='none',{capture:true,passive:true});addEventListener('resize',()=>tip.style.display='none');
+  addEventListener('beforeprint',()=>cards.forEach(render));addEventListener('afterprint',()=>cards.forEach(c=>{observer.unobserve(c);observer.observe(c);}));
+  window.OCEInteractive={draw,num};
+})();
+</script><script id="supply-country-details-renderer">(() => {
+  const items = [...document.querySelectorAll('canvas.supply-data-canvas')];
+  const tip = document.createElement('div');
+  tip.className='supply-chart-tip';document.body.appendChild(tip);
+  const number = v => v == null ? '#N/A' : Number(v).toLocaleString('en-US',{maximumFractionDigits:3});
+  function draw(canvas, hover=null){
+    const d=canvas._supplyData ||= JSON.parse(canvas.dataset.chart);
+    const hidden=canvas._hidden ||= new Set();
+    const W=520,H=320,L=57,R=20,T=25,B=40;
+    const ratio=Math.min(window.devicePixelRatio||1,2);
+    canvas.width=W*ratio;canvas.height=H*ratio;
+    const c=canvas.getContext('2d');c.setTransform(ratio,0,0,ratio,0,0);
+    c.fillStyle='#fff';c.fillRect(0,0,W,H);c.font='12px "Microsoft YaHei",sans-serif';
+    const ss=d.series.filter((s,i)=>!hidden.has(i));
+    const vv=ss.flatMap(s=>s.points.map(p=>p[1]).filter(v=>v!==null));
+    let min=d.min ?? Math.min(0,...vv), max=d.max ?? Math.max(min+1,...vv);
+    const step0=(max-min)/5,base=10**Math.floor(Math.log10(step0));
+    const step=[1,2,2.5,5,10].map(a=>a*base).find(a=>a>=step0);
+    max=d.max ?? Math.ceil(max/step)*step;
+    const x=v=>L+(W-L-R)*(v-d.xMin)/(d.xMax-d.xMin||1);
+    const y=v=>H-B-(H-T-B)*(v-min)/(max-min);
+    c.strokeStyle='#e2e8f0';c.fillStyle='#667085';
+    for(let v=min;v<=max+step*.01;v+=step){
+      c.beginPath();c.moveTo(L,y(v));c.lineTo(W-R,y(v));c.stroke();
+      c.textAlign='right';c.fillText(number(v),L-7,y(v)+4);
+    }
+    c.textAlign='center';d.ticks.forEach(([v,t])=>c.fillText(t,x(v),H-15));
+    c.textAlign='left';c.fillText(d.unit,L,T-10);
+    const hits=[];
+    const bottoms={};
+    ss.forEach(s=>{
+      c.strokeStyle=s.color;c.fillStyle=s.color;c.lineWidth=s.width||1.7;
+      if(d.kind==='bar'||d.kind==='stacked'){
+        const bw=Math.min(45,(W-L-R)/(d.ticks.length+1)*.65);
+        s.points.filter(p=>p[1]!==null).forEach(p=>{
+          const base=d.kind==='stacked'?(bottoms[p[0]]||0):0;
+          c.fillRect(x(p[0])-bw/2,y(base+p[1]),bw,y(base)-y(base+p[1]));
+          bottoms[p[0]]=base+p[1];hits.push({x:x(p[0]),y:y(base+p[1]),p,s});
+        });return;
+      }
+      c.beginPath();let started=false;
+      s.points.filter(p=>p[1]!==null).forEach(p=>{
+        if(started)c.lineTo(x(p[0]),y(p[1]));else{c.moveTo(x(p[0]),y(p[1]));started=true;}
+        hits.push({x:x(p[0]),y:y(p[1]),p,s});
+      });c.stroke();
+      s.points.filter(p=>p[1]!==null).forEach(p=>{
+        if(s.points.length<15||s.width>2){c.beginPath();c.arc(x(p[0]),y(p[1]),s.width>2?2.8:1.8,0,Math.PI*2);c.fill();}
+      });
+    });
+    canvas._supplyHits=hits;
+    if(hover!==null){c.strokeStyle='#667085';c.setLineDash([3,3]);c.beginPath();c.moveTo(hover,T);c.lineTo(hover,H-B);c.stroke();c.setLineDash([]);}
+  }
+  items.forEach(canvas=>{
+    const d=JSON.parse(canvas.dataset.chart);canvas._supplyData=d;
+    const legend=canvas.parentNode.querySelector('.supply-legend');
+    d.series.forEach((s,i)=>{
+      const b=document.createElement('button');b.type='button';b.textContent='● '+s.label;b.style.color=s.color;b.setAttribute('aria-pressed','true');
+      b.onclick=()=>{const h=canvas._hidden ||=new Set();h.has(i)?h.delete(i):h.add(i);b.style.opacity=h.has(i)?'.3':'1';b.setAttribute('aria-pressed',String(!h.has(i)));draw(canvas);};legend.appendChild(b);
+    });
+    canvas.addEventListener('pointermove',e=>{
+      if(!canvas._supplyHits?.length)return;
+      const rect=canvas.getBoundingClientRect(),xx=(e.clientX-rect.left)*520/rect.width;
+      const nearest=canvas._supplyHits.reduce((a,b)=>Math.abs(a.x-xx)<Math.abs(b.x-xx)?a:b);
+      const selected=canvas._supplyHits.filter(h=>Math.abs(h.x-nearest.x)<.1);
+      draw(canvas,nearest.x);
+      tip.textContent=[d.title,...selected.map(h=>`${h.s.label}｜${h.p[2]}：${number(h.p[1])} ${d.unit}${h.p[3]!=null?'｜'+number(h.p[3])+' 万吨':''}`)].join('\n');
+      tip.style.display='block';tip.style.left=Math.max(8,Math.min(e.clientX+12,window.innerWidth-tip.offsetWidth-10))+'px';
+      tip.style.top=Math.max(8,Math.min(e.clientY+12,window.innerHeight-tip.offsetHeight-10))+'px';
+    });
+    canvas.addEventListener('pointerleave',()=>{tip.style.display='none';draw(canvas);});
+  });
+  const visible=c=>!!c.getClientRects().length;
+  const observer=new IntersectionObserver(entries=>entries.forEach(e=>{
+    if(e.isIntersecting&&visible(e.target))draw(e.target);
+    else {e.target.width=1;e.target.height=1;}
+  }),{rootMargin:'350px'});items.forEach(c=>observer.observe(c));
+  new MutationObserver(()=>items.forEach(c=>{if(!visible(c)){c.width=1;c.height=1;}else if(c.width<2)observer.unobserve(c),observer.observe(c);})).observe(document.querySelector('main')||document.body,{attributes:true,subtree:true,attributeFilter:['class','hidden']});
+  window.addEventListener('beforeprint',()=>items.forEach(c=>draw(c)));
+  window.addEventListener('afterprint',()=>items.filter(c=>!visible(c)).forEach(c=>{c.width=1;c.height=1;}));
+  window.supplyCountryCharts={draw,items};
+})();
+</script><script id="india-country-details-renderer">(() => {
+  const items = [...document.querySelectorAll('canvas.india-data-canvas')];
+  const tip = document.createElement('div');
+  tip.className='supply-chart-tip';document.body.appendChild(tip);
+  const number = v => v == null ? '#N/A' : Number(v).toLocaleString('en-US',{maximumFractionDigits:3});
+  function draw(canvas, hover=null){
+    const d=canvas._supplyData ||= JSON.parse(canvas.dataset.chart);
+    const hidden=canvas._hidden ||= new Set();
+    const W=d.w||520,H=d.h||320,L=60,R=d.axes?(d.axes.length>2?160:75):20,T=30,B=45;
+    const ratio=Math.min(window.devicePixelRatio||1,2);
+    canvas.width=W*ratio;canvas.height=H*ratio;
+    const c=canvas.getContext('2d');c.setTransform(ratio,0,0,ratio,0,0);
+    c.fillStyle='#fff';c.fillRect(0,0,W,H);c.font='12px "Microsoft YaHei",sans-serif';
+    const ss=d.series.filter((s,i)=>!hidden.has(i));
+    if(d.kind==='pie'){
+      const sum=ss.reduce((n,s)=>n+(s.points[0]?.[1]||0),0),cx=W/2,cy=H/2,rad=Math.min(H*.37,W*.29);let angle=-Math.PI/2;const hits=[];
+      ss.forEach(s=>{const value=s.points[0]?.[1];if(value==null||value<=0)return;const end=angle+2*Math.PI*value/sum;c.beginPath();c.moveTo(cx,cy);c.arc(cx,cy,rad,angle,end);c.closePath();c.fillStyle=s.color;c.fill();const a=(angle+end)/2;c.fillStyle='#fff';c.font='bold 13px "Microsoft YaHei",sans-serif';c.textAlign='center';if(value/sum>.04)c.fillText((value/sum*100).toFixed(1)+'%',cx+Math.cos(a)*rad*.68,cy+Math.sin(a)*rad*.68);hits.push({x:cx+Math.cos(a)*rad*.7,y:cy+Math.sin(a)*rad*.7,p:s.points[0],s,start:angle,end,share:value/sum*100});angle=end;});
+      canvas._pie={cx,cy,rad};canvas._supplyHits=hits;return;
+    }
+    if(d.axes){
+      const xx=v=>L+(W-L-R)*(v-d.xMin)/(d.xMax-d.xMin||1),hits=[];
+      const ranges=d.axes.map((a,i)=>{const vv=ss.filter(s=>(s.axis||0)===i).flatMap(s=>s.points.filter(p=>p[1]!=null).map(p=>p[1]));let low=a.min??Math.min(...vv),high=a.max??Math.max(...vv);if(!vv.length){low=0;high=1;}const pad=(high-low||1)*.05;low=a.zero?0:low-pad;high+=pad;const rounding=a.round||10**Math.floor(Math.log10((high-low)/5||1));low=Math.floor(low/rounding)*rounding;high=Math.ceil(high/rounding)*rounding;if(high<=low)high=low+rounding;return {low,high,step:a.step||rounding};});
+      const yy=(v,i)=>H-B-(H-T-B)*(v-ranges[i].low)/(ranges[i].high-ranges[i].low);
+      ranges.forEach((a,i)=>{const ax=i===0?L:W-R+(i-1)*72;c.fillStyle=d.axes[i].color||'#667085';c.textAlign=i===0?'left':'right';c.font='12px "Microsoft YaHei",sans-serif';c.fillText(d.axes[i].unit,i===0?L:i===ranges.length-1?W-8:ax+40,18);c.textAlign=i===0?'right':'left';let step=a.step;if((a.high-a.low)/step>8)step*=Math.ceil((a.high-a.low)/step/8);for(let v=a.low;v<=a.high+step*.001;v+=step){const y=yy(v,i);if(i===0){c.strokeStyle='#e2e8f0';c.beginPath();c.moveTo(L,y);c.lineTo(W-R,y);c.stroke();}c.fillText(number(v),ax+(i===0?-7:8),y+4);}});
+      c.textAlign='center';c.fillStyle='#667085';d.ticks.forEach(([v,t])=>c.fillText(t,xx(v),H-15));
+      ss.forEach(s=>{const ai=s.axis||0;c.fillStyle=s.color;c.strokeStyle=s.color;c.lineWidth=s.width||1.6;c.beginPath();let started=false;const ps=s.points.filter(p=>p[1]!=null);ps.forEach(p=>{const x=xx(p[0]),y=yy(p[1],ai);if(s.kind==='bar'){const bw=s.barWidth||Math.max(1,Math.min(12,(W-L-R)/(d.xMax-d.xMin+1)*.72));c.fillRect(x-bw/2,y,bw,yy(0,ai)-y);}else{if(started)c.lineTo(x,y);else{c.moveTo(x,y);started=true;}}hits.push({x,y,p,s});});if(s.kind!=='bar')c.stroke();});
+      canvas._supplyHits=hits;if(hover!=null){c.setLineDash([3,3]);c.strokeStyle='#667085';c.beginPath();c.moveTo(hover,T);c.lineTo(hover,H-B);c.stroke();c.setLineDash([]);}return;
+    }
+    const vv=ss.flatMap(s=>s.points.map(p=>p[1]).filter(v=>v!==null));
+    let min=d.min ?? Math.min(0,...vv), max=d.max ?? Math.max(min+1,...vv);
+    const step0=(max-min)/5,base=10**Math.floor(Math.log10(step0));
+    const step=d.step||[1,2,2.5,5,10].map(a=>a*base).find(a=>a>=step0);
+    if(d.min==null)min=Math.floor(min/step)*step;
+    max=d.max ?? Math.ceil(max/step)*step;
+    const x=v=>L+(W-L-R)*(v-d.xMin)/(d.xMax-d.xMin||1);
+    const y=v=>H-B-(H-T-B)*(v-min)/(max-min);
+    c.strokeStyle='#e2e8f0';c.fillStyle='#667085';
+    for(let v=min;v<=max+step*.01;v+=step){
+      c.beginPath();c.moveTo(L,y(v));c.lineTo(W-R,y(v));c.stroke();
+      c.textAlign='right';c.fillText(number(v),L-7,y(v)+4);
+    }
+    c.textAlign='center';d.ticks.forEach(([v,t])=>c.fillText(t,x(v),H-15));
+    c.textAlign='left';c.fillText(d.unit,L,T-10);
+    const hits=[];
+    const bottoms={};
+    const allxs=[...new Set(ss.flatMap(s=>s.points.map(p=>p[0])))].sort((a,b)=>a-b);
+    const gap=Math.min(...allxs.slice(1).map((v,i)=>v-allxs[i]),d.xMax-d.xMin||1);
+    const slot=Math.max(.6,(W-L-R)*gap/(d.xMax-d.xMin||1));
+    ss.forEach((s,si)=>{
+      c.strokeStyle=s.color;c.fillStyle=s.color;c.lineWidth=s.width||1.7;
+      if(d.kind==='bar'||d.kind==='stacked'||d.kind==='grouped-bar'){
+        const bw=Math.min(45,slot*.8)/(d.kind==='grouped-bar'?ss.length:1);
+        s.points.filter(p=>p[1]!==null).forEach(p=>{
+          const base=d.kind==='stacked'?(bottoms[p[0]]||0):0;
+          const shift=d.kind==='grouped-bar'?(si-(ss.length-1)/2)*bw:0;
+          c.fillRect(x(p[0])+shift-bw/2,y(base+p[1]),bw,y(base)-y(base+p[1]));
+          bottoms[p[0]]=base+p[1];hits.push({x:x(p[0]),y:y(base+p[1]),p,s});
+        });return;
+      }
+      c.setLineDash(s.dash||[]);c.beginPath();let started=false;
+      s.points.filter(p=>p[1]!==null).forEach(p=>{
+        if(started)c.lineTo(x(p[0]),y(p[1]));else{c.moveTo(x(p[0]),y(p[1]));started=true;}
+        hits.push({x:x(p[0]),y:y(p[1]),p,s});
+      });c.stroke();
+      s.points.filter(p=>p[1]!==null).forEach(p=>{
+        if(!s.noPoints&&(s.points.length<15||s.width>2)){c.beginPath();c.arc(x(p[0]),y(p[1]),s.width>2?2.8:1.8,0,Math.PI*2);c.fill();}
+      });
+    });
+    c.setLineDash([]);canvas._supplyHits=hits;
+    if(hover!==null){c.strokeStyle='#667085';c.setLineDash([3,3]);c.beginPath();c.moveTo(hover,T);c.lineTo(hover,H-B);c.stroke();c.setLineDash([]);}
+  }
+  items.forEach(canvas=>{
+    const d=JSON.parse(canvas.dataset.chart);canvas._supplyData=d;
+    canvas._hidden=new Set(d.series.map((s,i)=>s.defaultHidden?i:null).filter(i=>i!==null));
+    const legend=canvas.parentNode.querySelector('.supply-legend');
+    d.series.forEach((s,i)=>{
+      const b=document.createElement('button');b.type='button';b.textContent='● '+s.label;b.style.color=s.color;b.style.opacity=s.defaultHidden?'.3':'1';b.setAttribute('aria-pressed',String(!s.defaultHidden));
+      b.onclick=()=>{const h=canvas._hidden ||=new Set();h.has(i)?h.delete(i):h.add(i);b.style.opacity=h.has(i)?'.3':'1';b.setAttribute('aria-pressed',String(!h.has(i)));draw(canvas);};legend.appendChild(b);
+    });
+    canvas.addEventListener('pointermove',e=>{
+      if(!canvas._supplyHits?.length)return;
+      const rect=canvas.getBoundingClientRect(),xx=(e.clientX-rect.left)*(d.w||520)/rect.width,yy=(e.clientY-rect.top)*(d.h||320)/rect.height;
+      let nearest;
+      if(d.kind==='pie'){
+        const {cx,cy,rad}=canvas._pie;if(Math.hypot(xx-cx,yy-cy)>rad){tip.style.display='none';return;}
+        let angle=Math.atan2(yy-cy,xx-cx);if(angle< -Math.PI/2)angle+=Math.PI*2;
+        nearest=canvas._supplyHits.find(h=>angle>=h.start&&angle<h.end)||canvas._supplyHits.at(-1);
+      }else nearest=canvas._supplyHits.reduce((a,b)=>Math.abs(a.x-xx)<Math.abs(b.x-xx)?a:b);
+      const selected=d.kind==='pie'?[nearest]:canvas._supplyHits.filter(h=>Math.abs(h.x-nearest.x)<.1);
+      draw(canvas,nearest.x);
+      tip.textContent=[d.title,...selected.map(h=>`${h.s.label}｜${h.p[2]}：${number(h.p[1])} ${h.s.unit||d.unit}${h.share!=null?'｜'+number(h.share)+'%':''}${h.p[3]!=null?'｜'+number(h.p[3])+' 万吨':''}`)].join('\n');
+      tip.style.display='block';tip.style.left=Math.max(8,Math.min(e.clientX+12,window.innerWidth-tip.offsetWidth-10))+'px';
+      tip.style.top=Math.max(8,Math.min(e.clientY+12,window.innerHeight-tip.offsetHeight-10))+'px';
+    });
+    canvas.addEventListener('pointerleave',()=>{tip.style.display='none';draw(canvas);});
+  });
+  const visible=c=>!!c.getClientRects().length;
+  const observer=new IntersectionObserver(entries=>entries.forEach(e=>{
+    if(e.isIntersecting&&visible(e.target))draw(e.target);
+    else {e.target.width=1;e.target.height=1;}
+  }),{rootMargin:'350px'});items.forEach(c=>observer.observe(c));
+  new MutationObserver(()=>items.forEach(c=>{if(!visible(c)){c.width=1;c.height=1;}else if(c.width<2)observer.unobserve(c),observer.observe(c);})).observe(document.querySelector('main')||document.body,{attributes:true,subtree:true,attributeFilter:['class','hidden']});
+  window.addEventListener('beforeprint',()=>items.forEach(c=>draw(c)));
+  window.addEventListener('afterprint',()=>items.filter(c=>!visible(c)).forEach(c=>{c.width=1;c.height=1;}));
+  window.indiaCountryCharts={draw,items};
+})();
+</script><script>
+document.querySelectorAll('canvas').forEach(c=>{
+ const move=e=>{const t=e.touches[0];if(t)c.dispatchEvent(new MouseEvent('mousemove',{bubbles:true,clientX:t.clientX,clientY:t.clientY}));};
+ c.addEventListener('touchstart',move,{passive:true});c.addEventListener('touchmove',move,{passive:true});
+});
+document.addEventListener('pointerdown',e=>{if(!e.target.closest('canvas'))document.querySelectorAll('.chart-tip,.supply-chart-tip,.india-chart-tip').forEach(t=>t.style.display='none');});
+</script></body></html>
