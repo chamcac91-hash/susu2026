@@ -3951,7 +3951,7 @@ canvas{touch-action:pan-y}.edit-toolbar,.table-toolbar,#save-edits{display:none!
       c.beginPath();c.moveTo(L,y(v));c.lineTo(W-R,y(v));c.stroke();
       c.textAlign='right';c.fillText(number(v),L-7,y(v)+4);
     }
-    c.textAlign='center';d.ticks.forEach(([v,t])=>c.fillText(t,x(v),H-15));
+    c.textAlign='center';d.ticks.filter((tick,i,a)=>innerWidth>760||(a.length<=12&&String(tick[1]).length<=4)||i%Math.ceil(a.length/4)===0||i===a.length-1).forEach(([v,t])=>c.fillText(t,x(v),H-15));
     c.textAlign='left';c.fillText(d.unit,L,T-10);
     const hits=[];
     const bottoms={};
@@ -4030,7 +4030,7 @@ canvas{touch-action:pan-y}.edit-toolbar,.table-toolbar,#save-edits{display:none!
       const ranges=d.axes.map((a,i)=>{const vv=ss.filter(s=>(s.axis||0)===i).flatMap(s=>s.points.filter(p=>p[1]!=null).map(p=>p[1]));let low=a.min??Math.min(...vv),high=a.max??Math.max(...vv);if(!vv.length){low=0;high=1;}const pad=(high-low||1)*.05;low=a.zero?0:low-pad;high+=pad;const rounding=a.round||10**Math.floor(Math.log10((high-low)/5||1));low=Math.floor(low/rounding)*rounding;high=Math.ceil(high/rounding)*rounding;if(high<=low)high=low+rounding;return {low,high,step:a.step||rounding};});
       const yy=(v,i)=>H-B-(H-T-B)*(v-ranges[i].low)/(ranges[i].high-ranges[i].low);
       ranges.forEach((a,i)=>{const ax=i===0?L:W-R+(i-1)*72;c.fillStyle=d.axes[i].color||'#667085';c.textAlign=i===0?'left':'right';c.font='16px "Microsoft YaHei",sans-serif';c.fillText(d.axes[i].unit,i===0?L:i===ranges.length-1?W-8:ax+40,18);c.textAlign=i===0?'right':'left';let step=a.step;if((a.high-a.low)/step>8)step*=Math.ceil((a.high-a.low)/step/8);for(let v=a.low;v<=a.high+step*.001;v+=step){const y=yy(v,i);if(i===0){c.strokeStyle='#e2e8f0';c.beginPath();c.moveTo(L,y);c.lineTo(W-R,y);c.stroke();}c.fillText(number(v),ax+(i===0?-7:8),y+4);}});
-      c.textAlign='center';c.fillStyle='#667085';d.ticks.forEach(([v,t])=>c.fillText(t,xx(v),H-15));
+      c.textAlign='center';c.fillStyle='#667085';d.ticks.filter((tick,i,a)=>innerWidth>760||(a.length<=12&&String(tick[1]).length<=4)||i%Math.ceil(a.length/4)===0||i===a.length-1).forEach(([v,t])=>c.fillText(t,xx(v),H-15));
       ss.forEach(s=>{const ai=s.axis||0;c.fillStyle=s.color;c.strokeStyle=s.color;c.lineWidth=s.width||1.6;c.beginPath();let started=false;const ps=s.points.filter(p=>p[1]!=null);ps.forEach(p=>{const x=xx(p[0]),y=yy(p[1],ai);if(s.kind==='bar'){const bw=s.barWidth||Math.max(1,Math.min(12,(W-L-R)/(d.xMax-d.xMin+1)*.72));c.fillRect(x-bw/2,y,bw,yy(0,ai)-y);}else{if(started)c.lineTo(x,y);else{c.moveTo(x,y);started=true;}}hits.push({x,y,p,s});});if(s.kind!=='bar')c.stroke();});
       canvas._supplyHits=hits;if(hover!=null){c.setLineDash([3,3]);c.strokeStyle='#667085';c.beginPath();c.moveTo(hover,T);c.lineTo(hover,H-B);c.stroke();c.setLineDash([]);}return;
     }
@@ -4047,7 +4047,7 @@ canvas{touch-action:pan-y}.edit-toolbar,.table-toolbar,#save-edits{display:none!
       c.beginPath();c.moveTo(L,y(v));c.lineTo(W-R,y(v));c.stroke();
       c.textAlign='right';c.fillText(number(v),L-7,y(v)+4);
     }
-    c.textAlign='center';d.ticks.forEach(([v,t])=>c.fillText(t,x(v),H-15));
+    c.textAlign='center';d.ticks.filter((tick,i,a)=>innerWidth>760||(a.length<=12&&String(tick[1]).length<=4)||i%Math.ceil(a.length/4)===0||i===a.length-1).forEach(([v,t])=>c.fillText(t,x(v),H-15));
     c.textAlign='left';c.fillText(d.unit,L,T-10);
     const hits=[];
     const bottoms={};
