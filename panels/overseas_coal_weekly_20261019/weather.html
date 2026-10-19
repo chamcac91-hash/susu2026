@@ -2677,7 +2677,7 @@ canvas{touch-action:pan-y}.edit-toolbar,.table-toolbar,#save-edits{display:none!
 
 
 
-          const w = Number(canvas.getAttribute('width')) || 620;
+          const w = Number(canvas.dataset.logicalWidth || canvas.getAttribute('width')) || 620;
 
 
 
@@ -4087,7 +4087,7 @@ canvas{touch-action:pan-y}.edit-toolbar,.table-toolbar,#save-edits{display:none!
     });
     canvas.addEventListener('pointermove',e=>{
       if(!canvas._supplyHits?.length)return;
-      const rect=canvas.getBoundingClientRect(),xx=(e.clientX-rect.left)*(d.w||520)/rect.width,yy=(e.clientY-rect.top)*(d.h||320)/rect.height;
+      const rect=canvas.getBoundingClientRect(),xx=(e.clientX-rect.left)*(innerWidth<=760?520:(d.w||520))/rect.width,yy=(e.clientY-rect.top)*(innerWidth<=760?320:(d.h||320))/rect.height;
       let nearest;
       if(d.kind==='pie'){
         const {cx,cy,rad}=canvas._pie;if(Math.hypot(xx-cx,yy-cy)>rad){tip.style.display='none';return;}
