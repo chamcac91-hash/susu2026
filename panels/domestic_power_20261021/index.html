@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>20261021国内电力看板 手机版 - 1.1 发电、用电核心变化</title>
+<style>
+    :root {
+      --bg:#f5f1ea; --paper:#fffdf9; --ink:#111827; --muted:#687080; --line:#cfd6e3;
+      --navy:#0b2f66; --blue:#4f7dbf; --red:#dc2626; --soft:#f8fafc;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; padding-left:154px; background:var(--bg); color:var(--ink); font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .page { position:relative; width:min(1680px, calc(100% - 28px)); margin:14px auto 40px; background:var(--paper); border:1px solid #d7d0c6; box-shadow:0 8px 28px rgba(64,46,26,.08); }
+    header { padding:22px 28px 16px; border-bottom:3px solid var(--navy); }
+    h1 { margin:0; font-size:30px; letter-spacing:0; color:var(--navy); }
+    .subtitle { margin-top:7px; color:var(--muted); font-size:13px; }
+    main { padding:0 22px 28px; }
+    .report-section { padding:18px 0 22px; border-bottom:1px solid #d7dde8; }
+    h2 { margin:0 0 12px; font-size:24px; color:#111; }
+    h2::before { content:attr(id); display:none; }
+    .placeholder { min-height:90px; border:1px dashed #b8c0cf; background:#fbfaf7; color:#7b8190; padding:24px; font-size:16px; }
+    .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:8px; padding:18px 0 10px; border-bottom:1px solid #d7dde8; background:rgba(255,253,249,.96); backdrop-filter:blur(8px); }
+    .panel-tab { appearance:none; border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:8px 16px; min-height:42px; border-radius:3px; font-family:inherit; font-size:18px; font-weight:700; cursor:pointer; }
+    .panel-tab:hover { border-color:#b4493f; color:#0b2f66; }
+    .panel-tab.active { background:#b4493f; border-color:#b4493f; color:white; }
+    .report-panel { display:none; }
+    .report-panel.active { display:block; }
+    .subpanel { scroll-margin-top:76px; margin:12px 0 18px; padding:10px; border:1px solid #d7dde8; background:#fbfcff; }
+    .subpanel > h3 { margin:0 0 10px; font-size:20px; color:#0b2f66; border-left:5px solid #0b2f66; padding-left:9px; }
+    .stack { display:grid; gap:14px; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
+    .card { border:1px solid #bfc8d8; background:white; overflow:hidden; }
+    .wide-card { grid-column:1 / -1; }
+    .card-head { background:#d9e2f3; border-bottom:1px solid #aeb8c8; padding:7px 10px; text-align:center; }
+    .card-head h3 { margin:0; font-size:17px; color:#001f55; }
+    .card-head p { margin:2px 0 0; font-size:12px; color:#475569; }
+    .card-body { padding:10px; overflow:auto; }
+    table { width:100%; border-collapse:collapse; font-size:12px; background:white; }
+    th, td { border:1px solid #c9ced8; padding:5px 7px; text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    th { background:#e5ebf6; color:#0f2d5c; font-weight:700; }
+    th:first-child, td:first-child { text-align:left; }
+    .spot-summary-table { font-size:13px; }
+    .spot-summary-table .latest-col { background:#fff1f0; border-left:2px solid #b4493f; border-right:2px solid #b4493f; font-weight:700; }
+    .recent-values { text-align:left; white-space:normal; min-width:260px; }
+    .recent-values span { display:inline-block; margin:1px 5px 1px 0; padding:1px 5px; border:1px solid #d7dde8; background:#f8fafc; border-radius:3px; }
+    .date-value { display:inline-flex; flex-direction:column; align-items:flex-end; gap:1px; line-height:1.18; }
+    .date-value span { color:#64748b; font-size:11px; font-weight:400; }
+    .date-value b { color:#0f172a; font-size:13px; font-weight:700; }
+    .table-card .card-body { max-height:520px; }
+    .full-table .card-body { max-height:none; overflow:visible; }
+    .storage-summary-block + .storage-summary-block { margin-top:12px; }
+    .storage-summary-block h4 { margin:0; padding:6px 8px; border:1px solid #c9ced8; border-bottom:0; background:#f8fafc; color:#0f2d5c; font-size:15px; }
+    .image-card .card-body { overflow:visible; }
+    .reference-image { display:block; width:100%; height:auto; background:white; }
+    .heat td { min-width:72px; }
+    .table-note { margin:8px 2px 0; color:#64748b; font-size:12px; }
+    .summary-text { font-size:16px; line-height:1.8; color:#111827; }
+    .summary-text p { margin:0 0 8px; }
+    .directory-summary { padding:12px 14px; margin:10px 0 18px; border-left:3px solid var(--navy); background:#f4f7fb; overflow-wrap:anywhere; }
+    .directory-summary h4 { margin:0 0 8px; color:var(--navy); }
+    .directory-rollup { padding:8px 0; border-bottom:1px solid var(--line); }
+    .directory-rollup > summary { cursor:pointer; font-weight:bold; color:var(--navy); }
+    .summary-text strong { color:#b91c1c; }
+    .editable-summary-tools { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:8px 10px; border-bottom:1px solid #d7dde8; background:#f8fafc; }
+    .summary-tool-btn { appearance:none; border:1px solid #b9c3d3; background:white; color:#0f2d5c; min-height:32px; padding:5px 12px; border-radius:3px; font-family:inherit; font-size:14px; font-weight:700; cursor:pointer; }
+    .summary-tool-btn:hover { border-color:#b4493f; color:#b4493f; }
+    .summary-tool-btn.primary { background:#0b2f66; border-color:#0b2f66; color:white; }
+    .editable-summary-status { margin-left:auto; color:#64748b; font-size:12px; }
+    .editable-summary-body { min-height:118px; outline:none; border:1px solid transparent; padding:4px 6px; }
+    .editable-summary-body[contenteditable="true"] { border-color:#b4493f; background:#fffaf2; box-shadow:inset 0 0 0 1px rgba(180,73,63,.18); }
+    .editable-summary-body[contenteditable="true"] p { cursor:text; }
+    .pos { color:#b91c1c; font-weight:700; }
+    .neg { color:#1d4ed8; font-weight:700; }
+    .mini-chart-row { display:grid; grid-template-columns:repeat(4, minmax(260px,1fr)); gap:10px; }
+    .mini-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(280px,1fr)); gap:10px; }
+    .storage-smm-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-xunxi-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-headline-weekly-grid { grid-template-columns:repeat(4, minmax(240px,1fr)); }
+    .storage-headline-price-wide { margin-top:14px; padding-top:10px; border-top:1px solid #d7dde8; }
+    .chart-group-title { margin:12px 0 8px; color:#0b2f66; font-size:18px; text-align:center; }
+    .overseas-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:12px; }
+    .spot-season-grid { display:grid; grid-template-columns:repeat(3, minmax(420px,1fr)); gap:16px; align-items:start; }
+    .spot-season-grid .svg-title { font-size:16px; }
+    .spot-season-grid .svg-axis { font-size:12px; }
+    .spot-season-grid .svg-legend { font-size:11px; }
+    .decadal-chart-grid { display:grid; grid-template-columns:repeat(2, minmax(520px,1fr)); gap:14px; }
+    .net-transfer-grid { display:grid; grid-template-columns:repeat(2, minmax(560px,1fr)); gap:14px; align-items:start; }
+    .regional-structure-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:10px; align-items:start; }
+    .regional-structure-svg { border:1px solid #d7dde8; background:#fff; }
+    .regional-structure-title { font-size:18px; font-weight:700; fill:#0b2f66; }
+    .regional-structure-date { font-size:12px; fill:#64748b; }
+    .regional-structure-total { font-size:13px; fill:#334155; }
+    .regional-structure-inside { font-size:11px; font-weight:700; fill:white; paint-order:stroke; stroke:#334155; stroke-width:2px; }
+    .regional-structure-legend { font-size:11px; fill:#111827; }
+    .industry-chain-svg { border:1px solid #d7dde8; }
+    .industry-chain-title { font-size:22px; font-weight:700; fill:#0b2f66; }
+    .industry-chain-col-title { font-size:18px; font-weight:700; fill:white; }
+    .industry-chain-item { font-size:14px; fill:#0f172a; }
+    .industry-chain-note { font-size:15px; fill:#334155; }
+    .industry-panorama-image { max-height:760px; object-fit:contain; }
+    svg { width:100%; height:auto; display:block; background:white; }
+    svg text { font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .svg-title { font-size:14px; font-weight:700; fill:#0b2f66; }
+    .svg-axis { font-size:10px; fill:#334155; }
+    .svg-legend { font-size:8px; }
+    .latest-label { font-size:11px; font-weight:700; paint-order:stroke; stroke:white; stroke-width:3px; }
+    .chart-point { cursor:crosshair; }
+    .interactive-chart { position:relative; background:white; }
+    .interactive-toolbar { display:flex; flex-wrap:wrap; gap:8px 12px; padding:2px 0 8px; }
+    .interactive-toggle { display:inline-flex; align-items:center; gap:5px; color:#0f172a; font-size:12px; cursor:pointer; }
+    .interactive-toggle::before { content:""; width:18px; height:3px; background:var(--line-color); display:inline-block; }
+    .interactive-toggle input { width:13px; height:13px; margin:0; accent-color:#0b2f66; }
+    .interactive-stage { position:relative; }
+    .spot-line-card .interactive-toggle { font-size:15px; font-weight:700; }
+    .spot-line-card .interactive-toggle::before { width:24px; height:4px; }
+    .spot-line-card .interactive-toggle input { width:16px; height:16px; }
+    .spot-line-card .svg-title { font-size:18px; }
+    .spot-line-card .svg-axis { font-size:13px; }
+    .spot-line-card .latest-label { font-size:13px; }
+    .chart-tooltip { display:none; position:absolute; z-index:20; min-width:190px; max-width:320px; pointer-events:none; background:rgba(15,23,42,.94); color:white; border-radius:6px; padding:10px 12px; font-size:14px; line-height:1.55; box-shadow:0 12px 30px rgba(15,23,42,.28); }
+    .chart-tooltip .tip-date { font-weight:700; color:#dbeafe; margin-bottom:5px; font-size:17px; }
+    .global-chart-tooltip { position:fixed; white-space:normal; }
+    .rotated { writing-mode:tb; glyph-orientation-vertical:0; }
+    .industry-bar-svg { width:100%; }
+    .industry-axis { font-size:16px; dominant-baseline:hanging; }
+    .net-transfer-axis { font-size:13px; fill:#0f2d5c; text-anchor:end; dominant-baseline:middle; }
+    .capacity-title { font-size:26px; fill:#4b5563; }
+    .capacity-axis { font-size:18px; fill:#4b5563; text-anchor:end; dominant-baseline:middle; }
+    .side-toc { position:fixed; left:0; top:0; bottom:0; z-index:70; width:154px; overflow:auto; padding:42px 12px 18px; background:rgba(255,253,249,.98); border-right:1px solid #cbd5e1; box-shadow:8px 0 22px rgba(15,23,42,.08); }
+    .side-toc div { color:#0b2f66; font-size:16px; font-weight:700; margin:0 0 8px; }
+    .side-toc a { display:block; color:#334155; text-decoration:none; font-size:13px; line-height:1.2; padding:7px 6px; border-left:3px solid transparent; }
+    .side-toc a:hover { color:#0b2f66; background:#eef3fb; border-left-color:#b4493f; }
+    .sources { padding:16px 22px 26px; font-size:12px; color:#596273; line-height:1.7; }
+    @media(max-width:1100px) {
+      .grid-2, .mini-chart-row, .mini-chart-grid, .overseas-chart-grid, .spot-season-grid, .decadal-chart-grid, .net-transfer-grid, .regional-structure-grid { grid-template-columns:1fr; }
+      .page { width:100%; margin:0; border:0; box-shadow:none; }
+      body { padding-left:0; }
+      header { padding:14px 14px 10px; }
+      h1 { font-size:24px; }
+      .panel-tabs { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:8px; white-space:nowrap; }
+      .panel-tab { flex:0 0 auto; min-height:34px; padding:6px 10px; font-size:14px; }
+      .side-toc { position:sticky; top:50px; z-index:75; width:100%; max-height:none; padding:7px 8px; display:flex; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; border-right:0; border-bottom:1px solid #cbd5e1; box-shadow:none; }
+      .side-toc div { display:none; }
+      .side-toc a { flex:0 0 auto; padding:5px 9px; border:1px solid #d7dde8; border-left:0; border-radius:3px; background:#f8fafc; font-size:13px; line-height:1.15; white-space:nowrap; }
+      .side-toc a:hover { border-left:0; border-color:#b4493f; }
+      main { padding:0 10px 18px; }
+    }
+    @media(max-width:720px) {
+      body { font-size:14px; }
+      header { padding:10px 10px 8px; }
+      h1 { font-size:22px; }
+      main { padding:0 6px 14px; }
+      h2 { margin:8px 0; font-size:20px; }
+      .report-section { padding:8px 0 16px; }
+      .subpanel { scroll-margin-top:92px; margin:8px 0 12px; padding:6px; }
+      .subpanel > h3 { font-size:17px; padding-left:7px; }
+      .card-head { padding:6px 8px; }
+      .card-head h3 { font-size:16px; }
+      .card-head p { font-size:11px; line-height:1.35; }
+      .card-body { padding:7px; }
+      table { min-width:720px; font-size:11px; }
+      .spot-summary-table { min-width:860px; font-size:11px; }
+      th, td { padding:4px 5px; }
+      .table-card .card-body, .full-table .card-body { max-height:none; overflow-x:auto; overflow-y:visible; -webkit-overflow-scrolling:touch; }
+      .full-table table th:first-child, .full-table table td:first-child,
+      .table-card table th:first-child, .table-card table td:first-child { position:sticky; left:0; z-index:2; background:white; }
+      .full-table table th:first-child, .table-card table th:first-child { z-index:3; background:#e5ebf6; }
+      .summary-text { font-size:14px; line-height:1.65; }
+      .editable-summary-tools { gap:6px; padding:6px; }
+      .summary-tool-btn { min-height:30px; padding:4px 9px; font-size:12px; }
+      .editable-summary-status { width:100%; margin-left:0; font-size:11px; }
+      .interactive-toolbar { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px; }
+      .interactive-toggle { flex:0 0 auto; gap:4px; font-size:10px; white-space:nowrap; }
+      .interactive-toggle::before { width:16px; height:3px; }
+      .interactive-toggle input { width:12px; height:12px; }
+      .spot-line-card .interactive-toggle { font-size:11px; }
+      .spot-line-card .interactive-toggle::before { width:18px; height:3px; }
+      .spot-line-card .interactive-toggle input { width:13px; height:13px; }
+      .svg-title { font-size:12px; }
+      .svg-axis { font-size:8px; }
+      .svg-legend { font-size:7px; }
+      .latest-label { font-size:8px; }
+      .spot-line-card .svg-title { font-size:13px; }
+      .spot-line-card .svg-axis { font-size:9px; }
+      .spot-line-card .latest-label { font-size:9px; }
+      .industry-axis { font-size:11px; }
+      .net-transfer-axis { font-size:9px; }
+      .capacity-title { font-size:18px; }
+      .capacity-axis { font-size:12px; }
+      .regional-structure-title { font-size:15px; }
+      .regional-structure-date, .regional-structure-total, .regional-structure-legend { font-size:10px; }
+      .regional-structure-inside { font-size:9px; }
+      .chart-tooltip { min-width:160px; max-width:calc(100vw - 28px); padding:8px 10px; font-size:12px; }
+      .chart-tooltip .tip-date { font-size:14px; }
+      .sources { padding:12px 10px 18px; font-size:10px; }
+    }
+  </style>
+<style id="mobile-pages-overrides">
+      html { scroll-behavior: smooth; }
+      body { min-width: 0; }
+      .side-toc { display: none !important; }
+      main { margin-left: 0 !important; min-width: 0; }
+      .split-page-tabs {
+        position: sticky; top: 0; z-index: 95; display: flex; flex-wrap: nowrap;
+        gap: 6px; overflow-x: auto; padding: 8px 0; white-space: nowrap;
+        background: rgba(255,253,249,.98); border-bottom: 1px solid var(--line);
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      }
+      .split-page-tabs::-webkit-scrollbar, .section-page-nav::-webkit-scrollbar { display: none; }
+      .split-tab, .section-link {
+        flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none;
+        background: #f8fafc; color: #344054; font-weight: 750; white-space: nowrap;
+      }
+      .split-tab { min-width: 4.4rem; min-height: 36px; padding: 7px 10px; font-size: 14px; }
+      .split-tab.active { color: #fff; background: #b4493f; border-color: #b4493f; }
+      .section-page-nav {
+        position: sticky; top: 53px; z-index: 90; display: flex; gap: 6px;
+        overflow-x: auto; padding: 8px 0 10px; margin: -2px 0 8px;
+        background: rgba(255,253,249,.98); scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .section-link { min-height: 32px; max-width: 82vw; padding: 6px 9px; font-size: 13px; }
+      .section-link.active { color: #fff; background: #183a6b; border-color: #183a6b; }
+      .report-panel > h2 { margin-top: 10px; }
+      img { max-width: 100%; height: auto; }
+      .card-body, .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      @media (max-width: 760px) {
+        header, main { width: auto !important; max-width: none !important; }
+        header { padding-left: 12px !important; padding-right: 12px !important; }
+        main { padding: 0 8px 28px !important; }
+        h1 { font-size: 23px !important; line-height: 1.2; }
+        .subpanel { padding: 6px; margin: 8px 0 12px; }
+        .subpanel > h3 { font-size: 17px; }
+        .grid-2, .chart-grid, .spot-season-grid, .overseas-chart-grid { grid-template-columns: minmax(0, 1fr) !important; }
+        table { min-width: 620px; }
+        svg {
+          display: block;
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+          height: auto !important;
+        }
+        .card-head h3 { font-size: 16px !important; }
+        .card-head p, .table-note, .source-note { font-size: 12px !important; }
+      }
+    </style></head>
+<body>
+<div class="page">
+<nav aria-label="子面板目录" class="side-toc"><div>目录</div><a href="index.html#overview-core">1.1 发电用电</a><a href="overview-overview-investment.html#overview-investment">1.2 电源电网</a><a href="price.html#price-spot">2.1 现货电价</a><a href="price-price-table.html#price-table">2.2 代理电价</a><a href="price-overseas-americas-daily.html#price-overseas">2.3 海外电价</a><a href="price-price-long-contract.html#price-long-contract">2.4 长协电价</a><a href="price-price-capacity.html#price-capacity">2.5 容量电价</a><a href="supply.html#supply-generation">3.1 发电量</a><a href="supply-supply-capacity.html#supply-capacity">3.2 装机</a><a href="supply-supply-regional.html#supply-regional">3.3 分地区发电</a><a href="supply-supply-decadal.html#supply-decadal">3.4 旬度发电</a><a href="supply-supply-utilization-hours.html#supply-utilization-hours">3.5 利用小时</a><a href="supply-supply-regional-structure.html#supply-regional-structure">3.6 分省结构</a><a href="supply-supply-nuclear-maintenance.html#supply-nuclear-maintenance">3.7 核电检修</a><a href="supply-supply-hydrology.html#supply-hydrology">3.8 水电站水情</a><a href="demand.html#demand-total">4.1 用电总量</a><a href="demand-demand-industry.html#demand-industry">4.2 分行业用电</a><a href="trade.html#trade-long-term">5.1 中长期交易</a><a href="trade-trade-center.html#trade-center">5.2 交易中心</a><a href="trade-trade-net-transfer.html#trade-net-transfer">5.3 净输出</a><a href="policy.html#policy-market">6.1 电力市场政策</a><a href="policy-policy-renewable.html#policy-renewable">6.2 新能源政策</a><a href="policy-policy-storage.html#policy-storage">6.3 储能政策</a><a href="storage.html#storage-monthly-install">7.1 储能装机</a><a href="storage-storage-headline-weekly.html#storage-headline-weekly">7.2 储能头条周度</a></nav>
+<header>
+<h1>20261021国内电力看板 手机版</h1>
+</header>
+<main>
+<nav aria-label="一级栏目" class="panel-tabs split-page-tabs"><a class="split-tab active" href="index.html">汇总</a><a class="split-tab" href="price.html">价格</a><a class="split-tab" href="supply.html">供给</a><a class="split-tab" href="demand.html">需求</a><a class="split-tab" href="trade.html">交易</a><a class="split-tab" href="policy.html">政策</a><a class="split-tab" href="storage.html">储能</a></nav>
+<section class="report-section report-panel active" id="overview"><h2>汇总</h2><nav aria-label="专题栏目" class="section-page-nav"><a class="section-link active" href="index.html#overview-core">1.1 发电、用电核心变化</a><a class="section-link" href="overview-overview-investment.html#overview-investment">1.2 电源电网投资</a></nav><div class="directory-summary"><h3>全目录总结</h3><p>供给端，2026-09总发电同比-1.2%，水电-18.1%，核电、风电、太阳能各自表现见3.1；需求端，2026-08全社会用电同比+1.7%，第三产业与居民方向分化，详见4.1—4.2。价格端，2026-10代理价28个可比地区中24个同比下降，日度现货按2.1实际观测另行判断。后续结合装机与利用小时、地区电源结构与净输出、核电检修和水情，判断火电承担的供给变化；投资、政策和储能用于补充中期供给及调节能力观察。下列七个栏目汇集全部25个子目录的数值、判断与数据期。</p><details class="directory-rollup"><summary>汇总</summary><div class="directory-summary summary-text"><h4>分目录结论</h4><p><strong>1.1 发电、用电核心变化</strong>（发电2026-09；用电2026-08）：2026-09，总发电当月8,293.6亿千瓦时，同比-1.2%，累计同比+2.2%；2026-08，全社会用电当月10,332.0亿千瓦时，同比+1.7%，累计同比+4.3%。发电和用电截止月份不同，分别观察各自边际变化。</p><p><strong>1.2 电源电网投资</strong>（2026-08-31）：电源总投资累计4,916.1亿元、同比-5.2%；水电累计548.4亿元、同比+4.5%；火电累计1,318.4亿元、同比+5.5%；核电累计865.0亿元、同比+0.8%；风电累计1,324.3亿元、同比+9.1%；太阳能累计860.0亿元、同比-35.9%；电网投资累计3,931.8亿元、同比+3.6%（2026-08）。投资结构需与后续投产、利用小时配合观察，投资额不直接等于新增发电量。</p></div></details><details class="directory-rollup"><summary>价格</summary><div class="directory-summary summary-text"><h4>分目录结论</h4><p><strong>2.1 重点省份现货电力价格</strong>（2026-10-17）：26-10-17可比观测中，广东日前平均电价0.560元/度、周环比+31.2%、年同比+27.2%；广东日前燃煤电价0.544元/度、周环比+28.8%、年同比+27.0%；广东日前燃气电价0.738元/度、周环比+34.0%、年同比+49.7%。缺报省份不参与当期方向判断；燃煤、燃气价差用于观察边际电源的价格表现。</p><p><strong>2.2 分省份代理电价</strong>（2026-10-01）：2026-10，28个可同比地区中24个代理购电价下降；降幅较大的是辽宁-0.178元/度、湖南-0.151元/度、新疆-0.136元/度。代理价与日度现货价格频率及结算范围不同，分别判断。</p><p><strong>2.3 海外电价</strong>（各示例括号内实际观测日）：各区域首个市场示例：美国日前平均电价（USD/MWh）最新0.00（2026-10-14，源图零值待核实）；日本基荷电源平均电价（日元/MWh）最新21.40（2026-10-14）；德国日前基荷电价（欧元/MWh）最新186.10（2026-10-14）；澳大利亚南澳日度电力市场价（澳元/MWh）最新62.80（2026-10-14）。按各市场原币种与单位比较自身变化，各区域示例不代表全区域方向。</p><p><strong>2.4 年度长协电价</strong>（参考图未登记观测期）：本节保留各省长协电价与燃煤基准价价差参考图。当前为图片资料，缺少结构化数值和可核验时点，暂不输出当期涨跌或跨省排名。</p><p><strong>2.5 容量电价对比变动</strong>（2025—2026对照）：面板2025—2026对照中，27个地区可比，其中26个上调；辽宁由100升至370、吉林由100升至330、黑龙江由100升至330。容量补偿影响固定成本回收，实际盈利仍取决于电量、电价、燃料成本和考核。</p></div></details><details class="directory-rollup"><summary>供给</summary><div class="directory-summary summary-text"><h4>分目录结论</h4><p><strong>3.1 发电量</strong>（2026-09-30）：2026-09，总发电当月8,293.6亿千瓦时，同比-1.2%，累计同比+2.2%；分电源当月同比为火电-1.4%、水电-18.1%、核电+21.5%、风电+10.6%、太阳能+19.5%。同时看各电源电量规模和增量，避免用高增速代替对总量的贡献。</p><p><strong>3.2 装机</strong>（2026-08-31）：总装机410,302.2万千瓦、同比+11.08%；火电158,750.2万千瓦、同比+6.23%；水电45,616.4万千瓦、同比+3.16%；核电6,734.3万千瓦、同比+10.50%；风电69,272.4万千瓦、同比+19.64%；太阳能129,923.6万千瓦、同比+16.29%。装机扩张应与3.5利用小时共同评估，不能直接外推发电增量。</p><p><strong>3.3 分地区分类型发电</strong>（2026-08-31）：累计总发电同比靠前：西藏+52.1%、甘肃+15.5%、青海+14.2%；靠后：重庆-10.8%、河南-5.8%、湖南-3.4%。以上为增速排名，低基数省份需结合电量；带星号的异常口径不直接作趋势结论。</p><p><strong>3.4 旬度日均发电</strong>（2026-09-21）：2026/09/21对应9月下旬，日均总发电286.6亿千瓦时、同比+9.3%；火电182.8、同比+12.1%，水电44.6、同比-8.2%。旬度样本与统计局月度范围可能不同，二者方向差异需保留。</p><p><strong>3.5 发电利用小时数</strong>（2026-08-31）：平均利用小时251.7小时（2026-08）；火电335.4小时（2026-08）；风电134.3小时（2026-08）；水电344.5小时（2026-08）；核电621.4小时（2026-08）；太阳能72.4小时（2026-08）。按各电源自身的当月利用小时比较，结合装机变化判断设备利用程度。</p><p><strong>3.6 分省份发电结构</strong>（2026-08-31）：累计发电规模前三省区：内蒙古累计发电5,738.7亿千瓦时，火电占69.2%；广东累计发电5,084.4亿千瓦时，火电占73.4%；江苏累计发电4,481.6亿千瓦时，火电占79.5%。与3.3各电源增速、5.3净输出共同观察；结构占比不等于该省消费结构。</p><p><strong>3.7 核电检修</strong>（2026-08-09）：运行60.93GW、60台；检修/停堆2.59GW、2台；调试2.40GW、2台。当前运行快照较旧，检修对当期供给的影响需在运行状态更新后判断。</p><p><strong>3.8 水电站水情</strong>（2026-10-06）：三峡大坝上游水位172.0米（2026-10-06）；三峡大坝入库13,700.0立方米/秒（2026-10-06）；三峡大坝出库7,460.0立方米/秒（2026-10-06）。水位、入出库反映蓄泄状态；各站缺报与最新日期分别保留，不能仅凭高水位推断发电增加。</p></div></details><details class="directory-rollup"><summary>需求</summary><div class="directory-summary summary-text"><h4>分目录结论</h4><p><strong>4.1 用电总量与结构</strong>（2026-08-31）：2026-08，全社会用电当月10,332.0亿千瓦时，同比+1.7%，累计同比+4.3%；第一产业当月同比+2.7%、第二产业当月同比+2.4%、第三产业当月同比+5.1%、城乡居民当月同比-4.0%。产业与居民贡献需要以同口径上年电量拆解；工业为二产子集，不重复相加。</p><p><strong>4.2 分行业用电</strong>（2026-08-31）：面板行业累计同比较高：信息传输、软件和信息技术服务业+17.7%、商业、住宿和餐饮业:批发和零售业+14.7%、仪器仪表制造业+13.6%；较低：建筑业-8.4%、工业:制造业:非金属矿物制品业-4.2%、烟草制品业-0.0%。此表含上级部门和子行业，排名反映各自增速，不能直接加总或当作当月贡献排名。</p></div></details><details class="directory-rollup"><summary>交易</summary><div class="directory-summary summary-text"><h4>分目录结论</h4><p><strong>5.1 中长期电力直接交易</strong>（2026-08-01）：省内电力直接交易:当月值4,694.0亿千瓦时、年同比/变化+7.4%；省内电力直接交易:累计值33,150.0亿千瓦时、年同比/变化+26.7%。交易规模反映市场化覆盖及交易活跃度，不能等同于额外新增终端用电。</p><p><strong>5.2 电力交易中心交易</strong>（2026-08-01）：交易中心合计:当月值7,548.0亿千瓦时、年同比/变化+15.2%；交易中心合计:累计值51,658.0亿千瓦时、年同比/变化+22.5%；交易中心合计占全社会用电累计比重(计算)+72.2%、年同比/变化+9.1pct。交易规模反映市场化覆盖及交易活跃度，不能等同于额外新增终端用电。</p><p><strong>5.3 省份净输出电量</strong>（输出2026-08-01；输入2026-08-01）：累计净输出较高：内蒙古2,151.6亿千瓦时、云南1,237.4亿千瓦时、新疆1,108.6亿千瓦时；净输入较高：广东1,348.9亿千瓦时、山东1,242.9亿千瓦时、浙江1,198.5亿千瓦时。省间调配使本地发电与本地用电可以分化，需结合电源结构与通道情况。</p></div></details><details class="directory-rollup"><summary>政策</summary><div class="directory-summary summary-text"><h4>分目录结论</h4><p><strong>6.1 国内电力市场政策</strong>（2025-12-26）：已收录4项政策，最新记录为2025-12-26《电力中长期市场基本规则（发改能源规〔2025〕1656号）》。新规自2026年3月1日起施行，有效期5年；构建多年、年、月、月内等多周期交易体系，推动按日及更短周期连续交易，跨省跨区中长期交易常态化，为新能源电站稳定收益和金融化融资提供更清晰的合同基础。 政策记录截止日仅代表本地覆盖，执行效果需要后续价格、交易或装机数据验证。</p><p><strong>6.2 新能源政策</strong>（2025-09-12）：已收录2项政策，最新记录为2025-09-12《关于完善价格机制促进新能源发电就近消纳的通知》。明确就近消纳项目按接网容量承担输配电费、系统运行费等稳定供应保障费用；引导项目通过储能和灵活调节降低接网容量，影响源网荷储一体化、绿电直连和零碳园区经济性。 政策记录截止日仅代表本地覆盖，执行效果需要后续价格、交易或装机数据验证。</p><p><strong>6.3 储能政策</strong>（2025-09-12）：已收录2项政策，最新记录为2025-09-12《新型储能规模化建设专项行动方案（2025—2027年）》。设定2027年全国新型储能装机规模达到1.8亿千瓦以上，带动项目直接投资约2500亿元；政策方向从强配储转向规模化、市场化和应用场景拓展。 政策记录截止日仅代表本地覆盖，执行效果需要后续价格、交易或装机数据验证。</p></div></details><details class="directory-rollup"><summary>储能</summary><div class="directory-summary summary-text"><h4>分目录结论</h4><p><strong>7.1 储能装机与招中标</strong>（装机2026-06-30；寻熵2026-09-01；SMM2026-06-30）：装机口径截至2026-06，累计装机功率153.0GW、累计装机能量396.0GWh；月度招投标截至2026-09，采招容量（月度）73.7GWh、环比/变化-20.9%、系统/EPC容量（月度）69.7GWh、环比/变化-20.1%、中标容量（月度）73.7GWh、环比/变化-20.9%。装机、招标与中标分别处于不同阶段，不能将中标量直接当作投运量。</p><p><strong>7.2 储能头条周度招中标</strong>（2026-08-07）：最新日期节点未提供可用的当周招中标量及价格，状态为待补原文。周度记录未推进至本次报告日，保留历史节点；当前周招标热度仍需新原文确认。</p></div></details></div><div class="directory-summary summary-text"><h4>栏目总结</h4><p><strong>1.1 发电、用电核心变化</strong>（发电2026-09；用电2026-08）：2026-09，总发电当月8,293.6亿千瓦时，同比-1.2%，累计同比+2.2%；2026-08，全社会用电当月10,332.0亿千瓦时，同比+1.7%，累计同比+4.3%。发电和用电截止月份不同，分别观察各自边际变化。</p><p><strong>1.2 电源电网投资</strong>（2026-08-31）：电源总投资累计4,916.1亿元、同比-5.2%；水电累计548.4亿元、同比+4.5%；火电累计1,318.4亿元、同比+5.5%；核电累计865.0亿元、同比+0.8%；风电累计1,324.3亿元、同比+9.1%；太阳能累计860.0亿元、同比-35.9%；电网投资累计3,931.8亿元、同比+3.6%（2026-08）。投资结构需与后续投产、利用小时配合观察，投资额不直接等于新增发电量。</p></div><section class="subpanel" id="overview-core"><h3>1.1 发电、用电核心变化</h3><div class="directory-summary summary-text"><h4>本节小结</h4><p><strong>1.1 发电、用电核心变化</strong>（发电2026-09；用电2026-08）：2026-09，总发电当月8,293.6亿千瓦时，同比-1.2%，累计同比+2.2%；2026-08，全社会用电当月10,332.0亿千瓦时，同比+1.7%，累计同比+4.3%。发电和用电截止月份不同，分别观察各自边际变化。</p></div><div class="card editable-summary-card wide-card" data-summary-key="power-monthly-overview-core-summary"><div class="card-head"><h3>主要结论</h3><p>当月值、同环比与累计增速，按当前已有数据客观表述。</p></div><div class="card-body"><div class="summary-text editable-summary-body" spellcheck="false"><div class="summary-text"><p><strong>发电：</strong>2026年9月总发电8,293.6亿千瓦时，官方可比口径同比-1.2%，环比-12.1%，累计增速+2.2%。 分类型看，2026年9月太阳能643.9亿千瓦时，官方可比口径同比+19.5%，环比-8.0%，累计增速+26.0%；2026年9月风电776.1亿千瓦时，官方可比口径同比+10.6%，环比+6.5%，累计增速+4.6%；2026年9月核电439.5亿千瓦时，官方可比口径同比+21.5%，环比-5.8%，累计增速+3.7%。</p><p><strong>用电：</strong>2026年8月全社会用电10,332.0亿千瓦时，官方同比+1.7%，环比-0.7%，累计增速+4.3%。 结构看，2026年8月第三产业2,155.0亿千瓦时，官方同比+5.1%，环比-1.3%，累计增速+7.1%；2026年8月工业用电6,065.0亿千瓦时，官方同比+2.7%，环比+0.2%，累计增速+4.6%；2026年8月第二产业6,124.0亿千瓦时，官方同比+2.4%，环比+0.1%，累计增速+4.4%。</p><p class="table-note">注：发电与用电按各自实际截止月份表述；全目录总结另汇总价格、供给、需求、交易、政策和储能分目录结论。</p></div></div></div></div></section></section>
+
+
+
+
+
+
+</main>
+<div class="sources">
+<strong>源与口径：</strong>
+      现货电价来自“电力现货价格日度”；代理电价来自“代理电价月度钢联”；发电、用电来自“发电用电”；分地区发电来自“分类型分地区”；
+      累计装机来自“发电装机容量-wind”；新增装机来自“新增发电装机容量-ifind”；投资来自“电源电网投资”。
+      省份净输出来自“输出电量”和“输入电量”，按输出-输入计算；海外电价来自 pb/全球电价.xlsx 的图表公式对应序列。
+      储能装机和政策事件先来自项目内 JSON 底表；核电检修来源固定为生态环境部核电运行状态监测页面，后续接入日度/事件级抓取。
+      最新数据日期：发电 2026-09-30，总量用电 2026-08-31，分行业用电 2026-08-31，现货电价 2026-10-17，代理电价 2026-10-01，分地区发电 2026-08-31，装机 2026-08-31，交易 2026-08-01，输出/输入电量 2026-08-01/2026-08-01，投资 2026-08-31。
+    </div>
+</div>
+<div class="chart-tooltip global-chart-tooltip" id="global-chart-tooltip"></div>
+<script>
+  const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+  const panels = Array.from(document.querySelectorAll('.report-panel'));
+  function activatePanel(target) {
+    tabs.forEach((tab) => {
+      const active = tab.dataset.target === target;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    panels.forEach((panel) => panel.classList.toggle('active', panel.id === target));
+  }
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      activatePanel(tab.dataset.target);
+      history.replaceState(null, '', '#' + tab.dataset.target);
+    });
+  });
+  const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+  const tocTargetPanel = Object.fromEntries(tocLinks.map((link) => [link.getAttribute('href').replace('#', ''), link.dataset.panel]));
+  function jumpToSubpanel(targetId, panelId) {
+    if (!targetId || !panelId) return;
+    activatePanel(panelId);
+    requestAnimationFrame(() => {
+      const target = document.getElementById(targetId);
+      if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  }
+  tocLinks.forEach((link) => {
+    link.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const targetId = link.getAttribute('href').replace('#', '');
+      jumpToSubpanel(targetId, link.dataset.panel);
+      history.replaceState(null, '', '#' + targetId);
+    });
+  });
+  const initial = location.hash.replace('#', '');
+  if (['overview', 'price', 'supply', 'demand', 'trade'].includes(initial)) activatePanel(initial);
+  if (tocTargetPanel[initial]) jumpToSubpanel(initial, tocTargetPanel[initial]);
+  function summaryStorageKey(card) {
+    return 'power-dashboard-summary:' + (card.dataset.summaryKey || 'default');
+  }
+  function setSummaryStatus(card, text) {
+    const status = card.querySelector('.editable-summary-status');
+    if (status) status.textContent = text;
+  }
+  document.querySelectorAll('.editable-summary-card').forEach((card) => {
+    const body = card.querySelector('.editable-summary-body');
+    if (!body) return;
+    const key = summaryStorageKey(card);
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      body.innerHTML = saved;
+      setSummaryStatus(card, '已载入保存稿');
+    }
+    card.addEventListener('click', (ev) => {
+      const button = ev.target.closest ? ev.target.closest('[data-summary-action]') : null;
+      if (!button) return;
+      const action = button.dataset.summaryAction;
+      if (action === 'edit') {
+        const enabled = body.getAttribute('contenteditable') === 'true';
+        body.setAttribute('contenteditable', enabled ? 'false' : 'true');
+        button.textContent = enabled ? '编辑' : '完成编辑';
+        if (!enabled) {
+          body.focus();
+          setSummaryStatus(card, '编辑中');
+        } else {
+          setSummaryStatus(card, '待保存');
+        }
+      }
+      if (action === 'save') {
+        localStorage.setItem(key, body.innerHTML);
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已保存 ' + new Date().toLocaleTimeString('zh-CN', { hour12:false }));
+      }
+      if (action === 'reset') {
+        if (!confirm('恢复为本次数据自动生成的汇总文字？')) return;
+        localStorage.removeItem(key);
+        body.innerHTML = body.dataset.defaultHtml || '';
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已恢复生成稿');
+      }
+      if (action === 'export') {
+        const title = card.querySelector('.card-head h3')?.textContent || 'summary';
+        const html = '<!doctype html><meta charset="utf-8"><title>' + title + '</title><body>' + body.innerHTML + '</body>';
+        const blob = new Blob([html], { type:'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = '电力月报-汇总编辑稿.html';
+        link.click();
+        URL.revokeObjectURL(url);
+        setSummaryStatus(card, '已导出');
+      }
+    });
+  });
+  const globalTip = document.getElementById('global-chart-tooltip');
+  function showGlobalTip(ev, text) {
+    if (!globalTip || !text) return;
+    const rawText = String(text).replace(/\r?\n/g, '\n').replace(/\\n/g, '\n');
+    globalTip.innerHTML = rawText
+      .split('\n')
+      .map((line, idx) => {
+        const safe = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return idx === 0 ? `<div class="tip-date">${safe}</div>` : `<div>${safe}</div>`;
+      })
+      .join('');
+    globalTip.style.display = 'block';
+    const margin = 16;
+    const boxW = globalTip.offsetWidth || 240;
+    const boxH = globalTip.offsetHeight || 90;
+    let left = ev.clientX + 16;
+    let top = ev.clientY - Math.min(40, boxH / 2);
+    if (left + boxW + margin > window.innerWidth) left = ev.clientX - boxW - 16;
+    if (top + boxH + margin > window.innerHeight) top = window.innerHeight - boxH - margin;
+    if (top < margin) top = margin;
+    globalTip.style.left = left + 'px';
+    globalTip.style.top = top + 'px';
+  }
+  document.addEventListener('mousemove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    if (!target) {
+      if (globalTip) globalTip.style.display = 'none';
+      return;
+    }
+    showGlobalTip(ev, target.dataset.tip);
+  });
+  document.addEventListener('touchstart', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('touchmove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('mouseleave', () => {
+    if (globalTip) globalTip.style.display = 'none';
+  });
+</script>
+</body>
+</html>
