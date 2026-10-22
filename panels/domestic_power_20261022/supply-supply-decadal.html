@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>20261022国内电力看板 手机版 - 3.4 旬度日均发电</title>
+<style>
+    :root {
+      --bg:#f5f1ea; --paper:#fffdf9; --ink:#111827; --muted:#687080; --line:#cfd6e3;
+      --navy:#0b2f66; --blue:#4f7dbf; --red:#dc2626; --soft:#f8fafc;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; padding-left:154px; background:var(--bg); color:var(--ink); font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .page { position:relative; width:min(1680px, calc(100% - 28px)); margin:14px auto 40px; background:var(--paper); border:1px solid #d7d0c6; box-shadow:0 8px 28px rgba(64,46,26,.08); }
+    header { padding:22px 28px 16px; border-bottom:3px solid var(--navy); }
+    h1 { margin:0; font-size:30px; letter-spacing:0; color:var(--navy); }
+    .subtitle { margin-top:7px; color:var(--muted); font-size:13px; }
+    main { padding:0 22px 28px; }
+    .report-section { padding:18px 0 22px; border-bottom:1px solid #d7dde8; }
+    h2 { margin:0 0 12px; font-size:24px; color:#111; }
+    h2::before { content:attr(id); display:none; }
+    .placeholder { min-height:90px; border:1px dashed #b8c0cf; background:#fbfaf7; color:#7b8190; padding:24px; font-size:16px; }
+    .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:8px; padding:18px 0 10px; border-bottom:1px solid #d7dde8; background:rgba(255,253,249,.96); backdrop-filter:blur(8px); }
+    .panel-tab { appearance:none; border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:8px 16px; min-height:42px; border-radius:3px; font-family:inherit; font-size:18px; font-weight:700; cursor:pointer; }
+    .panel-tab:hover { border-color:#b4493f; color:#0b2f66; }
+    .panel-tab.active { background:#b4493f; border-color:#b4493f; color:white; }
+    .report-panel { display:none; }
+    .report-panel.active { display:block; }
+    .subpanel { scroll-margin-top:76px; margin:12px 0 18px; padding:10px; border:1px solid #d7dde8; background:#fbfcff; }
+    .subpanel > h3 { margin:0 0 10px; font-size:20px; color:#0b2f66; border-left:5px solid #0b2f66; padding-left:9px; }
+    .stack { display:grid; gap:14px; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
+    .card { border:1px solid #bfc8d8; background:white; overflow:hidden; }
+    .wide-card { grid-column:1 / -1; }
+    .card-head { background:#d9e2f3; border-bottom:1px solid #aeb8c8; padding:7px 10px; text-align:center; }
+    .card-head h3 { margin:0; font-size:17px; color:#001f55; }
+    .card-head p { margin:2px 0 0; font-size:12px; color:#475569; }
+    .card-body { padding:10px; overflow:auto; }
+    table { width:100%; border-collapse:collapse; font-size:12px; background:white; }
+    th, td { border:1px solid #c9ced8; padding:5px 7px; text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    th { background:#e5ebf6; color:#0f2d5c; font-weight:700; }
+    th:first-child, td:first-child { text-align:left; }
+    .spot-summary-table { font-size:13px; }
+    .spot-summary-table .latest-col { background:#fff1f0; border-left:2px solid #b4493f; border-right:2px solid #b4493f; font-weight:700; }
+    .recent-values { text-align:left; white-space:normal; min-width:260px; }
+    .recent-values span { display:inline-block; margin:1px 5px 1px 0; padding:1px 5px; border:1px solid #d7dde8; background:#f8fafc; border-radius:3px; }
+    .date-value { display:inline-flex; flex-direction:column; align-items:flex-end; gap:1px; line-height:1.18; }
+    .date-value span { color:#64748b; font-size:11px; font-weight:400; }
+    .date-value b { color:#0f172a; font-size:13px; font-weight:700; }
+    .table-card .card-body { max-height:520px; }
+    .full-table .card-body { max-height:none; overflow:visible; }
+    .storage-summary-block + .storage-summary-block { margin-top:12px; }
+    .storage-summary-block h4 { margin:0; padding:6px 8px; border:1px solid #c9ced8; border-bottom:0; background:#f8fafc; color:#0f2d5c; font-size:15px; }
+    .image-card .card-body { overflow:visible; }
+    .reference-image { display:block; width:100%; height:auto; background:white; }
+    .heat td { min-width:72px; }
+    .table-note { margin:8px 2px 0; color:#64748b; font-size:12px; }
+    .summary-text { font-size:16px; line-height:1.8; color:#111827; }
+    .summary-text p { margin:0 0 8px; }
+    .summary-text strong { color:#b91c1c; }
+    .editable-summary-tools { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:8px 10px; border-bottom:1px solid #d7dde8; background:#f8fafc; }
+    .summary-tool-btn { appearance:none; border:1px solid #b9c3d3; background:white; color:#0f2d5c; min-height:32px; padding:5px 12px; border-radius:3px; font-family:inherit; font-size:14px; font-weight:700; cursor:pointer; }
+    .summary-tool-btn:hover { border-color:#b4493f; color:#b4493f; }
+    .summary-tool-btn.primary { background:#0b2f66; border-color:#0b2f66; color:white; }
+    .editable-summary-status { margin-left:auto; color:#64748b; font-size:12px; }
+    .editable-summary-body { min-height:118px; outline:none; border:1px solid transparent; padding:4px 6px; }
+    .editable-summary-body[contenteditable="true"] { border-color:#b4493f; background:#fffaf2; box-shadow:inset 0 0 0 1px rgba(180,73,63,.18); }
+    .editable-summary-body[contenteditable="true"] p { cursor:text; }
+    .pos { color:#b91c1c; font-weight:700; }
+    .neg { color:#1d4ed8; font-weight:700; }
+    .mini-chart-row { display:grid; grid-template-columns:repeat(4, minmax(260px,1fr)); gap:10px; }
+    .mini-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(280px,1fr)); gap:10px; }
+    .storage-smm-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-xunxi-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-headline-weekly-grid { grid-template-columns:repeat(4, minmax(240px,1fr)); }
+    .storage-headline-price-wide { margin-top:14px; padding-top:10px; border-top:1px solid #d7dde8; }
+    .chart-group-title { margin:12px 0 8px; color:#0b2f66; font-size:18px; text-align:center; }
+    .overseas-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:12px; }
+    .spot-season-grid { display:grid; grid-template-columns:repeat(3, minmax(420px,1fr)); gap:16px; align-items:start; }
+    .spot-season-grid .svg-title { font-size:16px; }
+    .spot-season-grid .svg-axis { font-size:12px; }
+    .spot-season-grid .svg-legend { font-size:11px; }
+    .decadal-chart-grid { display:grid; grid-template-columns:repeat(2, minmax(520px,1fr)); gap:14px; }
+    .net-transfer-grid { display:grid; grid-template-columns:repeat(2, minmax(560px,1fr)); gap:14px; align-items:start; }
+    .regional-structure-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:10px; align-items:start; }
+    .regional-structure-svg { border:1px solid #d7dde8; background:#fff; }
+    .regional-structure-title { font-size:18px; font-weight:700; fill:#0b2f66; }
+    .regional-structure-date { font-size:12px; fill:#64748b; }
+    .regional-structure-total { font-size:13px; fill:#334155; }
+    .regional-structure-inside { font-size:11px; font-weight:700; fill:white; paint-order:stroke; stroke:#334155; stroke-width:2px; }
+    .regional-structure-legend { font-size:11px; fill:#111827; }
+    .industry-chain-svg { border:1px solid #d7dde8; }
+    .industry-chain-title { font-size:22px; font-weight:700; fill:#0b2f66; }
+    .industry-chain-col-title { font-size:18px; font-weight:700; fill:white; }
+    .industry-chain-item { font-size:14px; fill:#0f172a; }
+    .industry-chain-note { font-size:15px; fill:#334155; }
+    .industry-panorama-image { max-height:760px; object-fit:contain; }
+    svg { width:100%; height:auto; display:block; background:white; }
+    svg text { font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .svg-title { font-size:14px; font-weight:700; fill:#0b2f66; }
+    .svg-axis { font-size:10px; fill:#334155; }
+    .svg-legend { font-size:8px; }
+    .latest-label { font-size:11px; font-weight:700; paint-order:stroke; stroke:white; stroke-width:3px; }
+    .chart-point { cursor:crosshair; }
+    .interactive-chart { position:relative; background:white; }
+    .interactive-toolbar { display:flex; flex-wrap:wrap; gap:8px 12px; padding:2px 0 8px; }
+    .interactive-toggle { display:inline-flex; align-items:center; gap:5px; color:#0f172a; font-size:12px; cursor:pointer; }
+    .interactive-toggle::before { content:""; width:18px; height:3px; background:var(--line-color); display:inline-block; }
+    .interactive-toggle input { width:13px; height:13px; margin:0; accent-color:#0b2f66; }
+    .interactive-stage { position:relative; }
+    .spot-line-card .interactive-toggle { font-size:15px; font-weight:700; }
+    .spot-line-card .interactive-toggle::before { width:24px; height:4px; }
+    .spot-line-card .interactive-toggle input { width:16px; height:16px; }
+    .spot-line-card .svg-title { font-size:18px; }
+    .spot-line-card .svg-axis { font-size:13px; }
+    .spot-line-card .latest-label { font-size:13px; }
+    .chart-tooltip { display:none; position:absolute; z-index:20; min-width:190px; max-width:320px; pointer-events:none; background:rgba(15,23,42,.94); color:white; border-radius:6px; padding:10px 12px; font-size:14px; line-height:1.55; box-shadow:0 12px 30px rgba(15,23,42,.28); }
+    .chart-tooltip .tip-date { font-weight:700; color:#dbeafe; margin-bottom:5px; font-size:17px; }
+    .global-chart-tooltip { position:fixed; white-space:normal; }
+    .rotated { writing-mode:tb; glyph-orientation-vertical:0; }
+    .industry-bar-svg { width:100%; }
+    .industry-axis { font-size:16px; dominant-baseline:hanging; }
+    .net-transfer-axis { font-size:13px; fill:#0f2d5c; text-anchor:end; dominant-baseline:middle; }
+    .capacity-title { font-size:26px; fill:#4b5563; }
+    .capacity-axis { font-size:18px; fill:#4b5563; text-anchor:end; dominant-baseline:middle; }
+    .side-toc { position:fixed; left:0; top:0; bottom:0; z-index:70; width:154px; overflow:auto; padding:42px 12px 18px; background:rgba(255,253,249,.98); border-right:1px solid #cbd5e1; box-shadow:8px 0 22px rgba(15,23,42,.08); }
+    .side-toc div { color:#0b2f66; font-size:16px; font-weight:700; margin:0 0 8px; }
+    .side-toc a { display:block; color:#334155; text-decoration:none; font-size:13px; line-height:1.2; padding:7px 6px; border-left:3px solid transparent; }
+    .side-toc a:hover { color:#0b2f66; background:#eef3fb; border-left-color:#b4493f; }
+    .sources { padding:16px 22px 26px; font-size:12px; color:#596273; line-height:1.7; }
+    @media(max-width:1100px) {
+      .grid-2, .mini-chart-row, .mini-chart-grid, .overseas-chart-grid, .spot-season-grid, .decadal-chart-grid, .net-transfer-grid, .regional-structure-grid { grid-template-columns:1fr; }
+      .page { width:100%; margin:0; border:0; box-shadow:none; }
+      body { padding-left:0; }
+      header { padding:14px 14px 10px; }
+      h1 { font-size:24px; }
+      .panel-tabs { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:8px; white-space:nowrap; }
+      .panel-tab { flex:0 0 auto; min-height:34px; padding:6px 10px; font-size:14px; }
+      .side-toc { position:sticky; top:50px; z-index:75; width:100%; max-height:none; padding:7px 8px; display:flex; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; border-right:0; border-bottom:1px solid #cbd5e1; box-shadow:none; }
+      .side-toc div { display:none; }
+      .side-toc a { flex:0 0 auto; padding:5px 9px; border:1px solid #d7dde8; border-left:0; border-radius:3px; background:#f8fafc; font-size:13px; line-height:1.15; white-space:nowrap; }
+      .side-toc a:hover { border-left:0; border-color:#b4493f; }
+      main { padding:0 10px 18px; }
+    }
+    @media(max-width:720px) {
+      body { font-size:14px; }
+      header { padding:10px 10px 8px; }
+      h1 { font-size:22px; }
+      main { padding:0 6px 14px; }
+      h2 { margin:8px 0; font-size:20px; }
+      .report-section { padding:8px 0 16px; }
+      .subpanel { scroll-margin-top:92px; margin:8px 0 12px; padding:6px; }
+      .subpanel > h3 { font-size:17px; padding-left:7px; }
+      .card-head { padding:6px 8px; }
+      .card-head h3 { font-size:16px; }
+      .card-head p { font-size:11px; line-height:1.35; }
+      .card-body { padding:7px; }
+      table { min-width:720px; font-size:11px; }
+      .spot-summary-table { min-width:860px; font-size:11px; }
+      th, td { padding:4px 5px; }
+      .table-card .card-body, .full-table .card-body { max-height:none; overflow-x:auto; overflow-y:visible; -webkit-overflow-scrolling:touch; }
+      .full-table table th:first-child, .full-table table td:first-child,
+      .table-card table th:first-child, .table-card table td:first-child { position:sticky; left:0; z-index:2; background:white; }
+      .full-table table th:first-child, .table-card table th:first-child { z-index:3; background:#e5ebf6; }
+      .summary-text { font-size:14px; line-height:1.65; }
+      .editable-summary-tools { gap:6px; padding:6px; }
+      .summary-tool-btn { min-height:30px; padding:4px 9px; font-size:12px; }
+      .editable-summary-status { width:100%; margin-left:0; font-size:11px; }
+      .interactive-toolbar { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px; }
+      .interactive-toggle { flex:0 0 auto; gap:4px; font-size:10px; white-space:nowrap; }
+      .interactive-toggle::before { width:16px; height:3px; }
+      .interactive-toggle input { width:12px; height:12px; }
+      .spot-line-card .interactive-toggle { font-size:11px; }
+      .spot-line-card .interactive-toggle::before { width:18px; height:3px; }
+      .spot-line-card .interactive-toggle input { width:13px; height:13px; }
+      .svg-title { font-size:12px; }
+      .svg-axis { font-size:8px; }
+      .svg-legend { font-size:7px; }
+      .latest-label { font-size:8px; }
+      .spot-line-card .svg-title { font-size:13px; }
+      .spot-line-card .svg-axis { font-size:9px; }
+      .spot-line-card .latest-label { font-size:9px; }
+      .industry-axis { font-size:11px; }
+      .net-transfer-axis { font-size:9px; }
+      .capacity-title { font-size:18px; }
+      .capacity-axis { font-size:12px; }
+      .regional-structure-title { font-size:15px; }
+      .regional-structure-date, .regional-structure-total, .regional-structure-legend { font-size:10px; }
+      .regional-structure-inside { font-size:9px; }
+      .chart-tooltip { min-width:160px; max-width:calc(100vw - 28px); padding:8px 10px; font-size:12px; }
+      .chart-tooltip .tip-date { font-size:14px; }
+      .sources { padding:12px 10px 18px; font-size:10px; }
+    }
+  </style>
+<style id="power-chart-upgrade-style">
+.power-chart-shell{min-width:0;width:100%;position:relative;margin:4px 0 8px;overflow:hidden}
+.power-chart-title{font-size:16px;font-weight:700;color:#0b2f66;line-height:1.45;padding:4px 8px;text-align:center;overflow-wrap:anywhere}
+.power-chart-canvas{width:100%;height:var(--power-chart-height,320px);min-width:0;touch-action:pan-y}
+.power-chart-years{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:4px 10px;font-size:12px}
+.power-chart-years:empty{display:none}.power-chart-years label{display:inline-flex;align-items:center;gap:3px;white-space:nowrap;cursor:pointer}
+.power-chart-years input{accent-color:#0b2f66}
+@media(max-width:760px){.power-chart-title{font-size:14px}.power-chart-canvas{height:300px}.power-chart-years{gap:7px;padding:4px}}
+</style><script data-power-chart-vendor="" defer="" src="assets/echarts.min.js"></script><style id="mobile-pages-overrides">
+      html { scroll-behavior: smooth; }
+      body { min-width: 0; }
+      .side-toc { display: none !important; }
+      main { margin-left: 0 !important; min-width: 0; }
+      .split-page-tabs {
+        position: sticky; top: 0; z-index: 95; display: flex; flex-wrap: nowrap;
+        gap: 6px; overflow-x: auto; padding: 8px 0; white-space: nowrap;
+        background: rgba(255,253,249,.98); border-bottom: 1px solid var(--line);
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      }
+      .split-page-tabs::-webkit-scrollbar, .section-page-nav::-webkit-scrollbar { display: none; }
+      .split-tab, .section-link {
+        flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none;
+        background: #f8fafc; color: #344054; font-weight: 750; white-space: nowrap;
+      }
+      .split-tab { min-width: 4.4rem; min-height: 36px; padding: 7px 10px; font-size: 14px; }
+      .split-tab.active { color: #fff; background: #b4493f; border-color: #b4493f; }
+      .section-page-nav {
+        position: sticky; top: 53px; z-index: 90; display: flex; gap: 6px;
+        overflow-x: auto; padding: 8px 0 10px; margin: -2px 0 8px;
+        background: rgba(255,253,249,.98); scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .section-link { min-height: 32px; max-width: 82vw; padding: 6px 9px; font-size: 13px; }
+      .section-link.active { color: #fff; background: #183a6b; border-color: #183a6b; }
+      .report-panel > h2 { margin-top: 10px; }
+      img { max-width: 100%; height: auto; }
+      .card-body, .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      @media (max-width: 760px) {
+        header, main { width: auto !important; max-width: none !important; }
+        header { padding-left: 12px !important; padding-right: 12px !important; }
+        main { padding: 0 8px 28px !important; }
+        h1 { font-size: 23px !important; line-height: 1.2; }
+        .subpanel { padding: 6px; margin: 8px 0 12px; }
+        .subpanel > h3 { font-size: 17px; }
+        .grid-2, .chart-grid, .spot-season-grid, .overseas-chart-grid { grid-template-columns: minmax(0, 1fr) !important; }
+        table { min-width: 620px; }
+        svg {
+          display: block;
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+          height: auto !important;
+        }
+        .card-head h3 { font-size: 16px !important; }
+        .card-head p, .table-note, .source-note { font-size: 12px !important; }
+      }
+    </style></head>
+<body>
+<div class="page">
+<nav aria-label="子面板目录" class="side-toc"><div>目录</div><a href="index.html#overview-core">1.1 发电用电</a><a href="overview-overview-investment.html#overview-investment">1.2 电源电网</a><a href="price.html#price-spot">2.1 现货电价</a><a href="price-price-table.html#price-table">2.2 代理电价</a><a href="price-overseas-americas-daily.html#price-overseas">2.3 海外电价</a><a href="price-price-long-contract.html#price-long-contract">2.4 长协电价</a><a href="price-price-capacity.html#price-capacity">2.5 容量电价</a><a href="supply.html#supply-generation">3.1 发电量</a><a href="supply-supply-capacity.html#supply-capacity">3.2 装机</a><a href="supply-supply-regional.html#supply-regional">3.3 分地区发电</a><a href="supply-supply-decadal.html#supply-decadal">3.4 旬度发电</a><a href="supply-supply-utilization-hours.html#supply-utilization-hours">3.5 利用小时</a><a href="supply-supply-regional-structure.html#supply-regional-structure">3.6 分省结构</a><a href="supply-supply-nuclear-maintenance.html#supply-nuclear-maintenance">3.7 核电检修</a><a href="supply-supply-hydrology.html#supply-hydrology">3.8 水电站水情</a><a href="demand.html#demand-total">4.1 用电总量</a><a href="demand-demand-industry.html#demand-industry">4.2 分行业用电</a><a href="trade.html#trade-long-term">5.1 中长期交易</a><a href="trade-trade-center.html#trade-center">5.2 交易中心</a><a href="trade-trade-net-transfer.html#trade-net-transfer">5.3 净输出</a><a href="policy.html#policy-market">6.1 电力市场政策</a><a href="policy-policy-renewable.html#policy-renewable">6.2 新能源政策</a><a href="policy-policy-storage.html#policy-storage">6.3 储能政策</a><a href="storage.html#storage-monthly-install">7.1 储能装机</a><a href="storage-storage-headline-weekly.html#storage-headline-weekly">7.2 储能头条周度</a></nav>
+<header>
+<h1>20261022国内电力看板 手机版</h1>
+</header>
+<main>
+<nav aria-label="一级栏目" class="panel-tabs split-page-tabs"><a class="split-tab" href="index.html">汇总</a><a class="split-tab" href="price.html">价格</a><a class="split-tab active" href="supply.html">供给</a><a class="split-tab" href="demand.html">需求</a><a class="split-tab" href="trade.html">交易</a><a class="split-tab" href="policy.html">政策</a><a class="split-tab" href="storage.html">储能</a></nav>
+
+
+<section class="report-section report-panel active" id="supply"><h2>供给</h2><nav aria-label="专题栏目" class="section-page-nav"><a class="section-link" href="supply.html#supply-generation">3.1 发电量</a><a class="section-link" href="supply-supply-capacity.html#supply-capacity">3.2 装机</a><a class="section-link" href="supply-supply-regional.html#supply-regional">3.3 分地区分类型发电</a><a class="section-link active" href="supply-supply-decadal.html#supply-decadal">3.4 旬度日均发电</a><a class="section-link" href="supply-supply-utilization-hours.html#supply-utilization-hours">3.5 发电利用小时数</a><a class="section-link" href="supply-supply-regional-structure.html#supply-regional-structure">3.6 分省份发电结构</a><a class="section-link" href="supply-supply-nuclear-maintenance.html#supply-nuclear-maintenance">3.7 核电检修</a><a class="section-link" href="supply-supply-hydrology.html#supply-hydrology">3.8 水电站水情</a></nav><section class="subpanel" id="supply-decadal"><h3>3.4 旬度日均发电</h3><div class="grid-2"><div class="card table-card full-table wide-card"><div class="card-head"><h3>旬度日均发电表</h3><p>参考旬度表，展示最新 15 旬总发电、火电、水电、其他及同比。</p></div><div class="card-body"><table><thead><tr><th>日期</th><th>旬度</th><th>总发电量</th><th>同比(总)</th><th>火电</th><th>同比(火)</th><th>水电</th><th>同比(水)</th><th>其他</th><th>同比(其他)</th><th>火电环比</th></tr></thead><tbody><tr><td class="" style="">2026/05/01</td><td class="" style="">5月上旬</td><td class="" style="">225.7</td><td class="pos" style="background:rgba(220,38,38,0.240);color:#111827;">+2.9%</td><td class="" style="">138.1</td><td class="neg" style="background:rgba(22,163,74,0.023);color:#111827;">-0.4%</td><td class="" style="">31.5</td><td class="pos" style="background:rgba(220,38,38,0.760);color:#111827;">+32.4%</td><td class="" style="">56.1</td><td class="neg" style="background:rgba(22,163,74,0.056);color:#111827;">-1.4%</td><td class="neg" style="background:rgba(22,163,74,0.506);color:#111827;">-10.0%</td></tr><tr><td class="" style="">2026/05/11</td><td class="" style="">5月中旬</td><td class="" style="">247.1</td><td class="pos" style="background:rgba(220,38,38,0.489);color:#111827;">+6.0%</td><td class="" style="">158.9</td><td class="pos" style="background:rgba(220,38,38,0.565);color:#111827;">+9.0%</td><td class="" style="">32.9</td><td class="pos" style="background:rgba(220,38,38,0.298);color:#111827;">+12.7%</td><td class="" style="">55.3</td><td class="neg" style="background:rgba(22,163,74,0.196);color:#111827;">-5.0%</td><td class="pos" style="background:rgba(220,38,38,0.760);color:#111827;">+15.1%</td></tr><tr><td class="" style="">2026/05/21</td><td class="" style="">5月下旬</td><td class="" style="">248.8</td><td class="pos" style="background:rgba(220,38,38,0.504);color:#111827;">+6.1%</td><td class="" style="">157.6</td><td class="pos" style="background:rgba(220,38,38,0.449);color:#111827;">+7.1%</td><td class="" style="">36.1</td><td class="pos" style="background:rgba(220,38,38,0.627);color:#111827;">+26.7%</td><td class="" style="">55.1</td><td class="neg" style="background:rgba(22,163,74,0.248);color:#111827;">-6.3%</td><td class="neg" style="background:rgba(22,163,74,0.041);color:#111827;">-0.8%</td></tr><tr><td class="" style="">2026/06/01</td><td class="" style="">6月上旬</td><td class="" style="">251.3</td><td class="pos" style="background:rgba(220,38,38,0.333);color:#111827;">+4.1%</td><td class="" style="">159.9</td><td class="pos" style="background:rgba(220,38,38,0.393);color:#111827;">+6.2%</td><td class="" style="">35.6</td><td class="pos" style="background:rgba(220,38,38,0.273);color:#111827;">+11.6%</td><td class="" style="">55.8</td><td class="neg" style="background:rgba(22,163,74,0.220);color:#111827;">-5.6%</td><td class="pos" style="background:rgba(220,38,38,0.074);color:#111827;">+1.5%</td></tr><tr><td class="" style="">2026/06/11</td><td class="" style="">6月中旬</td><td class="" style="">251.4</td><td class="pos" style="background:rgba(220,38,38,0.222);color:#111827;">+2.7%</td><td class="" style="">157.5</td><td class="pos" style="background:rgba(220,38,38,0.177);color:#111827;">+2.8%</td><td class="" style="">36.9</td><td class="pos" style="background:rgba(220,38,38,0.335);color:#111827;">+14.2%</td><td class="" style="">57.0</td><td class="neg" style="background:rgba(22,163,74,0.153);color:#111827;">-3.9%</td><td class="neg" style="background:rgba(22,163,74,0.076);color:#111827;">-1.5%</td></tr><tr><td class="" style="">2026/06/21</td><td class="" style="">6月下旬</td><td class="" style="">250.2</td><td class="neg" style="background:rgba(22,163,74,0.103);color:#111827;">-1.3%</td><td class="" style="">155.2</td><td class="neg" style="background:rgba(22,163,74,0.016);color:#111827;">-0.3%</td><td class="" style="">40.1</td><td class="pos" style="background:rgba(220,38,38,0.190);color:#111827;">+8.1%</td><td class="" style="">54.9</td><td class="neg" style="background:rgba(22,163,74,0.377);color:#111827;">-9.6%</td><td class="neg" style="background:rgba(22,163,74,0.074);color:#111827;">-1.5%</td></tr><tr><td class="" style="">2026/07/01</td><td class="" style="">7月上旬</td><td class="" style="">261.6</td><td class="neg" style="background:rgba(22,163,74,0.112);color:#111827;">-1.4%</td><td class="" style="">160.9</td><td class="neg" style="background:rgba(22,163,74,0.237);color:#111827;">-3.8%</td><td class="" style="">47.9</td><td class="pos" style="background:rgba(220,38,38,0.402);color:#111827;">+17.1%</td><td class="" style="">52.8</td><td class="neg" style="background:rgba(22,163,74,0.297);color:#111827;">-7.5%</td><td class="pos" style="background:rgba(220,38,38,0.185);color:#111827;">+3.7%</td></tr><tr><td class="" style="">2026/07/11</td><td class="" style="">7月中旬</td><td class="" style="">269.5</td><td class="neg" style="background:rgba(22,163,74,0.009);color:#111827;">-0.1%</td><td class="" style="">169.1</td><td class="neg" style="background:rgba(22,163,74,0.015);color:#111827;">-0.2%</td><td class="" style="">47.3</td><td class="pos" style="background:rgba(220,38,38,0.259);color:#111827;">+11.0%</td><td class="" style="">53.1</td><td class="neg" style="background:rgba(22,163,74,0.314);color:#111827;">-8.0%</td><td class="pos" style="background:rgba(220,38,38,0.257);color:#111827;">+5.1%</td></tr><tr><td class="" style="">2026/07/21</td><td class="" style="">7月下旬</td><td class="" style="">273.9</td><td class="pos" style="background:rgba(220,38,38,0.085);color:#111827;">+1.0%</td><td class="" style="">175.2</td><td class="pos" style="background:rgba(220,38,38,0.004);color:#111827;">+0.1%</td><td class="" style="">44.5</td><td class="pos" style="background:rgba(220,38,38,0.134);color:#111827;">+5.7%</td><td class="" style="">54.2</td><td class="pos" style="background:rgba(220,38,38,0.022);color:#111827;">+0.6%</td><td class="pos" style="background:rgba(220,38,38,0.182);color:#111827;">+3.6%</td></tr><tr><td class="" style="">2026/08/01</td><td class="" style="">8月上旬</td><td class="" style="">281.9</td><td class="pos" style="background:rgba(220,38,38,0.136);color:#111827;">+1.7%</td><td class="" style="">177.9</td><td class="neg" style="background:rgba(22,163,74,0.299);color:#111827;">-4.8%</td><td class="" style="">47.7</td><td class="pos" style="background:rgba(220,38,38,0.371);color:#111827;">+15.8%</td><td class="" style="">56.3</td><td class="pos" style="background:rgba(220,38,38,0.559);color:#111827;">+14.2%</td><td class="pos" style="background:rgba(220,38,38,0.078);color:#111827;">+1.5%</td></tr><tr><td class="" style="">2026/08/11</td><td class="" style="">8月中旬</td><td class="" style="">277.8</td><td class="pos" style="background:rgba(220,38,38,0.126);color:#111827;">+1.5%</td><td class="" style="">177.1</td><td class="neg" style="background:rgba(22,163,74,0.039);color:#111827;">-0.6%</td><td class="" style="">47.1</td><td class="pos" style="background:rgba(220,38,38,0.376);color:#111827;">+16.0%</td><td class="" style="">53.6</td><td class="neg" style="background:rgba(22,163,74,0.086);color:#111827;">-2.2%</td><td class="neg" style="background:rgba(22,163,74,0.023);color:#111827;">-0.4%</td></tr><tr><td class="" style="">2026/08/21</td><td class="" style="">8月下旬</td><td class="" style="">285.3</td><td class="pos" style="background:rgba(220,38,38,0.301);color:#111827;">+3.7%</td><td class="" style="">180.6</td><td class="neg" style="background:rgba(22,163,74,0.018);color:#111827;">-0.3%</td><td class="" style="">47.9</td><td class="pos" style="background:rgba(220,38,38,0.102);color:#111827;">+4.4%</td><td class="" style="">56.8</td><td class="pos" style="background:rgba(220,38,38,0.703);color:#111827;">+17.8%</td><td class="pos" style="background:rgba(220,38,38,0.100);color:#111827;">+2.0%</td></tr><tr><td class="" style="">2026/09/01</td><td class="" style="">9月上旬</td><td class="" style="">273.7</td><td class="pos" style="background:rgba(220,38,38,0.125);color:#111827;">+1.5%</td><td class="" style="">167.9</td><td class="neg" style="background:rgba(22,163,74,0.132);color:#111827;">-2.1%</td><td class="" style="">45.2</td><td class="neg" style="background:rgba(22,163,74,0.104);color:#111827;">-4.4%</td><td class="" style="">60.6</td><td class="pos" style="background:rgba(220,38,38,0.760);color:#111827;">+19.3%</td><td class="neg" style="background:rgba(22,163,74,0.355);color:#111827;">-7.0%</td></tr><tr><td class="" style="">2026/09/11</td><td class="" style="">9月中旬</td><td class="" style="">273.2</td><td class="pos" style="background:rgba(220,38,38,0.302);color:#111827;">+3.7%</td><td class="" style="">171.2</td><td class="pos" style="background:rgba(220,38,38,0.228);color:#111827;">+3.6%</td><td class="" style="">43.9</td><td class="neg" style="background:rgba(22,163,74,0.178);color:#111827;">-7.6%</td><td class="" style="">58.1</td><td class="pos" style="background:rgba(220,38,38,0.566);color:#111827;">+14.4%</td><td class="pos" style="background:rgba(220,38,38,0.099);color:#111827;">+2.0%</td></tr><tr><td class="" style="">2026/09/21</td><td class="" style="">9月下旬</td><td class="" style="">286.6</td><td class="pos" style="background:rgba(220,38,38,0.760);color:#111827;">+9.3%</td><td class="" style="">182.8</td><td class="pos" style="background:rgba(220,38,38,0.760);color:#111827;">+12.1%</td><td class="" style="">44.6</td><td class="neg" style="background:rgba(22,163,74,0.193);color:#111827;">-8.2%</td><td class="" style="">59.2</td><td class="pos" style="background:rgba(220,38,38,0.670);color:#111827;">+17.0%</td><td class="pos" style="background:rgba(220,38,38,0.342);color:#111827;">+6.8%</td></tr></tbody></table></div></div><div class="card table-card full-table wide-card"><div class="card-head"><h3>2026年累计发电同比</h3><p>按旬度累计至最新一期；累计同比变化为较上一旬累计同比的百分点变化。</p></div><div class="card-body"><table><thead><tr><th>指标</th><th>口径</th><th>2026累计值</th><th>去年同期</th><th>累计同比</th><th>累计同比变化</th></tr></thead><tbody><tr><td class="" style="">总发电量</td><td class="" style="">2026年截至9月下旬</td><td class="" style="">6,797.0</td><td class="" style="">6,592.3</td><td class="pos" style="background:rgba(220,38,38,0.297);color:#111827;">+3.1%</td><td class="pos" style="background:rgba(220,38,38,0.205);color:#111827;">+0.3pct</td></tr><tr><td class="" style="">火电</td><td class="" style="">2026年截至9月下旬</td><td class="" style="">4,349.6</td><td class="" style="">4,277.5</td><td class="pos" style="background:rgba(220,38,38,0.161);color:#111827;">+1.7%</td><td class="pos" style="background:rgba(220,38,38,0.331);color:#111827;">+0.4pct</td></tr><tr><td class="" style="">水电</td><td class="" style="">2026年截至9月下旬</td><td class="" style="">950.7</td><td class="" style="">880.6</td><td class="pos" style="background:rgba(220,38,38,0.760);color:#111827;">+8.0%</td><td class="neg" style="background:rgba(22,163,74,0.760);color:#111827;">-0.9pct</td></tr><tr><td class="" style="">其他</td><td class="" style="">2026年截至9月下旬</td><td class="" style="">1,496.7</td><td class="" style="">1,434.2</td><td class="pos" style="background:rgba(220,38,38,0.416);color:#111827;">+4.4%</td><td class="pos" style="background:rgba(220,38,38,0.371);color:#111827;">+0.5pct</td></tr></tbody></table></div></div><div class="card wide-card"><div class="card-head"><h3>旬度日均发电季节性</h3><p>按旬度展示总发电、火电、水电和其他发电量。</p></div><div class="card-body"><div class="decadal-chart-grid"><div class="power-chart-shell" data-chart-title="旬度日均总发电量" style="--power-chart-height:380px"><div class="power-chart-title">旬度日均总发电量</div><div class="power-chart-years"></div><div aria-label="旬度日均总发电量" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"旬度日均总发电量","mode":"decadal","unit":"","digits":1,"series":[{"label":"2020","points":[{"date":"1月上旬","value":189.1},{"date":"1月中旬","value":182.9},{"date":"1月下旬","value":162.0},{"date":"2月上旬","value":145.5},{"date":"2月中旬","value":141.8},{"date":"2月下旬","value":141.7},{"date":"3月上旬","value":148.8},{"date":"3月中旬","value":148.9},{"date":"3月下旬","value":151.0},{"date":"4月上旬","value":172.8},{"date":"4月中旬","value":172.1},{"date":"4月下旬","value":170.4},{"date":"5月上旬","value":172.9},{"date":"5月中旬","value":179.3},{"date":"5月下旬","value":183.8},{"date":"6月上旬","value":192.6},{"date":"6月中旬","value":198.9},{"date":"6月下旬","value":197.5},{"date":"7月上旬","value":206.6},{"date":"7月中旬","value":203.2},{"date":"7月下旬","value":214.4},{"date":"8月上旬","value":219.6},{"date":"8月中旬","value":217.8},{"date":"8月下旬","value":213.4},{"date":"9月上旬","value":208.7},{"date":"9月中旬","value":197.5},{"date":"9月下旬","value":194.1},{"date":"10月上旬","value":169.5},{"date":"10月中旬","value":172.2},{"date":"10月下旬","value":172.4},{"date":"11月上旬","value":180.2},{"date":"11月中旬","value":191.7},{"date":"11月下旬","value":222.4},{"date":"12月上旬","value":216.8},{"date":"12月中旬","value":218.7},{"date":"12月下旬","value":213.7}]},{"label":"2021","points":[{"date":"1月上旬","value":220.4},{"date":"1月中旬","value":219.7},{"date":"1月下旬","value":181.8},{"date":"2月上旬","value":162.7},{"date":"2月中旬","value":151.8},{"date":"2月下旬","value":156.3},{"date":"3月上旬","value":177.8},{"date":"3月中旬","value":180.2},{"date":"3月下旬","value":181.5},{"date":"4月上旬","value":196.7},{"date":"4月中旬","value":199.5},{"date":"4月下旬","value":196.6},{"date":"5月上旬","value":189.2},{"date":"5月中旬","value":191.8},{"date":"5月下旬","value":193.9},{"date":"6月上旬","value":207.2},{"date":"6月中旬","value":209.8},{"date":"6月下旬","value":214.3},{"date":"7月上旬","value":225.4},{"date":"7月中旬","value":225.7},{"date":"7月下旬","value":226.0},{"date":"8月上旬","value":233.3},{"date":"8月中旬","value":217.5},{"date":"8月下旬","value":223.6},{"date":"9月上旬","value":217.8},{"date":"9月中旬","value":213.5},{"date":"9月下旬","value":208.8},{"date":"10月上旬","value":198.3},{"date":"10月中旬","value":197.1},{"date":"10月下旬","value":197.9},{"date":"11月上旬","value":193.8},{"date":"11月中旬","value":208.1},{"date":"11月下旬","value":218.3},{"date":"12月上旬","value":214.2},{"date":"12月中旬","value":215.9},{"date":"12月下旬","value":221.8}]},{"label":"2022","points":[{"date":"1月上旬","value":225.7},{"date":"1月中旬","value":220.5},{"date":"1月下旬","value":195.6},{"date":"2月上旬","value":178.2},{"date":"2月中旬","value":188.5},{"date":"2月下旬","value":189.7},{"date":"3月上旬","value":189.4},{"date":"3月中旬","value":186.7},{"date":"3月下旬","value":180.3},{"date":"4月上旬","value":179.1},{"date":"4月中旬","value":186.9},{"date":"4月下旬","value":196.3},{"date":"5月上旬","value":195.5},{"date":"5月中旬","value":196.5},{"date":"5月下旬","value":181.9},{"date":"6月上旬","value":193.1},{"date":"6月中旬","value":203.2},{"date":"6月下旬","value":214.2},{"date":"7月上旬","value":229.6},{"date":"7月中旬","value":232.2},{"date":"7月下旬","value":238.3},{"date":"8月上旬","value":251.8},{"date":"8月中旬","value":250.1},{"date":"8月下旬","value":239.8},{"date":"9月上旬","value":237.4},{"date":"9月中旬","value":229.1},{"date":"9月下旬","value":216.8},{"date":"10月上旬","value":204.2},{"date":"10月中旬","value":196.5},{"date":"10月下旬","value":196.2},{"date":"11月上旬","value":199.3},{"date":"11月中旬","value":208.7},{"date":"11月下旬","value":207.1},{"date":"12月上旬","value":216.9},{"date":"12月中旬","value":216.8},{"date":"12月下旬","value":233.8}]},{"label":"2023","points":[{"date":"1月上旬","value":219.5},{"date":"1月中旬","value":201.3},{"date":"1月下旬","value":192.9},{"date":"2月上旬","value":207.3},{"date":"2月中旬","value":209.4},{"date":"2月下旬","value":205.6},{"date":"3月上旬","value":205.5},{"date":"3月中旬","value":210.9},{"date":"3月下旬","value":208.5},{"date":"4月上旬","value":206.2},{"date":"4月中旬","value":210.7},{"date":"4月下旬","value":209.6},{"date":"5月上旬","value":212.9},{"date":"5月中旬","value":216.1},{"date":"5月下旬","value":221.5},{"date":"6月上旬","value":221.6},{"date":"6月中旬","value":222.2},{"date":"6月下旬","value":231.9},{"date":"7月上旬","value":248.7},{"date":"7月中旬","value":240.8},{"date":"7月下旬","value":238.9},{"date":"8月上旬","value":259.1},{"date":"8月中旬","value":257.3},{"date":"8月下旬","value":242.1},{"date":"9月上旬","value":241.9},{"date":"9月中旬","value":243.7},{"date":"9月下旬","value":241.3},{"date":"10月上旬","value":225.4},{"date":"10月中旬","value":222.6},{"date":"10月下旬","value":224.3},{"date":"11月上旬","value":225.8},{"date":"11月中旬","value":223.4},{"date":"11月下旬","value":232.5},{"date":"12月上旬","value":234.7},{"date":"12月中旬","value":252.6},{"date":"12月下旬","value":253.6}]},{"label":"2024","points":[{"date":"1月上旬","value":250.2},{"date":"1月中旬","value":254.4},{"date":"1月下旬","value":250.9},{"date":"2月上旬","value":222.7},{"date":"2月中旬","value":159.9},{"date":"2月下旬","value":219.3},{"date":"3月上旬","value":219.6},{"date":"3月中旬","value":213.2},{"date":"3月下旬","value":211.3},{"date":"4月上旬","value":213.1},{"date":"4月中旬","value":214.2},{"date":"4月下旬","value":218.9},{"date":"5月上旬","value":217.4},{"date":"5月中旬","value":225.7},{"date":"5月下旬","value":231.1},{"date":"6月上旬","value":229.9},{"date":"6月中旬","value":231.9},{"date":"6月下旬","value":236.2},{"date":"7月上旬","value":245.8},{"date":"7月中旬","value":248.5},{"date":"7月下旬","value":254.3},{"date":"8月上旬","value":268.1},{"date":"8月中旬","value":272.8},{"date":"8月下旬","value":276.6},{"date":"9月上旬","value":267.4},{"date":"9月中旬","value":264.1},{"date":"9月下旬","value":257.9},{"date":"10月上旬","value":224.8},{"date":"10月中旬","value":234.4},{"date":"10月下旬","value":232.7},{"date":"11月上旬","value":235.9},{"date":"11月中旬","value":231.6},{"date":"11月下旬","value":234.8},{"date":"12月上旬","value":237.4},{"date":"12月中旬","value":246.9},{"date":"12月下旬","value":247.8}]},{"label":"2025","points":[{"date":"1月上旬","value":252.6},{"date":"1月中旬","value":251.3},{"date":"1月下旬","value":236.1},{"date":"2月上旬","value":225.7},{"date":"2月中旬","value":230.8},{"date":"2月下旬","value":228.3},{"date":"3月上旬","value":219.1},{"date":"3月中旬","value":216.8},{"date":"3月下旬","value":213.7},{"date":"4月上旬","value":225.1},{"date":"4月中旬","value":218.9},{"date":"4月下旬","value":219.7},{"date":"5月上旬","value":219.3},{"date":"5月中旬","value":233.2},{"date":"5月下旬","value":234.4},{"date":"6月上旬","value":241.5},{"date":"6月中旬","value":244.8},{"date":"6月下旬","value":253.4},{"date":"7月上旬","value":265.2},{"date":"7月中旬","value":269.8},{"date":"7月下旬","value":271.1},{"date":"8月上旬","value":277.3},{"date":"8月中旬","value":273.6},{"date":"8月下旬","value":275.2},{"date":"9月上旬","value":269.6},{"date":"9月中旬","value":263.5},{"date":"9月下旬","value":262.3},{"date":"10月上旬","value":248.4},{"date":"10月中旬","value":252.8},{"date":"10月下旬","value":251.8},{"date":"11月上旬","value":243.2},{"date":"11月中旬","value":246.4},{"date":"11月下旬","value":248.2},{"date":"12月上旬","value":249.5},{"date":"12月中旬","value":252.9},{"date":"12月下旬","value":256.4}]},{"label":"2026","points":[{"date":"1月上旬","value":265.6},{"date":"1月中旬","value":269.2},{"date":"1月下旬","value":276.6},{"date":"2月上旬","value":253.6},{"date":"2月中旬","value":197.7},{"date":"2月下旬","value":211.8},{"date":"3月上旬","value":224.0},{"date":"3月中旬","value":224.4},{"date":"3月下旬","value":219.4},{"date":"4月上旬","value":221.1},{"date":"4月中旬","value":239.2},{"date":"4月下旬","value":236.4439},{"date":"5月上旬","value":225.7},{"date":"5月中旬","value":247.1},{"date":"5月下旬","value":248.8},{"date":"6月上旬","value":251.3},{"date":"6月中旬","value":251.4},{"date":"6月下旬","value":250.2},{"date":"7月上旬","value":261.6},{"date":"7月中旬","value":269.5},{"date":"7月下旬","value":273.9},{"date":"8月上旬","value":281.9},{"date":"8月中旬","value":277.8},{"date":"8月下旬","value":285.3},{"date":"9月上旬","value":273.7},{"date":"9月中旬","value":273.2},{"date":"9月下旬","value":286.6},{"date":"10月上旬","value":null},{"date":"10月中旬","value":null},{"date":"10月下旬","value":null},{"date":"11月上旬","value":null},{"date":"11月中旬","value":null},{"date":"11月下旬","value":null},{"date":"12月上旬","value":null},{"date":"12月中旬","value":null},{"date":"12月下旬","value":null}]}],"categories":["1月上旬","1月中旬","1月下旬","2月上旬","2月中旬","2月下旬","3月上旬","3月中旬","3月下旬","4月上旬","4月中旬","4月下旬","5月上旬","5月中旬","5月下旬","6月上旬","6月中旬","6月下旬","7月上旬","7月中旬","7月下旬","8月上旬","8月中旬","8月下旬","9月上旬","9月中旬","9月下旬","10月上旬","10月中旬","10月下旬","11月上旬","11月中旬","11月下旬","12月上旬","12月中旬","12月下旬"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="旬度日均火电发电量" style="--power-chart-height:380px"><div class="power-chart-title">旬度日均火电发电量</div><div class="power-chart-years"></div><div aria-label="旬度日均火电发电量" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"旬度日均火电发电量","mode":"decadal","unit":"","digits":1,"series":[{"label":"2020","points":[{"date":"1月上旬","value":145.6},{"date":"1月中旬","value":142.0},{"date":"1月下旬","value":125.5},{"date":"2月上旬","value":113.5},{"date":"2月中旬","value":113.8},{"date":"2月下旬","value":114.5},{"date":"3月上旬","value":119.5},{"date":"3月中旬","value":118.5},{"date":"3月下旬","value":119.8},{"date":"4月上旬","value":126.3},{"date":"4月中旬","value":125.0},{"date":"4月下旬","value":123.5},{"date":"5月上旬","value":126.5},{"date":"5月中旬","value":129.0},{"date":"5月下旬","value":130.3},{"date":"6月上旬","value":134.5},{"date":"6月中旬","value":136.5},{"date":"6月下旬","value":129.5},{"date":"7月上旬","value":134.9},{"date":"7月中旬","value":134.1},{"date":"7月下旬","value":140.5},{"date":"8月上旬","value":146.5},{"date":"8月中旬","value":147.0},{"date":"8月下旬","value":142.5},{"date":"9月上旬","value":142.4},{"date":"9月中旬","value":132.7},{"date":"9月下旬","value":131.5},{"date":"10月上旬","value":113.9},{"date":"10月中旬","value":110.8},{"date":"10月下旬","value":110.7},{"date":"11月上旬","value":123.9},{"date":"11月中旬","value":136.1},{"date":"11月下旬","value":169.9},{"date":"12月上旬","value":171.5},{"date":"12月中旬","value":171.7},{"date":"12月下旬","value":167.5}]},{"label":"2021","points":[{"date":"1月上旬","value":171.9},{"date":"1月中旬","value":171.2},{"date":"1月下旬","value":140.2},{"date":"2月上旬","value":125.1},{"date":"2月中旬","value":120.5},{"date":"2月下旬","value":123.5},{"date":"3月上旬","value":142.5},{"date":"3月中旬","value":142.3},{"date":"3月下旬","value":141.8},{"date":"4月上旬","value":145.5},{"date":"4月中旬","value":144.5},{"date":"4月下旬","value":141.3},{"date":"5月上旬","value":135.3},{"date":"5月中旬","value":136.5},{"date":"5月下旬","value":136.2},{"date":"6月上旬","value":145.1},{"date":"6月中旬","value":148.6},{"date":"6月下旬","value":149.5},{"date":"7月上旬","value":157.8},{"date":"7月中旬","value":152.5},{"date":"7月下旬","value":153.7},{"date":"8月上旬","value":162.3},{"date":"8月中旬","value":146.5},{"date":"8月下旬","value":148.3},{"date":"9月上旬","value":147.9},{"date":"9月中旬","value":143.5},{"date":"9月下旬","value":140.1},{"date":"10月上旬","value":135.1},{"date":"10月中旬","value":135.3},{"date":"10月下旬","value":136.5},{"date":"11月上旬","value":135.2},{"date":"11月中旬","value":146.9},{"date":"11月下旬","value":156.8},{"date":"12月上旬","value":159.5},{"date":"12月中旬","value":161.7},{"date":"12月下旬","value":169.9}]},{"label":"2022","points":[{"date":"1月上旬","value":171.3},{"date":"1月中旬","value":167.6},{"date":"1月下旬","value":145.5},{"date":"2月上旬","value":130.2},{"date":"2月中旬","value":138.9},{"date":"2月下旬","value":139.6},{"date":"3月上旬","value":138.3},{"date":"3月中旬","value":135.5},{"date":"3月下旬","value":130.2},{"date":"4月上旬","value":126.8},{"date":"4月中旬","value":126.3},{"date":"4月下旬","value":128.1},{"date":"5月上旬","value":126.3},{"date":"5月中旬","value":126.1},{"date":"5月下旬","value":116.5},{"date":"6月上旬","value":125.9},{"date":"6月中旬","value":135.3},{"date":"6月下旬","value":140.6},{"date":"7月上旬","value":151.2},{"date":"7月中旬","value":153.1},{"date":"7月下旬","value":160.5},{"date":"8月上旬","value":177.7},{"date":"8月中旬","value":177.6},{"date":"8月下旬","value":170.1},{"date":"9月上旬","value":168.3},{"date":"9月中旬","value":162.8},{"date":"9月下旬","value":157.2},{"date":"10月上旬","value":143.5},{"date":"10月中旬","value":137.3},{"date":"10月下旬","value":138.1},{"date":"11月上旬","value":139.5},{"date":"11月中旬","value":147.2},{"date":"11月下旬","value":146.1},{"date":"12月上旬","value":159.8},{"date":"12月中旬","value":159.6},{"date":"12月下旬","value":172.9}]},{"label":"2023","points":[{"date":"1月上旬","value":158.5},{"date":"1月中旬","value":146.2},{"date":"1月下旬","value":138.1},{"date":"2月上旬","value":150.3},{"date":"2月中旬","value":151.6},{"date":"2月下旬","value":148.2},{"date":"3月上旬","value":147.5},{"date":"3月中旬","value":152.8},{"date":"3月下旬","value":150.1},{"date":"4月上旬","value":148.6},{"date":"4月中旬","value":152.9},{"date":"4月下旬","value":150.5},{"date":"5月上旬","value":148.8},{"date":"5月中旬","value":148.3},{"date":"5月下旬","value":153.1},{"date":"6月上旬","value":151.6},{"date":"6月中旬","value":153.9},{"date":"6月下旬","value":160.7},{"date":"7月上旬","value":169.5},{"date":"7月中旬","value":166.9},{"date":"7月下旬","value":164.6},{"date":"8月上旬","value":178.1},{"date":"8月中旬","value":176.3},{"date":"8月下旬","value":160.1},{"date":"9月上旬","value":161.2},{"date":"9月中旬","value":163.1},{"date":"9月下旬","value":159.3},{"date":"10月上旬","value":144.9},{"date":"10月中旬","value":142.5},{"date":"10月下旬","value":143.6},{"date":"11月上旬","value":148.8},{"date":"11月中旬","value":156.5},{"date":"11月下旬","value":165.9},{"date":"12月上旬","value":166.7},{"date":"12月中旬","value":183.8},{"date":"12月下旬","value":185.6}]},{"label":"2024","points":[{"date":"1月上旬","value":184.5},{"date":"1月中旬","value":185.1},{"date":"1月下旬","value":183.9},{"date":"2月上旬","value":160.6},{"date":"2月中旬","value":100.1},{"date":"2月下旬","value":161.3},{"date":"3月上旬","value":157.6},{"date":"3月中旬","value":151.2},{"date":"3月下旬","value":148.9},{"date":"4月上旬","value":148.7},{"date":"4月中旬","value":146.1},{"date":"4月下旬","value":145.8},{"date":"5月上旬","value":143.3},{"date":"5月中旬","value":146.2},{"date":"5月下旬","value":146.5},{"date":"6月上旬","value":146.7},{"date":"6月中旬","value":150.1},{"date":"6月下旬","value":149.3},{"date":"7月上旬","value":159.5},{"date":"7月中旬","value":160.7},{"date":"7月下旬","value":166.8},{"date":"8月上旬","value":180.1},{"date":"8月中旬","value":178.6},{"date":"8月下旬","value":182.5},{"date":"9月上旬","value":182.1},{"date":"9月中旬","value":180.3},{"date":"9月下旬","value":176.5},{"date":"10月上旬","value":150.9},{"date":"10月中旬","value":155.1},{"date":"10月下旬","value":154.6},{"date":"11月上旬","value":156.9},{"date":"11月中旬","value":160.1},{"date":"11月下旬","value":162.5},{"date":"12月上旬","value":167.7},{"date":"12月中旬","value":173.9},{"date":"12月下旬","value":174.6}]},{"label":"2025","points":[{"date":"1月上旬","value":179.3},{"date":"1月中旬","value":175.1},{"date":"1月下旬","value":160.8},{"date":"2月上旬","value":150.3},{"date":"2月中旬","value":155.6},{"date":"2月下旬","value":153.1},{"date":"3月上旬","value":148.2},{"date":"3月中旬","value":145.6},{"date":"3月下旬","value":138.5},{"date":"4月上旬","value":145.5},{"date":"4月中旬","value":138.1},{"date":"4月下旬","value":138.9},{"date":"5月上旬","value":138.6},{"date":"5月中旬","value":145.8},{"date":"5月下旬","value":147.1},{"date":"6月上旬","value":150.5},{"date":"6月中旬","value":153.2},{"date":"6月下旬","value":155.6},{"date":"7月上旬","value":167.2},{"date":"7月中旬","value":169.5},{"date":"7月下旬","value":175.1},{"date":"8月上旬","value":186.8},{"date":"8月中旬","value":178.2},{"date":"8月下旬","value":181.1},{"date":"9月上旬","value":171.5},{"date":"9月中旬","value":165.2},{"date":"9月下旬","value":163.1},{"date":"10月上旬","value":160.3},{"date":"10月中旬","value":163.9},{"date":"10月下旬","value":165.5},{"date":"11月上旬","value":156.6},{"date":"11月中旬","value":158.9},{"date":"11月下旬","value":161.8},{"date":"12月上旬","value":165.2},{"date":"12月中旬","value":169.5},{"date":"12月下旬","value":172.9}]},{"label":"2026","points":[{"date":"1月上旬","value":178.7},{"date":"1月中旬","value":178.5},{"date":"1月下旬","value":189.8},{"date":"2月上旬","value":167.1},{"date":"2月中旬","value":120.5},{"date":"2月下旬","value":135.9},{"date":"3月上旬","value":147.3},{"date":"3月中旬","value":146.8},{"date":"3月下旬","value":144.9},{"date":"4月上旬","value":140.9},{"date":"4月中旬","value":155.8},{"date":"4月下旬","value":153.5},{"date":"5月上旬","value":138.1},{"date":"5月中旬","value":158.9},{"date":"5月下旬","value":157.6},{"date":"6月上旬","value":159.9},{"date":"6月中旬","value":157.5},{"date":"6月下旬","value":155.2},{"date":"7月上旬","value":160.9},{"date":"7月中旬","value":169.1},{"date":"7月下旬","value":175.2},{"date":"8月上旬","value":177.9},{"date":"8月中旬","value":177.1},{"date":"8月下旬","value":180.6},{"date":"9月上旬","value":167.9},{"date":"9月中旬","value":171.2},{"date":"9月下旬","value":182.8},{"date":"10月上旬","value":null},{"date":"10月中旬","value":null},{"date":"10月下旬","value":null},{"date":"11月上旬","value":null},{"date":"11月中旬","value":null},{"date":"11月下旬","value":null},{"date":"12月上旬","value":null},{"date":"12月中旬","value":null},{"date":"12月下旬","value":null}]}],"categories":["1月上旬","1月中旬","1月下旬","2月上旬","2月中旬","2月下旬","3月上旬","3月中旬","3月下旬","4月上旬","4月中旬","4月下旬","5月上旬","5月中旬","5月下旬","6月上旬","6月中旬","6月下旬","7月上旬","7月中旬","7月下旬","8月上旬","8月中旬","8月下旬","9月上旬","9月中旬","9月下旬","10月上旬","10月中旬","10月下旬","11月上旬","11月中旬","11月下旬","12月上旬","12月中旬","12月下旬"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="旬度日均水电发电量" style="--power-chart-height:380px"><div class="power-chart-title">旬度日均水电发电量</div><div class="power-chart-years"></div><div aria-label="旬度日均水电发电量" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"旬度日均水电发电量","mode":"decadal","unit":"","digits":1,"series":[{"label":"2020","points":[{"date":"1月上旬","value":23.5},{"date":"1月中旬","value":21.5},{"date":"1月下旬","value":18.5},{"date":"2月上旬","value":17.5},{"date":"2月中旬","value":17.0},{"date":"2月下旬","value":16.5},{"date":"3月上旬","value":18.1},{"date":"3月中旬","value":18.5},{"date":"3月下旬","value":19.0},{"date":"4月上旬","value":26.5},{"date":"4月中旬","value":26.7},{"date":"4月下旬","value":26.2},{"date":"5月上旬","value":24.0},{"date":"5月中旬","value":25.5},{"date":"5月下旬","value":28.0},{"date":"6月上旬","value":32.2},{"date":"6月中旬","value":36.8},{"date":"6月下旬","value":44.5},{"date":"7月上旬","value":45.9},{"date":"7月中旬","value":44.5},{"date":"7月下旬","value":49.5},{"date":"8月上旬","value":48.5},{"date":"8月中旬","value":48.7},{"date":"8月下旬","value":48.8},{"date":"9月上旬","value":43.6},{"date":"9月中旬","value":43.7},{"date":"9月下旬","value":42.8},{"date":"10月上旬","value":35.5},{"date":"10月中旬","value":41.5},{"date":"10月下旬","value":37.4},{"date":"11月上旬","value":31.9},{"date":"11月中旬","value":30.5},{"date":"11月下旬","value":29.5},{"date":"12月上旬","value":23.1},{"date":"12月中旬","value":24.5},{"date":"12月下旬","value":23.1}]},{"label":"2021","points":[{"date":"1月上旬","value":25.2},{"date":"1月中旬","value":24.5},{"date":"1月下旬","value":20.8},{"date":"2月上旬","value":19.5},{"date":"2月中旬","value":15.5},{"date":"2月下旬","value":17.5},{"date":"3月上旬","value":18.7},{"date":"3月中旬","value":18.2},{"date":"3月下旬","value":18.9},{"date":"4月上旬","value":27.1},{"date":"4月中旬","value":28.5},{"date":"4月下旬","value":28.6},{"date":"5月上旬","value":28.1},{"date":"5月中旬","value":25.6},{"date":"5月下旬","value":28.5},{"date":"6月上旬","value":32.3},{"date":"6月中旬","value":30.5},{"date":"6月下旬","value":33.5},{"date":"7月上旬","value":36.9},{"date":"7月中旬","value":44.6},{"date":"7月下旬","value":43.5},{"date":"8月上旬","value":42.1},{"date":"8月中旬","value":43.2},{"date":"8月下旬","value":46.5},{"date":"9月上旬","value":42.3},{"date":"9月中旬","value":43.7},{"date":"9月下旬","value":42.5},{"date":"10月上旬","value":37.6},{"date":"10月中旬","value":36.5},{"date":"10月下旬","value":34.9},{"date":"11月上旬","value":32.5},{"date":"11月中旬","value":31.6},{"date":"11月下旬","value":31.2},{"date":"12月上旬","value":23.5},{"date":"12月中旬","value":21.6},{"date":"12月下旬","value":20.8}]},{"label":"2022","points":[{"date":"1月上旬","value":21.5},{"date":"1月中旬","value":19.9},{"date":"1月下旬","value":19.6},{"date":"2月上旬","value":18.1},{"date":"2月中旬","value":18.9},{"date":"2月下旬","value":19.8},{"date":"3月上旬","value":20.5},{"date":"3月中旬","value":20.9},{"date":"3月下旬","value":20.2},{"date":"4月上旬","value":21.6},{"date":"4月中旬","value":29.8},{"date":"4月下旬","value":33.5},{"date":"5月上旬","value":34.1},{"date":"5月中旬","value":34.9},{"date":"5月下旬","value":33.1},{"date":"6月上旬","value":33.8},{"date":"6月中旬","value":34.1},{"date":"6月下旬","value":39.5},{"date":"7月上旬","value":42.7},{"date":"7月中旬","value":42.3},{"date":"7月下旬","value":41.5},{"date":"8月上旬","value":40.9},{"date":"8月中旬","value":40.1},{"date":"8月下旬","value":38.8},{"date":"9月上旬","value":37.5},{"date":"9月中旬","value":35.2},{"date":"9月下旬","value":28.7},{"date":"10月上旬","value":29.3},{"date":"10月中旬","value":27.5},{"date":"10月下旬","value":26.2},{"date":"11月上旬","value":26.1},{"date":"11月中旬","value":26.6},{"date":"11月下旬","value":26.2},{"date":"12月上旬","value":21.9},{"date":"12月中旬","value":21.5},{"date":"12月下旬","value":22.8}]},{"label":"2023","points":[{"date":"1月上旬","value":22.7},{"date":"1月中旬","value":19.6},{"date":"1月下旬","value":19.7},{"date":"2月上旬","value":21.3},{"date":"2月中旬","value":21.7},{"date":"2月下旬","value":21.5},{"date":"3月上旬","value":21.8},{"date":"3月中旬","value":21.3},{"date":"3月下旬","value":21.2},{"date":"4月上旬","value":20.5},{"date":"4月中旬","value":20.1},{"date":"4月下旬","value":21.9},{"date":"5月上旬","value":26.3},{"date":"5月中旬","value":28.5},{"date":"5月下旬","value":28.9},{"date":"6月上旬","value":29.2},{"date":"6月中旬","value":27.5},{"date":"6月下旬","value":30.1},{"date":"7月上旬","value":37.6},{"date":"7月中旬","value":33.5},{"date":"7月下旬","value":34.7},{"date":"8月上旬","value":41.9},{"date":"8月中旬","value":42.6},{"date":"8月下旬","value":43.8},{"date":"9月上旬","value":43.1},{"date":"9月中旬","value":43.3},{"date":"9月下旬","value":45.2},{"date":"10月上旬","value":43.6},{"date":"10月中旬","value":43.3},{"date":"10月下旬","value":43.7},{"date":"11月上旬","value":38.9},{"date":"11月中旬","value":29.1},{"date":"11月下旬","value":28.2},{"date":"12月上旬","value":25.8},{"date":"12月中旬","value":26.7},{"date":"12月下旬","value":25.2}]},{"label":"2024","points":[{"date":"1月上旬","value":23.3},{"date":"1月中旬","value":25.6},{"date":"1月下旬","value":23.5},{"date":"2月上旬","value":20.3},{"date":"2月中旬","value":19.6},{"date":"2月下旬","value":19.7},{"date":"3月上旬","value":20.9},{"date":"3月中旬","value":20.6},{"date":"3月下旬","value":20.5},{"date":"4月上旬","value":22.1},{"date":"4月中旬","value":25.9},{"date":"4月下旬","value":31.3},{"date":"5月上旬","value":31.8},{"date":"5月中旬","value":34.1},{"date":"5月下旬","value":38.9},{"date":"6月上旬","value":37.7},{"date":"6月中旬","value":36.5},{"date":"6月下旬","value":41.8},{"date":"7月上旬","value":41.1},{"date":"7月中旬","value":42.9},{"date":"7月下旬","value":42.2},{"date":"8月上旬","value":42.1},{"date":"8月中旬","value":48.6},{"date":"8月下旬","value":48.8},{"date":"9月上旬","value":42.9},{"date":"9月中旬","value":41.5},{"date":"9月下旬","value":40.2},{"date":"10月上旬","value":35.6},{"date":"10月中旬","value":37.2},{"date":"10月下旬","value":36.3},{"date":"11月上旬","value":35.8},{"date":"11月中旬","value":28.1},{"date":"11月下旬","value":29.3},{"date":"12月上旬","value":25.6},{"date":"12月中旬","value":25.8},{"date":"12月下旬","value":26.3}]},{"label":"2025","points":[{"date":"1月上旬","value":26.5},{"date":"1月中旬","value":26.9},{"date":"1月下旬","value":25.1},{"date":"2月上旬","value":25.3},{"date":"2月中旬","value":25.5},{"date":"2月下旬","value":24.9},{"date":"3月上旬","value":23.5},{"date":"3月中旬","value":23.8},{"date":"3月下旬","value":25.1},{"date":"4月上旬","value":24.8},{"date":"4月中旬","value":25.2},{"date":"4月下旬","value":24.5},{"date":"5月上旬","value":23.8},{"date":"5月中旬","value":29.2},{"date":"5月下旬","value":28.5},{"date":"6月上旬","value":31.9},{"date":"6月中旬","value":32.3},{"date":"6月下旬","value":37.1},{"date":"7月上旬","value":40.9},{"date":"7月中旬","value":42.6},{"date":"7月下旬","value":42.1},{"date":"8月上旬","value":41.2},{"date":"8月中旬","value":40.6},{"date":"8月下旬","value":45.9},{"date":"9月上旬","value":47.3},{"date":"9月中旬","value":47.5},{"date":"9月下旬","value":48.6},{"date":"10月上旬","value":45.8},{"date":"10月中旬","value":43.2},{"date":"10月下旬","value":40.1},{"date":"11月上旬","value":38.5},{"date":"11月中旬","value":37.8},{"date":"11月下旬","value":35.1},{"date":"12月上旬","value":28.2},{"date":"12月中旬","value":24.9},{"date":"12月下旬","value":23.8}]},{"label":"2026","points":[{"date":"1月上旬","value":25.8},{"date":"1月中旬","value":27.1},{"date":"1月下旬","value":27.9},{"date":"2月上旬","value":26.6},{"date":"2月中旬","value":25.8},{"date":"2月下旬","value":24.5},{"date":"3月上旬","value":25.9},{"date":"3月中旬","value":26.1},{"date":"3月下旬","value":24.8},{"date":"4月上旬","value":25.1},{"date":"4月中旬","value":30.3},{"date":"4月下旬","value":31.6},{"date":"5月上旬","value":31.5},{"date":"5月中旬","value":32.9},{"date":"5月下旬","value":36.1},{"date":"6月上旬","value":35.6},{"date":"6月中旬","value":36.9},{"date":"6月下旬","value":40.1},{"date":"7月上旬","value":47.9},{"date":"7月中旬","value":47.3},{"date":"7月下旬","value":44.5},{"date":"8月上旬","value":47.7},{"date":"8月中旬","value":47.1},{"date":"8月下旬","value":47.9},{"date":"9月上旬","value":45.2},{"date":"9月中旬","value":43.9},{"date":"9月下旬","value":44.6},{"date":"10月上旬","value":null},{"date":"10月中旬","value":null},{"date":"10月下旬","value":null},{"date":"11月上旬","value":null},{"date":"11月中旬","value":null},{"date":"11月下旬","value":null},{"date":"12月上旬","value":null},{"date":"12月中旬","value":null},{"date":"12月下旬","value":null}]}],"categories":["1月上旬","1月中旬","1月下旬","2月上旬","2月中旬","2月下旬","3月上旬","3月中旬","3月下旬","4月上旬","4月中旬","4月下旬","5月上旬","5月中旬","5月下旬","6月上旬","6月中旬","6月下旬","7月上旬","7月中旬","7月下旬","8月上旬","8月中旬","8月下旬","9月上旬","9月中旬","9月下旬","10月上旬","10月中旬","10月下旬","11月上旬","11月中旬","11月下旬","12月上旬","12月中旬","12月下旬"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="旬度日均其他发电量" style="--power-chart-height:380px"><div class="power-chart-title">旬度日均其他发电量</div><div class="power-chart-years"></div><div aria-label="旬度日均其他发电量" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"旬度日均其他发电量","mode":"decadal","unit":"","digits":1,"series":[{"label":"2021","points":[{"date":"1月上旬","value":23.3},{"date":"1月中旬","value":24.0},{"date":"1月下旬","value":20.8},{"date":"2月上旬","value":18.1},{"date":"2月中旬","value":15.8},{"date":"2月下旬","value":12.5},{"date":"3月上旬","value":16.6},{"date":"3月中旬","value":19.7},{"date":"3月下旬","value":20.8},{"date":"4月上旬","value":24.1},{"date":"4月中旬","value":26.5},{"date":"4月下旬","value":26.7},{"date":"5月上旬","value":25.8},{"date":"5月中旬","value":29.7},{"date":"5月下旬","value":29.2},{"date":"6月上旬","value":29.8},{"date":"6月中旬","value":30.7},{"date":"6月下旬","value":31.3},{"date":"7月上旬","value":30.7},{"date":"7月中旬","value":28.6},{"date":"7月下旬","value":28.8},{"date":"8月上旬","value":28.9},{"date":"8月中旬","value":27.8},{"date":"8月下旬","value":28.8},{"date":"9月上旬","value":27.6},{"date":"9月中旬","value":26.3},{"date":"9月下旬","value":26.2},{"date":"10月上旬","value":25.6},{"date":"10月中旬","value":25.3},{"date":"10月下旬","value":26.5},{"date":"11月上旬","value":26.1},{"date":"11月中旬","value":29.6},{"date":"11月下旬","value":30.3},{"date":"12月上旬","value":31.2},{"date":"12月中旬","value":32.6},{"date":"12月下旬","value":31.1}]},{"label":"2022","points":[{"date":"1月上旬","value":32.9},{"date":"1月中旬","value":33.0},{"date":"1月下旬","value":30.5},{"date":"2月上旬","value":29.9},{"date":"2月中旬","value":30.7},{"date":"2月下旬","value":30.3},{"date":"3月上旬","value":30.6},{"date":"3月中旬","value":30.3},{"date":"3月下旬","value":29.9},{"date":"4月上旬","value":30.7},{"date":"4月中旬","value":30.8},{"date":"4月下旬","value":34.7},{"date":"5月上旬","value":35.1},{"date":"5月中旬","value":35.5},{"date":"5月下旬","value":32.3},{"date":"6月上旬","value":33.4},{"date":"6月中旬","value":33.8},{"date":"6月下旬","value":34.1},{"date":"7月上旬","value":35.7},{"date":"7月中旬","value":36.8},{"date":"7月下旬","value":36.3},{"date":"8月上旬","value":33.2},{"date":"8月中旬","value":32.4},{"date":"8月下旬","value":30.9},{"date":"9月上旬","value":31.6},{"date":"9月中旬","value":31.1},{"date":"9月下旬","value":30.9},{"date":"10月上旬","value":31.4},{"date":"10月中旬","value":31.7},{"date":"10月下旬","value":31.9},{"date":"11月上旬","value":33.7},{"date":"11月中旬","value":34.9},{"date":"11月下旬","value":34.8},{"date":"12月上旬","value":35.2},{"date":"12月中旬","value":35.7},{"date":"12月下旬","value":38.1}]},{"label":"2023","points":[{"date":"1月上旬","value":38.3},{"date":"1月中旬","value":35.5},{"date":"1月下旬","value":35.1},{"date":"2月上旬","value":35.7},{"date":"2月中旬","value":36.1},{"date":"2月下旬","value":35.9},{"date":"3月上旬","value":36.2},{"date":"3月中旬","value":36.8},{"date":"3月下旬","value":37.2},{"date":"4月上旬","value":37.1},{"date":"4月中旬","value":37.7},{"date":"4月下旬","value":37.2},{"date":"5月上旬","value":37.8},{"date":"5月中旬","value":39.3},{"date":"5月下旬","value":39.5},{"date":"6月上旬","value":40.8},{"date":"6月中旬","value":40.8},{"date":"6月下旬","value":41.1},{"date":"7月上旬","value":41.6},{"date":"7月中旬","value":40.4},{"date":"7月下旬","value":39.6},{"date":"8月上旬","value":39.1},{"date":"8月中旬","value":38.4},{"date":"8月下旬","value":38.2},{"date":"9月上旬","value":37.6},{"date":"9月中旬","value":37.3},{"date":"9月下旬","value":36.8},{"date":"10月上旬","value":36.9},{"date":"10月中旬","value":36.8},{"date":"10月下旬","value":37.0},{"date":"11月上旬","value":38.1},{"date":"11月中旬","value":37.8},{"date":"11月下旬","value":38.4},{"date":"12月上旬","value":42.2},{"date":"12月中旬","value":42.1},{"date":"12月下旬","value":42.8}]},{"label":"2024","points":[{"date":"1月上旬","value":42.4},{"date":"1月中旬","value":43.7},{"date":"1月下旬","value":43.5},{"date":"2月上旬","value":41.8},{"date":"2月中旬","value":40.2},{"date":"2月下旬","value":38.3},{"date":"3月上旬","value":41.1},{"date":"3月中旬","value":41.4},{"date":"3月下旬","value":41.9},{"date":"4月上旬","value":42.3},{"date":"4月中旬","value":42.2},{"date":"4月下旬","value":41.8},{"date":"5月上旬","value":42.3},{"date":"5月中旬","value":45.4},{"date":"5月下旬","value":45.7},{"date":"6月上旬","value":45.5},{"date":"6月中旬","value":45.3},{"date":"6月下旬","value":45.1},{"date":"7月上旬","value":45.2},{"date":"7月中旬","value":44.9},{"date":"7月下旬","value":45.3},{"date":"8月上旬","value":45.9},{"date":"8月中旬","value":45.6},{"date":"8月下旬","value":45.3},{"date":"9月上旬","value":42.4},{"date":"9月中旬","value":42.3},{"date":"9月下旬","value":41.2},{"date":"10月上旬","value":38.3},{"date":"10月中旬","value":42.1},{"date":"10月下旬","value":41.8},{"date":"11月上旬","value":43.2},{"date":"11月中旬","value":43.4},{"date":"11月下旬","value":43.0},{"date":"12月上旬","value":44.1},{"date":"12月中旬","value":47.2},{"date":"12月下旬","value":46.9}]},{"label":"2025","points":[{"date":"1月上旬","value":46.8},{"date":"1月中旬","value":49.3},{"date":"1月下旬","value":50.2},{"date":"2月上旬","value":50.1},{"date":"2月中旬","value":49.7},{"date":"2月下旬","value":50.3},{"date":"3月上旬","value":47.4},{"date":"3月中旬","value":47.4},{"date":"3月下旬","value":50.1},{"date":"4月上旬","value":54.8},{"date":"4月中旬","value":55.6},{"date":"4月下旬","value":56.3},{"date":"5月上旬","value":56.9},{"date":"5月中旬","value":58.2},{"date":"5月下旬","value":58.8},{"date":"6月上旬","value":59.1},{"date":"6月中旬","value":59.3},{"date":"6月下旬","value":60.7},{"date":"7月上旬","value":57.1},{"date":"7月中旬","value":57.7},{"date":"7月下旬","value":53.9},{"date":"8月上旬","value":49.3},{"date":"8月中旬","value":54.8},{"date":"8月下旬","value":48.2},{"date":"9月上旬","value":50.8},{"date":"9月中旬","value":50.8},{"date":"9月下旬","value":50.6},{"date":"10月上旬","value":42.3},{"date":"10月中旬","value":45.7},{"date":"10月下旬","value":46.2},{"date":"11月上旬","value":48.1},{"date":"11月中旬","value":49.7},{"date":"11月下旬","value":51.3},{"date":"12月上旬","value":56.1},{"date":"12月中旬","value":58.5},{"date":"12月下旬","value":59.7}]},{"label":"2026","points":[{"date":"1月上旬","value":61.1},{"date":"1月中旬","value":63.6},{"date":"1月下旬","value":58.9},{"date":"2月上旬","value":59.9},{"date":"2月中旬","value":51.4},{"date":"2月下旬","value":51.4},{"date":"3月上旬","value":50.8},{"date":"3月中旬","value":51.5},{"date":"3月下旬","value":49.7},{"date":"4月上旬","value":55.1},{"date":"4月中旬","value":53.1},{"date":"4月下旬","value":51.3439},{"date":"5月上旬","value":56.1},{"date":"5月中旬","value":55.3},{"date":"5月下旬","value":55.1},{"date":"6月上旬","value":55.8},{"date":"6月中旬","value":57.0},{"date":"6月下旬","value":54.9},{"date":"7月上旬","value":52.8},{"date":"7月中旬","value":53.1},{"date":"7月下旬","value":54.2},{"date":"8月上旬","value":56.3},{"date":"8月中旬","value":53.6},{"date":"8月下旬","value":56.8},{"date":"9月上旬","value":60.6},{"date":"9月中旬","value":58.1},{"date":"9月下旬","value":59.2},{"date":"10月上旬","value":null},{"date":"10月中旬","value":null},{"date":"10月下旬","value":null},{"date":"11月上旬","value":null},{"date":"11月中旬","value":null},{"date":"11月下旬","value":null},{"date":"12月上旬","value":null},{"date":"12月中旬","value":null},{"date":"12月下旬","value":null}]}],"categories":["1月上旬","1月中旬","1月下旬","2月上旬","2月中旬","2月下旬","3月上旬","3月中旬","3月下旬","4月上旬","4月中旬","4月下旬","5月上旬","5月中旬","5月下旬","6月上旬","6月中旬","6月下旬","7月上旬","7月中旬","7月下旬","8月上旬","8月中旬","8月下旬","9月上旬","9月中旬","9月下旬","10月上旬","10月中旬","10月下旬","11月上旬","11月中旬","11月下旬","12月上旬","12月中旬","12月下旬"],"colors":null,"yearFilter":true}</script></div></div></div></div></div></section></section>
+
+
+
+
+</main>
+<div class="sources">
+<strong>源与口径：</strong>
+      现货电价来自“电力现货价格日度”；代理电价来自“代理电价月度钢联”；发电、用电来自“发电用电”；分地区发电来自“分类型分地区”；
+      累计装机来自“发电装机容量-wind”；新增装机来自“新增发电装机容量-ifind”；投资来自“电源电网投资”。
+      省份净输出来自“输出电量”和“输入电量”，按输出-输入计算；海外电价来自 pb/全球电价.xlsx 的图表公式对应序列。
+      储能装机和政策事件先来自项目内 JSON 底表；核电检修来源固定为生态环境部核电运行状态监测页面，后续接入日度/事件级抓取。
+      最新数据日期：发电 2026-09-30，总量用电 2026-08-31，分行业用电 2026-08-31，现货电价 2026-10-17，代理电价 2026-10-01，分地区发电 2026-08-31，装机 2026-08-31，交易 2026-08-01，输出/输入电量 2026-08-01/2026-08-01，投资 2026-08-31。
+    </div>
+</div>
+<div class="chart-tooltip global-chart-tooltip" id="global-chart-tooltip"></div>
+<script>
+  const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+  const panels = Array.from(document.querySelectorAll('.report-panel'));
+  function activatePanel(target) {
+    tabs.forEach((tab) => {
+      const active = tab.dataset.target === target;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    panels.forEach((panel) => panel.classList.toggle('active', panel.id === target));
+  }
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      activatePanel(tab.dataset.target);
+      history.replaceState(null, '', '#' + tab.dataset.target);
+    });
+  });
+  const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+  const tocTargetPanel = Object.fromEntries(tocLinks.map((link) => [link.getAttribute('href').replace('#', ''), link.dataset.panel]));
+  function jumpToSubpanel(targetId, panelId) {
+    if (!targetId || !panelId) return;
+    activatePanel(panelId);
+    requestAnimationFrame(() => {
+      const target = document.getElementById(targetId);
+      if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  }
+  tocLinks.forEach((link) => {
+    link.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const targetId = link.getAttribute('href').replace('#', '');
+      jumpToSubpanel(targetId, link.dataset.panel);
+      history.replaceState(null, '', '#' + targetId);
+    });
+  });
+  const initial = location.hash.replace('#', '');
+  if (['overview', 'price', 'supply', 'demand', 'trade'].includes(initial)) activatePanel(initial);
+  if (tocTargetPanel[initial]) jumpToSubpanel(initial, tocTargetPanel[initial]);
+  function summaryStorageKey(card) {
+    return 'power-dashboard-summary:' + (card.dataset.summaryKey || 'default');
+  }
+  function setSummaryStatus(card, text) {
+    const status = card.querySelector('.editable-summary-status');
+    if (status) status.textContent = text;
+  }
+  document.querySelectorAll('.editable-summary-card').forEach((card) => {
+    const body = card.querySelector('.editable-summary-body');
+    if (!body) return;
+    const key = summaryStorageKey(card);
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      body.innerHTML = saved;
+      setSummaryStatus(card, '已载入保存稿');
+    }
+    card.addEventListener('click', (ev) => {
+      const button = ev.target.closest ? ev.target.closest('[data-summary-action]') : null;
+      if (!button) return;
+      const action = button.dataset.summaryAction;
+      if (action === 'edit') {
+        const enabled = body.getAttribute('contenteditable') === 'true';
+        body.setAttribute('contenteditable', enabled ? 'false' : 'true');
+        button.textContent = enabled ? '编辑' : '完成编辑';
+        if (!enabled) {
+          body.focus();
+          setSummaryStatus(card, '编辑中');
+        } else {
+          setSummaryStatus(card, '待保存');
+        }
+      }
+      if (action === 'save') {
+        localStorage.setItem(key, body.innerHTML);
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已保存 ' + new Date().toLocaleTimeString('zh-CN', { hour12:false }));
+      }
+      if (action === 'reset') {
+        if (!confirm('恢复为本次数据自动生成的汇总文字？')) return;
+        localStorage.removeItem(key);
+        body.innerHTML = body.dataset.defaultHtml || '';
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已恢复生成稿');
+      }
+      if (action === 'export') {
+        const title = card.querySelector('.card-head h3')?.textContent || 'summary';
+        const html = '<!doctype html><meta charset="utf-8"><title>' + title + '</title><body>' + body.innerHTML + '</body>';
+        const blob = new Blob([html], { type:'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = '电力月报-汇总编辑稿.html';
+        link.click();
+        URL.revokeObjectURL(url);
+        setSummaryStatus(card, '已导出');
+      }
+    });
+  });
+  const globalTip = document.getElementById('global-chart-tooltip');
+  function showGlobalTip(ev, text) {
+    if (!globalTip || !text) return;
+    const rawText = String(text).replace(/\r?\n/g, '\n').replace(/\\n/g, '\n');
+    globalTip.innerHTML = rawText
+      .split('\n')
+      .map((line, idx) => {
+        const safe = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return idx === 0 ? `<div class="tip-date">${safe}</div>` : `<div>${safe}</div>`;
+      })
+      .join('');
+    globalTip.style.display = 'block';
+    const margin = 16;
+    const boxW = globalTip.offsetWidth || 240;
+    const boxH = globalTip.offsetHeight || 90;
+    let left = ev.clientX + 16;
+    let top = ev.clientY - Math.min(40, boxH / 2);
+    if (left + boxW + margin > window.innerWidth) left = ev.clientX - boxW - 16;
+    if (top + boxH + margin > window.innerHeight) top = window.innerHeight - boxH - margin;
+    if (top < margin) top = margin;
+    globalTip.style.left = left + 'px';
+    globalTip.style.top = top + 'px';
+  }
+  document.addEventListener('mousemove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    if (!target) {
+      if (globalTip) globalTip.style.display = 'none';
+      return;
+    }
+    showGlobalTip(ev, target.dataset.tip);
+  });
+  document.addEventListener('touchstart', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('touchmove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('mouseleave', () => {
+    if (globalTip) globalTip.style.display = 'none';
+  });
+</script>
+<script id="power-chart-upgrade-runtime">(() => {
+  'use strict';
+  const states = new Map();
+  const palette = ['#17366c','#dc3535','#2f9fb8','#3e9368','#bc833a','#8974b4','#6f7a85'];
+  const yearColors = {'2023':'#99a5b6','2024':'#399ccc','2025':'#17366c','2026':'#d93636'};
+  const numeric = value => value !== null && value !== '' && Number.isFinite(Number(value));
+  const safe = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const compact = value => Math.abs(value) >= 100000 ? (value / 10000).toFixed(0)+'万' : Number(value).toLocaleString('zh-CN', {maximumFractionDigits:2});
+
+  function payload(shell) {
+    return JSON.parse(shell.querySelector('.power-chart-data').textContent);
+  }
+
+  function addYearFilters(state) {
+    const box = state.shell.querySelector('.power-chart-years');
+    box.replaceChildren();
+    if (state.data.mode !== 'timeline' || state.data.yearFilter === false) return;
+    const years = [...new Set(state.data.series.flatMap(s => s.points.map(p => /^(\d{4})-/.exec(p.date)?.[1])).filter(Boolean))].sort();
+    if (years.length < 2) return;
+    state.years = new Set(years);
+    for (const year of years) {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'checkbox'; input.checked = true; input.value = year;
+      input.setAttribute('aria-label', '筛选'+year+'年');
+      input.addEventListener('change', () => {
+        if (input.checked) state.years.add(year); else state.years.delete(year);
+        state.saved = null;
+        if (state.chart) state.chart.setOption(option(state), {notMerge:true});
+      });
+      label.append(input, document.createTextNode(year)); box.append(label);
+    }
+  }
+
+  function option(state) {
+    const d = state.data;
+    const seasonal = d.mode !== 'timeline';
+    const cats = d.categories || [...new Set(d.series.flatMap(s => s.points.map(p => String(p.date))))].sort();
+    const categories = cats.filter(date => !state.years || state.years.has(date.slice(0,4)) || !/^\d{4}-/.test(date));
+    const narrow = state.shell.clientWidth < 520;
+    const colors = d.colors || d.series.map((s,i) => seasonal ? (yearColors[s.label] || palette[i%palette.length]) : palette[i%palette.length]);
+    const saved = state.saved;
+    const legend = {type:'scroll',top:5,left:8,right:60,icon:'roundRect',itemWidth:16,itemHeight:3,itemGap:12,
+      selected:saved?.legend?.[0]?.selected || {},textStyle:{fontSize:narrow?11:12,color:'#253a52'},
+      pageIconColor:'#17366c',pageIconSize:10,animation:false};
+    const series = d.series.map((s,i) => {
+      const points = new Map(s.points.map(p => [String(p.date),p.value]));
+      return {name:s.label,type:'line',connectNulls:false,smooth:false,showSymbol:false,symbolSize:4,
+        data:categories.map(date => numeric(points.get(date)) ? Number(points.get(date)) : null),
+        lineStyle:{width:seasonal && s.label === d.series.at(-1)?.label ? 2.8 : 1.8},
+        itemStyle:{color:colors[i]},emphasis:{focus:'series'},animation:false};
+    });
+    return {animation:false,color:colors,textStyle:{fontFamily:'Microsoft YaHei, sans-serif'},legend,
+      grid:{left:narrow?49:62,right:narrow?17:25,top:d.unit?52:44,bottom:69,containLabel:false},
+      toolbox:{right:4,top:1,itemSize:13,itemGap:9,feature:{restore:{title:'重置范围和筛选'},saveAsImage:{title:'下载图表',pixelRatio:2}}},
+      tooltip:{trigger:'axis',confine:true,appendToBody:false,backgroundColor:'rgba(255,255,255,.97)',borderColor:'#bac8d9',
+        textStyle:{fontSize:12,color:'#17304f'},axisPointer:{type:'line',lineStyle:{color:'#71849c',type:'dashed'}},
+        formatter(items) { return (items.length?safe(items[0].axisValueLabel):'')+items.filter(p=>numeric(p.data)).map(p=>
+          '<br>'+p.marker+safe(p.seriesName)+'：'+Number(p.data).toLocaleString('zh-CN',{minimumFractionDigits:d.digits,maximumFractionDigits:d.digits})+safe(d.unit||'')).join(''); }},
+      xAxis:{type:'category',data:categories,boundaryGap:false,axisLine:{lineStyle:{color:'#bac7d7'}},axisTick:{show:false},
+        axisLabel:{fontSize:narrow?10:11,color:'#65768c',hideOverlap:true,
+          formatter(value) {return d.mode==='daily' ? value.replace('-', '/') : value;}}},
+      yAxis:{type:'value',scale:true,name:d.unit||'',nameTextStyle:{fontSize:11,color:'#65768c',align:'left'},
+        splitNumber:4,axisLabel:{color:'#65768c',fontSize:narrow?10:11,formatter:compact},
+        splitLine:{lineStyle:{color:'#e4ebf3',type:'dashed'}},axisLine:{show:false}},
+      dataZoom:[{type:'inside',filterMode:'none',zoomOnMouseWheel:'ctrl',moveOnMouseWheel:false,preventDefaultMouseMove:false,
+        start:saved?.dataZoom?.[0]?.start??0,end:saved?.dataZoom?.[0]?.end??100},
+        {type:'slider',filterMode:'none',bottom:9,height:19,left:narrow?49:62,right:narrow?17:25,
+          start:saved?.dataZoom?.[1]?.start??0,end:saved?.dataZoom?.[1]?.end??100,
+          brushSelect:false,borderColor:'#ccd7e5',fillerColor:'rgba(63,120,177,.17)',
+          handleSize:'110%',handleStyle:{color:'#fff',borderColor:'#50769f'},textStyle:{fontSize:10,color:'#526b87'},
+          dataBackground:{lineStyle:{color:'#9dacc1'},areaStyle:{color:'#e8eef5'}},selectedDataBackground:{lineStyle:{color:'#4a80ac'},areaStyle:{color:'#dce8f3'}}}],series};
+  }
+
+  function near(shell) {
+    const box = shell.getBoundingClientRect();
+    return box.width > 0 && box.height > 0 && box.top < innerHeight+400 && box.bottom > -400;
+  }
+
+  function mount(state) {
+    if (state.chart || !near(state.shell) || !window.echarts) return;
+    state.chart = echarts.init(state.shell.querySelector('.power-chart-canvas'), null, {renderer:'canvas',useDirtyRect:true,devicePixelRatio:Math.min(devicePixelRatio||1,2)});
+    state.chart.setOption(option(state));
+    state.chart.on('restore', () => {
+      state.saved = null;
+      if (state.years) {
+        state.shell.querySelectorAll('.power-chart-years input').forEach(c=>{c.checked=true;state.years.add(c.value);});
+        state.chart.setOption(option(state),{notMerge:true});
+      }
+    });
+    state.shell.dataset.chartReady = 'true';
+  }
+
+  function release(state) {
+    if (!state.chart) return;
+    const o = state.chart.getOption();
+    state.saved = {legend:o.legend,dataZoom:o.dataZoom};
+    state.chart.dispose();state.chart=null;state.shell.dataset.chartReady='false';
+  }
+
+  let scheduled = false;
+  function schedule() {
+    if (scheduled) return;
+    scheduled=true;
+    requestAnimationFrame(()=>{
+      scheduled=false;
+      for (const state of states.values()) {
+        if (near(state.shell)) {mount(state);if(state.chart)state.chart.resize();}
+        else release(state);
+      }
+    });
+  }
+
+  function register(shell, data) {
+    const state={shell,data:data||payload(shell),chart:null,saved:null,years:null};
+    states.set(shell,state);addYearFilters(state);
+    return state;
+  }
+
+  function hydrology() {
+    const script=document.getElementById('hydro-data');
+    if (!script) return;
+    const data=JSON.parse(script.textContent),station=document.getElementById('hydro-station'),mode=document.getElementById('hydro-mode');
+    const years=[...new Set(data.dates.map(d=>d.slice(0,4)))].sort();
+    const controls=document.getElementById('hydro-years');controls.replaceChildren();
+    const chosen=new Set(years);
+    for (const year of years) {
+      const label=document.createElement('label'),input=document.createElement('input');
+      input.type='checkbox';input.checked=true;input.value=year;
+      input.addEventListener('change',()=>{if(input.checked)chosen.add(year);else chosen.delete(year);update();});
+      label.append(input,document.createTextNode(year));controls.append(label);
+    }
+    const plots=[...document.querySelectorAll('.hydro-plot')].map(plot=>{
+      plot.querySelector('canvas')?.remove();plot.querySelector('output')?.remove();
+      const shell=document.createElement('div');shell.className='power-chart-shell';shell.style.setProperty('--power-chart-height','300px');
+      shell.innerHTML='<div class="power-chart-years"></div><div class="power-chart-canvas" role="img"></div>';
+      plot.append(shell);return {plot,shell,metric:plot.querySelector('h4').textContent,state:null};
+    });
+    function update() {
+      for (const p of plots) {
+        if (p.state) {release(p.state);states.delete(p.shell);}
+        const metric=data.series.find(s=>s.station===station.value && s.metric===p.metric);
+        const seasonal=mode.value==='season';
+        const dates=seasonal?Array.from({length:366},(_,i)=>new Date(Date.UTC(2000,0,i+1)).toISOString().slice(5,10)):data.dates.slice(-90);
+        const groups=seasonal?years.filter(y=>chosen.has(y)):['近90天'];
+        const series=groups.map(year=>({label:year,points:dates.map(date=>{
+          const rawDate=seasonal?year+'-'+date:date,index=data.dates.indexOf(rawDate);
+          return {date,value:metric && index>=0?metric.values[index]:null};
+        })}));
+        const d={title:p.metric,mode:seasonal?'daily':'timeline',unit:metric?.unit||'',digits:1,categories:dates,series,yearFilter:false};
+        p.state=register(p.shell,d);
+      }
+      schedule();
+    }
+    station.addEventListener('change',update);mode.addEventListener('change',update);update();
+  }
+
+  function boot() {
+    if (!window.echarts) {
+      document.querySelectorAll('.power-chart-canvas').forEach(el=>el.textContent='图表资源未加载，请检查 assets/echarts.min.js');
+      return;
+    }
+    document.querySelectorAll('.power-chart-shell').forEach(shell=>register(shell));
+    hydrology();
+    const observer=new IntersectionObserver(schedule,{rootMargin:'400px'});
+    states.forEach(state=>observer.observe(state.shell));
+    new MutationObserver(schedule).observe(document.querySelector('main')||document.body,{subtree:true,attributes:true,attributeFilter:['class']});
+    window.addEventListener('resize',schedule);window.addEventListener('scroll',schedule,{passive:true});
+    document.addEventListener('click',event=>{if(event.target.closest('.panel-tabs,.side-toc,.subpanel-tabs'))schedule();});
+    window.powerCharts={states,refresh:schedule};schedule();
+  }
+  if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script></body>
+</html>

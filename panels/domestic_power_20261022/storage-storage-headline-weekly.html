@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>20261022国内电力看板 手机版 - 7.2 储能头条周度招中标</title>
+<style>
+    :root {
+      --bg:#f5f1ea; --paper:#fffdf9; --ink:#111827; --muted:#687080; --line:#cfd6e3;
+      --navy:#0b2f66; --blue:#4f7dbf; --red:#dc2626; --soft:#f8fafc;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; padding-left:154px; background:var(--bg); color:var(--ink); font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .page { position:relative; width:min(1680px, calc(100% - 28px)); margin:14px auto 40px; background:var(--paper); border:1px solid #d7d0c6; box-shadow:0 8px 28px rgba(64,46,26,.08); }
+    header { padding:22px 28px 16px; border-bottom:3px solid var(--navy); }
+    h1 { margin:0; font-size:30px; letter-spacing:0; color:var(--navy); }
+    .subtitle { margin-top:7px; color:var(--muted); font-size:13px; }
+    main { padding:0 22px 28px; }
+    .report-section { padding:18px 0 22px; border-bottom:1px solid #d7dde8; }
+    h2 { margin:0 0 12px; font-size:24px; color:#111; }
+    h2::before { content:attr(id); display:none; }
+    .placeholder { min-height:90px; border:1px dashed #b8c0cf; background:#fbfaf7; color:#7b8190; padding:24px; font-size:16px; }
+    .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:8px; padding:18px 0 10px; border-bottom:1px solid #d7dde8; background:rgba(255,253,249,.96); backdrop-filter:blur(8px); }
+    .panel-tab { appearance:none; border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:8px 16px; min-height:42px; border-radius:3px; font-family:inherit; font-size:18px; font-weight:700; cursor:pointer; }
+    .panel-tab:hover { border-color:#b4493f; color:#0b2f66; }
+    .panel-tab.active { background:#b4493f; border-color:#b4493f; color:white; }
+    .report-panel { display:none; }
+    .report-panel.active { display:block; }
+    .subpanel { scroll-margin-top:76px; margin:12px 0 18px; padding:10px; border:1px solid #d7dde8; background:#fbfcff; }
+    .subpanel > h3 { margin:0 0 10px; font-size:20px; color:#0b2f66; border-left:5px solid #0b2f66; padding-left:9px; }
+    .stack { display:grid; gap:14px; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
+    .card { border:1px solid #bfc8d8; background:white; overflow:hidden; }
+    .wide-card { grid-column:1 / -1; }
+    .card-head { background:#d9e2f3; border-bottom:1px solid #aeb8c8; padding:7px 10px; text-align:center; }
+    .card-head h3 { margin:0; font-size:17px; color:#001f55; }
+    .card-head p { margin:2px 0 0; font-size:12px; color:#475569; }
+    .card-body { padding:10px; overflow:auto; }
+    table { width:100%; border-collapse:collapse; font-size:12px; background:white; }
+    th, td { border:1px solid #c9ced8; padding:5px 7px; text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    th { background:#e5ebf6; color:#0f2d5c; font-weight:700; }
+    th:first-child, td:first-child { text-align:left; }
+    .spot-summary-table { font-size:13px; }
+    .spot-summary-table .latest-col { background:#fff1f0; border-left:2px solid #b4493f; border-right:2px solid #b4493f; font-weight:700; }
+    .recent-values { text-align:left; white-space:normal; min-width:260px; }
+    .recent-values span { display:inline-block; margin:1px 5px 1px 0; padding:1px 5px; border:1px solid #d7dde8; background:#f8fafc; border-radius:3px; }
+    .date-value { display:inline-flex; flex-direction:column; align-items:flex-end; gap:1px; line-height:1.18; }
+    .date-value span { color:#64748b; font-size:11px; font-weight:400; }
+    .date-value b { color:#0f172a; font-size:13px; font-weight:700; }
+    .table-card .card-body { max-height:520px; }
+    .full-table .card-body { max-height:none; overflow:visible; }
+    .storage-summary-block + .storage-summary-block { margin-top:12px; }
+    .storage-summary-block h4 { margin:0; padding:6px 8px; border:1px solid #c9ced8; border-bottom:0; background:#f8fafc; color:#0f2d5c; font-size:15px; }
+    .image-card .card-body { overflow:visible; }
+    .reference-image { display:block; width:100%; height:auto; background:white; }
+    .heat td { min-width:72px; }
+    .table-note { margin:8px 2px 0; color:#64748b; font-size:12px; }
+    .summary-text { font-size:16px; line-height:1.8; color:#111827; }
+    .summary-text p { margin:0 0 8px; }
+    .summary-text strong { color:#b91c1c; }
+    .editable-summary-tools { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:8px 10px; border-bottom:1px solid #d7dde8; background:#f8fafc; }
+    .summary-tool-btn { appearance:none; border:1px solid #b9c3d3; background:white; color:#0f2d5c; min-height:32px; padding:5px 12px; border-radius:3px; font-family:inherit; font-size:14px; font-weight:700; cursor:pointer; }
+    .summary-tool-btn:hover { border-color:#b4493f; color:#b4493f; }
+    .summary-tool-btn.primary { background:#0b2f66; border-color:#0b2f66; color:white; }
+    .editable-summary-status { margin-left:auto; color:#64748b; font-size:12px; }
+    .editable-summary-body { min-height:118px; outline:none; border:1px solid transparent; padding:4px 6px; }
+    .editable-summary-body[contenteditable="true"] { border-color:#b4493f; background:#fffaf2; box-shadow:inset 0 0 0 1px rgba(180,73,63,.18); }
+    .editable-summary-body[contenteditable="true"] p { cursor:text; }
+    .pos { color:#b91c1c; font-weight:700; }
+    .neg { color:#1d4ed8; font-weight:700; }
+    .mini-chart-row { display:grid; grid-template-columns:repeat(4, minmax(260px,1fr)); gap:10px; }
+    .mini-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(280px,1fr)); gap:10px; }
+    .storage-smm-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-xunxi-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-headline-weekly-grid { grid-template-columns:repeat(4, minmax(240px,1fr)); }
+    .storage-headline-price-wide { margin-top:14px; padding-top:10px; border-top:1px solid #d7dde8; }
+    .chart-group-title { margin:12px 0 8px; color:#0b2f66; font-size:18px; text-align:center; }
+    .overseas-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:12px; }
+    .spot-season-grid { display:grid; grid-template-columns:repeat(3, minmax(420px,1fr)); gap:16px; align-items:start; }
+    .spot-season-grid .svg-title { font-size:16px; }
+    .spot-season-grid .svg-axis { font-size:12px; }
+    .spot-season-grid .svg-legend { font-size:11px; }
+    .decadal-chart-grid { display:grid; grid-template-columns:repeat(2, minmax(520px,1fr)); gap:14px; }
+    .net-transfer-grid { display:grid; grid-template-columns:repeat(2, minmax(560px,1fr)); gap:14px; align-items:start; }
+    .regional-structure-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:10px; align-items:start; }
+    .regional-structure-svg { border:1px solid #d7dde8; background:#fff; }
+    .regional-structure-title { font-size:18px; font-weight:700; fill:#0b2f66; }
+    .regional-structure-date { font-size:12px; fill:#64748b; }
+    .regional-structure-total { font-size:13px; fill:#334155; }
+    .regional-structure-inside { font-size:11px; font-weight:700; fill:white; paint-order:stroke; stroke:#334155; stroke-width:2px; }
+    .regional-structure-legend { font-size:11px; fill:#111827; }
+    .industry-chain-svg { border:1px solid #d7dde8; }
+    .industry-chain-title { font-size:22px; font-weight:700; fill:#0b2f66; }
+    .industry-chain-col-title { font-size:18px; font-weight:700; fill:white; }
+    .industry-chain-item { font-size:14px; fill:#0f172a; }
+    .industry-chain-note { font-size:15px; fill:#334155; }
+    .industry-panorama-image { max-height:760px; object-fit:contain; }
+    svg { width:100%; height:auto; display:block; background:white; }
+    svg text { font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .svg-title { font-size:14px; font-weight:700; fill:#0b2f66; }
+    .svg-axis { font-size:10px; fill:#334155; }
+    .svg-legend { font-size:8px; }
+    .latest-label { font-size:11px; font-weight:700; paint-order:stroke; stroke:white; stroke-width:3px; }
+    .chart-point { cursor:crosshair; }
+    .interactive-chart { position:relative; background:white; }
+    .interactive-toolbar { display:flex; flex-wrap:wrap; gap:8px 12px; padding:2px 0 8px; }
+    .interactive-toggle { display:inline-flex; align-items:center; gap:5px; color:#0f172a; font-size:12px; cursor:pointer; }
+    .interactive-toggle::before { content:""; width:18px; height:3px; background:var(--line-color); display:inline-block; }
+    .interactive-toggle input { width:13px; height:13px; margin:0; accent-color:#0b2f66; }
+    .interactive-stage { position:relative; }
+    .spot-line-card .interactive-toggle { font-size:15px; font-weight:700; }
+    .spot-line-card .interactive-toggle::before { width:24px; height:4px; }
+    .spot-line-card .interactive-toggle input { width:16px; height:16px; }
+    .spot-line-card .svg-title { font-size:18px; }
+    .spot-line-card .svg-axis { font-size:13px; }
+    .spot-line-card .latest-label { font-size:13px; }
+    .chart-tooltip { display:none; position:absolute; z-index:20; min-width:190px; max-width:320px; pointer-events:none; background:rgba(15,23,42,.94); color:white; border-radius:6px; padding:10px 12px; font-size:14px; line-height:1.55; box-shadow:0 12px 30px rgba(15,23,42,.28); }
+    .chart-tooltip .tip-date { font-weight:700; color:#dbeafe; margin-bottom:5px; font-size:17px; }
+    .global-chart-tooltip { position:fixed; white-space:normal; }
+    .rotated { writing-mode:tb; glyph-orientation-vertical:0; }
+    .industry-bar-svg { width:100%; }
+    .industry-axis { font-size:16px; dominant-baseline:hanging; }
+    .net-transfer-axis { font-size:13px; fill:#0f2d5c; text-anchor:end; dominant-baseline:middle; }
+    .capacity-title { font-size:26px; fill:#4b5563; }
+    .capacity-axis { font-size:18px; fill:#4b5563; text-anchor:end; dominant-baseline:middle; }
+    .side-toc { position:fixed; left:0; top:0; bottom:0; z-index:70; width:154px; overflow:auto; padding:42px 12px 18px; background:rgba(255,253,249,.98); border-right:1px solid #cbd5e1; box-shadow:8px 0 22px rgba(15,23,42,.08); }
+    .side-toc div { color:#0b2f66; font-size:16px; font-weight:700; margin:0 0 8px; }
+    .side-toc a { display:block; color:#334155; text-decoration:none; font-size:13px; line-height:1.2; padding:7px 6px; border-left:3px solid transparent; }
+    .side-toc a:hover { color:#0b2f66; background:#eef3fb; border-left-color:#b4493f; }
+    .sources { padding:16px 22px 26px; font-size:12px; color:#596273; line-height:1.7; }
+    @media(max-width:1100px) {
+      .grid-2, .mini-chart-row, .mini-chart-grid, .overseas-chart-grid, .spot-season-grid, .decadal-chart-grid, .net-transfer-grid, .regional-structure-grid { grid-template-columns:1fr; }
+      .page { width:100%; margin:0; border:0; box-shadow:none; }
+      body { padding-left:0; }
+      header { padding:14px 14px 10px; }
+      h1 { font-size:24px; }
+      .panel-tabs { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:8px; white-space:nowrap; }
+      .panel-tab { flex:0 0 auto; min-height:34px; padding:6px 10px; font-size:14px; }
+      .side-toc { position:sticky; top:50px; z-index:75; width:100%; max-height:none; padding:7px 8px; display:flex; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; border-right:0; border-bottom:1px solid #cbd5e1; box-shadow:none; }
+      .side-toc div { display:none; }
+      .side-toc a { flex:0 0 auto; padding:5px 9px; border:1px solid #d7dde8; border-left:0; border-radius:3px; background:#f8fafc; font-size:13px; line-height:1.15; white-space:nowrap; }
+      .side-toc a:hover { border-left:0; border-color:#b4493f; }
+      main { padding:0 10px 18px; }
+    }
+    @media(max-width:720px) {
+      body { font-size:14px; }
+      header { padding:10px 10px 8px; }
+      h1 { font-size:22px; }
+      main { padding:0 6px 14px; }
+      h2 { margin:8px 0; font-size:20px; }
+      .report-section { padding:8px 0 16px; }
+      .subpanel { scroll-margin-top:92px; margin:8px 0 12px; padding:6px; }
+      .subpanel > h3 { font-size:17px; padding-left:7px; }
+      .card-head { padding:6px 8px; }
+      .card-head h3 { font-size:16px; }
+      .card-head p { font-size:11px; line-height:1.35; }
+      .card-body { padding:7px; }
+      table { min-width:720px; font-size:11px; }
+      .spot-summary-table { min-width:860px; font-size:11px; }
+      th, td { padding:4px 5px; }
+      .table-card .card-body, .full-table .card-body { max-height:none; overflow-x:auto; overflow-y:visible; -webkit-overflow-scrolling:touch; }
+      .full-table table th:first-child, .full-table table td:first-child,
+      .table-card table th:first-child, .table-card table td:first-child { position:sticky; left:0; z-index:2; background:white; }
+      .full-table table th:first-child, .table-card table th:first-child { z-index:3; background:#e5ebf6; }
+      .summary-text { font-size:14px; line-height:1.65; }
+      .editable-summary-tools { gap:6px; padding:6px; }
+      .summary-tool-btn { min-height:30px; padding:4px 9px; font-size:12px; }
+      .editable-summary-status { width:100%; margin-left:0; font-size:11px; }
+      .interactive-toolbar { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px; }
+      .interactive-toggle { flex:0 0 auto; gap:4px; font-size:10px; white-space:nowrap; }
+      .interactive-toggle::before { width:16px; height:3px; }
+      .interactive-toggle input { width:12px; height:12px; }
+      .spot-line-card .interactive-toggle { font-size:11px; }
+      .spot-line-card .interactive-toggle::before { width:18px; height:3px; }
+      .spot-line-card .interactive-toggle input { width:13px; height:13px; }
+      .svg-title { font-size:12px; }
+      .svg-axis { font-size:8px; }
+      .svg-legend { font-size:7px; }
+      .latest-label { font-size:8px; }
+      .spot-line-card .svg-title { font-size:13px; }
+      .spot-line-card .svg-axis { font-size:9px; }
+      .spot-line-card .latest-label { font-size:9px; }
+      .industry-axis { font-size:11px; }
+      .net-transfer-axis { font-size:9px; }
+      .capacity-title { font-size:18px; }
+      .capacity-axis { font-size:12px; }
+      .regional-structure-title { font-size:15px; }
+      .regional-structure-date, .regional-structure-total, .regional-structure-legend { font-size:10px; }
+      .regional-structure-inside { font-size:9px; }
+      .chart-tooltip { min-width:160px; max-width:calc(100vw - 28px); padding:8px 10px; font-size:12px; }
+      .chart-tooltip .tip-date { font-size:14px; }
+      .sources { padding:12px 10px 18px; font-size:10px; }
+    }
+  </style>
+<style id="power-chart-upgrade-style">
+.power-chart-shell{min-width:0;width:100%;position:relative;margin:4px 0 8px;overflow:hidden}
+.power-chart-title{font-size:16px;font-weight:700;color:#0b2f66;line-height:1.45;padding:4px 8px;text-align:center;overflow-wrap:anywhere}
+.power-chart-canvas{width:100%;height:var(--power-chart-height,320px);min-width:0;touch-action:pan-y}
+.power-chart-years{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:4px 10px;font-size:12px}
+.power-chart-years:empty{display:none}.power-chart-years label{display:inline-flex;align-items:center;gap:3px;white-space:nowrap;cursor:pointer}
+.power-chart-years input{accent-color:#0b2f66}
+@media(max-width:760px){.power-chart-title{font-size:14px}.power-chart-canvas{height:300px}.power-chart-years{gap:7px;padding:4px}}
+</style><script data-power-chart-vendor="" defer="" src="assets/echarts.min.js"></script><style id="mobile-pages-overrides">
+      html { scroll-behavior: smooth; }
+      body { min-width: 0; }
+      .side-toc { display: none !important; }
+      main { margin-left: 0 !important; min-width: 0; }
+      .split-page-tabs {
+        position: sticky; top: 0; z-index: 95; display: flex; flex-wrap: nowrap;
+        gap: 6px; overflow-x: auto; padding: 8px 0; white-space: nowrap;
+        background: rgba(255,253,249,.98); border-bottom: 1px solid var(--line);
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      }
+      .split-page-tabs::-webkit-scrollbar, .section-page-nav::-webkit-scrollbar { display: none; }
+      .split-tab, .section-link {
+        flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none;
+        background: #f8fafc; color: #344054; font-weight: 750; white-space: nowrap;
+      }
+      .split-tab { min-width: 4.4rem; min-height: 36px; padding: 7px 10px; font-size: 14px; }
+      .split-tab.active { color: #fff; background: #b4493f; border-color: #b4493f; }
+      .section-page-nav {
+        position: sticky; top: 53px; z-index: 90; display: flex; gap: 6px;
+        overflow-x: auto; padding: 8px 0 10px; margin: -2px 0 8px;
+        background: rgba(255,253,249,.98); scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .section-link { min-height: 32px; max-width: 82vw; padding: 6px 9px; font-size: 13px; }
+      .section-link.active { color: #fff; background: #183a6b; border-color: #183a6b; }
+      .report-panel > h2 { margin-top: 10px; }
+      img { max-width: 100%; height: auto; }
+      .card-body, .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      @media (max-width: 760px) {
+        header, main { width: auto !important; max-width: none !important; }
+        header { padding-left: 12px !important; padding-right: 12px !important; }
+        main { padding: 0 8px 28px !important; }
+        h1 { font-size: 23px !important; line-height: 1.2; }
+        .subpanel { padding: 6px; margin: 8px 0 12px; }
+        .subpanel > h3 { font-size: 17px; }
+        .grid-2, .chart-grid, .spot-season-grid, .overseas-chart-grid { grid-template-columns: minmax(0, 1fr) !important; }
+        table { min-width: 620px; }
+        svg {
+          display: block;
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+          height: auto !important;
+        }
+        .card-head h3 { font-size: 16px !important; }
+        .card-head p, .table-note, .source-note { font-size: 12px !important; }
+      }
+    </style></head>
+<body>
+<div class="page">
+<nav aria-label="子面板目录" class="side-toc"><div>目录</div><a href="index.html#overview-core">1.1 发电用电</a><a href="overview-overview-investment.html#overview-investment">1.2 电源电网</a><a href="price.html#price-spot">2.1 现货电价</a><a href="price-price-table.html#price-table">2.2 代理电价</a><a href="price-overseas-americas-daily.html#price-overseas">2.3 海外电价</a><a href="price-price-long-contract.html#price-long-contract">2.4 长协电价</a><a href="price-price-capacity.html#price-capacity">2.5 容量电价</a><a href="supply.html#supply-generation">3.1 发电量</a><a href="supply-supply-capacity.html#supply-capacity">3.2 装机</a><a href="supply-supply-regional.html#supply-regional">3.3 分地区发电</a><a href="supply-supply-decadal.html#supply-decadal">3.4 旬度发电</a><a href="supply-supply-utilization-hours.html#supply-utilization-hours">3.5 利用小时</a><a href="supply-supply-regional-structure.html#supply-regional-structure">3.6 分省结构</a><a href="supply-supply-nuclear-maintenance.html#supply-nuclear-maintenance">3.7 核电检修</a><a href="supply-supply-hydrology.html#supply-hydrology">3.8 水电站水情</a><a href="demand.html#demand-total">4.1 用电总量</a><a href="demand-demand-industry.html#demand-industry">4.2 分行业用电</a><a href="trade.html#trade-long-term">5.1 中长期交易</a><a href="trade-trade-center.html#trade-center">5.2 交易中心</a><a href="trade-trade-net-transfer.html#trade-net-transfer">5.3 净输出</a><a href="policy.html#policy-market">6.1 电力市场政策</a><a href="policy-policy-renewable.html#policy-renewable">6.2 新能源政策</a><a href="policy-policy-storage.html#policy-storage">6.3 储能政策</a><a href="storage.html#storage-monthly-install">7.1 储能装机</a><a href="storage-storage-headline-weekly.html#storage-headline-weekly">7.2 储能头条周度</a></nav>
+<header>
+<h1>20261022国内电力看板 手机版</h1>
+</header>
+<main>
+<nav aria-label="一级栏目" class="panel-tabs split-page-tabs"><a class="split-tab" href="index.html">汇总</a><a class="split-tab" href="price.html">价格</a><a class="split-tab" href="supply.html">供给</a><a class="split-tab" href="demand.html">需求</a><a class="split-tab" href="trade.html">交易</a><a class="split-tab" href="policy.html">政策</a><a class="split-tab active" href="storage.html">储能</a></nav>
+
+
+
+
+
+
+<section class="report-section report-panel active" id="storage"><h2>储能</h2><nav aria-label="专题栏目" class="section-page-nav"><a class="section-link" href="storage.html#storage-monthly-install">7.1 储能装机与招中标</a><a class="section-link active" href="storage-storage-headline-weekly.html#storage-headline-weekly">7.2 储能头条周度招中标</a></nav><section class="subpanel" id="storage-headline-weekly"><h3>7.2 储能头条周度招中标</h3><div class="card wide-card"><div class="card-head"><h3>招投标周度数据-储能头条样本</h3><p>8 张小图跟踪周度、累计、分项价格与时长；下方宽图单独展示系统/EPC价格走势。最新周度行：2026-08-07。</p></div><div class="card-body"><div class="mini-chart-grid storage-headline-weekly-grid"><div class="power-chart-shell" data-chart-title="周度-招标容量（GWh）" style="--power-chart-height:280px"><div class="power-chart-title">周度-招标容量（GWh）</div><div class="power-chart-years"></div><div aria-label="周度-招标容量（GWh）" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"周度-招标容量（GWh）","mode":"weekly","unit":"GWh","digits":1,"series":[{"label":"2023","points":[{"date":"第1周","value":null},{"date":"第2周","value":null},{"date":"第3周","value":null},{"date":"第4周","value":null},{"date":"第5周","value":null},{"date":"第6周","value":null},{"date":"第7周","value":null},{"date":"第8周","value":null},{"date":"第9周","value":1.08},{"date":"第10周","value":1.02},{"date":"第11周","value":2.05},{"date":"第12周","value":0.914},{"date":"第13周","value":0.81},{"date":"第14周","value":null},{"date":"第15周","value":1.686},{"date":"第16周","value":0.748},{"date":"第17周","value":4.23},{"date":"第18周","value":0.06},{"date":"第19周","value":1.335},{"date":"第20周","value":0.558},{"date":"第21周","value":0.755},{"date":"第22周","value":0.422},{"date":"第23周","value":4.646},{"date":"第24周","value":1.3},{"date":"第25周","value":1.725},{"date":"第26周","value":0.296},{"date":"第27周","value":1.6},{"date":"第28周","value":0.658},{"date":"第29周","value":7.587},{"date":"第30周","value":1.775},{"date":"第31周","value":4.24},{"date":"第32周","value":1.66},{"date":"第33周","value":1.289},{"date":"第34周","value":1.3},{"date":"第35周","value":1.32},{"date":"第36周","value":1.43},{"date":"第37周","value":1.416},{"date":"第38周","value":2.364},{"date":"第39周","value":7.392},{"date":"第40周","value":null},{"date":"第41周","value":7.111},{"date":"第42周","value":1.44},{"date":"第43周","value":0.043},{"date":"第44周","value":1.77},{"date":"第45周","value":1.446},{"date":"第46周","value":1.573},{"date":"第47周","value":3.73},{"date":"第48周","value":0.528},{"date":"第49周","value":1.417},{"date":"第50周","value":2.8},{"date":"第51周","value":0.611},{"date":"第52周","value":3.16},{"date":"第53周","value":null}]},{"label":"2024","points":[{"date":"第1周","value":1.977},{"date":"第2周","value":1.64},{"date":"第3周","value":1.83},{"date":"第4周","value":1.895},{"date":"第5周","value":0.685},{"date":"第6周","value":null},{"date":"第7周","value":3.47},{"date":"第8周","value":0.214},{"date":"第9周","value":1.964},{"date":"第10周","value":5.9},{"date":"第11周","value":4.233},{"date":"第12周","value":1.238},{"date":"第13周","value":2.1},{"date":"第14周","value":1.018},{"date":"第15周","value":0.91},{"date":"第16周","value":1.833},{"date":"第17周","value":2.165},{"date":"第18周","value":2.3},{"date":"第19周","value":1.784},{"date":"第20周","value":2.15},{"date":"第21周","value":10.38},{"date":"第22周","value":1.01},{"date":"第23周","value":4.616},{"date":"第24周","value":5.655},{"date":"第25周","value":2.466},{"date":"第26周","value":1.595},{"date":"第27周","value":17.191},{"date":"第28周","value":2.65},{"date":"第29周","value":3.65},{"date":"第30周","value":0.974},{"date":"第31周","value":1.43},{"date":"第32周","value":7.25},{"date":"第33周","value":7.68},{"date":"第34周","value":1.645},{"date":"第35周","value":2.565},{"date":"第36周","value":1.7},{"date":"第37周","value":1.475},{"date":"第38周","value":2.36},{"date":"第39周","value":4.34},{"date":"第40周","value":null},{"date":"第41周","value":6.68},{"date":"第42周","value":4.91},{"date":"第43周","value":3.06},{"date":"第44周","value":9.33},{"date":"第45周","value":1.447},{"date":"第46周","value":19.088},{"date":"第47周","value":1.447},{"date":"第48周","value":18.736},{"date":"第49周","value":9.476},{"date":"第50周","value":13.493},{"date":"第51周","value":2.185},{"date":"第52周","value":6.159},{"date":"第53周","value":null}]},{"label":"2025","points":[{"date":"第1周","value":10.315},{"date":"第2周","value":4.02},{"date":"第3周","value":1.145},{"date":"第4周","value":7.01},{"date":"第5周","value":null},{"date":"第6周","value":3.759},{"date":"第7周","value":0.85},{"date":"第8周","value":6.99},{"date":"第9周","value":4.5},{"date":"第10周","value":2.466},{"date":"第11周","value":3.5},{"date":"第12周","value":10.23},{"date":"第13周","value":3.248},{"date":"第14周","value":3.76},{"date":"第15周","value":1.83},{"date":"第16周","value":1.4},{"date":"第17周","value":8.188},{"date":"第18周","value":7.99},{"date":"第19周","value":2.137},{"date":"第20周","value":2.575},{"date":"第21周","value":4.5},{"date":"第22周","value":6.8},{"date":"第23周","value":7.44},{"date":"第24周","value":8.37},{"date":"第25周","value":8.256},{"date":"第26周","value":4.909},{"date":"第27周","value":4.909},{"date":"第28周","value":8.4},{"date":"第29周","value":26.897},{"date":"第30周","value":11.588},{"date":"第31周","value":4.36},{"date":"第32周","value":8.698},{"date":"第33周","value":7.328},{"date":"第34周","value":0.1081081081081081},{"date":"第35周","value":6.37},{"date":"第36周","value":12.37},{"date":"第37周","value":6.195},{"date":"第38周","value":7.575},{"date":"第39周","value":8.606},{"date":"第40周","value":5.478},{"date":"第41周","value":1.066},{"date":"第42周","value":5.905},{"date":"第43周","value":5.13465},{"date":"第44周","value":8.99824},{"date":"第45周","value":17.275865},{"date":"第46周","value":7.295898},{"date":"第47周","value":31.7238038},{"date":"第48周","value":13.932291},{"date":"第49周","value":12.212664},{"date":"第50周","value":18.508443},{"date":"第51周","value":7.342406},{"date":"第52周","value":6.489124},{"date":"第53周","value":null}]},{"label":"2026","points":[{"date":"第1周","value":5.215},{"date":"第2周","value":32.081},{"date":"第3周","value":8.498},{"date":"第4周","value":18.357054},{"date":"第5周","value":4.643055},{"date":"第6周","value":2.837864},{"date":"第7周","value":15.444556},{"date":"第8周","value":null},{"date":"第9周","value":5.034646},{"date":"第10周","value":10.0089098},{"date":"第11周","value":7.702668},{"date":"第12周","value":12.1045},{"date":"第13周","value":4.651205},{"date":"第14周","value":7.0},{"date":"第15周","value":8.816},{"date":"第16周","value":8.0034362},{"date":"第17周","value":11.1031142},{"date":"第18周","value":22.1038632},{"date":"第19周","value":null},{"date":"第20周","value":20.186439},{"date":"第21周","value":14.165643},{"date":"第22周","value":13.176564},{"date":"第23周","value":46.7926839},{"date":"第24周","value":16.2799},{"date":"第25周","value":11.017328},{"date":"第26周","value":9.107583},{"date":"第27周","value":null},{"date":"第28周","value":7.778213},{"date":"第29周","value":null},{"date":"第30周","value":10.7677239},{"date":"第31周","value":16.13933},{"date":"第32周","value":null},{"date":"第33周","value":null},{"date":"第34周","value":null},{"date":"第35周","value":null},{"date":"第36周","value":null},{"date":"第37周","value":null},{"date":"第38周","value":null},{"date":"第39周","value":null},{"date":"第40周","value":null},{"date":"第41周","value":null},{"date":"第42周","value":null},{"date":"第43周","value":null},{"date":"第44周","value":null},{"date":"第45周","value":null},{"date":"第46周","value":null},{"date":"第47周","value":null},{"date":"第48周","value":null},{"date":"第49周","value":null},{"date":"第50周","value":null},{"date":"第51周","value":null},{"date":"第52周","value":null},{"date":"第53周","value":null}]}],"categories":["第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周","第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周","第21周","第22周","第23周","第24周","第25周","第26周","第27周","第28周","第29周","第30周","第31周","第32周","第33周","第34周","第35周","第36周","第37周","第38周","第39周","第40周","第41周","第42周","第43周","第44周","第45周","第46周","第47周","第48周","第49周","第50周","第51周","第52周","第53周"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="中标容量（GWh）" style="--power-chart-height:280px"><div class="power-chart-title">中标容量（GWh）</div><div class="power-chart-years"></div><div aria-label="中标容量（GWh）" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"中标容量（GWh）","mode":"weekly","unit":"GWh","digits":1,"series":[{"label":"2023","points":[{"date":"第1周","value":null},{"date":"第2周","value":null},{"date":"第3周","value":null},{"date":"第4周","value":null},{"date":"第5周","value":null},{"date":"第6周","value":null},{"date":"第7周","value":null},{"date":"第8周","value":null},{"date":"第9周","value":0.26},{"date":"第10周","value":1.4},{"date":"第11周","value":0.292},{"date":"第12周","value":1.218},{"date":"第13周","value":0.853},{"date":"第14周","value":null},{"date":"第15周","value":2.929},{"date":"第16周","value":3.6},{"date":"第17周","value":1.006},{"date":"第18周","value":0.724},{"date":"第19周","value":0.546},{"date":"第20周","value":0.622},{"date":"第21周","value":1.29},{"date":"第22周","value":2.6},{"date":"第23周","value":5.867},{"date":"第24周","value":1.078},{"date":"第25周","value":0.94},{"date":"第26周","value":2.334},{"date":"第27周","value":1.33},{"date":"第28周","value":0.79},{"date":"第29周","value":4.15},{"date":"第30周","value":0.269},{"date":"第31周","value":1.32},{"date":"第32周","value":0.323},{"date":"第33周","value":2.25},{"date":"第34周","value":1.22},{"date":"第35周","value":0.949},{"date":"第36周","value":3.78},{"date":"第37周","value":3.07},{"date":"第38周","value":5.99},{"date":"第39周","value":2.38},{"date":"第40周","value":null},{"date":"第41周","value":2.2},{"date":"第42周","value":3.555},{"date":"第43周","value":2.709},{"date":"第44周","value":2.556},{"date":"第45周","value":11.742},{"date":"第46周","value":2.42},{"date":"第47周","value":9.376},{"date":"第48周","value":13.729},{"date":"第49周","value":0.568},{"date":"第50周","value":7.64},{"date":"第51周","value":1.33},{"date":"第52周","value":8.466},{"date":"第53周","value":null}]},{"label":"2024","points":[{"date":"第1周","value":0.454},{"date":"第2周","value":0.774},{"date":"第3周","value":0.48},{"date":"第4周","value":1.66},{"date":"第5周","value":0.757},{"date":"第6周","value":null},{"date":"第7周","value":5.747},{"date":"第8周","value":0.006},{"date":"第9周","value":3.462},{"date":"第10周","value":2.195},{"date":"第11周","value":6.415},{"date":"第12周","value":0.589},{"date":"第13周","value":1.569},{"date":"第14周","value":0.569},{"date":"第15周","value":7.36},{"date":"第16周","value":1.373},{"date":"第17周","value":1.419},{"date":"第18周","value":0.293},{"date":"第19周","value":4.926},{"date":"第20周","value":4.824},{"date":"第21周","value":0.997},{"date":"第22周","value":2.634},{"date":"第23周","value":3.362},{"date":"第24周","value":3.175},{"date":"第25周","value":2.753},{"date":"第26周","value":1.169},{"date":"第27周","value":9.32},{"date":"第28周","value":8.32},{"date":"第29周","value":2.642},{"date":"第30周","value":0.723},{"date":"第31周","value":6.356},{"date":"第32周","value":3.2},{"date":"第33周","value":5.9},{"date":"第34周","value":3.4},{"date":"第35周","value":17.797},{"date":"第36周","value":8.22},{"date":"第37周","value":2.57},{"date":"第38周","value":14.65},{"date":"第39周","value":7.459},{"date":"第40周","value":null},{"date":"第41周","value":3.314},{"date":"第42周","value":2.8},{"date":"第43周","value":6.009},{"date":"第44周","value":4.82},{"date":"第45周","value":6.566},{"date":"第46周","value":3.75},{"date":"第47周","value":12.477},{"date":"第48周","value":6.256},{"date":"第49周","value":2.707},{"date":"第50周","value":9.934},{"date":"第51周","value":13.99},{"date":"第52周","value":6.756},{"date":"第53周","value":null}]},{"label":"2025","points":[{"date":"第1周","value":12.078},{"date":"第2周","value":32.888},{"date":"第3周","value":18.67},{"date":"第4周","value":21.656},{"date":"第5周","value":null},{"date":"第6周","value":8.04},{"date":"第7周","value":17.266},{"date":"第8周","value":5.1},{"date":"第9周","value":18.716},{"date":"第10周","value":5.012},{"date":"第11周","value":4.366},{"date":"第12周","value":11.0},{"date":"第13周","value":12.843},{"date":"第14周","value":5.777},{"date":"第15周","value":4.588},{"date":"第16周","value":14.299},{"date":"第17周","value":10.787},{"date":"第18周","value":18.69},{"date":"第19周","value":6.01},{"date":"第20周","value":10.352},{"date":"第21周","value":6.098},{"date":"第22周","value":7.34},{"date":"第23周","value":2.545},{"date":"第24周","value":8.6},{"date":"第25周","value":11.55},{"date":"第26周","value":10.376},{"date":"第27周","value":3.21},{"date":"第28周","value":6.319},{"date":"第29周","value":5.71},{"date":"第30周","value":9.11},{"date":"第31周","value":6.303},{"date":"第32周","value":30.973},{"date":"第33周","value":6.9},{"date":"第34周","value":0.03271028037383177},{"date":"第35周","value":22.668},{"date":"第36周","value":13.86},{"date":"第37周","value":9.32},{"date":"第38周","value":8.463},{"date":"第39周","value":5.157},{"date":"第40周","value":21.054},{"date":"第41周","value":10.527},{"date":"第42周","value":14.342},{"date":"第43周","value":11.070555},{"date":"第44周","value":4.511818},{"date":"第45周","value":11.330262},{"date":"第46周","value":10.566132},{"date":"第47周","value":7.56279},{"date":"第48周","value":6.129324},{"date":"第49周","value":8.652346},{"date":"第50周","value":16.969509},{"date":"第51周","value":17.924},{"date":"第52周","value":21.406483},{"date":"第53周","value":null}]},{"label":"2026","points":[{"date":"第1周","value":12.278},{"date":"第2周","value":11.891},{"date":"第3周","value":12.673},{"date":"第4周","value":9.2739},{"date":"第5周","value":12.391608},{"date":"第6周","value":11.788984},{"date":"第7周","value":19.096321},{"date":"第8周","value":null},{"date":"第9周","value":9.119996},{"date":"第10周","value":20.445752},{"date":"第11周","value":26.30688},{"date":"第12周","value":8.769617},{"date":"第13周","value":53.145044},{"date":"第14周","value":17.8467},{"date":"第15周","value":10.44262},{"date":"第16周","value":8.44062},{"date":"第17周","value":7.105},{"date":"第18周","value":5.661018248},{"date":"第19周","value":null},{"date":"第20周","value":9.6657302},{"date":"第21周","value":16.2579292},{"date":"第22周","value":16.9215142},{"date":"第23周","value":11.391179},{"date":"第24周","value":11.6006722},{"date":"第25周","value":15.232211},{"date":"第26周","value":24.54027},{"date":"第27周","value":null},{"date":"第28周","value":13.566717},{"date":"第29周","value":null},{"date":"第30周","value":14.814738},{"date":"第31周","value":8.999891},{"date":"第32周","value":null},{"date":"第33周","value":null},{"date":"第34周","value":null},{"date":"第35周","value":null},{"date":"第36周","value":null},{"date":"第37周","value":null},{"date":"第38周","value":null},{"date":"第39周","value":null},{"date":"第40周","value":null},{"date":"第41周","value":null},{"date":"第42周","value":null},{"date":"第43周","value":null},{"date":"第44周","value":null},{"date":"第45周","value":null},{"date":"第46周","value":null},{"date":"第47周","value":null},{"date":"第48周","value":null},{"date":"第49周","value":null},{"date":"第50周","value":null},{"date":"第51周","value":null},{"date":"第52周","value":null},{"date":"第53周","value":null}]}],"categories":["第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周","第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周","第21周","第22周","第23周","第24周","第25周","第26周","第27周","第28周","第29周","第30周","第31周","第32周","第33周","第34周","第35周","第36周","第37周","第38周","第39周","第40周","第41周","第42周","第43周","第44周","第45周","第46周","第47周","第48周","第49周","第50周","第51周","第52周","第53周"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="储能系统中标均价" style="--power-chart-height:280px"><div class="power-chart-title">储能系统中标均价</div><div class="power-chart-years"></div><div aria-label="储能系统中标均价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"储能系统中标均价","mode":"weekly","unit":"元/Wh","digits":4,"series":[{"label":"2023","points":[{"date":"第1周","value":null},{"date":"第2周","value":null},{"date":"第3周","value":null},{"date":"第4周","value":null},{"date":"第5周","value":null},{"date":"第6周","value":null},{"date":"第7周","value":null},{"date":"第8周","value":null},{"date":"第9周","value":null},{"date":"第10周","value":1.23},{"date":"第11周","value":null},{"date":"第12周","value":1.26},{"date":"第13周","value":null},{"date":"第14周","value":null},{"date":"第15周","value":null},{"date":"第16周","value":1.267},{"date":"第17周","value":null},{"date":"第18周","value":null},{"date":"第19周","value":null},{"date":"第20周","value":null},{"date":"第21周","value":1.042},{"date":"第22周","value":1.13},{"date":"第23周","value":1.134},{"date":"第24周","value":1.116},{"date":"第25周","value":1.09},{"date":"第26周","value":1.12},{"date":"第27周","value":1.34},{"date":"第28周","value":1.22},{"date":"第29周","value":1.078},{"date":"第30周","value":1.175},{"date":"第31周","value":1.37},{"date":"第32周","value":2.168},{"date":"第33周","value":1.399},{"date":"第34周","value":0.99},{"date":"第35周","value":1.139},{"date":"第36周","value":0.977},{"date":"第37周","value":1.03},{"date":"第38周","value":1.13},{"date":"第39周","value":1.13},{"date":"第40周","value":null},{"date":"第41周","value":1.06},{"date":"第42周","value":1.064},{"date":"第43周","value":0.88},{"date":"第44周","value":1.02},{"date":"第45周","value":null},{"date":"第46周","value":1.172},{"date":"第47周","value":0.97},{"date":"第48周","value":1.016},{"date":"第49周","value":0.876},{"date":"第50周","value":1.016},{"date":"第51周","value":0.8},{"date":"第52周","value":0.679},{"date":"第53周","value":null}]},{"label":"2024","points":[{"date":"第1周","value":0.82},{"date":"第2周","value":0.96},{"date":"第3周","value":0.82},{"date":"第4周","value":1.28},{"date":"第5周","value":null},{"date":"第6周","value":null},{"date":"第7周","value":0.76},{"date":"第8周","value":null},{"date":"第9周","value":null},{"date":"第10周","value":0.647},{"date":"第11周","value":1.33},{"date":"第12周","value":0.78},{"date":"第13周","value":1.053},{"date":"第14周","value":1.3},{"date":"第15周","value":0.81},{"date":"第16周","value":null},{"date":"第17周","value":0.8},{"date":"第18周","value":0.99},{"date":"第19周","value":0.95},{"date":"第20周","value":0.76},{"date":"第21周","value":0.66},{"date":"第22周","value":0.809},{"date":"第23周","value":0.578},{"date":"第24周","value":0.742},{"date":"第25周","value":0.79},{"date":"第26周","value":0.665},{"date":"第27周","value":0.602},{"date":"第28周","value":0.604},{"date":"第29周","value":0.643},{"date":"第30周","value":0.79},{"date":"第31周","value":0.61},{"date":"第32周","value":0.863},{"date":"第33周","value":0.55},{"date":"第34周","value":0.533},{"date":"第35周","value":1.49},{"date":"第36周","value":0.636},{"date":"第37周","value":0.55},{"date":"第38周","value":0.721},{"date":"第39周","value":0.56},{"date":"第40周","value":null},{"date":"第41周","value":0.615},{"date":"第42周","value":0.831},{"date":"第43周","value":0.85},{"date":"第44周","value":0.63},{"date":"第45周","value":0.71},{"date":"第46周","value":0.972},{"date":"第47周","value":0.57},{"date":"第48周","value":0.622},{"date":"第49周","value":1.027},{"date":"第50周","value":0.563},{"date":"第51周","value":0.65},{"date":"第52周","value":0.8},{"date":"第53周","value":null}]},{"label":"2025","points":[{"date":"第1周","value":0.619},{"date":"第2周","value":0.497},{"date":"第3周","value":0.556},{"date":"第4周","value":0.534},{"date":"第5周","value":null},{"date":"第6周","value":0.537},{"date":"第7周","value":0.473},{"date":"第8周","value":0.757},{"date":"第9周","value":0.628},{"date":"第10周","value":0.595},{"date":"第11周","value":0.684},{"date":"第12周","value":0.55},{"date":"第13周","value":0.468},{"date":"第14周","value":0.53},{"date":"第15周","value":0.515},{"date":"第16周","value":0.44},{"date":"第17周","value":0.584},{"date":"第18周","value":0.516},{"date":"第19周","value":0.776},{"date":"第20周","value":0.461},{"date":"第21周","value":0.525},{"date":"第22周","value":0.683},{"date":"第23周","value":0.712},{"date":"第24周","value":1.977},{"date":"第25周","value":1.968},{"date":"第26周","value":0.592},{"date":"第27周","value":0.555},{"date":"第28周","value":0.6297},{"date":"第29周","value":0.4985},{"date":"第30周","value":0.4645},{"date":"第31周","value":0.4856},{"date":"第32周","value":0.4869},{"date":"第33周","value":0.5851},{"date":"第34周","value":0.4406},{"date":"第35周","value":0.5446},{"date":"第36周","value":0.4909},{"date":"第37周","value":0.9305},{"date":"第38周","value":0.5219},{"date":"第39周","value":0.6604},{"date":"第40周","value":0.7791},{"date":"第41周","value":0.5099},{"date":"第42周","value":0.5932},{"date":"第43周","value":0.517},{"date":"第44周","value":0.5324},{"date":"第45周","value":0.5328},{"date":"第46周","value":0.5933},{"date":"第47周","value":0.536},{"date":"第48周","value":0.5959},{"date":"第49周","value":0.5723},{"date":"第50周","value":0.4783},{"date":"第51周","value":0.7071},{"date":"第52周","value":0.5803},{"date":"第53周","value":null}]},{"label":"2026","points":[{"date":"第1周","value":0.7257},{"date":"第2周","value":0.6081},{"date":"第3周","value":0.5075},{"date":"第4周","value":0.5712},{"date":"第5周","value":0.5759},{"date":"第6周","value":0.6152},{"date":"第7周","value":0.5234},{"date":"第8周","value":null},{"date":"第9周","value":0.5016},{"date":"第10周","value":0.7336},{"date":"第11周","value":0.5521},{"date":"第12周","value":null},{"date":"第13周","value":0.5195},{"date":"第14周","value":0.6232},{"date":"第15周","value":0.6649},{"date":"第16周","value":0.5076},{"date":"第17周","value":0.5355},{"date":"第18周","value":0.6953},{"date":"第19周","value":null},{"date":"第20周","value":0.5137},{"date":"第21周","value":0.5474},{"date":"第22周","value":0.7855},{"date":"第23周","value":0.5614},{"date":"第24周","value":0.8065},{"date":"第25周","value":0.5848},{"date":"第26周","value":0.7145},{"date":"第27周","value":null},{"date":"第28周","value":0.7938},{"date":"第29周","value":null},{"date":"第30周","value":0.62},{"date":"第31周","value":0.5958},{"date":"第32周","value":null},{"date":"第33周","value":null},{"date":"第34周","value":null},{"date":"第35周","value":null},{"date":"第36周","value":null},{"date":"第37周","value":null},{"date":"第38周","value":null},{"date":"第39周","value":null},{"date":"第40周","value":null},{"date":"第41周","value":null},{"date":"第42周","value":null},{"date":"第43周","value":null},{"date":"第44周","value":null},{"date":"第45周","value":null},{"date":"第46周","value":null},{"date":"第47周","value":null},{"date":"第48周","value":null},{"date":"第49周","value":null},{"date":"第50周","value":null},{"date":"第51周","value":null},{"date":"第52周","value":null},{"date":"第53周","value":null}]}],"categories":["第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周","第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周","第21周","第22周","第23周","第24周","第25周","第26周","第27周","第28周","第29周","第30周","第31周","第32周","第33周","第34周","第35周","第36周","第37周","第38周","第39周","第40周","第41周","第42周","第43周","第44周","第45周","第46周","第47周","第48周","第49周","第50周","第51周","第52周","第53周"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="累计招标容量（GWh）" style="--power-chart-height:280px"><div class="power-chart-title">累计招标容量（GWh）</div><div class="power-chart-years"></div><div aria-label="累计招标容量（GWh）" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"累计招标容量（GWh）","mode":"weekly","unit":"GWh","digits":1,"series":[{"label":"2023","points":[{"date":"第1周","value":null},{"date":"第2周","value":null},{"date":"第3周","value":null},{"date":"第4周","value":null},{"date":"第5周","value":null},{"date":"第6周","value":null},{"date":"第7周","value":null},{"date":"第8周","value":null},{"date":"第9周","value":1.08},{"date":"第10周","value":2.1},{"date":"第11周","value":4.15},{"date":"第12周","value":5.064},{"date":"第13周","value":5.8740000000000006},{"date":"第14周","value":5.8740000000000006},{"date":"第15周","value":7.5600000000000005},{"date":"第16周","value":8.308},{"date":"第17周","value":12.538},{"date":"第18周","value":12.598},{"date":"第19周","value":13.933},{"date":"第20周","value":14.491},{"date":"第21周","value":15.246},{"date":"第22周","value":15.668000000000001},{"date":"第23周","value":20.314},{"date":"第24周","value":21.614},{"date":"第25周","value":23.339000000000002},{"date":"第26周","value":23.635},{"date":"第27周","value":25.235000000000003},{"date":"第28周","value":25.893000000000004},{"date":"第29周","value":33.480000000000004},{"date":"第30周","value":35.255},{"date":"第31周","value":39.495000000000005},{"date":"第32周","value":41.155},{"date":"第33周","value":42.444},{"date":"第34周","value":43.744},{"date":"第35周","value":45.064},{"date":"第36周","value":46.494},{"date":"第37周","value":47.91},{"date":"第38周","value":50.273999999999994},{"date":"第39周","value":57.666},{"date":"第40周","value":57.666},{"date":"第41周","value":64.777},{"date":"第42周","value":66.217},{"date":"第43周","value":66.26},{"date":"第44周","value":68.03},{"date":"第45周","value":69.476},{"date":"第46周","value":71.04899999999999},{"date":"第47周","value":74.779},{"date":"第48周","value":75.307},{"date":"第49周","value":76.724},{"date":"第50周","value":79.524},{"date":"第51周","value":80.135},{"date":"第52周","value":83.295},{"date":"第53周","value":null}]},{"label":"2024","points":[{"date":"第1周","value":1.977},{"date":"第2周","value":3.617},{"date":"第3周","value":5.447},{"date":"第4周","value":7.3420000000000005},{"date":"第5周","value":8.027000000000001},{"date":"第6周","value":8.027000000000001},{"date":"第7周","value":11.497000000000002},{"date":"第8周","value":11.711000000000002},{"date":"第9周","value":13.675000000000002},{"date":"第10周","value":19.575000000000003},{"date":"第11周","value":23.808000000000003},{"date":"第12周","value":25.046000000000003},{"date":"第13周","value":27.146000000000004},{"date":"第14周","value":28.164000000000005},{"date":"第15周","value":29.074000000000005},{"date":"第16周","value":30.907000000000004},{"date":"第17周","value":33.072},{"date":"第18周","value":35.372},{"date":"第19周","value":37.156},{"date":"第20周","value":39.306},{"date":"第21周","value":49.686},{"date":"第22周","value":50.696},{"date":"第23周","value":55.312},{"date":"第24周","value":60.967},{"date":"第25周","value":63.433},{"date":"第26周","value":65.028},{"date":"第27周","value":82.21900000000001},{"date":"第28周","value":84.86900000000001},{"date":"第29周","value":88.51900000000002},{"date":"第30周","value":89.49300000000002},{"date":"第31周","value":90.92300000000003},{"date":"第32周","value":98.17300000000003},{"date":"第33周","value":105.85300000000004},{"date":"第34周","value":107.49800000000003},{"date":"第35周","value":110.06300000000003},{"date":"第36周","value":111.76300000000003},{"date":"第37周","value":113.23800000000003},{"date":"第38周","value":115.59800000000003},{"date":"第39周","value":119.93800000000003},{"date":"第40周","value":119.93800000000003},{"date":"第41周","value":126.61800000000002},{"date":"第42周","value":131.52800000000002},{"date":"第43周","value":134.58800000000002},{"date":"第44周","value":143.91800000000003},{"date":"第45周","value":145.36500000000004},{"date":"第46周","value":164.45300000000003},{"date":"第47周","value":165.90000000000003},{"date":"第48周","value":184.63600000000002},{"date":"第49周","value":194.11200000000002},{"date":"第50周","value":207.60500000000002},{"date":"第51周","value":209.79000000000002},{"date":"第52周","value":215.949},{"date":"第53周","value":null}]},{"label":"2025","points":[{"date":"第1周","value":10.315},{"date":"第2周","value":14.334999999999999},{"date":"第3周","value":15.479999999999999},{"date":"第4周","value":22.49},{"date":"第5周","value":22.49},{"date":"第6周","value":26.249},{"date":"第7周","value":27.099},{"date":"第8周","value":34.089},{"date":"第9周","value":38.589},{"date":"第10周","value":41.055},{"date":"第11周","value":44.555},{"date":"第12周","value":54.785},{"date":"第13周","value":58.032999999999994},{"date":"第14周","value":61.79299999999999},{"date":"第15周","value":63.62299999999999},{"date":"第16周","value":65.023},{"date":"第17周","value":73.211},{"date":"第18周","value":81.201},{"date":"第19周","value":83.338},{"date":"第20周","value":85.913},{"date":"第21周","value":90.413},{"date":"第22周","value":97.213},{"date":"第23周","value":104.65299999999999},{"date":"第24周","value":113.023},{"date":"第25周","value":121.279},{"date":"第26周","value":126.188},{"date":"第27周","value":131.097},{"date":"第28周","value":139.497},{"date":"第29周","value":166.394},{"date":"第30周","value":177.982},{"date":"第31周","value":182.342},{"date":"第32周","value":191.04000000000002},{"date":"第33周","value":198.36800000000002},{"date":"第34周","value":198.47610810810812},{"date":"第35周","value":204.84610810810813},{"date":"第36周","value":217.21610810810813},{"date":"第37周","value":223.41110810810812},{"date":"第38周","value":230.9861081081081},{"date":"第39周","value":239.5921081081081},{"date":"第40周","value":245.07010810810812},{"date":"第41周","value":246.13610810810812},{"date":"第42周","value":252.04110810810812},{"date":"第43周","value":257.17575810810814},{"date":"第44周","value":266.17399810810815},{"date":"第45周","value":283.44986310810816},{"date":"第46周","value":290.7457611081082},{"date":"第47周","value":322.46956490810817},{"date":"第48周","value":336.4018559081082},{"date":"第49周","value":348.6145199081082},{"date":"第50周","value":367.1229629081082},{"date":"第51周","value":374.4653689081082},{"date":"第52周","value":380.9544929081082},{"date":"第53周","value":null}]},{"label":"2026","points":[{"date":"第1周","value":5.215},{"date":"第2周","value":37.29600000000001},{"date":"第3周","value":45.794000000000004},{"date":"第4周","value":64.151054},{"date":"第5周","value":68.794109},{"date":"第6周","value":71.631973},{"date":"第7周","value":87.07652900000001},{"date":"第8周","value":87.07652900000001},{"date":"第9周","value":92.111175},{"date":"第10周","value":102.1200848},{"date":"第11周","value":109.8227528},{"date":"第12周","value":121.9272528},{"date":"第13周","value":126.57845780000001},{"date":"第14周","value":133.57845780000002},{"date":"第15周","value":142.39445780000003},{"date":"第16周","value":150.39789400000004},{"date":"第17周","value":161.50100820000003},{"date":"第18周","value":183.60487140000004},{"date":"第19周","value":183.60487140000004},{"date":"第20周","value":203.79131040000004},{"date":"第21周","value":217.95695340000003},{"date":"第22周","value":231.13351740000004},{"date":"第23周","value":277.92620130000006},{"date":"第24周","value":294.20610130000006},{"date":"第25周","value":305.2234293000001},{"date":"第26周","value":314.33101230000005},{"date":"第27周","value":314.33101230000005},{"date":"第28周","value":322.10922530000005},{"date":"第29周","value":322.10922530000005},{"date":"第30周","value":332.87694920000007},{"date":"第31周","value":349.0162792000001},{"date":"第32周","value":349.0162792000001},{"date":"第33周","value":null},{"date":"第34周","value":null},{"date":"第35周","value":null},{"date":"第36周","value":null},{"date":"第37周","value":null},{"date":"第38周","value":null},{"date":"第39周","value":null},{"date":"第40周","value":null},{"date":"第41周","value":null},{"date":"第42周","value":null},{"date":"第43周","value":null},{"date":"第44周","value":null},{"date":"第45周","value":null},{"date":"第46周","value":null},{"date":"第47周","value":null},{"date":"第48周","value":null},{"date":"第49周","value":null},{"date":"第50周","value":null},{"date":"第51周","value":null},{"date":"第52周","value":null},{"date":"第53周","value":null}]}],"categories":["第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周","第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周","第21周","第22周","第23周","第24周","第25周","第26周","第27周","第28周","第29周","第30周","第31周","第32周","第33周","第34周","第35周","第36周","第37周","第38周","第39周","第40周","第41周","第42周","第43周","第44周","第45周","第46周","第47周","第48周","第49周","第50周","第51周","第52周","第53周"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="累计中标容量（GWh）" style="--power-chart-height:280px"><div class="power-chart-title">累计中标容量（GWh）</div><div class="power-chart-years"></div><div aria-label="累计中标容量（GWh）" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"累计中标容量（GWh）","mode":"weekly","unit":"GWh","digits":1,"series":[{"label":"2023","points":[{"date":"第1周","value":null},{"date":"第2周","value":null},{"date":"第3周","value":null},{"date":"第4周","value":null},{"date":"第5周","value":null},{"date":"第6周","value":null},{"date":"第7周","value":null},{"date":"第8周","value":null},{"date":"第9周","value":0.26},{"date":"第10周","value":1.66},{"date":"第11周","value":1.952},{"date":"第12周","value":3.17},{"date":"第13周","value":4.023},{"date":"第14周","value":4.023},{"date":"第15周","value":6.952},{"date":"第16周","value":10.552},{"date":"第17周","value":11.558},{"date":"第18周","value":12.282},{"date":"第19周","value":12.828},{"date":"第20周","value":13.45},{"date":"第21周","value":14.739999999999998},{"date":"第22周","value":17.34},{"date":"第23周","value":23.207},{"date":"第24周","value":24.285},{"date":"第25周","value":25.225},{"date":"第26周","value":27.559},{"date":"第27周","value":28.889000000000003},{"date":"第28周","value":29.679000000000002},{"date":"第29周","value":33.829},{"date":"第30周","value":34.098},{"date":"第31周","value":35.418},{"date":"第32周","value":35.741},{"date":"第33周","value":37.991},{"date":"第34周","value":39.211},{"date":"第35周","value":40.16},{"date":"第36周","value":43.94},{"date":"第37周","value":47.01},{"date":"第38周","value":53.0},{"date":"第39周","value":55.38},{"date":"第40周","value":55.38},{"date":"第41周","value":57.580000000000005},{"date":"第42周","value":61.135000000000005},{"date":"第43周","value":63.84400000000001},{"date":"第44周","value":66.4},{"date":"第45周","value":78.14200000000001},{"date":"第46周","value":80.56200000000001},{"date":"第47周","value":89.93800000000002},{"date":"第48周","value":103.66700000000002},{"date":"第49周","value":104.23500000000001},{"date":"第50周","value":111.87500000000001},{"date":"第51周","value":113.20500000000001},{"date":"第52周","value":121.671},{"date":"第53周","value":null}]},{"label":"2024","points":[{"date":"第1周","value":0.454},{"date":"第2周","value":1.228},{"date":"第3周","value":1.708},{"date":"第4周","value":3.368},{"date":"第5周","value":4.125},{"date":"第6周","value":4.125},{"date":"第7周","value":9.872},{"date":"第8周","value":9.878},{"date":"第9周","value":13.34},{"date":"第10周","value":15.535},{"date":"第11周","value":21.95},{"date":"第12周","value":22.538999999999998},{"date":"第13周","value":24.107999999999997},{"date":"第14周","value":24.676999999999996},{"date":"第15周","value":32.037},{"date":"第16周","value":33.41},{"date":"第17周","value":34.82899999999999},{"date":"第18周","value":35.12199999999999},{"date":"第19周","value":40.047999999999995},{"date":"第20周","value":44.87199999999999},{"date":"第21周","value":45.86899999999999},{"date":"第22周","value":48.50299999999999},{"date":"第23周","value":51.864999999999995},{"date":"第24周","value":55.03999999999999},{"date":"第25周","value":57.79299999999999},{"date":"第26周","value":58.96199999999999},{"date":"第27周","value":68.28199999999998},{"date":"第28周","value":76.60199999999998},{"date":"第29周","value":79.24399999999997},{"date":"第30周","value":79.96699999999997},{"date":"第31周","value":86.32299999999996},{"date":"第32周","value":89.52299999999997},{"date":"第33周","value":95.42299999999997},{"date":"第34周","value":98.82299999999998},{"date":"第35周","value":116.61999999999998},{"date":"第36周","value":124.83999999999997},{"date":"第37周","value":127.40999999999997},{"date":"第38周","value":142.05999999999997},{"date":"第39周","value":149.51899999999998},{"date":"第40周","value":149.51899999999998},{"date":"第41周","value":152.83299999999997},{"date":"第42周","value":155.63299999999998},{"date":"第43周","value":161.642},{"date":"第44周","value":166.462},{"date":"第45周","value":173.028},{"date":"第46周","value":176.778},{"date":"第47周","value":189.255},{"date":"第48周","value":195.511},{"date":"第49周","value":198.218},{"date":"第50周","value":208.152},{"date":"第51周","value":222.142},{"date":"第52周","value":228.898},{"date":"第53周","value":null}]},{"label":"2025","points":[{"date":"第1周","value":12.078},{"date":"第2周","value":44.965999999999994},{"date":"第3周","value":63.635999999999996},{"date":"第4周","value":85.292},{"date":"第5周","value":85.292},{"date":"第6周","value":93.332},{"date":"第7周","value":110.59799999999998},{"date":"第8周","value":115.69799999999998},{"date":"第9周","value":134.414},{"date":"第10周","value":139.426},{"date":"第11周","value":143.79199999999997},{"date":"第12周","value":154.79199999999997},{"date":"第13周","value":167.63499999999996},{"date":"第14周","value":173.41199999999995},{"date":"第15周","value":177.99999999999994},{"date":"第16周","value":192.29899999999995},{"date":"第17周","value":203.08599999999996},{"date":"第18周","value":221.77599999999995},{"date":"第19周","value":227.78599999999994},{"date":"第20周","value":238.13799999999995},{"date":"第21周","value":244.23599999999996},{"date":"第22周","value":251.57599999999996},{"date":"第23周","value":254.12099999999995},{"date":"第24周","value":262.72099999999995},{"date":"第25周","value":274.27099999999996},{"date":"第26周","value":284.64699999999993},{"date":"第27周","value":287.8569999999999},{"date":"第28周","value":294.17599999999993},{"date":"第29周","value":299.8859999999999},{"date":"第30周","value":308.9959999999999},{"date":"第31周","value":315.2989999999999},{"date":"第32周","value":346.27199999999993},{"date":"第33周","value":353.1719999999999},{"date":"第34周","value":353.2047102803737},{"date":"第35周","value":375.8727102803737},{"date":"第36周","value":389.73271028037374},{"date":"第37周","value":399.05271028037373},{"date":"第38周","value":407.51571028037375},{"date":"第39周","value":412.67271028037374},{"date":"第40周","value":433.7267102803737},{"date":"第41周","value":444.2537102803737},{"date":"第42周","value":458.5957102803737},{"date":"第43周","value":469.6662652803737},{"date":"第44周","value":474.1780832803737},{"date":"第45周","value":485.5083452803737},{"date":"第46周","value":496.0744772803737},{"date":"第47周","value":503.6372672803737},{"date":"第48周","value":509.7665912803737},{"date":"第49周","value":518.4189372803737},{"date":"第50周","value":535.3884462803737},{"date":"第51周","value":553.3124462803737},{"date":"第52周","value":574.7189292803737},{"date":"第53周","value":null}]},{"label":"2026","points":[{"date":"第1周","value":12.278},{"date":"第2周","value":24.169},{"date":"第3周","value":36.842},{"date":"第4周","value":46.115899999999996},{"date":"第5周","value":58.507507999999994},{"date":"第6周","value":70.296492},{"date":"第7周","value":89.392813},{"date":"第8周","value":89.392813},{"date":"第9周","value":98.512809},{"date":"第10周","value":118.958561},{"date":"第11周","value":145.265441},{"date":"第12周","value":154.03505800000002},{"date":"第13周","value":207.18010200000003},{"date":"第14周","value":225.02680200000003},{"date":"第15周","value":235.46942200000004},{"date":"第16周","value":243.91004200000003},{"date":"第17周","value":251.01504200000002},{"date":"第18周","value":256.676060248},{"date":"第19周","value":256.676060248},{"date":"第20周","value":266.341790448},{"date":"第21周","value":282.59971964799996},{"date":"第22周","value":299.52123384799995},{"date":"第23周","value":310.912412848},{"date":"第24周","value":322.513085048},{"date":"第25周","value":337.745296048},{"date":"第26周","value":362.285566048},{"date":"第27周","value":362.285566048},{"date":"第28周","value":375.852283048},{"date":"第29周","value":375.852283048},{"date":"第30周","value":390.667021048},{"date":"第31周","value":399.666912048},{"date":"第32周","value":399.666912048},{"date":"第33周","value":null},{"date":"第34周","value":null},{"date":"第35周","value":null},{"date":"第36周","value":null},{"date":"第37周","value":null},{"date":"第38周","value":null},{"date":"第39周","value":null},{"date":"第40周","value":null},{"date":"第41周","value":null},{"date":"第42周","value":null},{"date":"第43周","value":null},{"date":"第44周","value":null},{"date":"第45周","value":null},{"date":"第46周","value":null},{"date":"第47周","value":null},{"date":"第48周","value":null},{"date":"第49周","value":null},{"date":"第50周","value":null},{"date":"第51周","value":null},{"date":"第52周","value":null},{"date":"第53周","value":null}]}],"categories":["第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周","第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周","第21周","第22周","第23周","第24周","第25周","第26周","第27周","第28周","第29周","第30周","第31周","第32周","第33周","第34周","第35周","第36周","第37周","第38周","第39周","第40周","第41周","第42周","第43周","第44周","第45周","第46周","第47周","第48周","第49周","第50周","第51周","第52周","第53周"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="EPC中标均价" style="--power-chart-height:280px"><div class="power-chart-title">EPC中标均价</div><div class="power-chart-years"></div><div aria-label="EPC中标均价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"EPC中标均价","mode":"weekly","unit":"元/Wh","digits":4,"series":[{"label":"2023","points":[{"date":"第1周","value":null},{"date":"第2周","value":null},{"date":"第3周","value":null},{"date":"第4周","value":null},{"date":"第5周","value":null},{"date":"第6周","value":null},{"date":"第7周","value":null},{"date":"第8周","value":null},{"date":"第9周","value":1.98},{"date":"第10周","value":null},{"date":"第11周","value":1.21},{"date":"第12周","value":0.47},{"date":"第13周","value":1.16},{"date":"第14周","value":null},{"date":"第15周","value":1.514},{"date":"第16周","value":1.52},{"date":"第17周","value":1.8},{"date":"第18周","value":1.42},{"date":"第19周","value":1.48},{"date":"第20周","value":1.79},{"date":"第21周","value":1.67},{"date":"第22周","value":1.1},{"date":"第23周","value":0.92},{"date":"第24周","value":1.798},{"date":"第25周","value":1.306},{"date":"第26周","value":1.62},{"date":"第27周","value":1.64},{"date":"第28周","value":1.46},{"date":"第29周","value":1.54},{"date":"第30周","value":2.545},{"date":"第31周","value":1.44},{"date":"第32周","value":1.41},{"date":"第33周","value":1.202},{"date":"第34周","value":1.34},{"date":"第35周","value":1.874},{"date":"第36周","value":1.608},{"date":"第37周","value":1.18},{"date":"第38周","value":1.6},{"date":"第39周","value":1.32},{"date":"第40周","value":null},{"date":"第41周","value":1.39},{"date":"第42周","value":1.42},{"date":"第43周","value":1.34},{"date":"第44周","value":2.3},{"date":"第45周","value":1.31},{"date":"第46周","value":1.819},{"date":"第47周","value":1.36},{"date":"第48周","value":1.278},{"date":"第49周","value":1.61},{"date":"第50周","value":1.409},{"date":"第51周","value":1.4},{"date":"第52周","value":1.43},{"date":"第53周","value":null}]},{"label":"2024","points":[{"date":"第1周","value":1.31},{"date":"第2周","value":1.21},{"date":"第3周","value":0.98},{"date":"第4周","value":1.43},{"date":"第5周","value":1.67},{"date":"第6周","value":null},{"date":"第7周","value":1.409},{"date":"第8周","value":1.515},{"date":"第9周","value":1.46},{"date":"第10周","value":1.342},{"date":"第11周","value":1.45},{"date":"第12周","value":1.121},{"date":"第13周","value":1.35},{"date":"第14周","value":1.565},{"date":"第15周","value":1.59},{"date":"第16周","value":1.354},{"date":"第17周","value":1.2},{"date":"第18周","value":1.396},{"date":"第19周","value":1.34},{"date":"第20周","value":1.24},{"date":"第21周","value":1.23},{"date":"第22周","value":1.059},{"date":"第23周","value":1.07},{"date":"第24周","value":1.081},{"date":"第25周","value":1.17},{"date":"第26周","value":1.456},{"date":"第27周","value":1.35},{"date":"第28周","value":1.366},{"date":"第29周","value":1.34},{"date":"第30周","value":1.466},{"date":"第31周","value":1.04},{"date":"第32周","value":0.909},{"date":"第33周","value":0.94},{"date":"第34周","value":1.044},{"date":"第35周","value":1.26},{"date":"第36周","value":1.179},{"date":"第37周","value":1.28},{"date":"第38周","value":1.069},{"date":"第39周","value":1.19},{"date":"第40周","value":null},{"date":"第41周","value":0.903},{"date":"第42周","value":0.945},{"date":"第43周","value":0.97},{"date":"第44周","value":0.998},{"date":"第45周","value":1.245},{"date":"第46周","value":1.2},{"date":"第47周","value":1.03},{"date":"第48周","value":1.113},{"date":"第49周","value":1.2},{"date":"第50周","value":1.07},{"date":"第51周","value":1.1},{"date":"第52周","value":1.242},{"date":"第53周","value":null}]},{"label":"2025","points":[{"date":"第1周","value":1.373},{"date":"第2周","value":1.153},{"date":"第3周","value":1.101},{"date":"第4周","value":1.21},{"date":"第5周","value":null},{"date":"第6周","value":1.206},{"date":"第7周","value":1.082},{"date":"第8周","value":1.05},{"date":"第9周","value":1.002},{"date":"第10周","value":0.899},{"date":"第11周","value":0.887},{"date":"第12周","value":0.88},{"date":"第13周","value":1.055},{"date":"第14周","value":1.42},{"date":"第15周","value":0.907},{"date":"第16周","value":1.196},{"date":"第17周","value":1.2},{"date":"第18周","value":1.106},{"date":"第19周","value":1.037},{"date":"第20周","value":1.104},{"date":"第21周","value":1.084},{"date":"第22周","value":1.047},{"date":"第23周","value":0.938},{"date":"第24周","value":0.913},{"date":"第25周","value":1.224},{"date":"第26周","value":0.912},{"date":"第27周","value":0.95},{"date":"第28周","value":0.9672},{"date":"第29周","value":0.9879},{"date":"第30周","value":1.0312},{"date":"第31周","value":1.4458},{"date":"第32周","value":0.9736},{"date":"第33周","value":0.9867},{"date":"第34周","value":1.0102},{"date":"第35周","value":0.9651},{"date":"第36周","value":0.9028},{"date":"第37周","value":1.0275},{"date":"第38周","value":1.1003},{"date":"第39周","value":1.0333},{"date":"第40周","value":0.97},{"date":"第41周","value":0.9597},{"date":"第42周","value":0.8315},{"date":"第43周","value":0.8701},{"date":"第44周","value":1.097},{"date":"第45周","value":1.0682},{"date":"第46周","value":0.9566},{"date":"第47周","value":1.0479},{"date":"第48周","value":1.2644},{"date":"第49周","value":1.0349},{"date":"第50周","value":1.0445},{"date":"第51周","value":1.1031},{"date":"第52周","value":1.0592},{"date":"第53周","value":null}]},{"label":"2026","points":[{"date":"第1周","value":0.9933},{"date":"第2周","value":0.8829},{"date":"第3周","value":1.1125},{"date":"第4周","value":0.9796},{"date":"第5周","value":0.9069},{"date":"第6周","value":0.9477},{"date":"第7周","value":1.029},{"date":"第8周","value":null},{"date":"第9周","value":1.0433},{"date":"第10周","value":1.0116},{"date":"第11周","value":1.076},{"date":"第12周","value":1.0869},{"date":"第13周","value":1.166},{"date":"第14周","value":0.8828},{"date":"第15周","value":0.9027},{"date":"第16周","value":1.001},{"date":"第17周","value":0.7834},{"date":"第18周","value":0.858},{"date":"第19周","value":null},{"date":"第20周","value":1.0603},{"date":"第21周","value":0.9225},{"date":"第22周","value":0.9474},{"date":"第23周","value":1.1413},{"date":"第24周","value":1.0152},{"date":"第25周","value":0.8269},{"date":"第26周","value":1.0102},{"date":"第27周","value":null},{"date":"第28周","value":0.9375},{"date":"第29周","value":null},{"date":"第30周","value":1.0021},{"date":"第31周","value":1.0398},{"date":"第32周","value":null},{"date":"第33周","value":null},{"date":"第34周","value":null},{"date":"第35周","value":null},{"date":"第36周","value":null},{"date":"第37周","value":null},{"date":"第38周","value":null},{"date":"第39周","value":null},{"date":"第40周","value":null},{"date":"第41周","value":null},{"date":"第42周","value":null},{"date":"第43周","value":null},{"date":"第44周","value":null},{"date":"第45周","value":null},{"date":"第46周","value":null},{"date":"第47周","value":null},{"date":"第48周","value":null},{"date":"第49周","value":null},{"date":"第50周","value":null},{"date":"第51周","value":null},{"date":"第52周","value":null},{"date":"第53周","value":null}]}],"categories":["第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周","第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周","第21周","第22周","第23周","第24周","第25周","第26周","第27周","第28周","第29周","第30周","第31周","第32周","第33周","第34周","第35周","第36周","第37周","第38周","第39周","第40周","第41周","第42周","第43周","第44周","第45周","第46周","第47周","第48周","第49周","第50周","第51周","第52周","第53周"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="招标时长" style="--power-chart-height:280px"><div class="power-chart-title">招标时长</div><div class="power-chart-years"></div><div aria-label="招标时长" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"招标时长","mode":"weekly","unit":"h","digits":1,"series":[{"label":"2023","points":[{"date":"第1周","value":null},{"date":"第2周","value":null},{"date":"第3周","value":null},{"date":"第4周","value":null},{"date":"第5周","value":null},{"date":"第6周","value":null},{"date":"第7周","value":null},{"date":"第8周","value":null},{"date":"第9周","value":2.0889748549323017},{"date":"第10周","value":2.0},{"date":"第11周","value":2.6282051282051277},{"date":"第12周","value":1.8729508196721312},{"date":"第13周","value":2.0},{"date":"第14周","value":null},{"date":"第15周","value":1.9742388758782201},{"date":"第16周","value":1.9893617021276595},{"date":"第17周","value":3.439024390243903},{"date":"第18周","value":3.0},{"date":"第19周","value":3.0902777777777777},{"date":"第20周","value":2.8615384615384616},{"date":"第21周","value":2.308868501529052},{"date":"第22周","value":1.9269406392694064},{"date":"第23周","value":2.334673366834171},{"date":"第24周","value":2.3508137432188065},{"date":"第25周","value":5.711920529801325},{"date":"第26周","value":1.8499999999999999},{"date":"第27周","value":2.7350427350427355},{"date":"第28周","value":2.06269592476489},{"date":"第29周","value":2.3933753943217666},{"date":"第30周","value":2.665165165165165},{"date":"第31周","value":2.140333165068147},{"date":"第32周","value":2.455621301775148},{"date":"第33周","value":2.432075471698113},{"date":"第34周","value":2.0123839009287927},{"date":"第35周","value":2.378378378378378},{"date":"第36周","value":1.9324324324324325},{"date":"第37周","value":3.0917030567685586},{"date":"第38周","value":2.5364806866952785},{"date":"第39周","value":5.15840893230984},{"date":"第40周","value":null},{"date":"第41周","value":16.46064814814815},{"date":"第42周","value":1.9072847682119205},{"date":"第43周","value":1.0},{"date":"第44周","value":3.0890052356020945},{"date":"第45周","value":3.286363636363636},{"date":"第46周","value":2.808928571428571},{"date":"第47周","value":2.6642857142857146},{"date":"第48周","value":1.5216138328530262},{"date":"第49周","value":2.2140625},{"date":"第50周","value":2.0},{"date":"第51周","value":1.6206896551724137},{"date":"第52周","value":2.6333333333333337},{"date":"第53周","value":null}]},{"label":"2024","points":[{"date":"第1周","value":2.419828641370869},{"date":"第2周","value":2.0},{"date":"第3周","value":1.9934640522875817},{"date":"第4周","value":2.328009828009828},{"date":"第5周","value":2.1815286624203822},{"date":"第6周","value":null},{"date":"第7周","value":2.1366995073891624},{"date":"第8周","value":15.285714285714285},{"date":"第9周","value":6.00611620795107},{"date":"第10周","value":7.329192546583851},{"date":"第11周","value":5.743554952510176},{"date":"第12周","value":1.9465408805031446},{"date":"第13周","value":2.0388349514563107},{"date":"第14周","value":1.8146167557932262},{"date":"第15周","value":1.9782608695652173},{"date":"第16周","value":2.7857142857142856},{"date":"第17周","value":2.0046296296296293},{"date":"第18周","value":3.697749196141479},{"date":"第19周","value":1.8544698544698546},{"date":"第20周","value":1.9026548672566372},{"date":"第21周","value":29.23943661971831},{"date":"第22周","value":2.0119521912350598},{"date":"第23周","value":3.583850931677018},{"date":"第24周","value":16.250000000000004},{"date":"第25周","value":2.429556650246306},{"date":"第26周","value":2.1554054054054053},{"date":"第27周","value":18.48494623655914},{"date":"第28周","value":2.8494623655913975},{"date":"第29周","value":2.601568068424804},{"date":"第30周","value":1.959758551307847},{"date":"第31周","value":2.3064516129032255},{"date":"第32周","value":2.1386430678466075},{"date":"第33周","value":2.3063063063063063},{"date":"第34周","value":2.7554438860971526},{"date":"第35周","value":2.514705882352941},{"date":"第36周","value":2.236842105263158},{"date":"第37周","value":2.6818181818181817},{"date":"第38周","value":2.7667057444314183},{"date":"第39周","value":3.338461538461538},{"date":"第40周","value":null},{"date":"第41周","value":2.609375},{"date":"第42周","value":2.997557997557998},{"date":"第43周","value":2.448},{"date":"第44周","value":3.0792079207920793},{"date":"第45周","value":2.3263665594855305},{"date":"第46周","value":16.455172413793104},{"date":"第47周","value":2.3263665594855305},{"date":"第48周","value":6.537334263782275},{"date":"第49周","value":2.730835734870317},{"date":"第50周","value":19.11189801699717},{"date":"第51周","value":2.543655413271246},{"date":"第52周","value":2.169425854174005},{"date":"第53周","value":null}]},{"label":"2025","points":[{"date":"第1周","value":5.278915046059366},{"date":"第2周","value":1.914285714285714},{"date":"第3周","value":2.136194029850746},{"date":"第4周","value":4.038018433179723},{"date":"第5周","value":null},{"date":"第6周","value":3.448623853211009},{"date":"第7周","value":2.607361963190184},{"date":"第8周","value":3.5846153846153848},{"date":"第9周","value":3.3482142857142856},{"date":"第10周","value":1.9160839160839163},{"date":"第11周","value":2.734375},{"date":"第12周","value":7.86923076923077},{"date":"第13周","value":2.370802919708029},{"date":"第14周","value":2.2650602409638556},{"date":"第15周","value":2.2875},{"date":"第16周","value":2.3728813559322033},{"date":"第17周","value":3.9593810444874276},{"date":"第18周","value":2.812390003519887},{"date":"第19周","value":3.1991017964071853},{"date":"第20周","value":2.5571002979145985},{"date":"第21周","value":3.4615384615384612},{"date":"第22周","value":2.974628171478565},{"date":"第23周","value":2.995169082125604},{"date":"第24周","value":2.7993311036789295},{"date":"第25周","value":3.3024},{"date":"第26周","value":3.0681249999999998},{"date":"第27周","value":3.0116564417177916},{"date":"第28周","value":3.4215885947046845},{"date":"第29周","value":3.5881803628601916},{"date":"第30周","value":3.264225352112676},{"date":"第31周","value":2.9066666666666667},{"date":"第32周","value":2.9993103448275864},{"date":"第33周","value":2.598581560283688},{"date":"第34周","value":4.864864864864865},{"date":"第35周","value":3.300518134715026},{"date":"第36周","value":2.68213356461405},{"date":"第37周","value":2.6853055916775035},{"date":"第38周","value":3.452597994530538},{"date":"第39周","value":3.317656129529684},{"date":"第40周","value":1.828437917222964},{"date":"第41周","value":1.5056497175141244},{"date":"第42周","value":3.6006097560975614},{"date":"第43周","value":2.2168183142829387},{"date":"第44周","value":3.4499146937601837},{"date":"第45周","value":2.9074755489762665},{"date":"第46周","value":2.3675220498043266},{"date":"第47周","value":3.212314590057762},{"date":"第48周","value":2.426615402032587},{"date":"第49周","value":2.774628028762595},{"date":"第50周","value":4.217724684515684},{"date":"第51周","value":1.9163717795798414},{"date":"第52周","value":2.368933215539964},{"date":"第53周","value":null}]},{"label":"2026","points":[{"date":"第1周","value":1.9186902133922001},{"date":"第2周","value":7.934949295077913},{"date":"第3周","value":2.040826128722382},{"date":"第4周","value":7.690428990364475},{"date":"第5周","value":2.871494860375758},{"date":"第6周","value":1.7539332509270704},{"date":"第7周","value":2.6651612257505635},{"date":"第8周","value":null},{"date":"第9周","value":2.4920905828486575},{"date":"第10周","value":3.0931822360920664},{"date":"第11周","value":4.850546599496221},{"date":"第12周","value":3.5897093712930013},{"date":"第13周","value":2.520705072620854},{"date":"第14周","value":2.61437908496732},{"date":"第15周","value":3.0526315789473686},{"date":"第16周","value":3.119183982072392},{"date":"第17周","value":2.508044770725096},{"date":"第18周","value":2.7986375422887586},{"date":"第19周","value":null},{"date":"第20周","value":3.5347985168387828},{"date":"第21周","value":2.741467629797713},{"date":"第22周","value":3.045900138696256},{"date":"第23周","value":9.0963791333761},{"date":"第24周","value":2.603600923740253},{"date":"第25周","value":2.4918076093200825},{"date":"第26周","value":3.1429626920010905},{"date":"第27周","value":null},{"date":"第28周","value":2.7572098282728565},{"date":"第29周","value":null},{"date":"第30周","value":2.440443293595032},{"date":"第31周","value":3.219816458852868},{"date":"第32周","value":null},{"date":"第33周","value":null},{"date":"第34周","value":null},{"date":"第35周","value":null},{"date":"第36周","value":null},{"date":"第37周","value":null},{"date":"第38周","value":null},{"date":"第39周","value":null},{"date":"第40周","value":null},{"date":"第41周","value":null},{"date":"第42周","value":null},{"date":"第43周","value":null},{"date":"第44周","value":null},{"date":"第45周","value":null},{"date":"第46周","value":null},{"date":"第47周","value":null},{"date":"第48周","value":null},{"date":"第49周","value":null},{"date":"第50周","value":null},{"date":"第51周","value":null},{"date":"第52周","value":null},{"date":"第53周","value":null}]}],"categories":["第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周","第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周","第21周","第22周","第23周","第24周","第25周","第26周","第27周","第28周","第29周","第30周","第31周","第32周","第33周","第34周","第35周","第36周","第37周","第38周","第39周","第40周","第41周","第42周","第43周","第44周","第45周","第46周","第47周","第48周","第49周","第50周","第51周","第52周","第53周"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="中标时长" style="--power-chart-height:280px"><div class="power-chart-title">中标时长</div><div class="power-chart-years"></div><div aria-label="中标时长" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"中标时长","mode":"weekly","unit":"h","digits":1,"series":[{"label":"2023","points":[{"date":"第1周","value":null},{"date":"第2周","value":null},{"date":"第3周","value":null},{"date":"第4周","value":null},{"date":"第5周","value":null},{"date":"第6周","value":null},{"date":"第7周","value":null},{"date":"第8周","value":null},{"date":"第9周","value":2.0},{"date":"第10周","value":13.999999999999998},{"date":"第11周","value":2.0},{"date":"第12周","value":2.00990099009901},{"date":"第13周","value":2.095823095823096},{"date":"第14周","value":null},{"date":"第15周","value":2.463414634146341},{"date":"第16周","value":2.55500354861604},{"date":"第17周","value":1.9881422924901186},{"date":"第18周","value":2.0},{"date":"第19周","value":1.956989247311828},{"date":"第20周","value":1.9316770186335404},{"date":"第21周","value":2.2203098106712567},{"date":"第22周","value":2.6},{"date":"第23周","value":1.9827644474484623},{"date":"第24周","value":2.2044989775051125},{"date":"第25周","value":2.5753424657534247},{"date":"第26周","value":2.167130919220056},{"date":"第27周","value":1.9850746268656716},{"date":"第28周","value":1.9315403422982886},{"date":"第29周","value":2.412790697674419},{"date":"第30周","value":2.0074626865671643},{"date":"第31周","value":3.36734693877551},{"date":"第32周","value":1.7944444444444445},{"date":"第33周","value":2.7305825242718447},{"date":"第34周","value":2.067796610169492},{"date":"第35周","value":2.023454157782516},{"date":"第36周","value":2.184971098265896},{"date":"第37周","value":2.537190082644628},{"date":"第38周","value":2.4549180327868854},{"date":"第39周","value":2.7674418604651163},{"date":"第40周","value":null},{"date":"第41周","value":2.4498886414253898},{"date":"第42周","value":1.9893676552881927},{"date":"第43周","value":2.2575000000000003},{"date":"第44周","value":2.4158790170132325},{"date":"第45周","value":6.199577613516368},{"date":"第46周","value":2.679955703211517},{"date":"第47周","value":4.96084656084656},{"date":"第48周","value":3.813611111111111},{"date":"第49周","value":2.143396226415094},{"date":"第50周","value":10.64066852367688},{"date":"第51周","value":1.614077669902913},{"date":"第52周","value":8.101435406698565},{"date":"第53周","value":null}]},{"label":"2024","points":[{"date":"第1周","value":1.956896551724138},{"date":"第2周","value":2.036842105263158},{"date":"第3周","value":2.2966507177033493},{"date":"第4周","value":2.046855733662145},{"date":"第5周","value":2.7830882352941173},{"date":"第6周","value":null},{"date":"第7周","value":3.9015614392396465},{"date":"第8周","value":2.0},{"date":"第9周","value":2.16375},{"date":"第10周","value":2.2699069286452946},{"date":"第11周","value":2.122766379880874},{"date":"第12周","value":2.0310344827586206},{"date":"第13周","value":2.1791666666666667},{"date":"第14周","value":1.8063492063492061},{"date":"第15周","value":10.02724795640327},{"date":"第16周","value":1.9985443959243083},{"date":"第17周","value":2.183076923076923},{"date":"第18周","value":2.006849315068493},{"date":"第19周","value":4.283478260869566},{"date":"第20周","value":3.7482517482517483},{"date":"第21周","value":1.7899461400359065},{"date":"第22周","value":3.3812580231065468},{"date":"第23周","value":2.4187050359712234},{"date":"第24周","value":2.6748104465037907},{"date":"第25周","value":2.002181818181818},{"date":"第26周","value":2.1648148148148145},{"date":"第27周","value":6.297297297297297},{"date":"第28周","value":7.923809523809524},{"date":"第29周","value":2.5650485436893202},{"date":"第30周","value":2.4180602006688963},{"date":"第31周","value":2.2459363957597174},{"date":"第32周","value":2.3374726077428782},{"date":"第33周","value":2.62572318647085},{"date":"第34周","value":2.428571428571429},{"date":"第35周","value":15.107809847198643},{"date":"第36周","value":2.055},{"date":"第37周","value":2.274336283185841},{"date":"第38周","value":3.2268722466960353},{"date":"第39周","value":6.015322580645161},{"date":"第40周","value":null},{"date":"第41周","value":3.0209662716499546},{"date":"第42周","value":2.3140495867768593},{"date":"第43周","value":2.8264346190028227},{"date":"第44周","value":3.0583756345177666},{"date":"第45周","value":2.3644220381706877},{"date":"第46周","value":2.7573529411764706},{"date":"第47周","value":4.491360691144709},{"date":"第48周","value":2.8475193445607645},{"date":"第49周","value":2.4019520851818985},{"date":"第50周","value":3.0698393077873916},{"date":"第51周","value":3.1509009009009006},{"date":"第52周","value":2.4128571428571433},{"date":"第53周","value":null}]},{"label":"2025","points":[{"date":"第1周","value":2.822622107969152},{"date":"第2周","value":16.779591836734692},{"date":"第3周","value":5.5731343283582095},{"date":"第4周","value":6.369411764705882},{"date":"第5周","value":null},{"date":"第6周","value":4.542372881355932},{"date":"第7周","value":31.73897058823529},{"date":"第8周","value":5.0},{"date":"第9周","value":9.514997458057957},{"date":"第10周","value":2.948235294117647},{"date":"第11周","value":2.6621951219512194},{"date":"第12周","value":5.0},{"date":"第13周","value":5.396218487394958},{"date":"第14周","value":2.947448979591837},{"date":"第15周","value":2.5862457722660652},{"date":"第16周","value":3.552546583850931},{"date":"第17周","value":3.4684887459807077},{"date":"第18周","value":3.9043242114058914},{"date":"第19周","value":2.943192948090108},{"date":"第20周","value":4.196189704094041},{"date":"第21周","value":2.784474885844749},{"date":"第22周","value":2.4466666666666668},{"date":"第23周","value":1.4378531073446328},{"date":"第24周","value":2.8772164603546337},{"date":"第25周","value":2.9240506329113924},{"date":"第26周","value":3.4900773629330644},{"date":"第27周","value":3.213213213213213},{"date":"第28周","value":2.4201455381080046},{"date":"第29周","value":2.3033481242436467},{"date":"第30周","value":2.96742671009772},{"date":"第31周","value":2.9207599629286376},{"date":"第32周","value":2.225711411325093},{"date":"第33周","value":2.5842696629213484},{"date":"第34周","value":0.4007009345794392},{"date":"第35周","value":3.9150259067357513},{"date":"第36周","value":3.347826086956522},{"date":"第37周","value":2.668193529916977},{"date":"第38周","value":2.94980829557337},{"date":"第39周","value":3.0935812837432515},{"date":"第40周","value":3.88235294117647},{"date":"第41周","value":3.5532977789779245},{"date":"第42周","value":3.357995785530321},{"date":"第43周","value":2.662871403229201},{"date":"第44周","value":1.7109662495259765},{"date":"第45周","value":3.017665318558745},{"date":"第46周","value":2.7285040671400904},{"date":"第47周","value":2.7292638036809818},{"date":"第48周","value":2.5512189761699027},{"date":"第49周","value":2.6082101677543825},{"date":"第50周","value":2.4331731244882944},{"date":"第51周","value":2.301893218558879},{"date":"第52周","value":2.683845136377029},{"date":"第53周","value":null}]},{"label":"2026","points":[{"date":"第1周","value":2.8767572633552017},{"date":"第2周","value":2.670334605883674},{"date":"第3周","value":2.7640130861504906},{"date":"第4周","value":6.2457255481147955},{"date":"第5周","value":3.7902545289040517},{"date":"第6周","value":5.241878168074699},{"date":"第7周","value":3.5089211755496836},{"date":"第8周","value":null},{"date":"第9周","value":2.6199356506750937},{"date":"第10周","value":6.088361220545714},{"date":"第11周","value":8.971782087047863},{"date":"第12周","value":2.9132472165979295},{"date":"第13周","value":21.99712086092715},{"date":"第14周","value":4.096027725021947},{"date":"第15周","value":3.3653303254914597},{"date":"第16周","value":2.6253872472783826},{"date":"第17周","value":2.6570680628272254},{"date":"第18周","value":3.0114602412458606},{"date":"第19周","value":null},{"date":"第20周","value":2.5962068965517244},{"date":"第21周","value":5.395927381347494},{"date":"第22周","value":3.3910850100200403},{"date":"第23周","value":2.6828485275418066},{"date":"第24周","value":2.493414264297344},{"date":"第25周","value":3.1221064498111737},{"date":"第26周","value":3.192871933286104},{"date":"第27周","value":null},{"date":"第28周","value":2.35308594224265},{"date":"第29周","value":null},{"date":"第30周","value":2.905718315489116},{"date":"第31周","value":2.9487294917475526},{"date":"第32周","value":null},{"date":"第33周","value":null},{"date":"第34周","value":null},{"date":"第35周","value":null},{"date":"第36周","value":null},{"date":"第37周","value":null},{"date":"第38周","value":null},{"date":"第39周","value":null},{"date":"第40周","value":null},{"date":"第41周","value":null},{"date":"第42周","value":null},{"date":"第43周","value":null},{"date":"第44周","value":null},{"date":"第45周","value":null},{"date":"第46周","value":null},{"date":"第47周","value":null},{"date":"第48周","value":null},{"date":"第49周","value":null},{"date":"第50周","value":null},{"date":"第51周","value":null},{"date":"第52周","value":null},{"date":"第53周","value":null}]}],"categories":["第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周","第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周","第21周","第22周","第23周","第24周","第25周","第26周","第27周","第28周","第29周","第30周","第31周","第32周","第33周","第34周","第35周","第36周","第37周","第38周","第39周","第40周","第41周","第42周","第43周","第44周","第45周","第46周","第47周","第48周","第49周","第50周","第51周","第52周","第53周"],"colors":null,"yearFilter":true}</script></div></div><div class="storage-headline-price-wide"><div class="power-chart-shell" data-chart-title="储能系统/EPC中标均价" style="--power-chart-height:380px"><div class="power-chart-title">储能系统/EPC中标均价</div><div class="power-chart-years"></div><div aria-label="储能系统/EPC中标均价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"储能系统/EPC中标均价","mode":"timeline","unit":"元/Wh","digits":1,"series":[{"label":"储能系统中标均价","points":[{"date":"2023-03-10","value":1.23},{"date":"2023-03-24","value":1.26},{"date":"2023-04-21","value":1.267},{"date":"2023-05-26","value":1.042},{"date":"2023-06-02","value":1.13},{"date":"2023-06-09","value":1.134},{"date":"2023-06-16","value":1.116},{"date":"2023-06-23","value":1.09},{"date":"2023-06-30","value":1.12},{"date":"2023-07-07","value":1.34},{"date":"2023-07-14","value":1.22},{"date":"2023-07-21","value":1.078},{"date":"2023-07-28","value":1.175},{"date":"2023-08-04","value":1.37},{"date":"2023-08-11","value":2.168},{"date":"2023-08-18","value":1.399},{"date":"2023-08-25","value":0.99},{"date":"2023-09-01","value":1.139},{"date":"2023-09-08","value":0.977},{"date":"2023-09-15","value":1.03},{"date":"2023-09-22","value":1.13},{"date":"2023-09-29","value":1.13},{"date":"2023-10-13","value":1.06},{"date":"2023-10-20","value":1.064},{"date":"2023-10-27","value":0.88},{"date":"2023-11-03","value":1.02},{"date":"2023-11-17","value":1.172},{"date":"2023-11-24","value":0.97},{"date":"2023-12-01","value":1.016},{"date":"2023-12-08","value":0.876},{"date":"2023-12-15","value":1.016},{"date":"2023-12-22","value":0.8},{"date":"2023-12-29","value":0.679},{"date":"2024-01-05","value":0.82},{"date":"2024-01-12","value":0.96},{"date":"2024-01-19","value":0.82},{"date":"2024-01-26","value":1.28},{"date":"2024-02-16","value":0.76},{"date":"2024-03-08","value":0.647},{"date":"2024-03-15","value":1.33},{"date":"2024-03-22","value":0.78},{"date":"2024-03-29","value":1.053},{"date":"2024-04-05","value":1.3},{"date":"2024-04-12","value":0.81},{"date":"2024-04-26","value":0.8},{"date":"2024-05-03","value":0.99},{"date":"2024-05-10","value":0.95},{"date":"2024-05-17","value":0.76},{"date":"2024-05-24","value":0.66},{"date":"2024-05-31","value":0.809},{"date":"2024-06-07","value":0.578},{"date":"2024-06-14","value":0.742},{"date":"2024-06-21","value":0.79},{"date":"2024-06-28","value":0.665},{"date":"2024-07-05","value":0.602},{"date":"2024-07-12","value":0.604},{"date":"2024-07-19","value":0.643},{"date":"2024-07-26","value":0.79},{"date":"2024-08-02","value":0.61},{"date":"2024-08-09","value":0.863},{"date":"2024-08-16","value":0.55},{"date":"2024-08-23","value":0.533},{"date":"2024-08-30","value":1.49},{"date":"2024-09-06","value":0.636},{"date":"2024-09-13","value":0.55},{"date":"2024-09-20","value":0.721},{"date":"2024-09-27","value":0.56},{"date":"2024-10-11","value":0.615},{"date":"2024-10-18","value":0.831},{"date":"2024-10-25","value":0.85},{"date":"2024-11-01","value":0.63},{"date":"2024-11-08","value":0.71},{"date":"2024-11-15","value":0.972},{"date":"2024-11-22","value":0.57},{"date":"2024-11-29","value":0.622},{"date":"2024-12-06","value":1.027},{"date":"2024-12-13","value":0.563},{"date":"2024-12-20","value":0.65},{"date":"2024-12-27","value":0.8},{"date":"2025-01-03","value":0.619},{"date":"2025-01-10","value":0.497},{"date":"2025-01-17","value":0.556},{"date":"2025-01-24","value":0.534},{"date":"2025-02-07","value":0.537},{"date":"2025-02-14","value":0.473},{"date":"2025-02-21","value":0.757},{"date":"2025-02-28","value":0.628},{"date":"2025-03-07","value":0.595},{"date":"2025-03-14","value":0.684},{"date":"2025-03-21","value":0.55},{"date":"2025-03-28","value":0.468},{"date":"2025-04-04","value":0.53},{"date":"2025-04-11","value":0.515},{"date":"2025-04-18","value":0.44},{"date":"2025-04-25","value":0.584},{"date":"2025-05-02","value":0.516},{"date":"2025-05-09","value":0.776},{"date":"2025-05-16","value":0.461},{"date":"2025-05-23","value":0.525},{"date":"2025-05-30","value":0.683},{"date":"2025-06-06","value":0.712},{"date":"2025-06-13","value":1.977},{"date":"2025-06-20","value":1.968},{"date":"2025-06-27","value":0.592},{"date":"2025-07-04","value":0.555},{"date":"2025-07-11","value":0.6297},{"date":"2025-07-18","value":0.4985},{"date":"2025-07-25","value":0.4645},{"date":"2025-08-01","value":0.4856},{"date":"2025-08-08","value":0.4869},{"date":"2025-08-15","value":0.5851},{"date":"2025-08-22","value":0.4406},{"date":"2025-08-29","value":0.5446},{"date":"2025-09-05","value":0.4909},{"date":"2025-09-12","value":0.9305},{"date":"2025-09-19","value":0.5219},{"date":"2025-09-26","value":0.6604},{"date":"2025-10-03","value":0.7791},{"date":"2025-10-10","value":0.5099},{"date":"2025-10-17","value":0.5932},{"date":"2025-10-24","value":0.517},{"date":"2025-10-31","value":0.5324},{"date":"2025-11-07","value":0.5328},{"date":"2025-11-14","value":0.5933},{"date":"2025-11-21","value":0.536},{"date":"2025-11-28","value":0.5959},{"date":"2025-12-05","value":0.5723},{"date":"2025-12-12","value":0.4783},{"date":"2025-12-19","value":0.7071},{"date":"2025-12-26","value":0.5803},{"date":"2026-01-02","value":0.7257},{"date":"2026-01-09","value":0.6081},{"date":"2026-01-16","value":0.5075},{"date":"2026-01-23","value":0.5712},{"date":"2026-01-30","value":0.5759},{"date":"2026-02-06","value":0.6152},{"date":"2026-02-13","value":0.5234},{"date":"2026-02-27","value":0.5016},{"date":"2026-03-06","value":0.7336},{"date":"2026-03-13","value":0.5521},{"date":"2026-03-27","value":0.5195},{"date":"2026-04-03","value":0.6232},{"date":"2026-04-10","value":0.6649},{"date":"2026-04-17","value":0.5076},{"date":"2026-04-24","value":0.5355},{"date":"2026-05-01","value":0.6953},{"date":"2026-05-15","value":0.5137},{"date":"2026-05-22","value":0.5474},{"date":"2026-05-29","value":0.7855},{"date":"2026-06-05","value":0.5614},{"date":"2026-06-12","value":0.8065},{"date":"2026-06-19","value":0.5848},{"date":"2026-06-26","value":0.7145},{"date":"2026-07-10","value":0.7938},{"date":"2026-07-24","value":0.62},{"date":"2026-07-31","value":0.5958}]},{"label":"EPC中标均价","points":[{"date":"2023-03-03","value":1.98},{"date":"2023-03-17","value":1.21},{"date":"2023-03-24","value":0.47},{"date":"2023-03-31","value":1.16},{"date":"2023-04-14","value":1.514},{"date":"2023-04-21","value":1.52},{"date":"2023-04-28","value":1.8},{"date":"2023-05-05","value":1.42},{"date":"2023-05-12","value":1.48},{"date":"2023-05-19","value":1.79},{"date":"2023-05-26","value":1.67},{"date":"2023-06-02","value":1.1},{"date":"2023-06-09","value":0.92},{"date":"2023-06-16","value":1.798},{"date":"2023-06-23","value":1.306},{"date":"2023-06-30","value":1.62},{"date":"2023-07-07","value":1.64},{"date":"2023-07-14","value":1.46},{"date":"2023-07-21","value":1.54},{"date":"2023-07-28","value":2.545},{"date":"2023-08-04","value":1.44},{"date":"2023-08-11","value":1.41},{"date":"2023-08-18","value":1.202},{"date":"2023-08-25","value":1.34},{"date":"2023-09-01","value":1.874},{"date":"2023-09-08","value":1.608},{"date":"2023-09-15","value":1.18},{"date":"2023-09-22","value":1.6},{"date":"2023-09-29","value":1.32},{"date":"2023-10-13","value":1.39},{"date":"2023-10-20","value":1.42},{"date":"2023-10-27","value":1.34},{"date":"2023-11-03","value":2.3},{"date":"2023-11-10","value":1.31},{"date":"2023-11-17","value":1.819},{"date":"2023-11-24","value":1.36},{"date":"2023-12-01","value":1.278},{"date":"2023-12-08","value":1.61},{"date":"2023-12-15","value":1.409},{"date":"2023-12-22","value":1.4},{"date":"2023-12-29","value":1.43},{"date":"2024-01-05","value":1.31},{"date":"2024-01-12","value":1.21},{"date":"2024-01-19","value":0.98},{"date":"2024-01-26","value":1.43},{"date":"2024-02-02","value":1.67},{"date":"2024-02-16","value":1.409},{"date":"2024-02-23","value":1.515},{"date":"2024-03-01","value":1.46},{"date":"2024-03-08","value":1.342},{"date":"2024-03-15","value":1.45},{"date":"2024-03-22","value":1.121},{"date":"2024-03-29","value":1.35},{"date":"2024-04-05","value":1.565},{"date":"2024-04-12","value":1.59},{"date":"2024-04-19","value":1.354},{"date":"2024-04-26","value":1.2},{"date":"2024-05-03","value":1.396},{"date":"2024-05-10","value":1.34},{"date":"2024-05-17","value":1.24},{"date":"2024-05-24","value":1.23},{"date":"2024-05-31","value":1.059},{"date":"2024-06-07","value":1.07},{"date":"2024-06-14","value":1.081},{"date":"2024-06-21","value":1.17},{"date":"2024-06-28","value":1.456},{"date":"2024-07-05","value":1.35},{"date":"2024-07-12","value":1.366},{"date":"2024-07-19","value":1.34},{"date":"2024-07-26","value":1.466},{"date":"2024-08-02","value":1.04},{"date":"2024-08-09","value":0.909},{"date":"2024-08-16","value":0.94},{"date":"2024-08-23","value":1.044},{"date":"2024-08-30","value":1.26},{"date":"2024-09-06","value":1.179},{"date":"2024-09-13","value":1.28},{"date":"2024-09-20","value":1.069},{"date":"2024-09-27","value":1.19},{"date":"2024-10-11","value":0.903},{"date":"2024-10-18","value":0.945},{"date":"2024-10-25","value":0.97},{"date":"2024-11-01","value":0.998},{"date":"2024-11-08","value":1.245},{"date":"2024-11-15","value":1.2},{"date":"2024-11-22","value":1.03},{"date":"2024-11-29","value":1.113},{"date":"2024-12-06","value":1.2},{"date":"2024-12-13","value":1.07},{"date":"2024-12-20","value":1.1},{"date":"2024-12-27","value":1.242},{"date":"2025-01-03","value":1.373},{"date":"2025-01-10","value":1.153},{"date":"2025-01-17","value":1.101},{"date":"2025-01-24","value":1.21},{"date":"2025-02-07","value":1.206},{"date":"2025-02-14","value":1.082},{"date":"2025-02-21","value":1.05},{"date":"2025-02-28","value":1.002},{"date":"2025-03-07","value":0.899},{"date":"2025-03-14","value":0.887},{"date":"2025-03-21","value":0.88},{"date":"2025-03-28","value":1.055},{"date":"2025-04-04","value":1.42},{"date":"2025-04-11","value":0.907},{"date":"2025-04-18","value":1.196},{"date":"2025-04-25","value":1.2},{"date":"2025-05-02","value":1.106},{"date":"2025-05-09","value":1.037},{"date":"2025-05-16","value":1.104},{"date":"2025-05-23","value":1.084},{"date":"2025-05-30","value":1.047},{"date":"2025-06-06","value":0.938},{"date":"2025-06-13","value":0.913},{"date":"2025-06-20","value":1.224},{"date":"2025-06-27","value":0.912},{"date":"2025-07-04","value":0.95},{"date":"2025-07-11","value":0.9672},{"date":"2025-07-18","value":0.9879},{"date":"2025-07-25","value":1.0312},{"date":"2025-08-01","value":1.4458},{"date":"2025-08-08","value":0.9736},{"date":"2025-08-15","value":0.9867},{"date":"2025-08-22","value":1.0102},{"date":"2025-08-29","value":0.9651},{"date":"2025-09-05","value":0.9028},{"date":"2025-09-12","value":1.0275},{"date":"2025-09-19","value":1.1003},{"date":"2025-09-26","value":1.0333},{"date":"2025-10-03","value":0.97},{"date":"2025-10-10","value":0.9597},{"date":"2025-10-17","value":0.8315},{"date":"2025-10-24","value":0.8701},{"date":"2025-10-31","value":1.097},{"date":"2025-11-07","value":1.0682},{"date":"2025-11-14","value":0.9566},{"date":"2025-11-21","value":1.0479},{"date":"2025-11-28","value":1.2644},{"date":"2025-12-05","value":1.0349},{"date":"2025-12-12","value":1.0445},{"date":"2025-12-19","value":1.1031},{"date":"2025-12-26","value":1.0592},{"date":"2026-01-02","value":0.9933},{"date":"2026-01-09","value":0.8829},{"date":"2026-01-16","value":1.1125},{"date":"2026-01-23","value":0.9796},{"date":"2026-01-30","value":0.9069},{"date":"2026-02-06","value":0.9477},{"date":"2026-02-13","value":1.029},{"date":"2026-02-27","value":1.0433},{"date":"2026-03-06","value":1.0116},{"date":"2026-03-13","value":1.076},{"date":"2026-03-20","value":1.0869},{"date":"2026-03-27","value":1.166},{"date":"2026-04-03","value":0.8828},{"date":"2026-04-10","value":0.9027},{"date":"2026-04-17","value":1.001},{"date":"2026-04-24","value":0.7834},{"date":"2026-05-01","value":0.858},{"date":"2026-05-15","value":1.0603},{"date":"2026-05-22","value":0.9225},{"date":"2026-05-29","value":0.9474},{"date":"2026-06-05","value":1.1413},{"date":"2026-06-12","value":1.0152},{"date":"2026-06-19","value":0.8269},{"date":"2026-06-26","value":1.0102},{"date":"2026-07-10","value":0.9375},{"date":"2026-07-24","value":1.0021},{"date":"2026-07-31","value":1.0398}]}],"categories":null,"colors":null,"yearFilter":true}</script></div></div></div></div></section></section>
+</main>
+<div class="sources">
+<strong>源与口径：</strong>
+      现货电价来自“电力现货价格日度”；代理电价来自“代理电价月度钢联”；发电、用电来自“发电用电”；分地区发电来自“分类型分地区”；
+      累计装机来自“发电装机容量-wind”；新增装机来自“新增发电装机容量-ifind”；投资来自“电源电网投资”。
+      省份净输出来自“输出电量”和“输入电量”，按输出-输入计算；海外电价来自 pb/全球电价.xlsx 的图表公式对应序列。
+      储能装机和政策事件先来自项目内 JSON 底表；核电检修来源固定为生态环境部核电运行状态监测页面，后续接入日度/事件级抓取。
+      最新数据日期：发电 2026-09-30，总量用电 2026-08-31，分行业用电 2026-08-31，现货电价 2026-10-17，代理电价 2026-10-01，分地区发电 2026-08-31，装机 2026-08-31，交易 2026-08-01，输出/输入电量 2026-08-01/2026-08-01，投资 2026-08-31。
+    </div>
+</div>
+<div class="chart-tooltip global-chart-tooltip" id="global-chart-tooltip"></div>
+<script>
+  const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+  const panels = Array.from(document.querySelectorAll('.report-panel'));
+  function activatePanel(target) {
+    tabs.forEach((tab) => {
+      const active = tab.dataset.target === target;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    panels.forEach((panel) => panel.classList.toggle('active', panel.id === target));
+  }
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      activatePanel(tab.dataset.target);
+      history.replaceState(null, '', '#' + tab.dataset.target);
+    });
+  });
+  const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+  const tocTargetPanel = Object.fromEntries(tocLinks.map((link) => [link.getAttribute('href').replace('#', ''), link.dataset.panel]));
+  function jumpToSubpanel(targetId, panelId) {
+    if (!targetId || !panelId) return;
+    activatePanel(panelId);
+    requestAnimationFrame(() => {
+      const target = document.getElementById(targetId);
+      if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  }
+  tocLinks.forEach((link) => {
+    link.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const targetId = link.getAttribute('href').replace('#', '');
+      jumpToSubpanel(targetId, link.dataset.panel);
+      history.replaceState(null, '', '#' + targetId);
+    });
+  });
+  const initial = location.hash.replace('#', '');
+  if (['overview', 'price', 'supply', 'demand', 'trade'].includes(initial)) activatePanel(initial);
+  if (tocTargetPanel[initial]) jumpToSubpanel(initial, tocTargetPanel[initial]);
+  function summaryStorageKey(card) {
+    return 'power-dashboard-summary:' + (card.dataset.summaryKey || 'default');
+  }
+  function setSummaryStatus(card, text) {
+    const status = card.querySelector('.editable-summary-status');
+    if (status) status.textContent = text;
+  }
+  document.querySelectorAll('.editable-summary-card').forEach((card) => {
+    const body = card.querySelector('.editable-summary-body');
+    if (!body) return;
+    const key = summaryStorageKey(card);
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      body.innerHTML = saved;
+      setSummaryStatus(card, '已载入保存稿');
+    }
+    card.addEventListener('click', (ev) => {
+      const button = ev.target.closest ? ev.target.closest('[data-summary-action]') : null;
+      if (!button) return;
+      const action = button.dataset.summaryAction;
+      if (action === 'edit') {
+        const enabled = body.getAttribute('contenteditable') === 'true';
+        body.setAttribute('contenteditable', enabled ? 'false' : 'true');
+        button.textContent = enabled ? '编辑' : '完成编辑';
+        if (!enabled) {
+          body.focus();
+          setSummaryStatus(card, '编辑中');
+        } else {
+          setSummaryStatus(card, '待保存');
+        }
+      }
+      if (action === 'save') {
+        localStorage.setItem(key, body.innerHTML);
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已保存 ' + new Date().toLocaleTimeString('zh-CN', { hour12:false }));
+      }
+      if (action === 'reset') {
+        if (!confirm('恢复为本次数据自动生成的汇总文字？')) return;
+        localStorage.removeItem(key);
+        body.innerHTML = body.dataset.defaultHtml || '';
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已恢复生成稿');
+      }
+      if (action === 'export') {
+        const title = card.querySelector('.card-head h3')?.textContent || 'summary';
+        const html = '<!doctype html><meta charset="utf-8"><title>' + title + '</title><body>' + body.innerHTML + '</body>';
+        const blob = new Blob([html], { type:'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = '电力月报-汇总编辑稿.html';
+        link.click();
+        URL.revokeObjectURL(url);
+        setSummaryStatus(card, '已导出');
+      }
+    });
+  });
+  const globalTip = document.getElementById('global-chart-tooltip');
+  function showGlobalTip(ev, text) {
+    if (!globalTip || !text) return;
+    const rawText = String(text).replace(/\r?\n/g, '\n').replace(/\\n/g, '\n');
+    globalTip.innerHTML = rawText
+      .split('\n')
+      .map((line, idx) => {
+        const safe = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return idx === 0 ? `<div class="tip-date">${safe}</div>` : `<div>${safe}</div>`;
+      })
+      .join('');
+    globalTip.style.display = 'block';
+    const margin = 16;
+    const boxW = globalTip.offsetWidth || 240;
+    const boxH = globalTip.offsetHeight || 90;
+    let left = ev.clientX + 16;
+    let top = ev.clientY - Math.min(40, boxH / 2);
+    if (left + boxW + margin > window.innerWidth) left = ev.clientX - boxW - 16;
+    if (top + boxH + margin > window.innerHeight) top = window.innerHeight - boxH - margin;
+    if (top < margin) top = margin;
+    globalTip.style.left = left + 'px';
+    globalTip.style.top = top + 'px';
+  }
+  document.addEventListener('mousemove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    if (!target) {
+      if (globalTip) globalTip.style.display = 'none';
+      return;
+    }
+    showGlobalTip(ev, target.dataset.tip);
+  });
+  document.addEventListener('touchstart', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('touchmove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('mouseleave', () => {
+    if (globalTip) globalTip.style.display = 'none';
+  });
+</script>
+<script id="power-chart-upgrade-runtime">(() => {
+  'use strict';
+  const states = new Map();
+  const palette = ['#17366c','#dc3535','#2f9fb8','#3e9368','#bc833a','#8974b4','#6f7a85'];
+  const yearColors = {'2023':'#99a5b6','2024':'#399ccc','2025':'#17366c','2026':'#d93636'};
+  const numeric = value => value !== null && value !== '' && Number.isFinite(Number(value));
+  const safe = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const compact = value => Math.abs(value) >= 100000 ? (value / 10000).toFixed(0)+'万' : Number(value).toLocaleString('zh-CN', {maximumFractionDigits:2});
+
+  function payload(shell) {
+    return JSON.parse(shell.querySelector('.power-chart-data').textContent);
+  }
+
+  function addYearFilters(state) {
+    const box = state.shell.querySelector('.power-chart-years');
+    box.replaceChildren();
+    if (state.data.mode !== 'timeline' || state.data.yearFilter === false) return;
+    const years = [...new Set(state.data.series.flatMap(s => s.points.map(p => /^(\d{4})-/.exec(p.date)?.[1])).filter(Boolean))].sort();
+    if (years.length < 2) return;
+    state.years = new Set(years);
+    for (const year of years) {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'checkbox'; input.checked = true; input.value = year;
+      input.setAttribute('aria-label', '筛选'+year+'年');
+      input.addEventListener('change', () => {
+        if (input.checked) state.years.add(year); else state.years.delete(year);
+        state.saved = null;
+        if (state.chart) state.chart.setOption(option(state), {notMerge:true});
+      });
+      label.append(input, document.createTextNode(year)); box.append(label);
+    }
+  }
+
+  function option(state) {
+    const d = state.data;
+    const seasonal = d.mode !== 'timeline';
+    const cats = d.categories || [...new Set(d.series.flatMap(s => s.points.map(p => String(p.date))))].sort();
+    const categories = cats.filter(date => !state.years || state.years.has(date.slice(0,4)) || !/^\d{4}-/.test(date));
+    const narrow = state.shell.clientWidth < 520;
+    const colors = d.colors || d.series.map((s,i) => seasonal ? (yearColors[s.label] || palette[i%palette.length]) : palette[i%palette.length]);
+    const saved = state.saved;
+    const legend = {type:'scroll',top:5,left:8,right:60,icon:'roundRect',itemWidth:16,itemHeight:3,itemGap:12,
+      selected:saved?.legend?.[0]?.selected || {},textStyle:{fontSize:narrow?11:12,color:'#253a52'},
+      pageIconColor:'#17366c',pageIconSize:10,animation:false};
+    const series = d.series.map((s,i) => {
+      const points = new Map(s.points.map(p => [String(p.date),p.value]));
+      return {name:s.label,type:'line',connectNulls:false,smooth:false,showSymbol:false,symbolSize:4,
+        data:categories.map(date => numeric(points.get(date)) ? Number(points.get(date)) : null),
+        lineStyle:{width:seasonal && s.label === d.series.at(-1)?.label ? 2.8 : 1.8},
+        itemStyle:{color:colors[i]},emphasis:{focus:'series'},animation:false};
+    });
+    return {animation:false,color:colors,textStyle:{fontFamily:'Microsoft YaHei, sans-serif'},legend,
+      grid:{left:narrow?49:62,right:narrow?17:25,top:d.unit?52:44,bottom:69,containLabel:false},
+      toolbox:{right:4,top:1,itemSize:13,itemGap:9,feature:{restore:{title:'重置范围和筛选'},saveAsImage:{title:'下载图表',pixelRatio:2}}},
+      tooltip:{trigger:'axis',confine:true,appendToBody:false,backgroundColor:'rgba(255,255,255,.97)',borderColor:'#bac8d9',
+        textStyle:{fontSize:12,color:'#17304f'},axisPointer:{type:'line',lineStyle:{color:'#71849c',type:'dashed'}},
+        formatter(items) { return (items.length?safe(items[0].axisValueLabel):'')+items.filter(p=>numeric(p.data)).map(p=>
+          '<br>'+p.marker+safe(p.seriesName)+'：'+Number(p.data).toLocaleString('zh-CN',{minimumFractionDigits:d.digits,maximumFractionDigits:d.digits})+safe(d.unit||'')).join(''); }},
+      xAxis:{type:'category',data:categories,boundaryGap:false,axisLine:{lineStyle:{color:'#bac7d7'}},axisTick:{show:false},
+        axisLabel:{fontSize:narrow?10:11,color:'#65768c',hideOverlap:true,
+          formatter(value) {return d.mode==='daily' ? value.replace('-', '/') : value;}}},
+      yAxis:{type:'value',scale:true,name:d.unit||'',nameTextStyle:{fontSize:11,color:'#65768c',align:'left'},
+        splitNumber:4,axisLabel:{color:'#65768c',fontSize:narrow?10:11,formatter:compact},
+        splitLine:{lineStyle:{color:'#e4ebf3',type:'dashed'}},axisLine:{show:false}},
+      dataZoom:[{type:'inside',filterMode:'none',zoomOnMouseWheel:'ctrl',moveOnMouseWheel:false,preventDefaultMouseMove:false,
+        start:saved?.dataZoom?.[0]?.start??0,end:saved?.dataZoom?.[0]?.end??100},
+        {type:'slider',filterMode:'none',bottom:9,height:19,left:narrow?49:62,right:narrow?17:25,
+          start:saved?.dataZoom?.[1]?.start??0,end:saved?.dataZoom?.[1]?.end??100,
+          brushSelect:false,borderColor:'#ccd7e5',fillerColor:'rgba(63,120,177,.17)',
+          handleSize:'110%',handleStyle:{color:'#fff',borderColor:'#50769f'},textStyle:{fontSize:10,color:'#526b87'},
+          dataBackground:{lineStyle:{color:'#9dacc1'},areaStyle:{color:'#e8eef5'}},selectedDataBackground:{lineStyle:{color:'#4a80ac'},areaStyle:{color:'#dce8f3'}}}],series};
+  }
+
+  function near(shell) {
+    const box = shell.getBoundingClientRect();
+    return box.width > 0 && box.height > 0 && box.top < innerHeight+400 && box.bottom > -400;
+  }
+
+  function mount(state) {
+    if (state.chart || !near(state.shell) || !window.echarts) return;
+    state.chart = echarts.init(state.shell.querySelector('.power-chart-canvas'), null, {renderer:'canvas',useDirtyRect:true,devicePixelRatio:Math.min(devicePixelRatio||1,2)});
+    state.chart.setOption(option(state));
+    state.chart.on('restore', () => {
+      state.saved = null;
+      if (state.years) {
+        state.shell.querySelectorAll('.power-chart-years input').forEach(c=>{c.checked=true;state.years.add(c.value);});
+        state.chart.setOption(option(state),{notMerge:true});
+      }
+    });
+    state.shell.dataset.chartReady = 'true';
+  }
+
+  function release(state) {
+    if (!state.chart) return;
+    const o = state.chart.getOption();
+    state.saved = {legend:o.legend,dataZoom:o.dataZoom};
+    state.chart.dispose();state.chart=null;state.shell.dataset.chartReady='false';
+  }
+
+  let scheduled = false;
+  function schedule() {
+    if (scheduled) return;
+    scheduled=true;
+    requestAnimationFrame(()=>{
+      scheduled=false;
+      for (const state of states.values()) {
+        if (near(state.shell)) {mount(state);if(state.chart)state.chart.resize();}
+        else release(state);
+      }
+    });
+  }
+
+  function register(shell, data) {
+    const state={shell,data:data||payload(shell),chart:null,saved:null,years:null};
+    states.set(shell,state);addYearFilters(state);
+    return state;
+  }
+
+  function hydrology() {
+    const script=document.getElementById('hydro-data');
+    if (!script) return;
+    const data=JSON.parse(script.textContent),station=document.getElementById('hydro-station'),mode=document.getElementById('hydro-mode');
+    const years=[...new Set(data.dates.map(d=>d.slice(0,4)))].sort();
+    const controls=document.getElementById('hydro-years');controls.replaceChildren();
+    const chosen=new Set(years);
+    for (const year of years) {
+      const label=document.createElement('label'),input=document.createElement('input');
+      input.type='checkbox';input.checked=true;input.value=year;
+      input.addEventListener('change',()=>{if(input.checked)chosen.add(year);else chosen.delete(year);update();});
+      label.append(input,document.createTextNode(year));controls.append(label);
+    }
+    const plots=[...document.querySelectorAll('.hydro-plot')].map(plot=>{
+      plot.querySelector('canvas')?.remove();plot.querySelector('output')?.remove();
+      const shell=document.createElement('div');shell.className='power-chart-shell';shell.style.setProperty('--power-chart-height','300px');
+      shell.innerHTML='<div class="power-chart-years"></div><div class="power-chart-canvas" role="img"></div>';
+      plot.append(shell);return {plot,shell,metric:plot.querySelector('h4').textContent,state:null};
+    });
+    function update() {
+      for (const p of plots) {
+        if (p.state) {release(p.state);states.delete(p.shell);}
+        const metric=data.series.find(s=>s.station===station.value && s.metric===p.metric);
+        const seasonal=mode.value==='season';
+        const dates=seasonal?Array.from({length:366},(_,i)=>new Date(Date.UTC(2000,0,i+1)).toISOString().slice(5,10)):data.dates.slice(-90);
+        const groups=seasonal?years.filter(y=>chosen.has(y)):['近90天'];
+        const series=groups.map(year=>({label:year,points:dates.map(date=>{
+          const rawDate=seasonal?year+'-'+date:date,index=data.dates.indexOf(rawDate);
+          return {date,value:metric && index>=0?metric.values[index]:null};
+        })}));
+        const d={title:p.metric,mode:seasonal?'daily':'timeline',unit:metric?.unit||'',digits:1,categories:dates,series,yearFilter:false};
+        p.state=register(p.shell,d);
+      }
+      schedule();
+    }
+    station.addEventListener('change',update);mode.addEventListener('change',update);update();
+  }
+
+  function boot() {
+    if (!window.echarts) {
+      document.querySelectorAll('.power-chart-canvas').forEach(el=>el.textContent='图表资源未加载，请检查 assets/echarts.min.js');
+      return;
+    }
+    document.querySelectorAll('.power-chart-shell').forEach(shell=>register(shell));
+    hydrology();
+    const observer=new IntersectionObserver(schedule,{rootMargin:'400px'});
+    states.forEach(state=>observer.observe(state.shell));
+    new MutationObserver(schedule).observe(document.querySelector('main')||document.body,{subtree:true,attributes:true,attributeFilter:['class']});
+    window.addEventListener('resize',schedule);window.addEventListener('scroll',schedule,{passive:true});
+    document.addEventListener('click',event=>{if(event.target.closest('.panel-tabs,.side-toc,.subpanel-tabs'))schedule();});
+    window.powerCharts={states,refresh:schedule};schedule();
+  }
+  if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script></body>
+</html>

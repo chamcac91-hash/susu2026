@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>20261022国内电力看板 手机版 - 5.2 电力交易中心交易</title>
+<style>
+    :root {
+      --bg:#f5f1ea; --paper:#fffdf9; --ink:#111827; --muted:#687080; --line:#cfd6e3;
+      --navy:#0b2f66; --blue:#4f7dbf; --red:#dc2626; --soft:#f8fafc;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; padding-left:154px; background:var(--bg); color:var(--ink); font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .page { position:relative; width:min(1680px, calc(100% - 28px)); margin:14px auto 40px; background:var(--paper); border:1px solid #d7d0c6; box-shadow:0 8px 28px rgba(64,46,26,.08); }
+    header { padding:22px 28px 16px; border-bottom:3px solid var(--navy); }
+    h1 { margin:0; font-size:30px; letter-spacing:0; color:var(--navy); }
+    .subtitle { margin-top:7px; color:var(--muted); font-size:13px; }
+    main { padding:0 22px 28px; }
+    .report-section { padding:18px 0 22px; border-bottom:1px solid #d7dde8; }
+    h2 { margin:0 0 12px; font-size:24px; color:#111; }
+    h2::before { content:attr(id); display:none; }
+    .placeholder { min-height:90px; border:1px dashed #b8c0cf; background:#fbfaf7; color:#7b8190; padding:24px; font-size:16px; }
+    .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:8px; padding:18px 0 10px; border-bottom:1px solid #d7dde8; background:rgba(255,253,249,.96); backdrop-filter:blur(8px); }
+    .panel-tab { appearance:none; border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:8px 16px; min-height:42px; border-radius:3px; font-family:inherit; font-size:18px; font-weight:700; cursor:pointer; }
+    .panel-tab:hover { border-color:#b4493f; color:#0b2f66; }
+    .panel-tab.active { background:#b4493f; border-color:#b4493f; color:white; }
+    .report-panel { display:none; }
+    .report-panel.active { display:block; }
+    .subpanel { scroll-margin-top:76px; margin:12px 0 18px; padding:10px; border:1px solid #d7dde8; background:#fbfcff; }
+    .subpanel > h3 { margin:0 0 10px; font-size:20px; color:#0b2f66; border-left:5px solid #0b2f66; padding-left:9px; }
+    .stack { display:grid; gap:14px; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
+    .card { border:1px solid #bfc8d8; background:white; overflow:hidden; }
+    .wide-card { grid-column:1 / -1; }
+    .card-head { background:#d9e2f3; border-bottom:1px solid #aeb8c8; padding:7px 10px; text-align:center; }
+    .card-head h3 { margin:0; font-size:17px; color:#001f55; }
+    .card-head p { margin:2px 0 0; font-size:12px; color:#475569; }
+    .card-body { padding:10px; overflow:auto; }
+    table { width:100%; border-collapse:collapse; font-size:12px; background:white; }
+    th, td { border:1px solid #c9ced8; padding:5px 7px; text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    th { background:#e5ebf6; color:#0f2d5c; font-weight:700; }
+    th:first-child, td:first-child { text-align:left; }
+    .spot-summary-table { font-size:13px; }
+    .spot-summary-table .latest-col { background:#fff1f0; border-left:2px solid #b4493f; border-right:2px solid #b4493f; font-weight:700; }
+    .recent-values { text-align:left; white-space:normal; min-width:260px; }
+    .recent-values span { display:inline-block; margin:1px 5px 1px 0; padding:1px 5px; border:1px solid #d7dde8; background:#f8fafc; border-radius:3px; }
+    .date-value { display:inline-flex; flex-direction:column; align-items:flex-end; gap:1px; line-height:1.18; }
+    .date-value span { color:#64748b; font-size:11px; font-weight:400; }
+    .date-value b { color:#0f172a; font-size:13px; font-weight:700; }
+    .table-card .card-body { max-height:520px; }
+    .full-table .card-body { max-height:none; overflow:visible; }
+    .storage-summary-block + .storage-summary-block { margin-top:12px; }
+    .storage-summary-block h4 { margin:0; padding:6px 8px; border:1px solid #c9ced8; border-bottom:0; background:#f8fafc; color:#0f2d5c; font-size:15px; }
+    .image-card .card-body { overflow:visible; }
+    .reference-image { display:block; width:100%; height:auto; background:white; }
+    .heat td { min-width:72px; }
+    .table-note { margin:8px 2px 0; color:#64748b; font-size:12px; }
+    .summary-text { font-size:16px; line-height:1.8; color:#111827; }
+    .summary-text p { margin:0 0 8px; }
+    .summary-text strong { color:#b91c1c; }
+    .editable-summary-tools { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:8px 10px; border-bottom:1px solid #d7dde8; background:#f8fafc; }
+    .summary-tool-btn { appearance:none; border:1px solid #b9c3d3; background:white; color:#0f2d5c; min-height:32px; padding:5px 12px; border-radius:3px; font-family:inherit; font-size:14px; font-weight:700; cursor:pointer; }
+    .summary-tool-btn:hover { border-color:#b4493f; color:#b4493f; }
+    .summary-tool-btn.primary { background:#0b2f66; border-color:#0b2f66; color:white; }
+    .editable-summary-status { margin-left:auto; color:#64748b; font-size:12px; }
+    .editable-summary-body { min-height:118px; outline:none; border:1px solid transparent; padding:4px 6px; }
+    .editable-summary-body[contenteditable="true"] { border-color:#b4493f; background:#fffaf2; box-shadow:inset 0 0 0 1px rgba(180,73,63,.18); }
+    .editable-summary-body[contenteditable="true"] p { cursor:text; }
+    .pos { color:#b91c1c; font-weight:700; }
+    .neg { color:#1d4ed8; font-weight:700; }
+    .mini-chart-row { display:grid; grid-template-columns:repeat(4, minmax(260px,1fr)); gap:10px; }
+    .mini-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(280px,1fr)); gap:10px; }
+    .storage-smm-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-xunxi-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-headline-weekly-grid { grid-template-columns:repeat(4, minmax(240px,1fr)); }
+    .storage-headline-price-wide { margin-top:14px; padding-top:10px; border-top:1px solid #d7dde8; }
+    .chart-group-title { margin:12px 0 8px; color:#0b2f66; font-size:18px; text-align:center; }
+    .overseas-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:12px; }
+    .spot-season-grid { display:grid; grid-template-columns:repeat(3, minmax(420px,1fr)); gap:16px; align-items:start; }
+    .spot-season-grid .svg-title { font-size:16px; }
+    .spot-season-grid .svg-axis { font-size:12px; }
+    .spot-season-grid .svg-legend { font-size:11px; }
+    .decadal-chart-grid { display:grid; grid-template-columns:repeat(2, minmax(520px,1fr)); gap:14px; }
+    .net-transfer-grid { display:grid; grid-template-columns:repeat(2, minmax(560px,1fr)); gap:14px; align-items:start; }
+    .regional-structure-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:10px; align-items:start; }
+    .regional-structure-svg { border:1px solid #d7dde8; background:#fff; }
+    .regional-structure-title { font-size:18px; font-weight:700; fill:#0b2f66; }
+    .regional-structure-date { font-size:12px; fill:#64748b; }
+    .regional-structure-total { font-size:13px; fill:#334155; }
+    .regional-structure-inside { font-size:11px; font-weight:700; fill:white; paint-order:stroke; stroke:#334155; stroke-width:2px; }
+    .regional-structure-legend { font-size:11px; fill:#111827; }
+    .industry-chain-svg { border:1px solid #d7dde8; }
+    .industry-chain-title { font-size:22px; font-weight:700; fill:#0b2f66; }
+    .industry-chain-col-title { font-size:18px; font-weight:700; fill:white; }
+    .industry-chain-item { font-size:14px; fill:#0f172a; }
+    .industry-chain-note { font-size:15px; fill:#334155; }
+    .industry-panorama-image { max-height:760px; object-fit:contain; }
+    svg { width:100%; height:auto; display:block; background:white; }
+    svg text { font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .svg-title { font-size:14px; font-weight:700; fill:#0b2f66; }
+    .svg-axis { font-size:10px; fill:#334155; }
+    .svg-legend { font-size:8px; }
+    .latest-label { font-size:11px; font-weight:700; paint-order:stroke; stroke:white; stroke-width:3px; }
+    .chart-point { cursor:crosshair; }
+    .interactive-chart { position:relative; background:white; }
+    .interactive-toolbar { display:flex; flex-wrap:wrap; gap:8px 12px; padding:2px 0 8px; }
+    .interactive-toggle { display:inline-flex; align-items:center; gap:5px; color:#0f172a; font-size:12px; cursor:pointer; }
+    .interactive-toggle::before { content:""; width:18px; height:3px; background:var(--line-color); display:inline-block; }
+    .interactive-toggle input { width:13px; height:13px; margin:0; accent-color:#0b2f66; }
+    .interactive-stage { position:relative; }
+    .spot-line-card .interactive-toggle { font-size:15px; font-weight:700; }
+    .spot-line-card .interactive-toggle::before { width:24px; height:4px; }
+    .spot-line-card .interactive-toggle input { width:16px; height:16px; }
+    .spot-line-card .svg-title { font-size:18px; }
+    .spot-line-card .svg-axis { font-size:13px; }
+    .spot-line-card .latest-label { font-size:13px; }
+    .chart-tooltip { display:none; position:absolute; z-index:20; min-width:190px; max-width:320px; pointer-events:none; background:rgba(15,23,42,.94); color:white; border-radius:6px; padding:10px 12px; font-size:14px; line-height:1.55; box-shadow:0 12px 30px rgba(15,23,42,.28); }
+    .chart-tooltip .tip-date { font-weight:700; color:#dbeafe; margin-bottom:5px; font-size:17px; }
+    .global-chart-tooltip { position:fixed; white-space:normal; }
+    .rotated { writing-mode:tb; glyph-orientation-vertical:0; }
+    .industry-bar-svg { width:100%; }
+    .industry-axis { font-size:16px; dominant-baseline:hanging; }
+    .net-transfer-axis { font-size:13px; fill:#0f2d5c; text-anchor:end; dominant-baseline:middle; }
+    .capacity-title { font-size:26px; fill:#4b5563; }
+    .capacity-axis { font-size:18px; fill:#4b5563; text-anchor:end; dominant-baseline:middle; }
+    .side-toc { position:fixed; left:0; top:0; bottom:0; z-index:70; width:154px; overflow:auto; padding:42px 12px 18px; background:rgba(255,253,249,.98); border-right:1px solid #cbd5e1; box-shadow:8px 0 22px rgba(15,23,42,.08); }
+    .side-toc div { color:#0b2f66; font-size:16px; font-weight:700; margin:0 0 8px; }
+    .side-toc a { display:block; color:#334155; text-decoration:none; font-size:13px; line-height:1.2; padding:7px 6px; border-left:3px solid transparent; }
+    .side-toc a:hover { color:#0b2f66; background:#eef3fb; border-left-color:#b4493f; }
+    .sources { padding:16px 22px 26px; font-size:12px; color:#596273; line-height:1.7; }
+    @media(max-width:1100px) {
+      .grid-2, .mini-chart-row, .mini-chart-grid, .overseas-chart-grid, .spot-season-grid, .decadal-chart-grid, .net-transfer-grid, .regional-structure-grid { grid-template-columns:1fr; }
+      .page { width:100%; margin:0; border:0; box-shadow:none; }
+      body { padding-left:0; }
+      header { padding:14px 14px 10px; }
+      h1 { font-size:24px; }
+      .panel-tabs { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:8px; white-space:nowrap; }
+      .panel-tab { flex:0 0 auto; min-height:34px; padding:6px 10px; font-size:14px; }
+      .side-toc { position:sticky; top:50px; z-index:75; width:100%; max-height:none; padding:7px 8px; display:flex; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; border-right:0; border-bottom:1px solid #cbd5e1; box-shadow:none; }
+      .side-toc div { display:none; }
+      .side-toc a { flex:0 0 auto; padding:5px 9px; border:1px solid #d7dde8; border-left:0; border-radius:3px; background:#f8fafc; font-size:13px; line-height:1.15; white-space:nowrap; }
+      .side-toc a:hover { border-left:0; border-color:#b4493f; }
+      main { padding:0 10px 18px; }
+    }
+    @media(max-width:720px) {
+      body { font-size:14px; }
+      header { padding:10px 10px 8px; }
+      h1 { font-size:22px; }
+      main { padding:0 6px 14px; }
+      h2 { margin:8px 0; font-size:20px; }
+      .report-section { padding:8px 0 16px; }
+      .subpanel { scroll-margin-top:92px; margin:8px 0 12px; padding:6px; }
+      .subpanel > h3 { font-size:17px; padding-left:7px; }
+      .card-head { padding:6px 8px; }
+      .card-head h3 { font-size:16px; }
+      .card-head p { font-size:11px; line-height:1.35; }
+      .card-body { padding:7px; }
+      table { min-width:720px; font-size:11px; }
+      .spot-summary-table { min-width:860px; font-size:11px; }
+      th, td { padding:4px 5px; }
+      .table-card .card-body, .full-table .card-body { max-height:none; overflow-x:auto; overflow-y:visible; -webkit-overflow-scrolling:touch; }
+      .full-table table th:first-child, .full-table table td:first-child,
+      .table-card table th:first-child, .table-card table td:first-child { position:sticky; left:0; z-index:2; background:white; }
+      .full-table table th:first-child, .table-card table th:first-child { z-index:3; background:#e5ebf6; }
+      .summary-text { font-size:14px; line-height:1.65; }
+      .editable-summary-tools { gap:6px; padding:6px; }
+      .summary-tool-btn { min-height:30px; padding:4px 9px; font-size:12px; }
+      .editable-summary-status { width:100%; margin-left:0; font-size:11px; }
+      .interactive-toolbar { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px; }
+      .interactive-toggle { flex:0 0 auto; gap:4px; font-size:10px; white-space:nowrap; }
+      .interactive-toggle::before { width:16px; height:3px; }
+      .interactive-toggle input { width:12px; height:12px; }
+      .spot-line-card .interactive-toggle { font-size:11px; }
+      .spot-line-card .interactive-toggle::before { width:18px; height:3px; }
+      .spot-line-card .interactive-toggle input { width:13px; height:13px; }
+      .svg-title { font-size:12px; }
+      .svg-axis { font-size:8px; }
+      .svg-legend { font-size:7px; }
+      .latest-label { font-size:8px; }
+      .spot-line-card .svg-title { font-size:13px; }
+      .spot-line-card .svg-axis { font-size:9px; }
+      .spot-line-card .latest-label { font-size:9px; }
+      .industry-axis { font-size:11px; }
+      .net-transfer-axis { font-size:9px; }
+      .capacity-title { font-size:18px; }
+      .capacity-axis { font-size:12px; }
+      .regional-structure-title { font-size:15px; }
+      .regional-structure-date, .regional-structure-total, .regional-structure-legend { font-size:10px; }
+      .regional-structure-inside { font-size:9px; }
+      .chart-tooltip { min-width:160px; max-width:calc(100vw - 28px); padding:8px 10px; font-size:12px; }
+      .chart-tooltip .tip-date { font-size:14px; }
+      .sources { padding:12px 10px 18px; font-size:10px; }
+    }
+  </style>
+<style id="power-chart-upgrade-style">
+.power-chart-shell{min-width:0;width:100%;position:relative;margin:4px 0 8px;overflow:hidden}
+.power-chart-title{font-size:16px;font-weight:700;color:#0b2f66;line-height:1.45;padding:4px 8px;text-align:center;overflow-wrap:anywhere}
+.power-chart-canvas{width:100%;height:var(--power-chart-height,320px);min-width:0;touch-action:pan-y}
+.power-chart-years{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:4px 10px;font-size:12px}
+.power-chart-years:empty{display:none}.power-chart-years label{display:inline-flex;align-items:center;gap:3px;white-space:nowrap;cursor:pointer}
+.power-chart-years input{accent-color:#0b2f66}
+@media(max-width:760px){.power-chart-title{font-size:14px}.power-chart-canvas{height:300px}.power-chart-years{gap:7px;padding:4px}}
+</style><script data-power-chart-vendor="" defer="" src="assets/echarts.min.js"></script><style id="mobile-pages-overrides">
+      html { scroll-behavior: smooth; }
+      body { min-width: 0; }
+      .side-toc { display: none !important; }
+      main { margin-left: 0 !important; min-width: 0; }
+      .split-page-tabs {
+        position: sticky; top: 0; z-index: 95; display: flex; flex-wrap: nowrap;
+        gap: 6px; overflow-x: auto; padding: 8px 0; white-space: nowrap;
+        background: rgba(255,253,249,.98); border-bottom: 1px solid var(--line);
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      }
+      .split-page-tabs::-webkit-scrollbar, .section-page-nav::-webkit-scrollbar { display: none; }
+      .split-tab, .section-link {
+        flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none;
+        background: #f8fafc; color: #344054; font-weight: 750; white-space: nowrap;
+      }
+      .split-tab { min-width: 4.4rem; min-height: 36px; padding: 7px 10px; font-size: 14px; }
+      .split-tab.active { color: #fff; background: #b4493f; border-color: #b4493f; }
+      .section-page-nav {
+        position: sticky; top: 53px; z-index: 90; display: flex; gap: 6px;
+        overflow-x: auto; padding: 8px 0 10px; margin: -2px 0 8px;
+        background: rgba(255,253,249,.98); scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .section-link { min-height: 32px; max-width: 82vw; padding: 6px 9px; font-size: 13px; }
+      .section-link.active { color: #fff; background: #183a6b; border-color: #183a6b; }
+      .report-panel > h2 { margin-top: 10px; }
+      img { max-width: 100%; height: auto; }
+      .card-body, .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      @media (max-width: 760px) {
+        header, main { width: auto !important; max-width: none !important; }
+        header { padding-left: 12px !important; padding-right: 12px !important; }
+        main { padding: 0 8px 28px !important; }
+        h1 { font-size: 23px !important; line-height: 1.2; }
+        .subpanel { padding: 6px; margin: 8px 0 12px; }
+        .subpanel > h3 { font-size: 17px; }
+        .grid-2, .chart-grid, .spot-season-grid, .overseas-chart-grid { grid-template-columns: minmax(0, 1fr) !important; }
+        table { min-width: 620px; }
+        svg {
+          display: block;
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+          height: auto !important;
+        }
+        .card-head h3 { font-size: 16px !important; }
+        .card-head p, .table-note, .source-note { font-size: 12px !important; }
+      }
+    </style></head>
+<body>
+<div class="page">
+<nav aria-label="子面板目录" class="side-toc"><div>目录</div><a href="index.html#overview-core">1.1 发电用电</a><a href="overview-overview-investment.html#overview-investment">1.2 电源电网</a><a href="price.html#price-spot">2.1 现货电价</a><a href="price-price-table.html#price-table">2.2 代理电价</a><a href="price-overseas-americas-daily.html#price-overseas">2.3 海外电价</a><a href="price-price-long-contract.html#price-long-contract">2.4 长协电价</a><a href="price-price-capacity.html#price-capacity">2.5 容量电价</a><a href="supply.html#supply-generation">3.1 发电量</a><a href="supply-supply-capacity.html#supply-capacity">3.2 装机</a><a href="supply-supply-regional.html#supply-regional">3.3 分地区发电</a><a href="supply-supply-decadal.html#supply-decadal">3.4 旬度发电</a><a href="supply-supply-utilization-hours.html#supply-utilization-hours">3.5 利用小时</a><a href="supply-supply-regional-structure.html#supply-regional-structure">3.6 分省结构</a><a href="supply-supply-nuclear-maintenance.html#supply-nuclear-maintenance">3.7 核电检修</a><a href="supply-supply-hydrology.html#supply-hydrology">3.8 水电站水情</a><a href="demand.html#demand-total">4.1 用电总量</a><a href="demand-demand-industry.html#demand-industry">4.2 分行业用电</a><a href="trade.html#trade-long-term">5.1 中长期交易</a><a href="trade-trade-center.html#trade-center">5.2 交易中心</a><a href="trade-trade-net-transfer.html#trade-net-transfer">5.3 净输出</a><a href="policy.html#policy-market">6.1 电力市场政策</a><a href="policy-policy-renewable.html#policy-renewable">6.2 新能源政策</a><a href="policy-policy-storage.html#policy-storage">6.3 储能政策</a><a href="storage.html#storage-monthly-install">7.1 储能装机</a><a href="storage-storage-headline-weekly.html#storage-headline-weekly">7.2 储能头条周度</a></nav>
+<header>
+<h1>20261022国内电力看板 手机版</h1>
+</header>
+<main>
+<nav aria-label="一级栏目" class="panel-tabs split-page-tabs"><a class="split-tab" href="index.html">汇总</a><a class="split-tab" href="price.html">价格</a><a class="split-tab" href="supply.html">供给</a><a class="split-tab" href="demand.html">需求</a><a class="split-tab active" href="trade.html">交易</a><a class="split-tab" href="policy.html">政策</a><a class="split-tab" href="storage.html">储能</a></nav>
+
+
+
+
+<section class="report-section report-panel active" id="trade"><h2>交易</h2><nav aria-label="专题栏目" class="section-page-nav"><a class="section-link" href="trade.html#trade-long-term">5.1 中长期电力直接交易</a><a class="section-link active" href="trade-trade-center.html#trade-center">5.2 电力交易中心交易</a><a class="section-link" href="trade-trade-net-transfer.html#trade-net-transfer">5.3 省份净输出电量</a></nav><section class="subpanel" id="trade-center"><h3>5.2 电力交易中心交易</h3><div class="grid-2"><div class="card table-card full-table wide-card"><div class="card-head"><h3>交易中心核心指标</h3><p>合计、省内、省间、国网与南网，展示最近 5 期及同环比；表头月份即对应期数。</p></div><div class="card-body"><table><thead><tr><th>指标</th><th>04月</th><th>05月</th><th>06月</th><th>07月</th><th>08月</th><th>最新(08月)</th><th>上月(07月)</th><th>月环比/变化</th><th>去年同期(2025年08月)</th><th>年同比/变化</th><th>单位</th></tr></thead><tbody><tr><td>交易中心合计:当月值</td><td>5,883.0</td><td>6,268.0</td><td>6,275.0</td><td>7,404.0</td><td>7,548.0</td><td>7,548.0</td><td>7,404.0</td><td class="pos" style="background:rgba(220,38,38,0.067);color:#111827;">+1.9%</td><td>6,550.2</td><td class="pos" style="background:rgba(220,38,38,0.528);color:#111827;">+15.2%</td><td>亿千瓦时</td></tr><tr><td>交易中心合计:累计值</td><td>24,163.0</td><td>30,431.0</td><td>36,706.0</td><td>44,110.0</td><td>51,658.0</td><td>51,658.0</td><td>44,110.0</td><td class="pos" style="background:rgba(220,38,38,0.593);color:#111827;">+17.1%</td><td>42,162.4</td><td class="pos" style="background:rgba(220,38,38,0.780);color:#111827;">+22.5%</td><td>亿千瓦时</td></tr><tr><td>交易中心合计占全社会用电累计比重(计算)</td><td>+72.9%</td><td>+72.8%</td><td>+72.3%</td><td>+72.1%</td><td>+72.2%</td><td>+72.2%</td><td>+72.1%</td><td class="pos" style="background:rgba(220,38,38,0.005);color:#111827;">+0.1pct</td><td>+63.2%</td><td class="pos" style="background:rgba(220,38,38,0.314);color:#111827;">+9.1pct</td><td>%</td></tr><tr><td>省内交易:当月值</td><td>4,730.0</td><td>4,906.0</td><td>4,774.0</td><td>5,491.0</td><td>5,638.0</td><td>5,638.0</td><td>5,491.0</td><td class="pos" style="background:rgba(220,38,38,0.093);color:#111827;">+2.7%</td><td>4,859.3</td><td class="pos" style="background:rgba(220,38,38,0.555);color:#111827;">+16.0%</td><td>亿千瓦时</td></tr><tr><td>省间交易:当月值</td><td>1,153.0</td><td>1,362.0</td><td>1,501.0</td><td>1,913.0</td><td>1,910.0</td><td>1,910.0</td><td>1,913.0</td><td class="neg" style="background:rgba(37,99,235,0.005);color:#111827;">-0.2%</td><td>1,690.9</td><td class="pos" style="background:rgba(220,38,38,0.449);color:#111827;">+13.0%</td><td>亿千瓦时</td></tr><tr><td>国网区域累计值</td><td>19,027.0</td><td>23,792.0</td><td>28,573.0</td><td>34,396.0</td><td>40,264.0</td><td>40,264.0</td><td>34,396.0</td><td class="pos" style="background:rgba(220,38,38,0.591);color:#111827;">+17.1%</td><td>33,334.1</td><td class="pos" style="background:rgba(220,38,38,0.720);color:#111827;">+20.8%</td><td>亿千瓦时</td></tr><tr><td>南网区域累计值</td><td>4,092.0</td><td>5,263.0</td><td>6,459.0</td><td>7,702.0</td><td>9,044.0</td><td>9,044.0</td><td>7,702.0</td><td class="pos" style="background:rgba(220,38,38,0.603);color:#111827;">+17.4%</td><td>7,828.7</td><td class="pos" style="background:rgba(220,38,38,0.538);color:#111827;">+15.5%</td><td>亿千瓦时</td></tr></tbody></table></div></div><div class="card wide-card"><div class="card-head"><h3>交易中心占全社会用电比重</h3><p>交易中心累计交易电量 / 全社会累计用电量。</p></div><div class="card-body">
+<div class="power-chart-shell" data-chart-title="交易中心交易电量占全社会用电累计比重" style="--power-chart-height:430px"><div class="power-chart-title">交易中心交易电量占全社会用电累计比重</div><div class="power-chart-years"></div><div aria-label="交易中心交易电量占全社会用电累计比重" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"交易中心交易电量占全社会用电累计比重","mode":"timeline","unit":"%","digits":1,"series":[{"label":"合计累计比重","points":[{"date":"2021-09","value":43.944},{"date":"2021-10","value":44.076},{"date":"2021-11","value":44.708},{"date":"2021-12","value":45.457},{"date":"2022-01","value":68.735},{"date":"2022-02","value":68.998},{"date":"2022-03","value":69.135},{"date":"2022-04","value":60.804},{"date":"2022-05","value":60.339},{"date":"2022-06","value":60.585},{"date":"2022-07","value":59.967},{"date":"2022-08","value":59.783},{"date":"2022-09","value":59.893},{"date":"2022-10","value":60.065},{"date":"2022-11","value":60.523},{"date":"2022-12","value":60.834},{"date":"2023-01","value":60.886},{"date":"2023-02","value":61.679},{"date":"2023-03","value":62.422},{"date":"2023-04","value":62.516},{"date":"2023-05","value":62.023},{"date":"2023-06","value":61.522},{"date":"2023-07","value":61.413},{"date":"2023-08","value":61.38},{"date":"2023-09","value":61.262},{"date":"2023-10","value":61.239},{"date":"2023-11","value":60.979},{"date":"2023-12","value":61.447},{"date":"2024-02","value":61.675},{"date":"2024-03","value":60.961},{"date":"2024-04","value":60.456},{"date":"2024-05","value":60.392},{"date":"2024-06","value":61.128},{"date":"2024-07","value":62.445},{"date":"2024-08","value":61.855},{"date":"2024-09","value":61.995},{"date":"2024-10","value":62.174},{"date":"2024-11","value":62.473},{"date":"2024-12","value":62.723},{"date":"2025-02","value":61.054},{"date":"2025-03","value":61.121},{"date":"2025-04","value":61.316},{"date":"2025-05","value":61.753},{"date":"2025-06","value":60.897},{"date":"2025-07","value":61.228},{"date":"2025-08","value":63.153},{"date":"2025-09","value":63.391},{"date":"2025-10","value":63.677},{"date":"2025-11","value":63.741},{"date":"2025-12","value":64.036},{"date":"2026-02","value":72.072},{"date":"2026-03","value":73.251},{"date":"2026-04","value":72.895},{"date":"2026-05","value":72.762},{"date":"2026-06","value":72.252},{"date":"2026-07","value":72.073},{"date":"2026-08","value":72.215}]}],"categories":null,"colors":null,"yearFilter":true}</script></div>
+</div></div><div class="card wide-card"><div class="card-head"><h3>省内、省间占比</h3><p>省内交易与省间交易占比。</p></div><div class="card-body"><svg aria-label="交易中心省内/省间交易占比" role="img" viewbox="0 0 1180 360"><text class="svg-title" x="58" y="22">交易中心省内/省间交易占比</text><rect fill="#2f5597" height="8" width="12" x="58" y="34"></rect><text class="svg-axis svg-legend" x="74" y="42">省内占比</text><rect fill="#d00000" height="8" width="12" x="150" y="34"></rect><text class="svg-axis svg-legend" x="166" y="42">省间占比</text><line stroke="#e5e7eb" x1="58" x2="1158" y1="288.0" y2="288.0"></line><text class="svg-axis" text-anchor="end" x="51" y="292.0">0%</text><line stroke="#e5e7eb" x1="58" x2="1158" y1="229.0" y2="229.0"></line><text class="svg-axis" text-anchor="end" x="51" y="233.0">25%</text><line stroke="#e5e7eb" x1="58" x2="1158" y1="170.0" y2="170.0"></line><text class="svg-axis" text-anchor="end" x="51" y="174.0">50%</text><line stroke="#e5e7eb" x1="58" x2="1158" y1="111.0" y2="111.0"></line><text class="svg-axis" text-anchor="end" x="51" y="115.0">75%</text><line stroke="#e5e7eb" x1="58" x2="1158" y1="52.0" y2="52.0"></line><text class="svg-axis" text-anchor="end" x="51" y="56.0">100%</text><polygon fill="#2f5597" opacity="0.95" points="58.0,90.9 78.8,90.8 99.5,89.8 120.3,95.8 141.0,97.3 161.8,104.3 182.5,101.3 203.3,100.9 224.0,96.7 244.8,99.0 265.5,100.1 286.3,102.2 307.1,99.7 327.8,96.4 348.6,97.5 369.3,96.3 390.1,96.6 410.8,101.0 431.6,103.0 452.3,105.1 473.1,101.4 493.8,99.0 514.6,100.1 535.4,101.5 556.1,101.6 576.9,97.8 597.6,97.9 618.4,97.8 639.1,96.8 659.9,102.5 680.6,120.0 701.4,112.0 722.2,106.5 742.9,104.5 763.7,104.2 784.4,105.5 805.2,105.8 825.9,103.1 846.7,103.5 867.4,103.6 888.2,107.4 908.9,107.2 929.7,112.9 950.5,110.8 971.2,104.8 992.0,105.4 1012.7,107.9 1033.5,99.1 1054.2,97.8 1075.0,98.3 1095.7,103.3 1116.5,108.5 1137.2,113.0 1158.0,111.7 1158.0,288.0 1137.2,288.0 1116.5,288.0 1095.7,288.0 1075.0,288.0 1054.2,288.0 1033.5,288.0 1012.7,288.0 992.0,288.0 971.2,288.0 950.5,288.0 929.7,288.0 908.9,288.0 888.2,288.0 867.4,288.0 846.7,288.0 825.9,288.0 805.2,288.0 784.4,288.0 763.7,288.0 742.9,288.0 722.2,288.0 701.4,288.0 680.6,288.0 659.9,288.0 639.1,288.0 618.4,288.0 597.6,288.0 576.9,288.0 556.1,288.0 535.4,288.0 514.6,288.0 493.8,288.0 473.1,288.0 452.3,288.0 431.6,288.0 410.8,288.0 390.1,288.0 369.3,288.0 348.6,288.0 327.8,288.0 307.1,288.0 286.3,288.0 265.5,288.0 244.8,288.0 224.0,288.0 203.3,288.0 182.5,288.0 161.8,288.0 141.0,288.0 120.3,288.0 99.5,288.0 78.8,288.0 58.0,288.0"></polygon><polygon fill="#d00000" opacity="0.95" points="58.0,52.0 78.8,52.0 99.5,52.0 120.3,52.0 141.0,52.0 161.8,52.0 182.5,52.0 203.3,52.0 224.0,52.0 244.8,52.0 265.5,52.0 286.3,52.0 307.1,52.0 327.8,52.0 348.6,52.0 369.3,52.0 390.1,52.0 410.8,52.0 431.6,52.0 452.3,52.0 473.1,52.0 493.8,52.0 514.6,52.0 535.4,52.0 556.1,52.0 576.9,52.0 597.6,52.3 618.4,52.0 639.1,52.0 659.9,52.0 680.6,52.0 701.4,52.0 722.2,52.0 742.9,52.0 763.7,52.0 784.4,52.0 805.2,52.0 825.9,52.0 846.7,52.0 867.4,52.0 888.2,52.0 908.9,52.0 929.7,52.0 950.5,52.0 971.2,52.0 992.0,52.0 1012.7,52.0 1033.5,52.0 1054.2,52.0 1075.0,52.0 1095.7,52.0 1116.5,52.0 1137.2,52.0 1158.0,52.0 1158.0,111.7 1137.2,113.0 1116.5,108.5 1095.7,103.3 1075.0,98.3 1054.2,97.8 1033.5,99.1 1012.7,107.9 992.0,105.4 971.2,104.8 950.5,110.8 929.7,112.9 908.9,107.2 888.2,107.4 867.4,103.6 846.7,103.5 825.9,103.1 805.2,105.8 784.4,105.5 763.7,104.2 742.9,104.5 722.2,106.5 701.4,112.0 680.6,120.0 659.9,102.5 639.1,96.8 618.4,97.8 597.6,97.9 576.9,97.8 556.1,101.6 535.4,101.5 514.6,100.1 493.8,99.0 473.1,101.4 452.3,105.1 431.6,103.0 410.8,101.0 390.1,96.6 369.3,96.3 348.6,97.5 327.8,96.4 307.1,99.7 286.3,102.2 265.5,100.1 244.8,99.0 224.0,96.7 203.3,100.9 182.5,101.3 161.8,104.3 141.0,97.3 120.3,95.8 99.5,89.8 78.8,90.8 58.0,90.9"></polygon><text class="svg-axis" text-anchor="end" transform="rotate(-50 58.0 342)" x="58.0" y="342">20/12</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 78.8 342)" x="78.8" y="342">21/3</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 99.5 342)" x="99.5" y="342">21/4</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 120.3 342)" x="120.3" y="342">21/5</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 141.0 342)" x="141.0" y="342">21/6</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 161.8 342)" x="161.8" y="342">21/7</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 182.5 342)" x="182.5" y="342">21/8</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 203.3 342)" x="203.3" y="342">21/9</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 224.0 342)" x="224.0" y="342">21/10</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 244.8 342)" x="244.8" y="342">21/11</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 265.5 342)" x="265.5" y="342">21/12</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 286.3 342)" x="286.3" y="342">22/1</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 307.1 342)" x="307.1" y="342">22/2</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 327.8 342)" x="327.8" y="342">22/3</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 348.6 342)" x="348.6" y="342">22/4</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 369.3 342)" x="369.3" y="342">22/5</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 390.1 342)" x="390.1" y="342">22/6</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 410.8 342)" x="410.8" y="342">22/7</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 431.6 342)" x="431.6" y="342">22/8</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 452.3 342)" x="452.3" y="342">22/9</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 473.1 342)" x="473.1" y="342">22/10</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 493.8 342)" x="493.8" y="342">22/11</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 514.6 342)" x="514.6" y="342">22/12</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 535.4 342)" x="535.4" y="342">23/1</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 556.1 342)" x="556.1" y="342">23/2</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 576.9 342)" x="576.9" y="342">23/3</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 597.6 342)" x="597.6" y="342">23/4</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 618.4 342)" x="618.4" y="342">23/5</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 639.1 342)" x="639.1" y="342">23/6</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 659.9 342)" x="659.9" y="342">23/7</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 680.6 342)" x="680.6" y="342">23/8</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 701.4 342)" x="701.4" y="342">23/9</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 722.2 342)" x="722.2" y="342">23/10</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 742.9 342)" x="742.9" y="342">23/11</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 763.7 342)" x="763.7" y="342">23/12</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 784.4 342)" x="784.4" y="342">24/1</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 805.2 342)" x="805.2" y="342">24/2</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 825.9 342)" x="825.9" y="342">24/3</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 846.7 342)" x="846.7" y="342">24/4</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 867.4 342)" x="867.4" y="342">24/5</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 888.2 342)" x="888.2" y="342">24/6</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 908.9 342)" x="908.9" y="342">24/7</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 929.7 342)" x="929.7" y="342">24/9</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 950.5 342)" x="950.5" y="342">24/10</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 971.2 342)" x="971.2" y="342">24/11</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 992.0 342)" x="992.0" y="342">24/12</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 1012.7 342)" x="1012.7" y="342">25/2</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 1033.5 342)" x="1033.5" y="342">25/4</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 1054.2 342)" x="1054.2" y="342">25/5</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 1075.0 342)" x="1075.0" y="342">25/6</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 1095.7 342)" x="1095.7" y="342">25/7</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 1116.5 342)" x="1116.5" y="342">25/8</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 1137.2 342)" x="1137.2" y="342">25/9</text><text class="svg-axis" text-anchor="end" transform="rotate(-50 1158.0 342)" x="1158.0" y="342">25/10</text><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2020-12\n省内占比: 83.5%\n省间占比: 16.5%" fill="transparent" height="236.0" width="10.4" x="58.0" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2021-03\n省内占比: 83.6%\n省间占比: 16.4%" fill="transparent" height="236.0" width="20.8" x="68.4" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2021-04\n省内占比: 84.0%\n省间占比: 16.0%" fill="transparent" height="236.0" width="20.8" x="89.1" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2021-05\n省内占比: 81.5%\n省间占比: 18.5%" fill="transparent" height="236.0" width="20.8" x="109.9" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2021-06\n省内占比: 80.8%\n省间占比: 19.2%" fill="transparent" height="236.0" width="20.8" x="130.6" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2021-07\n省内占比: 77.9%\n省间占比: 22.1%" fill="transparent" height="236.0" width="20.8" x="151.4" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2021-08\n省内占比: 79.1%\n省间占比: 20.9%" fill="transparent" height="236.0" width="20.8" x="172.2" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2021-09\n省内占比: 79.3%\n省间占比: 20.7%" fill="transparent" height="236.0" width="20.8" x="192.9" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2021-10\n省内占比: 81.1%\n省间占比: 18.9%" fill="transparent" height="236.0" width="20.8" x="213.7" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2021-11\n省内占比: 80.1%\n省间占比: 19.9%" fill="transparent" height="236.0" width="20.8" x="234.4" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2021-12\n省内占比: 79.6%\n省间占比: 20.4%" fill="transparent" height="236.0" width="20.8" x="255.2" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2022-01\n省内占比: 78.7%\n省间占比: 21.3%" fill="transparent" height="236.0" width="20.8" x="275.9" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2022-02\n省内占比: 79.8%\n省间占比: 20.2%" fill="transparent" height="236.0" width="20.8" x="296.7" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2022-03\n省内占比: 81.2%\n省间占比: 18.8%" fill="transparent" height="236.0" width="20.8" x="317.4" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2022-04\n省内占比: 80.7%\n省间占比: 19.3%" fill="transparent" height="236.0" width="20.8" x="338.2" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2022-05\n省内占比: 81.2%\n省间占比: 18.8%" fill="transparent" height="236.0" width="20.8" x="358.9" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2022-06\n省内占比: 81.1%\n省间占比: 18.9%" fill="transparent" height="236.0" width="20.8" x="379.7" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2022-07\n省内占比: 79.2%\n省间占比: 20.8%" fill="transparent" height="236.0" width="20.8" x="400.5" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2022-08\n省内占比: 78.4%\n省间占比: 21.6%" fill="transparent" height="236.0" width="20.8" x="421.2" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2022-09\n省内占比: 77.5%\n省间占比: 22.5%" fill="transparent" height="236.0" width="20.8" x="442.0" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2022-10\n省内占比: 79.0%\n省间占比: 21.0%" fill="transparent" height="236.0" width="20.8" x="462.7" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2022-11\n省内占比: 80.1%\n省间占比: 19.9%" fill="transparent" height="236.0" width="20.8" x="483.5" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2022-12\n省内占比: 79.6%\n省间占比: 20.4%" fill="transparent" height="236.0" width="20.8" x="504.2" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2023-01\n省内占比: 79.0%\n省间占比: 21.0%" fill="transparent" height="236.0" width="20.8" x="525.0" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2023-02\n省内占比: 79.0%\n省间占比: 21.0%" fill="transparent" height="236.0" width="20.8" x="545.7" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2023-03\n省内占比: 80.6%\n省间占比: 19.4%" fill="transparent" height="236.0" width="20.8" x="566.5" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2023-04\n省内占比: 80.5%\n省间占比: 19.3%" fill="transparent" height="236.0" width="20.8" x="587.2" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2023-05\n省内占比: 80.6%\n省间占比: 19.4%" fill="transparent" height="236.0" width="20.8" x="608.0" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2023-06\n省内占比: 81.0%\n省间占比: 19.0%" fill="transparent" height="236.0" width="20.8" x="628.8" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2023-07\n省内占比: 78.6%\n省间占比: 21.4%" fill="transparent" height="236.0" width="20.8" x="649.5" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2023-08\n省内占比: 71.2%\n省间占比: 28.8%" fill="transparent" height="236.0" width="20.8" x="670.3" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2023-09\n省内占比: 74.6%\n省间占比: 25.4%" fill="transparent" height="236.0" width="20.8" x="691.0" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2023-10\n省内占比: 76.9%\n省间占比: 23.1%" fill="transparent" height="236.0" width="20.8" x="711.8" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2023-11\n省内占比: 77.8%\n省间占比: 22.2%" fill="transparent" height="236.0" width="20.8" x="732.5" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2023-12\n省内占比: 77.9%\n省间占比: 22.1%" fill="transparent" height="236.0" width="20.8" x="753.3" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2024-01\n省内占比: 77.3%\n省间占比: 22.7%" fill="transparent" height="236.0" width="20.8" x="774.0" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2024-02\n省内占比: 77.2%\n省间占比: 22.8%" fill="transparent" height="236.0" width="20.8" x="794.8" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2024-03\n省内占比: 78.3%\n省间占比: 21.7%" fill="transparent" height="236.0" width="20.8" x="815.5" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2024-04\n省内占比: 78.2%\n省间占比: 21.8%" fill="transparent" height="236.0" width="20.8" x="836.3" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2024-05\n省内占比: 78.1%\n省间占比: 21.9%" fill="transparent" height="236.0" width="20.8" x="857.1" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2024-06\n省内占比: 76.5%\n省间占比: 23.5%" fill="transparent" height="236.0" width="20.8" x="877.8" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2024-07\n省内占比: 76.6%\n省间占比: 23.4%" fill="transparent" height="236.0" width="20.8" x="898.6" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2024-09\n省内占比: 74.2%\n省间占比: 25.8%" fill="transparent" height="236.0" width="20.8" x="919.3" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2024-10\n省内占比: 75.1%\n省间占比: 24.9%" fill="transparent" height="236.0" width="20.8" x="940.1" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2024-11\n省内占比: 77.6%\n省间占比: 22.4%" fill="transparent" height="236.0" width="20.8" x="960.8" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2024-12\n省内占比: 77.4%\n省间占比: 22.6%" fill="transparent" height="236.0" width="20.8" x="981.6" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2025-02\n省内占比: 76.3%\n省间占比: 23.7%" fill="transparent" height="236.0" width="20.8" x="1002.3" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2025-04\n省内占比: 80.0%\n省间占比: 20.0%" fill="transparent" height="236.0" width="20.8" x="1023.1" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2025-05\n省内占比: 80.6%\n省间占比: 19.4%" fill="transparent" height="236.0" width="20.8" x="1043.8" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2025-06\n省内占比: 80.4%\n省间占比: 19.6%" fill="transparent" height="236.0" width="20.8" x="1064.6" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2025-07\n省内占比: 78.3%\n省间占比: 21.7%" fill="transparent" height="236.0" width="20.8" x="1085.4" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2025-08\n省内占比: 76.1%\n省间占比: 23.9%" fill="transparent" height="236.0" width="20.8" x="1106.1" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2025-09\n省内占比: 74.2%\n省间占比: 25.8%" fill="transparent" height="236.0" width="20.8" x="1126.9" y="52.0"></rect><rect class="chart-point hover-zone" data-tip="交易中心省内/省间交易占比\n2025-10\n省内占比: 74.7%\n省间占比: 25.3%" fill="transparent" height="236.0" width="10.4" x="1147.6" y="52.0"></rect></svg></div></div><div class="card wide-card"><div class="card-head"><h3>交易中心合计、省内、省间季节性</h3><p>第一排为当月值，第二排为累计值；1-2 月当月值按 2 月累计值平分。</p></div><div class="card-body"><div class="mini-chart-grid"><div class="power-chart-shell" data-chart-title="交易中心合计:当月值" style="--power-chart-height:280px"><div class="power-chart-title">交易中心合计:当月值</div><div class="power-chart-years"></div><div aria-label="交易中心合计:当月值" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"交易中心合计:当月值","mode":"monthly","unit":"","digits":1,"series":[{"label":"2021","points":[{"date":"1月","value":null},{"date":"2月","value":null},{"date":"3月","value":null},{"date":"4月","value":2963.3},{"date":"5月","value":2964.2},{"date":"6月","value":3232.2},{"date":"7月","value":3483.0},{"date":"8月","value":3392.0},{"date":"9月","value":3273.3},{"date":"10月","value":3023.1},{"date":"11月","value":2989.1},{"date":"12月","value":4087.7}]},{"label":"2022","points":[{"date":"1月","value":4970.9},{"date":"2月","value":4646.0},{"date":"3月","value":4566.5},{"date":"4月","value":3795.8},{"date":"5月","value":3974.2},{"date":"6月","value":4221.1},{"date":"7月","value":4931.3},{"date":"8月","value":5009.3},{"date":"9月","value":4244.1},{"date":"10月","value":4113.4},{"date":"11月","value":4370.5},{"date":"12月","value":4817.7}]},{"label":"2023","points":[{"date":"1月","value":4191.4},{"date":"2月","value":4266.35},{"date":"3月","value":4589.5},{"date":"4月","value":4287.3},{"date":"5月","value":4343.4},{"date":"6月","value":4559.8},{"date":"7月","value":5313.5},{"date":"8月","value":5273.2},{"date":"9月","value":4649.6},{"date":"10月","value":4531.1},{"date":"11月","value":4674.1},{"date":"12月","value":5659.8}]},{"label":"2024","points":[{"date":"1月","value":5215.9},{"date":"2月","value":4723.05},{"date":"3月","value":4846.0},{"date":"4月","value":4334.3},{"date":"5月","value":4582.5},{"date":"6月","value":4931.1},{"date":"7月","value":6035.0},{"date":"8月","value":5868.3},{"date":"9月","value":5221.3},{"date":"10月","value":4878.4},{"date":"11月","value":4953.8},{"date":"12月","value":5701.2}]},{"label":"2025","points":[{"date":"1月","value":4751.25},{"date":"2月","value":4751.25},{"date":"3月","value":5119.0},{"date":"4月","value":4698.8},{"date":"5月","value":5025.7},{"date":"6月","value":5020.2},{"date":"7月","value":6246.0},{"date":"8月","value":6550.2},{"date":"9月","value":5732.0},{"date":"10月","value":5638.0},{"date":"11月","value":5484.0},{"date":"12月","value":6080.0}]},{"label":"2026","points":[{"date":"1月","value":5962.5},{"date":"2月","value":5962.5},{"date":"3月","value":6355.0},{"date":"4月","value":5883.0},{"date":"5月","value":6268.0},{"date":"6月","value":6275.0},{"date":"7月","value":7404.0},{"date":"8月","value":7548.0},{"date":"9月","value":null},{"date":"10月","value":null},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="省内交易:当月值" style="--power-chart-height:280px"><div class="power-chart-title">省内交易:当月值</div><div class="power-chart-years"></div><div aria-label="省内交易:当月值" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"省内交易:当月值","mode":"monthly","unit":"","digits":1,"series":[{"label":"2021","points":[{"date":"1月","value":null},{"date":"2月","value":null},{"date":"3月","value":null},{"date":"4月","value":2477.8},{"date":"5月","value":2472.6},{"date":"6月","value":2634.2},{"date":"7月","value":2700.3},{"date":"8月","value":2625.6},{"date":"9月","value":2608.7},{"date":"10月","value":2423.6},{"date":"11月","value":2492.6},{"date":"12月","value":3269.2}]},{"label":"2022","points":[{"date":"1月","value":4152.0},{"date":"2月","value":3807.6},{"date":"3月","value":3835.4},{"date":"4月","value":3092.1},{"date":"5月","value":3211.7},{"date":"6月","value":3286.2},{"date":"7月","value":3900.5},{"date":"8月","value":3971.0},{"date":"9月","value":3440.9},{"date":"10月","value":3294.4},{"date":"11月","value":3480.6},{"date":"12月","value":3793.5}]},{"label":"2023","points":[{"date":"1月","value":3343.5},{"date":"2月","value":3435.1},{"date":"3月","value":3704.8},{"date":"4月","value":3482.0},{"date":"5月","value":3522.1},{"date":"6月","value":3612.5},{"date":"7月","value":4165.9},{"date":"8月","value":4086.5},{"date":"9月","value":3675.4},{"date":"10月","value":3629.5},{"date":"11月","value":3720.6},{"date":"12月","value":4472.5}]},{"label":"2024","points":[{"date":"1月","value":4120.4},{"date":"2月","value":3736.3999999999996},{"date":"3月","value":3903.3},{"date":"4月","value":3492.6},{"date":"5月","value":3713.1},{"date":"6月","value":3874.9},{"date":"7月","value":4294.9},{"date":"8月","value":4377.4},{"date":"9月","value":4015.1},{"date":"10月","value":3793.1},{"date":"11月","value":3858.7},{"date":"12月","value":4407.8}]},{"label":"2025","points":[{"date":"1月","value":1788.15},{"date":"2月","value":1788.15},{"date":"3月","value":4002.7},{"date":"4月","value":3671.6},{"date":"5月","value":3845.0},{"date":"6月","value":3846.6},{"date":"7月","value":4614.0},{"date":"8月","value":4859.3},{"date":"9月","value":4303.0},{"date":"10月","value":4377.0},{"date":"11月","value":4243.0},{"date":"12月","value":4641.0}]},{"label":"2026","points":[{"date":"1月","value":4771.5},{"date":"2月","value":4771.5},{"date":"3月","value":5121.0},{"date":"4月","value":4730.0},{"date":"5月","value":4906.0},{"date":"6月","value":4774.0},{"date":"7月","value":5491.0},{"date":"8月","value":5638.0},{"date":"9月","value":null},{"date":"10月","value":null},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="省间交易:当月值" style="--power-chart-height:280px"><div class="power-chart-title">省间交易:当月值</div><div class="power-chart-years"></div><div aria-label="省间交易:当月值" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"省间交易:当月值","mode":"monthly","unit":"","digits":1,"series":[{"label":"2021","points":[{"date":"1月","value":null},{"date":"2月","value":null},{"date":"3月","value":null},{"date":"4月","value":485.5},{"date":"5月","value":491.6},{"date":"6月","value":598.0},{"date":"7月","value":782.2},{"date":"8月","value":766.2},{"date":"9月","value":664.5},{"date":"10月","value":599.5},{"date":"11月","value":496.5},{"date":"12月","value":818.6}]},{"label":"2022","points":[{"date":"1月","value":819.0},{"date":"2月","value":750.2},{"date":"3月","value":731.1},{"date":"4月","value":703.7},{"date":"5月","value":762.5},{"date":"6月","value":934.9},{"date":"7月","value":1030.8},{"date":"8月","value":1038.4},{"date":"9月","value":803.2},{"date":"10月","value":819.1},{"date":"11月","value":889.9},{"date":"12月","value":1024.2}]},{"label":"2023","points":[{"date":"1月","value":847.9},{"date":"2月","value":832.7},{"date":"3月","value":884.7},{"date":"4月","value":805.3},{"date":"5月","value":821.4},{"date":"6月","value":947.3},{"date":"7月","value":1147.6},{"date":"8月","value":1186.7},{"date":"9月","value":974.2},{"date":"10月","value":901.6},{"date":"11月","value":953.4},{"date":"12月","value":1187.4}]},{"label":"2024","points":[{"date":"1月","value":1095.5},{"date":"2月","value":951.8},{"date":"3月","value":936.6},{"date":"4月","value":841.7},{"date":"5月","value":869.3},{"date":"6月","value":1056.2},{"date":"7月","value":1740.2},{"date":"8月","value":1490.8},{"date":"9月","value":1206.2},{"date":"10月","value":1085.3},{"date":"11月","value":1095.1},{"date":"12月","value":1293.4}]},{"label":"2025","points":[{"date":"1月","value":494.8},{"date":"2月","value":494.8},{"date":"3月","value":1116.3},{"date":"4月","value":1027.2},{"date":"5月","value":1180.7},{"date":"6月","value":1173.6},{"date":"7月","value":null},{"date":"8月","value":1690.9},{"date":"9月","value":1429.0},{"date":"10月","value":1262.0},{"date":"11月","value":1241.0},{"date":"12月","value":1439.0}]},{"label":"2026","points":[{"date":"1月","value":1191.0},{"date":"2月","value":1191.0},{"date":"3月","value":1234.0},{"date":"4月","value":1153.0},{"date":"5月","value":1362.0},{"date":"6月","value":1501.0},{"date":"7月","value":1913.0},{"date":"8月","value":1910.0},{"date":"9月","value":null},{"date":"10月","value":null},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="交易中心合计:累计值" style="--power-chart-height:280px"><div class="power-chart-title">交易中心合计:累计值</div><div class="power-chart-years"></div><div aria-label="交易中心合计:累计值" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"交易中心合计:累计值","mode":"monthly","unit":"","digits":1,"series":[{"label":"2021","points":[{"date":"1月","value":null},{"date":"2月","value":null},{"date":"3月","value":null},{"date":"4月","value":2963.3},{"date":"5月","value":5927.5},{"date":"6月","value":9159.7},{"date":"7月","value":12642.7},{"date":"8月","value":16034.7},{"date":"9月","value":19308.0},{"date":"10月","value":22331.1},{"date":"11月","value":25320.2},{"date":"12月","value":29407.9}]},{"label":"2022","points":[{"date":"1月","value":4970.9},{"date":"2月","value":9616.9},{"date":"3月","value":14183.4},{"date":"4月","value":17979.2},{"date":"5月","value":21953.4},{"date":"6月","value":26174.5},{"date":"7月","value":31105.8},{"date":"8月","value":36115.1},{"date":"9月","value":40359.2},{"date":"10月","value":44472.6},{"date":"11月","value":48843.1},{"date":"12月","value":53660.8}]},{"label":"2023","points":[{"date":"1月","value":4191.4},{"date":"2月","value":8457.75},{"date":"3月","value":13047.25},{"date":"4月","value":17334.55},{"date":"5月","value":21677.95},{"date":"6月","value":26237.75},{"date":"7月","value":31551.25},{"date":"8月","value":36824.45},{"date":"9月","value":41474.05},{"date":"10月","value":46005.15},{"date":"11月","value":50679.25},{"date":"12月","value":56339.05}]},{"label":"2024","points":[{"date":"1月","value":5215.9},{"date":"2月","value":9938.95},{"date":"3月","value":14784.95},{"date":"4月","value":19119.25},{"date":"5月","value":23701.75},{"date":"6月","value":28632.85},{"date":"7月","value":34667.85},{"date":"8月","value":40536.15},{"date":"9月","value":45757.45},{"date":"10月","value":50635.85},{"date":"11月","value":55589.65},{"date":"12月","value":61290.85}]},{"label":"2025","points":[{"date":"1月","value":4751.25},{"date":"2月","value":9502.5},{"date":"3月","value":14621.5},{"date":"4月","value":19320.3},{"date":"5月","value":24346.0},{"date":"6月","value":29366.2},{"date":"7月","value":35612.2},{"date":"8月","value":42162.4},{"date":"9月","value":47894.4},{"date":"10月","value":53532.4},{"date":"11月","value":59016.4},{"date":"12月","value":65096.4}]},{"label":"2026","points":[{"date":"1月","value":5962.5},{"date":"2月","value":11925.0},{"date":"3月","value":18280.0},{"date":"4月","value":24163.0},{"date":"5月","value":30431.0},{"date":"6月","value":36706.0},{"date":"7月","value":44110.0},{"date":"8月","value":51658.0},{"date":"9月","value":null},{"date":"10月","value":null},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="省内交易:累计值(计算)" style="--power-chart-height:280px"><div class="power-chart-title">省内交易:累计值(计算)</div><div class="power-chart-years"></div><div aria-label="省内交易:累计值(计算)" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"省内交易:累计值(计算)","mode":"monthly","unit":"","digits":1,"series":[{"label":"2021","points":[{"date":"1月","value":null},{"date":"2月","value":null},{"date":"3月","value":null},{"date":"4月","value":2477.8},{"date":"5月","value":4950.4},{"date":"6月","value":7584.6},{"date":"7月","value":10284.9},{"date":"8月","value":12910.5},{"date":"9月","value":15519.2},{"date":"10月","value":17942.8},{"date":"11月","value":20435.4},{"date":"12月","value":23704.6}]},{"label":"2022","points":[{"date":"1月","value":4152.0},{"date":"2月","value":7959.6},{"date":"3月","value":11795.0},{"date":"4月","value":14887.1},{"date":"5月","value":18098.8},{"date":"6月","value":21385.0},{"date":"7月","value":25285.5},{"date":"8月","value":29256.5},{"date":"9月","value":32697.4},{"date":"10月","value":35991.8},{"date":"11月","value":39472.4},{"date":"12月","value":43265.9}]},{"label":"2023","points":[{"date":"1月","value":3343.5},{"date":"2月","value":6778.6},{"date":"3月","value":10483.4},{"date":"4月","value":13965.4},{"date":"5月","value":17487.5},{"date":"6月","value":21100.0},{"date":"7月","value":25265.9},{"date":"8月","value":29352.4},{"date":"9月","value":33027.8},{"date":"10月","value":36657.3},{"date":"11月","value":40377.9},{"date":"12月","value":44850.4}]},{"label":"2024","points":[{"date":"1月","value":4120.4},{"date":"2月","value":7856.799999999999},{"date":"3月","value":11760.099999999999},{"date":"4月","value":15252.699999999999},{"date":"5月","value":18965.8},{"date":"6月","value":22840.7},{"date":"7月","value":27135.6},{"date":"8月","value":31513.0},{"date":"9月","value":35528.1},{"date":"10月","value":39321.2},{"date":"11月","value":43179.899999999994},{"date":"12月","value":47587.7}]},{"label":"2025","points":[{"date":"1月","value":1788.15},{"date":"2月","value":3576.3},{"date":"3月","value":7579.0},{"date":"4月","value":11250.6},{"date":"5月","value":15095.6},{"date":"6月","value":18942.2},{"date":"7月","value":23556.2},{"date":"8月","value":28415.5},{"date":"9月","value":32718.5},{"date":"10月","value":37095.5},{"date":"11月","value":41338.5},{"date":"12月","value":45979.5}]},{"label":"2026","points":[{"date":"1月","value":4771.5},{"date":"2月","value":9543.0},{"date":"3月","value":14664.0},{"date":"4月","value":19394.0},{"date":"5月","value":24300.0},{"date":"6月","value":29074.0},{"date":"7月","value":34565.0},{"date":"8月","value":40203.0},{"date":"9月","value":null},{"date":"10月","value":null},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="省间交易:累计值(计算)" style="--power-chart-height:280px"><div class="power-chart-title">省间交易:累计值(计算)</div><div class="power-chart-years"></div><div aria-label="省间交易:累计值(计算)" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"省间交易:累计值(计算)","mode":"monthly","unit":"","digits":1,"series":[{"label":"2021","points":[{"date":"1月","value":null},{"date":"2月","value":null},{"date":"3月","value":null},{"date":"4月","value":485.5},{"date":"5月","value":977.1},{"date":"6月","value":1575.1},{"date":"7月","value":2357.3},{"date":"8月","value":3123.5},{"date":"9月","value":3788.0},{"date":"10月","value":4387.5},{"date":"11月","value":4884.0},{"date":"12月","value":5702.6}]},{"label":"2022","points":[{"date":"1月","value":819.0},{"date":"2月","value":1569.2},{"date":"3月","value":2300.3},{"date":"4月","value":3004.0},{"date":"5月","value":3766.5},{"date":"6月","value":4701.4},{"date":"7月","value":5732.2},{"date":"8月","value":6770.6},{"date":"9月","value":7573.8},{"date":"10月","value":8392.9},{"date":"11月","value":9282.8},{"date":"12月","value":10307.0}]},{"label":"2023","points":[{"date":"1月","value":847.9},{"date":"2月","value":1680.6},{"date":"3月","value":2565.3},{"date":"4月","value":3370.6},{"date":"5月","value":4192.0},{"date":"6月","value":5139.3},{"date":"7月","value":6286.9},{"date":"8月","value":7473.6},{"date":"9月","value":8447.8},{"date":"10月","value":9349.4},{"date":"11月","value":10302.8},{"date":"12月","value":11490.2}]},{"label":"2024","points":[{"date":"1月","value":1095.5},{"date":"2月","value":2047.3},{"date":"3月","value":2983.9},{"date":"4月","value":3825.6},{"date":"5月","value":4694.9},{"date":"6月","value":5751.1},{"date":"7月","value":7491.3},{"date":"8月","value":8982.1},{"date":"9月","value":10188.3},{"date":"10月","value":11273.6},{"date":"11月","value":12368.7},{"date":"12月","value":13662.1}]},{"label":"2025","points":[{"date":"1月","value":494.8},{"date":"2月","value":989.6},{"date":"3月","value":2105.9},{"date":"4月","value":3133.1},{"date":"5月","value":4313.8},{"date":"6月","value":5487.4},{"date":"7月","value":null},{"date":"8月","value":7178.3},{"date":"9月","value":8607.3},{"date":"10月","value":9869.3},{"date":"11月","value":11110.3},{"date":"12月","value":12549.3}]},{"label":"2026","points":[{"date":"1月","value":1191.0},{"date":"2月","value":2382.0},{"date":"3月","value":3616.0},{"date":"4月","value":4769.0},{"date":"5月","value":6131.0},{"date":"6月","value":7632.0},{"date":"7月","value":9545.0},{"date":"8月","value":11455.0},{"date":"9月","value":null},{"date":"10月","value":null},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div></div></div></div><div class="card wide-card"><div class="card-head"><h3>区域交易中心累计值季节性</h3><p>国网、北京、南网、广州、内蒙古交易中心。</p></div><div class="card-body"><div class="mini-chart-grid"><div class="power-chart-shell" data-chart-title="国网区域累计值" style="--power-chart-height:280px"><div class="power-chart-title">国网区域累计值</div><div class="power-chart-years"></div><div aria-label="国网区域累计值" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"国网区域累计值","mode":"monthly","unit":"","digits":1,"series":[{"label":"2021","points":[{"date":"1月","value":null},{"date":"2月","value":null},{"date":"3月","value":null},{"date":"4月","value":7989.7},{"date":"5月","value":10313.2},{"date":"6月","value":12924.9},{"date":"7月","value":15629.1},{"date":"8月","value":18205.6},{"date":"9月","value":20638.2},{"date":"10月","value":22861.5},{"date":"11月","value":25597.5},{"date":"12月","value":29171.5}]},{"label":"2022","points":[{"date":"1月","value":4142.8},{"date":"2月","value":7735.6},{"date":"3月","value":11711.2},{"date":"4月","value":12894.5},{"date":"5月","value":15923.6},{"date":"6月","value":19507.8},{"date":"7月","value":23392.1},{"date":"8月","value":27464.0},{"date":"9月","value":30843.0},{"date":"10月","value":34189.2},{"date":"11月","value":37780.2},{"date":"12月","value":41618.2}]},{"label":"2023","points":[{"date":"1月","value":3389.2},{"date":"2月","value":6884.6},{"date":"3月","value":10583.5},{"date":"4月","value":13971.1},{"date":"5月","value":17304.3},{"date":"6月","value":20898.0},{"date":"7月","value":25110.9},{"date":"8月","value":29377.9},{"date":"9月","value":32993.0},{"date":"10月","value":36315.9},{"date":"11月","value":39872.9},{"date":"12月","value":44433.6}]},{"label":"2024","points":[{"date":"1月","value":4178.3},{"date":"2月","value":7603.8},{"date":"3月","value":11324.5},{"date":"4月","value":14640.5},{"date":"5月","value":18219.1},{"date":"6月","value":22023.8},{"date":"7月","value":26735.4},{"date":"8月","value":31004.6},{"date":"9月","value":35050.1},{"date":"10月","value":38775.9},{"date":"11月","value":42715.9},{"date":"12月","value":47226.7}]},{"label":"2025","points":[{"date":"1月","value":3743.95},{"date":"2月","value":7487.9},{"date":"3月","value":11418.4},{"date":"4月","value":14951.8},{"date":"5月","value":18853.2},{"date":"6月","value":22741.4},{"date":"7月","value":null},{"date":"8月","value":33334.1},{"date":"9月","value":37677.0},{"date":"10月","value":41938.0},{"date":"11月","value":45994.0},{"date":"12月","value":50656.0}]},{"label":"2026","points":[{"date":"1月","value":4761.5},{"date":"2月","value":9523.0},{"date":"3月","value":14568.0},{"date":"4月","value":19027.0},{"date":"5月","value":23792.0},{"date":"6月","value":28573.0},{"date":"7月","value":34396.0},{"date":"8月","value":40264.0},{"date":"9月","value":null},{"date":"10月","value":null},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="北京电力交易中心省间交易累计值" style="--power-chart-height:280px"><div class="power-chart-title">北京电力交易中心省间交易累计值</div><div class="power-chart-years"></div><div aria-label="北京电力交易中心省间交易累计值" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"北京电力交易中心省间交易累计值","mode":"monthly","unit":"","digits":1,"series":[{"label":"2021","points":[{"date":"1月","value":null},{"date":"2月","value":null},{"date":"3月","value":null},{"date":"4月","value":1762.7},{"date":"5月","value":2226.6},{"date":"6月","value":2803.5},{"date":"7月","value":3568.0},{"date":"8月","value":4261.8},{"date":"9月","value":4672.5},{"date":"10月","value":5201.1},{"date":"11月","value":5606.3},{"date":"12月","value":6379.0}]},{"label":"2022","points":[{"date":"1月","value":771.3},{"date":"2月","value":1398.5},{"date":"3月","value":2066.7},{"date":"4月","value":2686.4},{"date":"5月","value":3389.3},{"date":"6月","value":4390.6},{"date":"7月","value":5145.7},{"date":"8月","value":6134.6},{"date":"9月","value":6917.2},{"date":"10月","value":7738.9},{"date":"11月","value":8632.8},{"date":"12月","value":9609.0}]},{"label":"2023","points":[{"date":"1月","value":787.1},{"date":"2月","value":1559.6},{"date":"3月","value":2405.0},{"date":"4月","value":3182.4},{"date":"5月","value":3957.2},{"date":"6月","value":4860.5},{"date":"7月","value":5983.5},{"date":"8月","value":7095.9},{"date":"9月","value":7998.1},{"date":"10月","value":8878.0},{"date":"11月","value":9773.6},{"date":"12月","value":10879.5}]},{"label":"2024","points":[{"date":"1月","value":1038.2},{"date":"2月","value":1841.0},{"date":"3月","value":2730.7},{"date":"4月","value":3525.6},{"date":"5月","value":4348.9},{"date":"6月","value":5324.3},{"date":"7月","value":6728.7},{"date":"8月","value":7653.7},{"date":"9月","value":8646.9},{"date":"10月","value":9537.5},{"date":"11月","value":10465.1},{"date":"12月","value":11654.4}]},{"label":"2025","points":[{"date":"1月","value":922.7},{"date":"2月","value":1845.4},{"date":"3月","value":2816.3},{"date":"4月","value":3703.9},{"date":"5月","value":4686.5},{"date":"6月","value":5731.3},{"date":"7月","value":null},{"date":"8月","value":8480.5},{"date":"9月","value":9796.0},{"date":"10月","value":10828.0},{"date":"11月","value":11840.0},{"date":"12月","value":13138.0}]},{"label":"2026","points":[{"date":"1月","value":1066.0},{"date":"2月","value":2132.0},{"date":"3月","value":3200.0},{"date":"4月","value":4179.0},{"date":"5月","value":5306.0},{"date":"6月","value":6528.0},{"date":"7月","value":8099.0},{"date":"8月","value":9677.0},{"date":"9月","value":null},{"date":"10月","value":null},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="南网区域累计值" style="--power-chart-height:280px"><div class="power-chart-title">南网区域累计值</div><div class="power-chart-years"></div><div aria-label="南网区域累计值" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"南网区域累计值","mode":"monthly","unit":"","digits":1,"series":[{"label":"2021","points":[{"date":"1月","value":null},{"date":"2月","value":null},{"date":"3月","value":null},{"date":"4月","value":2008.0},{"date":"5月","value":2561.9},{"date":"6月","value":3187.9},{"date":"7月","value":3911.3},{"date":"8月","value":4554.7},{"date":"9月","value":5123.9},{"date":"10月","value":5728.5},{"date":"11月","value":6253.5},{"date":"12月","value":6702.8}]},{"label":"2022","points":[{"date":"1月","value":647.7},{"date":"2月","value":1168.4},{"date":"3月","value":1843.0},{"date":"4月","value":2560.8},{"date":"5月","value":3430.1},{"date":"6月","value":4177.3},{"date":"7月","value":4878.1},{"date":"8月","value":5587.3},{"date":"9月","value":6317.5},{"date":"10月","value":6968.2},{"date":"11月","value":7658.1},{"date":"12月","value":8536.3}]},{"label":"2023","points":[{"date":"1月","value":605.9},{"date":"2月","value":1262.2},{"date":"3月","value":2017.1},{"date":"4月","value":2730.5},{"date":"5月","value":3492.6},{"date":"6月","value":4268.2},{"date":"7月","value":5192.8},{"date":"8月","value":6089.5},{"date":"9月","value":6929.6},{"date":"10月","value":7690.9},{"date":"11月","value":8461.5},{"date":"12月","value":9317.7}]},{"label":"2024","points":[{"date":"1月","value":792.5},{"date":"2月","value":1366.9},{"date":"3月","value":2162.6},{"date":"4月","value":2918.9},{"date":"5月","value":3771.4},{"date":"6月","value":4586.8},{"date":"7月","value":6435.9},{"date":"8月","value":7546.0},{"date":"9月","value":8580.8},{"date":"10月","value":9511.5},{"date":"11月","value":10424.4},{"date":"12月","value":11373.4}]},{"label":"2025","points":[{"date":"1月","value":780.8},{"date":"2月","value":1561.6},{"date":"3月","value":2457.9},{"date":"4月","value":3445.2},{"date":"5月","value":4403.3},{"date":"6月","value":5237.8},{"date":"7月","value":null},{"date":"8月","value":7828.7},{"date":"9月","value":8964.0},{"date":"10月","value":10054.0},{"date":"11月","value":11019.0},{"date":"12月","value":12087.0}]},{"label":"2026","points":[{"date":"1月","value":912.5},{"date":"2月","value":1825.0},{"date":"3月","value":2969.0},{"date":"4月","value":4092.0},{"date":"5月","value":5263.0},{"date":"6月","value":6459.0},{"date":"7月","value":7702.0},{"date":"8月","value":9044.0},{"date":"9月","value":null},{"date":"10月","value":null},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="广州电力交易中心省间交易累计值" style="--power-chart-height:280px"><div class="power-chart-title">广州电力交易中心省间交易累计值</div><div class="power-chart-years"></div><div aria-label="广州电力交易中心省间交易累计值" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"广州电力交易中心省间交易累计值","mode":"monthly","unit":"","digits":1,"series":[{"label":"2021","points":[{"date":"1月","value":null},{"date":"2月","value":null},{"date":"3月","value":null},{"date":"4月","value":98.5},{"date":"5月","value":137.6},{"date":"6月","value":209.5},{"date":"7月","value":316.6},{"date":"8月","value":390.6},{"date":"9月","value":437.9},{"date":"10月","value":567.4},{"date":"11月","value":615.4},{"date":"12月","value":590.4}]},{"label":"2022","points":[{"date":"1月","value":43.0},{"date":"2月","value":72.8},{"date":"3月","value":115.0},{"date":"4月","value":190.9},{"date":"5月","value":279.1},{"date":"6月","value":400.8},{"date":"7月","value":461.0},{"date":"8月","value":518.4},{"date":"9月","value":571.6},{"date":"10月","value":617.8},{"date":"11月","value":708.9},{"date":"12月","value":753.1}]},{"label":"2023","points":[{"date":"1月","value":60.8},{"date":"2月","value":102.3},{"date":"3月","value":171.4},{"date":"4月","value":223.8},{"date":"5月","value":276.9},{"date":"6月","value":323.1},{"date":"7月","value":383.0},{"date":"8月","value":471.4},{"date":"9月","value":554.5},{"date":"10月","value":604.2},{"date":"11月","value":652.9},{"date":"12月","value":709.9}]},{"label":"2024","points":[{"date":"1月","value":57.3},{"date":"2月","value":88.8},{"date":"3月","value":138.2},{"date":"4月","value":196.4},{"date":"5月","value":277.1},{"date":"6月","value":348.8},{"date":"7月","value":1416.6},{"date":"8月","value":1752.2},{"date":"9月","value":2014.7},{"date":"10月","value":2246.3},{"date":"11月","value":2442.4},{"date":"12月","value":2613.4}]},{"label":"2025","points":[{"date":"1月","value":134.4},{"date":"2月","value":268.8},{"date":"3月","value":433.7},{"date":"4月","value":619.4},{"date":"5月","value":847.3},{"date":"6月","value":976.0},{"date":"7月","value":null},{"date":"8月","value":1813.4},{"date":"9月","value":2155.0},{"date":"10月","value":2433.0},{"date":"11月","value":2630.0},{"date":"12月","value":2783.0}]},{"label":"2026","points":[{"date":"1月","value":125.0},{"date":"2月","value":250.0},{"date":"3月","value":490.0},{"date":"4月","value":672.0},{"date":"5月","value":905.0},{"date":"6月","value":1185.0},{"date":"7月","value":1527.0},{"date":"8月","value":1858.0},{"date":"9月","value":null},{"date":"10月","value":null},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="内蒙古电力交易中心累计值" style="--power-chart-height:280px"><div class="power-chart-title">内蒙古电力交易中心累计值</div><div class="power-chart-years"></div><div aria-label="内蒙古电力交易中心累计值" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"内蒙古电力交易中心累计值","mode":"monthly","unit":"","digits":1,"series":[{"label":"2021","points":[{"date":"1月","value":null},{"date":"2月","value":null},{"date":"3月","value":null},{"date":"4月","value":606.0},{"date":"5月","value":758.8},{"date":"6月","value":910.3},{"date":"7月","value":1058.7},{"date":"8月","value":1197.5},{"date":"9月","value":1329.7},{"date":"10月","value":1493.4},{"date":"11月","value":1667.2},{"date":"12月","value":1913.1}]},{"label":"2022","points":[{"date":"1月","value":180.4},{"date":"2月","value":388.1},{"date":"3月","value":565.2},{"date":"4月","value":845.5},{"date":"5月","value":875.5},{"date":"6月","value":1140.7},{"date":"7月","value":1295.0},{"date":"8月","value":1526.3},{"date":"9月","value":1728.7},{"date":"10月","value":1945.0},{"date":"11月","value":2125.3},{"date":"12月","value":2388.9}]},{"label":"2023","points":[{"date":"1月","value":196.3},{"date":"2月","value":385.9},{"date":"3月","value":634.7},{"date":"4月","value":867.2},{"date":"5月","value":1112.8},{"date":"6月","value":1335.0},{"date":"7月","value":1609.9},{"date":"8月","value":1867.9},{"date":"9月","value":2125.7},{"date":"10月","value":2571.2},{"date":"11月","value":2691.5},{"date":"12月","value":2928.1}]},{"label":"2024","points":[{"date":"1月","value":245.1},{"date":"2月","value":475.3},{"date":"3月","value":761.3},{"date":"4月","value":1044.2},{"date":"5月","value":1192.2},{"date":"6月","value":1511.2},{"date":"7月","value":1779.6},{"date":"8月","value":2037.8},{"date":"9月","value":2303.7},{"date":"10月","value":2593.6},{"date":"11月","value":2889.4},{"date":"12月","value":3195.6}]},{"label":"2025","points":[{"date":"1月","value":226.45},{"date":"2月","value":452.9},{"date":"3月","value":698.6},{"date":"4月","value":958.1},{"date":"5月","value":1237.8},{"date":"6月","value":1505.7},{"date":"7月","value":null},{"date":"8月","value":2279.1},{"date":"9月","value":2598.0},{"date":"10月","value":2927.0},{"date":"11月","value":3286.0},{"date":"12月","value":3651.0}]},{"label":"2026","points":[{"date":"1月","value":287.5},{"date":"2月","value":575.0},{"date":"3月","value":879.5},{"date":"4月","value":1188.0},{"date":"5月","value":1517.0},{"date":"6月","value":1816.0},{"date":"7月","value":2154.0},{"date":"8月","value":2492.0},{"date":"9月","value":null},{"date":"10月","value":null},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div></div></div></div><div class="card wide-card"><div class="card-head"><h3>国网 vs 南网占全社会用电比重</h3><p>国网/南网累计交易电量分别除以全社会累计用电量。</p></div><div class="card-body">
+<div class="power-chart-shell" data-chart-title="国网、南网交易中心累计交易电量占全社会用电比重" style="--power-chart-height:430px"><div class="power-chart-title">国网、南网交易中心累计交易电量占全社会用电比重</div><div class="power-chart-years"></div><div aria-label="国网、南网交易中心累计交易电量占全社会用电比重" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"国网、南网交易中心累计交易电量占全社会用电比重","mode":"timeline","unit":"%","digits":1,"series":[{"label":"国网/全社会用电","points":[{"date":"2021-09","value":33.476},{"date":"2021-10","value":33.495},{"date":"2021-11","value":34.143},{"date":"2021-12","value":35.092},{"date":"2022-01","value":57.284},{"date":"2022-02","value":57.441},{"date":"2022-03","value":57.343},{"date":"2022-04","value":48.098},{"date":"2022-05","value":47.496},{"date":"2022-06","value":47.607},{"date":"2022-07","value":47.446},{"date":"2022-08","value":47.484},{"date":"2022-09","value":47.501},{"date":"2022-10","value":47.644},{"date":"2022-11","value":48.074},{"date":"2022-12","value":48.185},{"date":"2023-01","value":49.233},{"date":"2023-02","value":49.766},{"date":"2023-03","value":49.915},{"date":"2023-04","value":49.714},{"date":"2023-05","value":48.986},{"date":"2023-06","value":48.514},{"date":"2023-07","value":48.323},{"date":"2023-08","value":48.298},{"date":"2023-09","value":48.069},{"date":"2023-10","value":47.747},{"date":"2023-11","value":47.65},{"date":"2023-12","value":48.171},{"date":"2024-02","value":49.646},{"date":"2024-03","value":48.451},{"date":"2024-04","value":47.577},{"date":"2024-05","value":47.483},{"date":"2024-06","value":47.287},{"date":"2024-07","value":47.767},{"date":"2024-08","value":47.249},{"date":"2024-09","value":47.305},{"date":"2024-10","value":47.382},{"date":"2024-11","value":47.628},{"date":"2024-12","value":47.936},{"date":"2025-02","value":48.11},{"date":"2025-03","value":47.884},{"date":"2025-04","value":47.367},{"date":"2025-05","value":47.531},{"date":"2025-06","value":46.969},{"date":"2025-08","value":48.459},{"date":"2025-09","value":48.506},{"date":"2025-10","value":48.626},{"date":"2025-11","value":48.618},{"date":"2025-12","value":48.857},{"date":"2026-02","value":57.555},{"date":"2026-03","value":57.945},{"date":"2026-04","value":57.061},{"date":"2026-05","value":56.623},{"date":"2026-06","value":56.027},{"date":"2026-07","value":56.02},{"date":"2026-08","value":56.133}]},{"label":"南网/全社会用电","points":[{"date":"2021-09","value":8.311},{"date":"2021-10","value":8.393},{"date":"2021-11","value":8.341},{"date":"2021-12","value":8.063},{"date":"2022-01","value":8.956},{"date":"2022-02","value":8.676},{"date":"2022-03","value":9.024},{"date":"2022-04","value":9.552},{"date":"2022-05","value":10.231},{"date":"2022-06","value":10.194},{"date":"2022-07","value":9.894},{"date":"2022-08","value":9.66},{"date":"2022-09","value":9.73},{"date":"2022-10","value":9.71},{"date":"2022-11","value":9.745},{"date":"2022-12","value":9.883},{"date":"2023-01","value":8.802},{"date":"2023-02","value":9.124},{"date":"2023-03","value":9.513},{"date":"2023-04","value":9.716},{"date":"2023-05","value":9.887},{"date":"2023-06","value":9.909},{"date":"2023-07","value":9.993},{"date":"2023-08","value":10.011},{"date":"2023-09","value":10.096},{"date":"2023-10","value":10.112},{"date":"2023-11","value":10.112},{"date":"2023-12","value":10.101},{"date":"2024-02","value":8.925},{"date":"2024-03","value":9.253},{"date":"2024-04","value":9.486},{"date":"2024-05","value":9.829},{"date":"2024-06","value":9.848},{"date":"2024-07","value":11.499},{"date":"2024-08","value":11.5},{"date":"2024-09","value":11.581},{"date":"2024-10","value":11.623},{"date":"2024-11","value":11.623},{"date":"2024-12","value":11.544},{"date":"2025-02","value":10.033},{"date":"2025-03","value":10.307},{"date":"2025-04","value":10.914},{"date":"2025-05","value":11.101},{"date":"2025-06","value":10.818},{"date":"2025-08","value":11.381},{"date":"2025-09","value":11.54},{"date":"2025-10","value":11.657},{"date":"2025-11","value":11.648},{"date":"2025-12","value":11.658},{"date":"2026-02","value":11.03},{"date":"2026-03","value":11.809},{"date":"2026-04","value":12.272},{"date":"2026-05","value":12.526},{"date":"2026-06","value":12.665},{"date":"2026-07","value":12.544},{"date":"2026-08","value":12.608}]}],"categories":null,"colors":null,"yearFilter":true}</script></div>
+</div></div></div></section></section>
+
+
+</main>
+<div class="sources">
+<strong>源与口径：</strong>
+      现货电价来自“电力现货价格日度”；代理电价来自“代理电价月度钢联”；发电、用电来自“发电用电”；分地区发电来自“分类型分地区”；
+      累计装机来自“发电装机容量-wind”；新增装机来自“新增发电装机容量-ifind”；投资来自“电源电网投资”。
+      省份净输出来自“输出电量”和“输入电量”，按输出-输入计算；海外电价来自 pb/全球电价.xlsx 的图表公式对应序列。
+      储能装机和政策事件先来自项目内 JSON 底表；核电检修来源固定为生态环境部核电运行状态监测页面，后续接入日度/事件级抓取。
+      最新数据日期：发电 2026-09-30，总量用电 2026-08-31，分行业用电 2026-08-31，现货电价 2026-10-17，代理电价 2026-10-01，分地区发电 2026-08-31，装机 2026-08-31，交易 2026-08-01，输出/输入电量 2026-08-01/2026-08-01，投资 2026-08-31。
+    </div>
+</div>
+<div class="chart-tooltip global-chart-tooltip" id="global-chart-tooltip"></div>
+<script>
+  const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+  const panels = Array.from(document.querySelectorAll('.report-panel'));
+  function activatePanel(target) {
+    tabs.forEach((tab) => {
+      const active = tab.dataset.target === target;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    panels.forEach((panel) => panel.classList.toggle('active', panel.id === target));
+  }
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      activatePanel(tab.dataset.target);
+      history.replaceState(null, '', '#' + tab.dataset.target);
+    });
+  });
+  const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+  const tocTargetPanel = Object.fromEntries(tocLinks.map((link) => [link.getAttribute('href').replace('#', ''), link.dataset.panel]));
+  function jumpToSubpanel(targetId, panelId) {
+    if (!targetId || !panelId) return;
+    activatePanel(panelId);
+    requestAnimationFrame(() => {
+      const target = document.getElementById(targetId);
+      if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  }
+  tocLinks.forEach((link) => {
+    link.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const targetId = link.getAttribute('href').replace('#', '');
+      jumpToSubpanel(targetId, link.dataset.panel);
+      history.replaceState(null, '', '#' + targetId);
+    });
+  });
+  const initial = location.hash.replace('#', '');
+  if (['overview', 'price', 'supply', 'demand', 'trade'].includes(initial)) activatePanel(initial);
+  if (tocTargetPanel[initial]) jumpToSubpanel(initial, tocTargetPanel[initial]);
+  function summaryStorageKey(card) {
+    return 'power-dashboard-summary:' + (card.dataset.summaryKey || 'default');
+  }
+  function setSummaryStatus(card, text) {
+    const status = card.querySelector('.editable-summary-status');
+    if (status) status.textContent = text;
+  }
+  document.querySelectorAll('.editable-summary-card').forEach((card) => {
+    const body = card.querySelector('.editable-summary-body');
+    if (!body) return;
+    const key = summaryStorageKey(card);
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      body.innerHTML = saved;
+      setSummaryStatus(card, '已载入保存稿');
+    }
+    card.addEventListener('click', (ev) => {
+      const button = ev.target.closest ? ev.target.closest('[data-summary-action]') : null;
+      if (!button) return;
+      const action = button.dataset.summaryAction;
+      if (action === 'edit') {
+        const enabled = body.getAttribute('contenteditable') === 'true';
+        body.setAttribute('contenteditable', enabled ? 'false' : 'true');
+        button.textContent = enabled ? '编辑' : '完成编辑';
+        if (!enabled) {
+          body.focus();
+          setSummaryStatus(card, '编辑中');
+        } else {
+          setSummaryStatus(card, '待保存');
+        }
+      }
+      if (action === 'save') {
+        localStorage.setItem(key, body.innerHTML);
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已保存 ' + new Date().toLocaleTimeString('zh-CN', { hour12:false }));
+      }
+      if (action === 'reset') {
+        if (!confirm('恢复为本次数据自动生成的汇总文字？')) return;
+        localStorage.removeItem(key);
+        body.innerHTML = body.dataset.defaultHtml || '';
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已恢复生成稿');
+      }
+      if (action === 'export') {
+        const title = card.querySelector('.card-head h3')?.textContent || 'summary';
+        const html = '<!doctype html><meta charset="utf-8"><title>' + title + '</title><body>' + body.innerHTML + '</body>';
+        const blob = new Blob([html], { type:'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = '电力月报-汇总编辑稿.html';
+        link.click();
+        URL.revokeObjectURL(url);
+        setSummaryStatus(card, '已导出');
+      }
+    });
+  });
+  const globalTip = document.getElementById('global-chart-tooltip');
+  function showGlobalTip(ev, text) {
+    if (!globalTip || !text) return;
+    const rawText = String(text).replace(/\r?\n/g, '\n').replace(/\\n/g, '\n');
+    globalTip.innerHTML = rawText
+      .split('\n')
+      .map((line, idx) => {
+        const safe = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return idx === 0 ? `<div class="tip-date">${safe}</div>` : `<div>${safe}</div>`;
+      })
+      .join('');
+    globalTip.style.display = 'block';
+    const margin = 16;
+    const boxW = globalTip.offsetWidth || 240;
+    const boxH = globalTip.offsetHeight || 90;
+    let left = ev.clientX + 16;
+    let top = ev.clientY - Math.min(40, boxH / 2);
+    if (left + boxW + margin > window.innerWidth) left = ev.clientX - boxW - 16;
+    if (top + boxH + margin > window.innerHeight) top = window.innerHeight - boxH - margin;
+    if (top < margin) top = margin;
+    globalTip.style.left = left + 'px';
+    globalTip.style.top = top + 'px';
+  }
+  document.addEventListener('mousemove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    if (!target) {
+      if (globalTip) globalTip.style.display = 'none';
+      return;
+    }
+    showGlobalTip(ev, target.dataset.tip);
+  });
+  document.addEventListener('touchstart', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('touchmove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('mouseleave', () => {
+    if (globalTip) globalTip.style.display = 'none';
+  });
+</script>
+<script id="power-chart-upgrade-runtime">(() => {
+  'use strict';
+  const states = new Map();
+  const palette = ['#17366c','#dc3535','#2f9fb8','#3e9368','#bc833a','#8974b4','#6f7a85'];
+  const yearColors = {'2023':'#99a5b6','2024':'#399ccc','2025':'#17366c','2026':'#d93636'};
+  const numeric = value => value !== null && value !== '' && Number.isFinite(Number(value));
+  const safe = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const compact = value => Math.abs(value) >= 100000 ? (value / 10000).toFixed(0)+'万' : Number(value).toLocaleString('zh-CN', {maximumFractionDigits:2});
+
+  function payload(shell) {
+    return JSON.parse(shell.querySelector('.power-chart-data').textContent);
+  }
+
+  function addYearFilters(state) {
+    const box = state.shell.querySelector('.power-chart-years');
+    box.replaceChildren();
+    if (state.data.mode !== 'timeline' || state.data.yearFilter === false) return;
+    const years = [...new Set(state.data.series.flatMap(s => s.points.map(p => /^(\d{4})-/.exec(p.date)?.[1])).filter(Boolean))].sort();
+    if (years.length < 2) return;
+    state.years = new Set(years);
+    for (const year of years) {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'checkbox'; input.checked = true; input.value = year;
+      input.setAttribute('aria-label', '筛选'+year+'年');
+      input.addEventListener('change', () => {
+        if (input.checked) state.years.add(year); else state.years.delete(year);
+        state.saved = null;
+        if (state.chart) state.chart.setOption(option(state), {notMerge:true});
+      });
+      label.append(input, document.createTextNode(year)); box.append(label);
+    }
+  }
+
+  function option(state) {
+    const d = state.data;
+    const seasonal = d.mode !== 'timeline';
+    const cats = d.categories || [...new Set(d.series.flatMap(s => s.points.map(p => String(p.date))))].sort();
+    const categories = cats.filter(date => !state.years || state.years.has(date.slice(0,4)) || !/^\d{4}-/.test(date));
+    const narrow = state.shell.clientWidth < 520;
+    const colors = d.colors || d.series.map((s,i) => seasonal ? (yearColors[s.label] || palette[i%palette.length]) : palette[i%palette.length]);
+    const saved = state.saved;
+    const legend = {type:'scroll',top:5,left:8,right:60,icon:'roundRect',itemWidth:16,itemHeight:3,itemGap:12,
+      selected:saved?.legend?.[0]?.selected || {},textStyle:{fontSize:narrow?11:12,color:'#253a52'},
+      pageIconColor:'#17366c',pageIconSize:10,animation:false};
+    const series = d.series.map((s,i) => {
+      const points = new Map(s.points.map(p => [String(p.date),p.value]));
+      return {name:s.label,type:'line',connectNulls:false,smooth:false,showSymbol:false,symbolSize:4,
+        data:categories.map(date => numeric(points.get(date)) ? Number(points.get(date)) : null),
+        lineStyle:{width:seasonal && s.label === d.series.at(-1)?.label ? 2.8 : 1.8},
+        itemStyle:{color:colors[i]},emphasis:{focus:'series'},animation:false};
+    });
+    return {animation:false,color:colors,textStyle:{fontFamily:'Microsoft YaHei, sans-serif'},legend,
+      grid:{left:narrow?49:62,right:narrow?17:25,top:d.unit?52:44,bottom:69,containLabel:false},
+      toolbox:{right:4,top:1,itemSize:13,itemGap:9,feature:{restore:{title:'重置范围和筛选'},saveAsImage:{title:'下载图表',pixelRatio:2}}},
+      tooltip:{trigger:'axis',confine:true,appendToBody:false,backgroundColor:'rgba(255,255,255,.97)',borderColor:'#bac8d9',
+        textStyle:{fontSize:12,color:'#17304f'},axisPointer:{type:'line',lineStyle:{color:'#71849c',type:'dashed'}},
+        formatter(items) { return (items.length?safe(items[0].axisValueLabel):'')+items.filter(p=>numeric(p.data)).map(p=>
+          '<br>'+p.marker+safe(p.seriesName)+'：'+Number(p.data).toLocaleString('zh-CN',{minimumFractionDigits:d.digits,maximumFractionDigits:d.digits})+safe(d.unit||'')).join(''); }},
+      xAxis:{type:'category',data:categories,boundaryGap:false,axisLine:{lineStyle:{color:'#bac7d7'}},axisTick:{show:false},
+        axisLabel:{fontSize:narrow?10:11,color:'#65768c',hideOverlap:true,
+          formatter(value) {return d.mode==='daily' ? value.replace('-', '/') : value;}}},
+      yAxis:{type:'value',scale:true,name:d.unit||'',nameTextStyle:{fontSize:11,color:'#65768c',align:'left'},
+        splitNumber:4,axisLabel:{color:'#65768c',fontSize:narrow?10:11,formatter:compact},
+        splitLine:{lineStyle:{color:'#e4ebf3',type:'dashed'}},axisLine:{show:false}},
+      dataZoom:[{type:'inside',filterMode:'none',zoomOnMouseWheel:'ctrl',moveOnMouseWheel:false,preventDefaultMouseMove:false,
+        start:saved?.dataZoom?.[0]?.start??0,end:saved?.dataZoom?.[0]?.end??100},
+        {type:'slider',filterMode:'none',bottom:9,height:19,left:narrow?49:62,right:narrow?17:25,
+          start:saved?.dataZoom?.[1]?.start??0,end:saved?.dataZoom?.[1]?.end??100,
+          brushSelect:false,borderColor:'#ccd7e5',fillerColor:'rgba(63,120,177,.17)',
+          handleSize:'110%',handleStyle:{color:'#fff',borderColor:'#50769f'},textStyle:{fontSize:10,color:'#526b87'},
+          dataBackground:{lineStyle:{color:'#9dacc1'},areaStyle:{color:'#e8eef5'}},selectedDataBackground:{lineStyle:{color:'#4a80ac'},areaStyle:{color:'#dce8f3'}}}],series};
+  }
+
+  function near(shell) {
+    const box = shell.getBoundingClientRect();
+    return box.width > 0 && box.height > 0 && box.top < innerHeight+400 && box.bottom > -400;
+  }
+
+  function mount(state) {
+    if (state.chart || !near(state.shell) || !window.echarts) return;
+    state.chart = echarts.init(state.shell.querySelector('.power-chart-canvas'), null, {renderer:'canvas',useDirtyRect:true,devicePixelRatio:Math.min(devicePixelRatio||1,2)});
+    state.chart.setOption(option(state));
+    state.chart.on('restore', () => {
+      state.saved = null;
+      if (state.years) {
+        state.shell.querySelectorAll('.power-chart-years input').forEach(c=>{c.checked=true;state.years.add(c.value);});
+        state.chart.setOption(option(state),{notMerge:true});
+      }
+    });
+    state.shell.dataset.chartReady = 'true';
+  }
+
+  function release(state) {
+    if (!state.chart) return;
+    const o = state.chart.getOption();
+    state.saved = {legend:o.legend,dataZoom:o.dataZoom};
+    state.chart.dispose();state.chart=null;state.shell.dataset.chartReady='false';
+  }
+
+  let scheduled = false;
+  function schedule() {
+    if (scheduled) return;
+    scheduled=true;
+    requestAnimationFrame(()=>{
+      scheduled=false;
+      for (const state of states.values()) {
+        if (near(state.shell)) {mount(state);if(state.chart)state.chart.resize();}
+        else release(state);
+      }
+    });
+  }
+
+  function register(shell, data) {
+    const state={shell,data:data||payload(shell),chart:null,saved:null,years:null};
+    states.set(shell,state);addYearFilters(state);
+    return state;
+  }
+
+  function hydrology() {
+    const script=document.getElementById('hydro-data');
+    if (!script) return;
+    const data=JSON.parse(script.textContent),station=document.getElementById('hydro-station'),mode=document.getElementById('hydro-mode');
+    const years=[...new Set(data.dates.map(d=>d.slice(0,4)))].sort();
+    const controls=document.getElementById('hydro-years');controls.replaceChildren();
+    const chosen=new Set(years);
+    for (const year of years) {
+      const label=document.createElement('label'),input=document.createElement('input');
+      input.type='checkbox';input.checked=true;input.value=year;
+      input.addEventListener('change',()=>{if(input.checked)chosen.add(year);else chosen.delete(year);update();});
+      label.append(input,document.createTextNode(year));controls.append(label);
+    }
+    const plots=[...document.querySelectorAll('.hydro-plot')].map(plot=>{
+      plot.querySelector('canvas')?.remove();plot.querySelector('output')?.remove();
+      const shell=document.createElement('div');shell.className='power-chart-shell';shell.style.setProperty('--power-chart-height','300px');
+      shell.innerHTML='<div class="power-chart-years"></div><div class="power-chart-canvas" role="img"></div>';
+      plot.append(shell);return {plot,shell,metric:plot.querySelector('h4').textContent,state:null};
+    });
+    function update() {
+      for (const p of plots) {
+        if (p.state) {release(p.state);states.delete(p.shell);}
+        const metric=data.series.find(s=>s.station===station.value && s.metric===p.metric);
+        const seasonal=mode.value==='season';
+        const dates=seasonal?Array.from({length:366},(_,i)=>new Date(Date.UTC(2000,0,i+1)).toISOString().slice(5,10)):data.dates.slice(-90);
+        const groups=seasonal?years.filter(y=>chosen.has(y)):['近90天'];
+        const series=groups.map(year=>({label:year,points:dates.map(date=>{
+          const rawDate=seasonal?year+'-'+date:date,index=data.dates.indexOf(rawDate);
+          return {date,value:metric && index>=0?metric.values[index]:null};
+        })}));
+        const d={title:p.metric,mode:seasonal?'daily':'timeline',unit:metric?.unit||'',digits:1,categories:dates,series,yearFilter:false};
+        p.state=register(p.shell,d);
+      }
+      schedule();
+    }
+    station.addEventListener('change',update);mode.addEventListener('change',update);update();
+  }
+
+  function boot() {
+    if (!window.echarts) {
+      document.querySelectorAll('.power-chart-canvas').forEach(el=>el.textContent='图表资源未加载，请检查 assets/echarts.min.js');
+      return;
+    }
+    document.querySelectorAll('.power-chart-shell').forEach(shell=>register(shell));
+    hydrology();
+    const observer=new IntersectionObserver(schedule,{rootMargin:'400px'});
+    states.forEach(state=>observer.observe(state.shell));
+    new MutationObserver(schedule).observe(document.querySelector('main')||document.body,{subtree:true,attributes:true,attributeFilter:['class']});
+    window.addEventListener('resize',schedule);window.addEventListener('scroll',schedule,{passive:true});
+    document.addEventListener('click',event=>{if(event.target.closest('.panel-tabs,.side-toc,.subpanel-tabs'))schedule();});
+    window.powerCharts={states,refresh:schedule};schedule();
+  }
+  if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script></body>
+</html>

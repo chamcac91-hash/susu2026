@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>20261022国内电力看板 手机版 - 2.2 分省份代理电价</title>
+<style>
+    :root {
+      --bg:#f5f1ea; --paper:#fffdf9; --ink:#111827; --muted:#687080; --line:#cfd6e3;
+      --navy:#0b2f66; --blue:#4f7dbf; --red:#dc2626; --soft:#f8fafc;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; padding-left:154px; background:var(--bg); color:var(--ink); font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .page { position:relative; width:min(1680px, calc(100% - 28px)); margin:14px auto 40px; background:var(--paper); border:1px solid #d7d0c6; box-shadow:0 8px 28px rgba(64,46,26,.08); }
+    header { padding:22px 28px 16px; border-bottom:3px solid var(--navy); }
+    h1 { margin:0; font-size:30px; letter-spacing:0; color:var(--navy); }
+    .subtitle { margin-top:7px; color:var(--muted); font-size:13px; }
+    main { padding:0 22px 28px; }
+    .report-section { padding:18px 0 22px; border-bottom:1px solid #d7dde8; }
+    h2 { margin:0 0 12px; font-size:24px; color:#111; }
+    h2::before { content:attr(id); display:none; }
+    .placeholder { min-height:90px; border:1px dashed #b8c0cf; background:#fbfaf7; color:#7b8190; padding:24px; font-size:16px; }
+    .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:8px; padding:18px 0 10px; border-bottom:1px solid #d7dde8; background:rgba(255,253,249,.96); backdrop-filter:blur(8px); }
+    .panel-tab { appearance:none; border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:8px 16px; min-height:42px; border-radius:3px; font-family:inherit; font-size:18px; font-weight:700; cursor:pointer; }
+    .panel-tab:hover { border-color:#b4493f; color:#0b2f66; }
+    .panel-tab.active { background:#b4493f; border-color:#b4493f; color:white; }
+    .report-panel { display:none; }
+    .report-panel.active { display:block; }
+    .subpanel { scroll-margin-top:76px; margin:12px 0 18px; padding:10px; border:1px solid #d7dde8; background:#fbfcff; }
+    .subpanel > h3 { margin:0 0 10px; font-size:20px; color:#0b2f66; border-left:5px solid #0b2f66; padding-left:9px; }
+    .stack { display:grid; gap:14px; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
+    .card { border:1px solid #bfc8d8; background:white; overflow:hidden; }
+    .wide-card { grid-column:1 / -1; }
+    .card-head { background:#d9e2f3; border-bottom:1px solid #aeb8c8; padding:7px 10px; text-align:center; }
+    .card-head h3 { margin:0; font-size:17px; color:#001f55; }
+    .card-head p { margin:2px 0 0; font-size:12px; color:#475569; }
+    .card-body { padding:10px; overflow:auto; }
+    table { width:100%; border-collapse:collapse; font-size:12px; background:white; }
+    th, td { border:1px solid #c9ced8; padding:5px 7px; text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    th { background:#e5ebf6; color:#0f2d5c; font-weight:700; }
+    th:first-child, td:first-child { text-align:left; }
+    .spot-summary-table { font-size:13px; }
+    .spot-summary-table .latest-col { background:#fff1f0; border-left:2px solid #b4493f; border-right:2px solid #b4493f; font-weight:700; }
+    .recent-values { text-align:left; white-space:normal; min-width:260px; }
+    .recent-values span { display:inline-block; margin:1px 5px 1px 0; padding:1px 5px; border:1px solid #d7dde8; background:#f8fafc; border-radius:3px; }
+    .date-value { display:inline-flex; flex-direction:column; align-items:flex-end; gap:1px; line-height:1.18; }
+    .date-value span { color:#64748b; font-size:11px; font-weight:400; }
+    .date-value b { color:#0f172a; font-size:13px; font-weight:700; }
+    .table-card .card-body { max-height:520px; }
+    .full-table .card-body { max-height:none; overflow:visible; }
+    .storage-summary-block + .storage-summary-block { margin-top:12px; }
+    .storage-summary-block h4 { margin:0; padding:6px 8px; border:1px solid #c9ced8; border-bottom:0; background:#f8fafc; color:#0f2d5c; font-size:15px; }
+    .image-card .card-body { overflow:visible; }
+    .reference-image { display:block; width:100%; height:auto; background:white; }
+    .heat td { min-width:72px; }
+    .table-note { margin:8px 2px 0; color:#64748b; font-size:12px; }
+    .summary-text { font-size:16px; line-height:1.8; color:#111827; }
+    .summary-text p { margin:0 0 8px; }
+    .summary-text strong { color:#b91c1c; }
+    .editable-summary-tools { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:8px 10px; border-bottom:1px solid #d7dde8; background:#f8fafc; }
+    .summary-tool-btn { appearance:none; border:1px solid #b9c3d3; background:white; color:#0f2d5c; min-height:32px; padding:5px 12px; border-radius:3px; font-family:inherit; font-size:14px; font-weight:700; cursor:pointer; }
+    .summary-tool-btn:hover { border-color:#b4493f; color:#b4493f; }
+    .summary-tool-btn.primary { background:#0b2f66; border-color:#0b2f66; color:white; }
+    .editable-summary-status { margin-left:auto; color:#64748b; font-size:12px; }
+    .editable-summary-body { min-height:118px; outline:none; border:1px solid transparent; padding:4px 6px; }
+    .editable-summary-body[contenteditable="true"] { border-color:#b4493f; background:#fffaf2; box-shadow:inset 0 0 0 1px rgba(180,73,63,.18); }
+    .editable-summary-body[contenteditable="true"] p { cursor:text; }
+    .pos { color:#b91c1c; font-weight:700; }
+    .neg { color:#1d4ed8; font-weight:700; }
+    .mini-chart-row { display:grid; grid-template-columns:repeat(4, minmax(260px,1fr)); gap:10px; }
+    .mini-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(280px,1fr)); gap:10px; }
+    .storage-smm-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-xunxi-monthly-grid { grid-template-columns:repeat(3, minmax(300px,1fr)); }
+    .storage-headline-weekly-grid { grid-template-columns:repeat(4, minmax(240px,1fr)); }
+    .storage-headline-price-wide { margin-top:14px; padding-top:10px; border-top:1px solid #d7dde8; }
+    .chart-group-title { margin:12px 0 8px; color:#0b2f66; font-size:18px; text-align:center; }
+    .overseas-chart-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:12px; }
+    .spot-season-grid { display:grid; grid-template-columns:repeat(3, minmax(420px,1fr)); gap:16px; align-items:start; }
+    .spot-season-grid .svg-title { font-size:16px; }
+    .spot-season-grid .svg-axis { font-size:12px; }
+    .spot-season-grid .svg-legend { font-size:11px; }
+    .decadal-chart-grid { display:grid; grid-template-columns:repeat(2, minmax(520px,1fr)); gap:14px; }
+    .net-transfer-grid { display:grid; grid-template-columns:repeat(2, minmax(560px,1fr)); gap:14px; align-items:start; }
+    .regional-structure-grid { display:grid; grid-template-columns:repeat(3, minmax(360px,1fr)); gap:10px; align-items:start; }
+    .regional-structure-svg { border:1px solid #d7dde8; background:#fff; }
+    .regional-structure-title { font-size:18px; font-weight:700; fill:#0b2f66; }
+    .regional-structure-date { font-size:12px; fill:#64748b; }
+    .regional-structure-total { font-size:13px; fill:#334155; }
+    .regional-structure-inside { font-size:11px; font-weight:700; fill:white; paint-order:stroke; stroke:#334155; stroke-width:2px; }
+    .regional-structure-legend { font-size:11px; fill:#111827; }
+    .industry-chain-svg { border:1px solid #d7dde8; }
+    .industry-chain-title { font-size:22px; font-weight:700; fill:#0b2f66; }
+    .industry-chain-col-title { font-size:18px; font-weight:700; fill:white; }
+    .industry-chain-item { font-size:14px; fill:#0f172a; }
+    .industry-chain-note { font-size:15px; fill:#334155; }
+    .industry-panorama-image { max-height:760px; object-fit:contain; }
+    svg { width:100%; height:auto; display:block; background:white; }
+    svg text { font-family:"Times New Roman","KaiTi","楷体","STKaiti",serif; }
+    .svg-title { font-size:14px; font-weight:700; fill:#0b2f66; }
+    .svg-axis { font-size:10px; fill:#334155; }
+    .svg-legend { font-size:8px; }
+    .latest-label { font-size:11px; font-weight:700; paint-order:stroke; stroke:white; stroke-width:3px; }
+    .chart-point { cursor:crosshair; }
+    .interactive-chart { position:relative; background:white; }
+    .interactive-toolbar { display:flex; flex-wrap:wrap; gap:8px 12px; padding:2px 0 8px; }
+    .interactive-toggle { display:inline-flex; align-items:center; gap:5px; color:#0f172a; font-size:12px; cursor:pointer; }
+    .interactive-toggle::before { content:""; width:18px; height:3px; background:var(--line-color); display:inline-block; }
+    .interactive-toggle input { width:13px; height:13px; margin:0; accent-color:#0b2f66; }
+    .interactive-stage { position:relative; }
+    .spot-line-card .interactive-toggle { font-size:15px; font-weight:700; }
+    .spot-line-card .interactive-toggle::before { width:24px; height:4px; }
+    .spot-line-card .interactive-toggle input { width:16px; height:16px; }
+    .spot-line-card .svg-title { font-size:18px; }
+    .spot-line-card .svg-axis { font-size:13px; }
+    .spot-line-card .latest-label { font-size:13px; }
+    .chart-tooltip { display:none; position:absolute; z-index:20; min-width:190px; max-width:320px; pointer-events:none; background:rgba(15,23,42,.94); color:white; border-radius:6px; padding:10px 12px; font-size:14px; line-height:1.55; box-shadow:0 12px 30px rgba(15,23,42,.28); }
+    .chart-tooltip .tip-date { font-weight:700; color:#dbeafe; margin-bottom:5px; font-size:17px; }
+    .global-chart-tooltip { position:fixed; white-space:normal; }
+    .rotated { writing-mode:tb; glyph-orientation-vertical:0; }
+    .industry-bar-svg { width:100%; }
+    .industry-axis { font-size:16px; dominant-baseline:hanging; }
+    .net-transfer-axis { font-size:13px; fill:#0f2d5c; text-anchor:end; dominant-baseline:middle; }
+    .capacity-title { font-size:26px; fill:#4b5563; }
+    .capacity-axis { font-size:18px; fill:#4b5563; text-anchor:end; dominant-baseline:middle; }
+    .side-toc { position:fixed; left:0; top:0; bottom:0; z-index:70; width:154px; overflow:auto; padding:42px 12px 18px; background:rgba(255,253,249,.98); border-right:1px solid #cbd5e1; box-shadow:8px 0 22px rgba(15,23,42,.08); }
+    .side-toc div { color:#0b2f66; font-size:16px; font-weight:700; margin:0 0 8px; }
+    .side-toc a { display:block; color:#334155; text-decoration:none; font-size:13px; line-height:1.2; padding:7px 6px; border-left:3px solid transparent; }
+    .side-toc a:hover { color:#0b2f66; background:#eef3fb; border-left-color:#b4493f; }
+    .sources { padding:16px 22px 26px; font-size:12px; color:#596273; line-height:1.7; }
+    @media(max-width:1100px) {
+      .grid-2, .mini-chart-row, .mini-chart-grid, .overseas-chart-grid, .spot-season-grid, .decadal-chart-grid, .net-transfer-grid, .regional-structure-grid { grid-template-columns:1fr; }
+      .page { width:100%; margin:0; border:0; box-shadow:none; }
+      body { padding-left:0; }
+      header { padding:14px 14px 10px; }
+      h1 { font-size:24px; }
+      .panel-tabs { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:8px; white-space:nowrap; }
+      .panel-tab { flex:0 0 auto; min-height:34px; padding:6px 10px; font-size:14px; }
+      .side-toc { position:sticky; top:50px; z-index:75; width:100%; max-height:none; padding:7px 8px; display:flex; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; border-right:0; border-bottom:1px solid #cbd5e1; box-shadow:none; }
+      .side-toc div { display:none; }
+      .side-toc a { flex:0 0 auto; padding:5px 9px; border:1px solid #d7dde8; border-left:0; border-radius:3px; background:#f8fafc; font-size:13px; line-height:1.15; white-space:nowrap; }
+      .side-toc a:hover { border-left:0; border-color:#b4493f; }
+      main { padding:0 10px 18px; }
+    }
+    @media(max-width:720px) {
+      body { font-size:14px; }
+      header { padding:10px 10px 8px; }
+      h1 { font-size:22px; }
+      main { padding:0 6px 14px; }
+      h2 { margin:8px 0; font-size:20px; }
+      .report-section { padding:8px 0 16px; }
+      .subpanel { scroll-margin-top:92px; margin:8px 0 12px; padding:6px; }
+      .subpanel > h3 { font-size:17px; padding-left:7px; }
+      .card-head { padding:6px 8px; }
+      .card-head h3 { font-size:16px; }
+      .card-head p { font-size:11px; line-height:1.35; }
+      .card-body { padding:7px; }
+      table { min-width:720px; font-size:11px; }
+      .spot-summary-table { min-width:860px; font-size:11px; }
+      th, td { padding:4px 5px; }
+      .table-card .card-body, .full-table .card-body { max-height:none; overflow-x:auto; overflow-y:visible; -webkit-overflow-scrolling:touch; }
+      .full-table table th:first-child, .full-table table td:first-child,
+      .table-card table th:first-child, .table-card table td:first-child { position:sticky; left:0; z-index:2; background:white; }
+      .full-table table th:first-child, .table-card table th:first-child { z-index:3; background:#e5ebf6; }
+      .summary-text { font-size:14px; line-height:1.65; }
+      .editable-summary-tools { gap:6px; padding:6px; }
+      .summary-tool-btn { min-height:30px; padding:4px 9px; font-size:12px; }
+      .editable-summary-status { width:100%; margin-left:0; font-size:11px; }
+      .interactive-toolbar { flex-wrap:nowrap; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px; }
+      .interactive-toggle { flex:0 0 auto; gap:4px; font-size:10px; white-space:nowrap; }
+      .interactive-toggle::before { width:16px; height:3px; }
+      .interactive-toggle input { width:12px; height:12px; }
+      .spot-line-card .interactive-toggle { font-size:11px; }
+      .spot-line-card .interactive-toggle::before { width:18px; height:3px; }
+      .spot-line-card .interactive-toggle input { width:13px; height:13px; }
+      .svg-title { font-size:12px; }
+      .svg-axis { font-size:8px; }
+      .svg-legend { font-size:7px; }
+      .latest-label { font-size:8px; }
+      .spot-line-card .svg-title { font-size:13px; }
+      .spot-line-card .svg-axis { font-size:9px; }
+      .spot-line-card .latest-label { font-size:9px; }
+      .industry-axis { font-size:11px; }
+      .net-transfer-axis { font-size:9px; }
+      .capacity-title { font-size:18px; }
+      .capacity-axis { font-size:12px; }
+      .regional-structure-title { font-size:15px; }
+      .regional-structure-date, .regional-structure-total, .regional-structure-legend { font-size:10px; }
+      .regional-structure-inside { font-size:9px; }
+      .chart-tooltip { min-width:160px; max-width:calc(100vw - 28px); padding:8px 10px; font-size:12px; }
+      .chart-tooltip .tip-date { font-size:14px; }
+      .sources { padding:12px 10px 18px; font-size:10px; }
+    }
+  </style>
+<style id="power-chart-upgrade-style">
+.power-chart-shell{min-width:0;width:100%;position:relative;margin:4px 0 8px;overflow:hidden}
+.power-chart-title{font-size:16px;font-weight:700;color:#0b2f66;line-height:1.45;padding:4px 8px;text-align:center;overflow-wrap:anywhere}
+.power-chart-canvas{width:100%;height:var(--power-chart-height,320px);min-width:0;touch-action:pan-y}
+.power-chart-years{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:4px 10px;font-size:12px}
+.power-chart-years:empty{display:none}.power-chart-years label{display:inline-flex;align-items:center;gap:3px;white-space:nowrap;cursor:pointer}
+.power-chart-years input{accent-color:#0b2f66}
+@media(max-width:760px){.power-chart-title{font-size:14px}.power-chart-canvas{height:300px}.power-chart-years{gap:7px;padding:4px}}
+</style><script data-power-chart-vendor="" defer="" src="assets/echarts.min.js"></script><style id="mobile-pages-overrides">
+      html { scroll-behavior: smooth; }
+      body { min-width: 0; }
+      .side-toc { display: none !important; }
+      main { margin-left: 0 !important; min-width: 0; }
+      .split-page-tabs {
+        position: sticky; top: 0; z-index: 95; display: flex; flex-wrap: nowrap;
+        gap: 6px; overflow-x: auto; padding: 8px 0; white-space: nowrap;
+        background: rgba(255,253,249,.98); border-bottom: 1px solid var(--line);
+        scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      }
+      .split-page-tabs::-webkit-scrollbar, .section-page-nav::-webkit-scrollbar { display: none; }
+      .split-tab, .section-link {
+        flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none;
+        background: #f8fafc; color: #344054; font-weight: 750; white-space: nowrap;
+      }
+      .split-tab { min-width: 4.4rem; min-height: 36px; padding: 7px 10px; font-size: 14px; }
+      .split-tab.active { color: #fff; background: #b4493f; border-color: #b4493f; }
+      .section-page-nav {
+        position: sticky; top: 53px; z-index: 90; display: flex; gap: 6px;
+        overflow-x: auto; padding: 8px 0 10px; margin: -2px 0 8px;
+        background: rgba(255,253,249,.98); scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .section-link { min-height: 32px; max-width: 82vw; padding: 6px 9px; font-size: 13px; }
+      .section-link.active { color: #fff; background: #183a6b; border-color: #183a6b; }
+      .report-panel > h2 { margin-top: 10px; }
+      img { max-width: 100%; height: auto; }
+      .card-body, .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      @media (max-width: 760px) {
+        header, main { width: auto !important; max-width: none !important; }
+        header { padding-left: 12px !important; padding-right: 12px !important; }
+        main { padding: 0 8px 28px !important; }
+        h1 { font-size: 23px !important; line-height: 1.2; }
+        .subpanel { padding: 6px; margin: 8px 0 12px; }
+        .subpanel > h3 { font-size: 17px; }
+        .grid-2, .chart-grid, .spot-season-grid, .overseas-chart-grid { grid-template-columns: minmax(0, 1fr) !important; }
+        table { min-width: 620px; }
+        svg {
+          display: block;
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+          height: auto !important;
+        }
+        .card-head h3 { font-size: 16px !important; }
+        .card-head p, .table-note, .source-note { font-size: 12px !important; }
+      }
+    </style></head>
+<body>
+<div class="page">
+<nav aria-label="子面板目录" class="side-toc"><div>目录</div><a href="index.html#overview-core">1.1 发电用电</a><a href="overview-overview-investment.html#overview-investment">1.2 电源电网</a><a href="price.html#price-spot">2.1 现货电价</a><a href="price-price-table.html#price-table">2.2 代理电价</a><a href="price-overseas-americas-daily.html#price-overseas">2.3 海外电价</a><a href="price-price-long-contract.html#price-long-contract">2.4 长协电价</a><a href="price-price-capacity.html#price-capacity">2.5 容量电价</a><a href="supply.html#supply-generation">3.1 发电量</a><a href="supply-supply-capacity.html#supply-capacity">3.2 装机</a><a href="supply-supply-regional.html#supply-regional">3.3 分地区发电</a><a href="supply-supply-decadal.html#supply-decadal">3.4 旬度发电</a><a href="supply-supply-utilization-hours.html#supply-utilization-hours">3.5 利用小时</a><a href="supply-supply-regional-structure.html#supply-regional-structure">3.6 分省结构</a><a href="supply-supply-nuclear-maintenance.html#supply-nuclear-maintenance">3.7 核电检修</a><a href="supply-supply-hydrology.html#supply-hydrology">3.8 水电站水情</a><a href="demand.html#demand-total">4.1 用电总量</a><a href="demand-demand-industry.html#demand-industry">4.2 分行业用电</a><a href="trade.html#trade-long-term">5.1 中长期交易</a><a href="trade-trade-center.html#trade-center">5.2 交易中心</a><a href="trade-trade-net-transfer.html#trade-net-transfer">5.3 净输出</a><a href="policy.html#policy-market">6.1 电力市场政策</a><a href="policy-policy-renewable.html#policy-renewable">6.2 新能源政策</a><a href="policy-policy-storage.html#policy-storage">6.3 储能政策</a><a href="storage.html#storage-monthly-install">7.1 储能装机</a><a href="storage-storage-headline-weekly.html#storage-headline-weekly">7.2 储能头条周度</a></nav>
+<header>
+<h1>20261022国内电力看板 手机版</h1>
+</header>
+<main>
+<nav aria-label="一级栏目" class="panel-tabs split-page-tabs"><a class="split-tab" href="index.html">汇总</a><a class="split-tab active" href="price.html">价格</a><a class="split-tab" href="supply.html">供给</a><a class="split-tab" href="demand.html">需求</a><a class="split-tab" href="trade.html">交易</a><a class="split-tab" href="policy.html">政策</a><a class="split-tab" href="storage.html">储能</a></nav>
+
+<section class="report-section report-panel active" id="price"><h2>价格</h2><nav aria-label="专题栏目" class="section-page-nav"><a class="section-link" href="price.html#price-spot">2.1 重点省份现货电力价格</a><a class="section-link active" href="price-price-table.html#price-table">2.2 分省份代理电价</a><a class="section-link" href="price-overseas-americas-daily.html#price-overseas">2.3 美洲日度</a><a class="section-link" href="price-overseas-americas-ma7.html#price-overseas">2.3 美洲MA7</a><a class="section-link" href="price-overseas-asia-daily.html#price-overseas">2.3 亚洲日度</a><a class="section-link" href="price-overseas-asia-ma7.html#price-overseas">2.3 亚洲MA7</a><a class="section-link" href="price-overseas-europe-daily.html#price-overseas">2.3 欧洲日度</a><a class="section-link" href="price-overseas-europe-ma7.html#price-overseas">2.3 欧洲MA7</a><a class="section-link" href="price-overseas-oceania-daily.html#price-overseas">2.3 大洋洲日度</a><a class="section-link" href="price-overseas-oceania-ma7.html#price-overseas">2.3 大洋洲MA7</a><a class="section-link" href="price-price-long-contract.html#price-long-contract">2.4 年度长协电价</a><a class="section-link" href="price-price-capacity.html#price-capacity">2.5 容量电价对比变动</a></nav><section class="subpanel" id="price-table"><h3>2.2 分省份代理电价</h3><div class="stack"><div class="card table-card full-table wide-card"><div class="card-head"><h3>分省代理购电价</h3><p>参考模板列出最新值、上月值、去年同期、环比和同比，单位为元/度，红色代表上行，蓝色代表下行。</p></div><div class="card-body"><table><thead><tr><th>省份</th><th>最新月</th><th>最新值</th><th>上月值</th><th>去年同期</th><th>环比</th><th>同比</th></tr></thead><tbody><tr><td class="" style="">上海</td><td class="" style="">2026-10</td><td class="" style="">0.414</td><td class="" style="">0.442</td><td class="" style="">0.452</td><td class="neg" style="background:rgba(37,99,235,0.417);color:#111827;">-0.028</td><td class="neg" style="background:rgba(37,99,235,0.164);color:#111827;">-0.038</td></tr><tr><td class="" style="">云南</td><td class="" style="">2026-10</td><td class="" style="">0.219</td><td class="" style="">0.166</td><td class="" style="">0.210</td><td class="pos" style="background:rgba(220,38,38,0.780);color:#111827;">+0.053</td><td class="pos" style="background:rgba(220,38,38,0.038);color:#111827;">+0.009</td></tr><tr><td class="" style="">内蒙东部地区</td><td class="" style="">2026-10</td><td class="" style="">0.174</td><td class="" style="">0.172</td><td class="" style="">0.261</td><td class="pos" style="background:rgba(220,38,38,0.031);color:#111827;">+0.002</td><td class="neg" style="background:rgba(37,99,235,0.383);color:#111827;">-0.088</td></tr><tr><td class="" style="">内蒙西部地区</td><td class="" style="">2026-10</td><td class="" style="">0.313</td><td class="" style="">0.311</td><td class="" style="">0.329</td><td class="pos" style="background:rgba(220,38,38,0.021);color:#111827;">+0.001</td><td class="neg" style="background:rgba(37,99,235,0.070);color:#111827;">-0.016</td></tr><tr><td class="" style="">北京</td><td class="" style="">2026-10</td><td class="" style="">0.384</td><td class="" style="">0.385</td><td class="" style="">0.396</td><td class="neg" style="background:rgba(37,99,235,0.017);color:#111827;">-0.001</td><td class="neg" style="background:rgba(37,99,235,0.056);color:#111827;">-0.013</td></tr><tr><td class="" style="">吉林</td><td class="" style="">2026-10</td><td class="" style="">0.343</td><td class="" style="">0.345</td><td class="" style="">0.424</td><td class="neg" style="background:rgba(37,99,235,0.026);color:#111827;">-0.002</td><td class="neg" style="background:rgba(37,99,235,0.355);color:#111827;">-0.081</td></tr><tr><td class="" style="">四川</td><td class="" style="">2026-10</td><td class="" style="">0.228</td><td class="" style="">0.239</td><td class="" style="">0.268</td><td class="neg" style="background:rgba(37,99,235,0.163);color:#111827;">-0.011</td><td class="neg" style="background:rgba(37,99,235,0.178);color:#111827;">-0.041</td></tr><tr><td class="" style="">天津</td><td class="" style="">2026-10</td><td class="" style="">0.391</td><td class="" style="">0.386</td><td class="" style="">0.430</td><td class="pos" style="background:rgba(220,38,38,0.071);color:#111827;">+0.005</td><td class="neg" style="background:rgba(37,99,235,0.171);color:#111827;">-0.039</td></tr><tr><td class="" style="">宁夏</td><td class="" style="">2026-10</td><td class="" style="">0.264</td><td class="" style="">0.257</td><td class="" style="">0.256</td><td class="pos" style="background:rgba(220,38,38,0.100);color:#111827;">+0.007</td><td class="pos" style="background:rgba(220,38,38,0.034);color:#111827;">+0.008</td></tr><tr><td class="" style="">安徽</td><td class="" style="">2026-10</td><td class="" style="">0.326</td><td class="" style="">0.308</td><td class="" style="">0.389</td><td class="pos" style="background:rgba(220,38,38,0.264);color:#111827;">+0.018</td><td class="neg" style="background:rgba(37,99,235,0.279);color:#111827;">-0.064</td></tr><tr><td class="" style="">山东</td><td class="" style="">2026-10</td><td class="" style="">0.364</td><td class="" style="">0.356</td><td class="" style="">0.428</td><td class="pos" style="background:rgba(220,38,38,0.118);color:#111827;">+0.008</td><td class="neg" style="background:rgba(37,99,235,0.279);color:#111827;">-0.064</td></tr><tr><td class="" style="">山西</td><td class="" style="">2026-10</td><td class="" style="">0.331</td><td class="" style="">0.319</td><td class="" style="">0.355</td><td class="pos" style="background:rgba(220,38,38,0.183);color:#111827;">+0.012</td><td class="neg" style="background:rgba(37,99,235,0.102);color:#111827;">-0.023</td></tr><tr><td class="" style="">广东</td><td class="" style="">2026-10</td><td class="" style="">0.490</td><td class="" style="">0.506</td><td class="" style="">0.491</td><td class="neg" style="background:rgba(37,99,235,0.239);color:#111827;">-0.016</td><td class="neg" style="background:rgba(37,99,235,0.006);color:#111827;">-0.001</td></tr><tr><td class="" style="">广西</td><td class="" style="">2026-10</td><td class="" style="">0.333</td><td class="" style="">0.332</td><td class="" style="">0.372</td><td class="pos" style="background:rgba(220,38,38,0.023);color:#111827;">+0.002</td><td class="neg" style="background:rgba(37,99,235,0.170);color:#111827;">-0.039</td></tr><tr><td class="" style="">新疆</td><td class="" style="">2026-10</td><td class="" style="">0.138</td><td class="" style="">0.133</td><td class="" style="">0.275</td><td class="pos" style="background:rgba(220,38,38,0.080);color:#111827;">+0.005</td><td class="neg" style="background:rgba(37,99,235,0.597);color:#111827;">-0.136</td></tr><tr><td class="" style="">江苏</td><td class="" style="">2026-10</td><td class="" style="">0.396</td><td class="" style="">0.397</td><td class="" style="">0.434</td><td class="neg" style="background:rgba(37,99,235,0.015);color:#111827;">-0.001</td><td class="neg" style="background:rgba(37,99,235,0.166);color:#111827;">-0.038</td></tr><tr><td class="" style="">江西</td><td class="" style="">2026-10</td><td class="" style="">0.414</td><td class="" style="">0.439</td><td class="" style="">0.453</td><td class="neg" style="background:rgba(37,99,235,0.377);color:#111827;">-0.026</td><td class="neg" style="background:rgba(37,99,235,0.175);color:#111827;">-0.040</td></tr><tr><td class="" style="">河南</td><td class="" style="">2026-10</td><td class="" style="">0.388</td><td class="" style="">0.420</td><td class="" style="">0.405</td><td class="neg" style="background:rgba(37,99,235,0.463);color:#111827;">-0.031</td><td class="neg" style="background:rgba(37,99,235,0.074);color:#111827;">-0.017</td></tr><tr><td class="" style="">湖北</td><td class="" style="">2026-10</td><td class="" style="">0.362</td><td class="" style="">0.371</td><td class="" style="">0.397</td><td class="neg" style="background:rgba(37,99,235,0.125);color:#111827;">-0.008</td><td class="neg" style="background:rgba(37,99,235,0.152);color:#111827;">-0.035</td></tr><tr><td class="" style="">湖南</td><td class="" style="">2026-10</td><td class="" style="">0.353</td><td class="" style="">0.332</td><td class="" style="">0.504</td><td class="pos" style="background:rgba(220,38,38,0.312);color:#111827;">+0.021</td><td class="neg" style="background:rgba(37,99,235,0.661);color:#111827;">-0.151</td></tr><tr><td class="" style="">甘肃</td><td class="" style="">2026-10</td><td class="" style="">0.208</td><td class="" style="">0.198</td><td class="" style="">0.288</td><td class="pos" style="background:rgba(220,38,38,0.136);color:#111827;">+0.009</td><td class="neg" style="background:rgba(37,99,235,0.350);color:#111827;">-0.080</td></tr><tr><td class="" style="">福建</td><td class="" style="">2026-10</td><td class="" style="">0.374</td><td class="" style="">0.374</td><td class="" style="">0.408</td><td class="pos" style="background:rgba(220,38,38,0.001);color:#111827;">+0.000</td><td class="neg" style="background:rgba(37,99,235,0.152);color:#111827;">-0.035</td></tr><tr><td class="" style="">贵州</td><td class="" style="">2026-10</td><td class="" style="">0.379</td><td class="" style="">0.397</td><td class="" style="">0.388</td><td class="neg" style="background:rgba(37,99,235,0.274);color:#111827;">-0.019</td><td class="neg" style="background:rgba(37,99,235,0.040);color:#111827;">-0.009</td></tr><tr><td class="" style="">辽宁</td><td class="" style="">2026-10</td><td class="" style="">0.249</td><td class="" style="">0.297</td><td class="" style="">0.427</td><td class="neg" style="background:rgba(37,99,235,0.701);color:#111827;">-0.047</td><td class="neg" style="background:rgba(37,99,235,0.780);color:#111827;">-0.178</td></tr><tr><td class="" style="">重庆</td><td class="" style="">2026-10</td><td class="" style="">0.433</td><td class="" style="">0.433</td><td class="" style="">0.403</td><td class="pos" style="background:rgba(220,38,38,0.010);color:#111827;">+0.001</td><td class="pos" style="background:rgba(220,38,38,0.132);color:#111827;">+0.030</td></tr><tr><td class="" style="">陕西</td><td class="" style="">2026-10</td><td class="" style="">0.337</td><td class="" style="">0.358</td><td class="" style="">0.330</td><td class="neg" style="background:rgba(37,99,235,0.320);color:#111827;">-0.022</td><td class="pos" style="background:rgba(220,38,38,0.031);color:#111827;">+0.007</td></tr><tr><td class="" style="">青海</td><td class="" style="">2026-10</td><td class="" style="">0.253</td><td class="" style="">0.228</td><td class="" style="">0.317</td><td class="pos" style="background:rgba(220,38,38,0.365);color:#111827;">+0.025</td><td class="neg" style="background:rgba(37,99,235,0.281);color:#111827;">-0.064</td></tr><tr><td class="" style="">黑龙江</td><td class="" style="">2026-10</td><td class="" style="">0.309</td><td class="" style="">0.306</td><td class="" style="">0.395</td><td class="pos" style="background:rgba(220,38,38,0.047);color:#111827;">+0.003</td><td class="neg" style="background:rgba(37,99,235,0.379);color:#111827;">-0.087</td></tr></tbody></table></div></div><div class="card wide-card"><div class="card-head"><h3>代理购电价季节性</h3><p>现有省份按 4 张一行展示，单位为元/度。</p></div><div class="card-body"><div class="mini-chart-row"><div class="power-chart-shell" data-chart-title="上海代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">上海代理购电价</div><div class="power-chart-years"></div><div aria-label="上海代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"上海代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.5987},{"date":"2月","value":0.5983999999999999},{"date":"3月","value":0.5809},{"date":"4月","value":0.5892000000000001},{"date":"5月","value":0.5839},{"date":"6月","value":0.45580000000000004},{"date":"7月","value":0.4761},{"date":"8月","value":0.4704},{"date":"9月","value":0.44010000000000005},{"date":"10月","value":0.4184},{"date":"11月","value":0.42810000000000004},{"date":"12月","value":0.4159}]},{"label":"2024","points":[{"date":"1月","value":0.42969999999999997},{"date":"2月","value":0.459},{"date":"3月","value":0.4679},{"date":"4月","value":0.524},{"date":"5月","value":0.4793},{"date":"6月","value":0.4805},{"date":"7月","value":0.4767},{"date":"8月","value":0.48310000000000003},{"date":"9月","value":0.4665},{"date":"10月","value":0.44},{"date":"11月","value":0.4591},{"date":"12月","value":0.44589999999999996}]},{"label":"2025","points":[{"date":"1月","value":0.4415},{"date":"2月","value":0.4467},{"date":"3月","value":0.4427},{"date":"4月","value":0.4407},{"date":"5月","value":0.4485},{"date":"6月","value":0.4588},{"date":"7月","value":0.4761},{"date":"8月","value":0.4854},{"date":"9月","value":0.456},{"date":"10月","value":0.4515},{"date":"11月","value":0.45},{"date":"12月","value":0.4398}]},{"label":"2026","points":[{"date":"1月","value":0.4325},{"date":"2月","value":0.43026600000000004},{"date":"3月","value":0.439077},{"date":"4月","value":0.40916399999999997},{"date":"5月","value":0.426043},{"date":"6月","value":0.43507999999999997},{"date":"7月","value":0.45019400000000004},{"date":"8月","value":0.428899},{"date":"9月","value":0.442266},{"date":"10月","value":0.413989},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="云南代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">云南代理购电价</div><div class="power-chart-years"></div><div aria-label="云南代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"云南代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.278291},{"date":"2月","value":null},{"date":"3月","value":0.291633},{"date":"4月","value":0.298265},{"date":"5月","value":0.258775},{"date":"6月","value":0.198752},{"date":"7月","value":0.201539},{"date":"8月","value":0.22249100000000002},{"date":"9月","value":0.221163},{"date":"10月","value":0.203157},{"date":"11月","value":0.256432},{"date":"12月","value":0.296153}]},{"label":"2024","points":[{"date":"1月","value":0.313632},{"date":"2月","value":0.29222000000000004},{"date":"3月","value":0.283128},{"date":"4月","value":0.298593},{"date":"5月","value":0.286664},{"date":"6月","value":0.224904},{"date":"7月","value":0.19372399999999998},{"date":"8月","value":0.203887},{"date":"9月","value":0.188921},{"date":"10月","value":0.185366},{"date":"11月","value":0.29391500000000004},{"date":"12月","value":0.303731}]},{"label":"2025","points":[{"date":"1月","value":0.310596},{"date":"2月","value":0.305679},{"date":"3月","value":0.293196},{"date":"4月","value":0.302533},{"date":"5月","value":0.31412799999999996},{"date":"6月","value":0.235428},{"date":"7月","value":0.208915},{"date":"8月","value":0.220311},{"date":"9月","value":0.203089},{"date":"10月","value":0.210022},{"date":"11月","value":0.28072},{"date":"12月","value":0.284334}]},{"label":"2026","points":[{"date":"1月","value":0.243876},{"date":"2月","value":0.25519},{"date":"3月","value":0.288272},{"date":"4月","value":0.300349},{"date":"5月","value":0.27934699999999996},{"date":"6月","value":0.248532},{"date":"7月","value":0.205124},{"date":"8月","value":0.160144},{"date":"9月","value":0.165774},{"date":"10月","value":0.21865199999999999},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="内蒙东部地区代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">内蒙东部地区代理购电价</div><div class="power-chart-years"></div><div aria-label="内蒙东部地区代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"内蒙东部地区代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.29774900000000004},{"date":"2月","value":0.288251},{"date":"3月","value":0.279934},{"date":"4月","value":0.288891},{"date":"5月","value":0.290129},{"date":"6月","value":0.273201},{"date":"7月","value":0.280661},{"date":"8月","value":0.279494},{"date":"9月","value":0.28386900000000004},{"date":"10月","value":0.29156299999999996},{"date":"11月","value":0.277733},{"date":"12月","value":0.27122}]},{"label":"2024","points":[{"date":"1月","value":0.26269099999999995},{"date":"2月","value":0.275581},{"date":"3月","value":0.240668},{"date":"4月","value":0.223425},{"date":"5月","value":0.26079199999999997},{"date":"6月","value":0.27185899999999996},{"date":"7月","value":0.288832},{"date":"8月","value":0.290528},{"date":"9月","value":0.279069},{"date":"10月","value":0.24964599999999998},{"date":"11月","value":0.22185},{"date":"12月","value":0.24196199999999998}]},{"label":"2025","points":[{"date":"1月","value":0.245321},{"date":"2月","value":0.263819},{"date":"3月","value":0.297661},{"date":"4月","value":0.264991},{"date":"5月","value":0.285493},{"date":"6月","value":0.292932},{"date":"7月","value":0.285722},{"date":"8月","value":0.298305},{"date":"9月","value":0.277294},{"date":"10月","value":0.261343},{"date":"11月","value":0.279507},{"date":"12月","value":0.298519}]},{"label":"2026","points":[{"date":"1月","value":0.248454},{"date":"2月","value":0.19630099999999998},{"date":"3月","value":0.194947},{"date":"4月","value":0.169877},{"date":"5月","value":0.17827099999999999},{"date":"6月","value":0.254391},{"date":"7月","value":0.28541500000000003},{"date":"8月","value":0.286507},{"date":"9月","value":0.171601},{"date":"10月","value":0.17371799999999998},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="内蒙西部地区代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">内蒙西部地区代理购电价</div><div class="power-chart-years"></div><div aria-label="内蒙西部地区代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"内蒙西部地区代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.30939999999999995},{"date":"2月","value":0.31710000000000005},{"date":"3月","value":0.32330000000000003},{"date":"4月","value":0.31610000000000005},{"date":"5月","value":0.3127},{"date":"6月","value":0.3025},{"date":"7月","value":0.2921},{"date":"8月","value":0.2932},{"date":"9月","value":0.29669999999999996},{"date":"10月","value":0.2999},{"date":"11月","value":0.30689999999999995},{"date":"12月","value":0.3292}]},{"label":"2024","points":[{"date":"1月","value":0.2953},{"date":"2月","value":0.2904},{"date":"3月","value":0.30169999999999997},{"date":"4月","value":0.29960000000000003},{"date":"5月","value":0.2995},{"date":"6月","value":0.2841},{"date":"7月","value":0.29710000000000003},{"date":"8月","value":0.2844},{"date":"9月","value":0.2855},{"date":"10月","value":0.3049},{"date":"11月","value":0.3117},{"date":"12月","value":0.2985}]},{"label":"2025","points":[{"date":"1月","value":0.3054},{"date":"2月","value":0.3366},{"date":"3月","value":0.282},{"date":"4月","value":0.3212},{"date":"5月","value":0.3356},{"date":"6月","value":0.3377},{"date":"7月","value":0.31610000000000005},{"date":"8月","value":0.3339},{"date":"9月","value":0.3221},{"date":"10月","value":0.3286},{"date":"11月","value":0.31489999999999996},{"date":"12月","value":0.2963}]},{"label":"2026","points":[{"date":"1月","value":0.3202},{"date":"2月","value":0.3257},{"date":"3月","value":0.3128},{"date":"4月","value":0.3217},{"date":"5月","value":0.32939999999999997},{"date":"6月","value":0.3281},{"date":"7月","value":0.31539999999999996},{"date":"8月","value":0.32339999999999997},{"date":"9月","value":0.3113},{"date":"10月","value":0.3127},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="北京代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">北京代理购电价</div><div class="power-chart-years"></div><div aria-label="北京代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"北京代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.425185},{"date":"2月","value":0.428573},{"date":"3月","value":0.41013299999999997},{"date":"4月","value":0.41518400000000005},{"date":"5月","value":0.408384},{"date":"6月","value":0.419625},{"date":"7月","value":0.421649},{"date":"8月","value":0.42107799999999995},{"date":"9月","value":0.413106},{"date":"10月","value":0.40044},{"date":"11月","value":0.394759},{"date":"12月","value":0.405793}]},{"label":"2024","points":[{"date":"1月","value":0.409861},{"date":"2月","value":0.39934800000000004},{"date":"3月","value":0.398787},{"date":"4月","value":0.397018},{"date":"5月","value":0.394809},{"date":"6月","value":0.398866},{"date":"7月","value":0.409176},{"date":"8月","value":0.404845},{"date":"9月","value":0.399217},{"date":"10月","value":0.39381700000000003},{"date":"11月","value":0.400387},{"date":"12月","value":0.409874}]},{"label":"2025","points":[{"date":"1月","value":0.395944},{"date":"2月","value":0.390224},{"date":"3月","value":0.39766500000000005},{"date":"4月","value":0.40060500000000004},{"date":"5月","value":0.39627100000000004},{"date":"6月","value":0.399885},{"date":"7月","value":0.40639800000000004},{"date":"8月","value":0.40456400000000003},{"date":"9月","value":0.401125},{"date":"10月","value":0.396404},{"date":"11月","value":0.397654},{"date":"12月","value":0.39724400000000004}]},{"label":"2026","points":[{"date":"1月","value":0.383338},{"date":"2月","value":0.380804},{"date":"3月","value":0.388706},{"date":"4月","value":0.384024},{"date":"5月","value":0.39871300000000004},{"date":"6月","value":0.384467},{"date":"7月","value":0.386827},{"date":"8月","value":0.389702},{"date":"9月","value":0.384837},{"date":"10月","value":0.383652},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="吉林代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">吉林代理购电价</div><div class="power-chart-years"></div><div aria-label="吉林代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"吉林代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.46099},{"date":"2月","value":0.44795999999999997},{"date":"3月","value":0.45506},{"date":"4月","value":0.44624},{"date":"5月","value":0.44655},{"date":"6月","value":0.44772},{"date":"7月","value":0.44772},{"date":"8月","value":0.44772},{"date":"9月","value":0.44772},{"date":"10月","value":0.44772},{"date":"11月","value":0.44772},{"date":"12月","value":0.44724}]},{"label":"2024","points":[{"date":"1月","value":0.42129},{"date":"2月","value":0.42180900000000005},{"date":"3月","value":0.43000499999999997},{"date":"4月","value":0.43220800000000004},{"date":"5月","value":0.415003},{"date":"6月","value":0.407656},{"date":"7月","value":0.417808},{"date":"8月","value":0.412899},{"date":"9月","value":0.436131},{"date":"10月","value":0.436121},{"date":"11月","value":0.419875},{"date":"12月","value":0.420833}]},{"label":"2025","points":[{"date":"1月","value":0.42142},{"date":"2月","value":0.40086},{"date":"3月","value":0.404312},{"date":"4月","value":0.386848},{"date":"5月","value":0.39905599999999997},{"date":"6月","value":0.392183},{"date":"7月","value":0.384578},{"date":"8月","value":0.43074900000000005},{"date":"9月","value":0.41281},{"date":"10月","value":0.423957},{"date":"11月","value":0.426539},{"date":"12月","value":0.419572}]},{"label":"2026","points":[{"date":"1月","value":0.34154},{"date":"2月","value":0.336807},{"date":"3月","value":0.340561},{"date":"4月","value":0.341581},{"date":"5月","value":0.331878},{"date":"6月","value":0.344146},{"date":"7月","value":0.34298700000000004},{"date":"8月","value":0.347286},{"date":"9月","value":0.344715},{"date":"10月","value":0.342954},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="四川代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">四川代理购电价</div><div class="power-chart-years"></div><div aria-label="四川代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"四川代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.453},{"date":"2月","value":0.453},{"date":"3月","value":0.5022},{"date":"4月","value":0.4658},{"date":"5月","value":0.4101},{"date":"6月","value":0.3416},{"date":"7月","value":0.3599},{"date":"8月","value":0.3961},{"date":"9月","value":0.3365},{"date":"10月","value":0.3397},{"date":"11月","value":0.38},{"date":"12月","value":0.48469999999999996}]},{"label":"2024","points":[{"date":"1月","value":0.4569},{"date":"2月","value":0.4754},{"date":"3月","value":0.4767},{"date":"4月","value":0.484},{"date":"5月","value":0.397},{"date":"6月","value":0.2789},{"date":"7月","value":0.25880000000000003},{"date":"8月","value":0.2605},{"date":"9月","value":0.3182},{"date":"10月","value":0.32530000000000003},{"date":"11月","value":0.3978},{"date":"12月","value":0.4639}]},{"label":"2025","points":[{"date":"1月","value":0.42},{"date":"2月","value":0.422967},{"date":"3月","value":0.444268},{"date":"4月","value":0.43563799999999997},{"date":"5月","value":0.341582},{"date":"6月","value":0.290281},{"date":"7月","value":0.202446},{"date":"8月","value":0.27738799999999997},{"date":"9月","value":0.23780600000000002},{"date":"10月","value":0.268329},{"date":"11月","value":0.378832},{"date":"12月","value":0.43056099999999997}]},{"label":"2026","points":[{"date":"1月","value":0.422843},{"date":"2月","value":0.413906},{"date":"3月","value":0.420719},{"date":"4月","value":0.388865},{"date":"5月","value":0.335176},{"date":"6月","value":0.20702199999999998},{"date":"7月","value":0.212732},{"date":"8月","value":0.260434},{"date":"9月","value":0.238821},{"date":"10月","value":0.227768},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="天津代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">天津代理购电价</div><div class="power-chart-years"></div><div aria-label="天津代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"天津代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.48619999999999997},{"date":"2月","value":0.4942},{"date":"3月","value":0.4995},{"date":"4月","value":0.49910000000000004},{"date":"5月","value":0.4781},{"date":"6月","value":0.438},{"date":"7月","value":0.43589999999999995},{"date":"8月","value":0.4457},{"date":"9月","value":0.4402},{"date":"10月","value":0.4274},{"date":"11月","value":0.4255},{"date":"12月","value":0.415}]},{"label":"2024","points":[{"date":"1月","value":0.42069999999999996},{"date":"2月","value":0.4124},{"date":"3月","value":0.4038},{"date":"4月","value":0.4102},{"date":"5月","value":0.4056},{"date":"6月","value":0.409},{"date":"7月","value":0.4162},{"date":"8月","value":0.4155},{"date":"9月","value":0.4065},{"date":"10月","value":0.3921},{"date":"11月","value":0.4005},{"date":"12月","value":0.4163}]},{"label":"2025","points":[{"date":"1月","value":0.4109},{"date":"2月","value":0.4112},{"date":"3月","value":0.4105},{"date":"4月","value":0.4189},{"date":"5月","value":0.4407},{"date":"6月","value":0.4092},{"date":"7月","value":0.4152},{"date":"8月","value":0.424},{"date":"9月","value":0.415},{"date":"10月","value":0.429616},{"date":"11月","value":0.42545},{"date":"12月","value":0.38529399999999997}]},{"label":"2026","points":[{"date":"1月","value":0.366481},{"date":"2月","value":0.394759},{"date":"3月","value":0.39387099999999997},{"date":"4月","value":0.39459500000000003},{"date":"5月","value":0.388778},{"date":"6月","value":0.385138},{"date":"7月","value":0.38922500000000004},{"date":"8月","value":0.388069},{"date":"9月","value":0.38571300000000003},{"date":"10月","value":0.390531},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="宁夏代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">宁夏代理购电价</div><div class="power-chart-years"></div><div aria-label="宁夏代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"宁夏代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.276},{"date":"2月","value":0.29819999999999997},{"date":"3月","value":0.29410000000000003},{"date":"4月","value":0.2844},{"date":"5月","value":0.2926},{"date":"6月","value":0.2876},{"date":"7月","value":0.2874},{"date":"8月","value":0.2799},{"date":"9月","value":0.3015},{"date":"10月","value":0.29669999999999996},{"date":"11月","value":0.29919999999999997},{"date":"12月","value":0.2912}]},{"label":"2024","points":[{"date":"1月","value":0.2845},{"date":"2月","value":0.2929},{"date":"3月","value":0.3252},{"date":"4月","value":0.2861},{"date":"5月","value":0.305},{"date":"6月","value":0.2926},{"date":"7月","value":0.29669999999999996},{"date":"8月","value":0.2923},{"date":"9月","value":0.30210000000000004},{"date":"10月","value":0.2999},{"date":"11月","value":0.3024},{"date":"12月","value":0.30269999999999997}]},{"label":"2025","points":[{"date":"1月","value":0.303},{"date":"2月","value":0.3113},{"date":"3月","value":0.2904},{"date":"4月","value":0.2908},{"date":"5月","value":0.2921},{"date":"6月","value":0.273},{"date":"7月","value":0.26789999999999997},{"date":"8月","value":0.2866},{"date":"9月","value":0.2899},{"date":"10月","value":0.256},{"date":"11月","value":0.2793},{"date":"12月","value":0.2859}]},{"label":"2026","points":[{"date":"1月","value":0.2549},{"date":"2月","value":0.26189999999999997},{"date":"3月","value":0.2551},{"date":"4月","value":0.2615},{"date":"5月","value":0.268},{"date":"6月","value":0.2662},{"date":"7月","value":0.2762},{"date":"8月","value":0.281},{"date":"9月","value":0.25689999999999996},{"date":"10月","value":0.2637},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="安徽代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">安徽代理购电价</div><div class="power-chart-years"></div><div aria-label="安徽代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"安徽代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.46127999999999997},{"date":"2月","value":0.46127999999999997},{"date":"3月","value":0.46127999999999997},{"date":"4月","value":0.46127999999999997},{"date":"5月","value":0.46127999999999997},{"date":"6月","value":0.46127999999999997},{"date":"7月","value":0.46127999999999997},{"date":"8月","value":0.46127999999999997},{"date":"9月","value":0.46127999999999997},{"date":"10月","value":0.46127999999999997},{"date":"11月","value":0.46127999999999997},{"date":"12月","value":0.46127999999999997}]},{"label":"2024","points":[{"date":"1月","value":0.43638},{"date":"2月","value":0.43675},{"date":"3月","value":0.43675},{"date":"4月","value":0.43848000000000004},{"date":"5月","value":0.43649},{"date":"6月","value":0.43649},{"date":"7月","value":0.437},{"date":"8月","value":0.43701},{"date":"9月","value":0.43814},{"date":"10月","value":0.43639},{"date":"11月","value":0.43701},{"date":"12月","value":0.43627999999999995}]},{"label":"2025","points":[{"date":"1月","value":0.40932},{"date":"2月","value":0.41195},{"date":"3月","value":0.40986},{"date":"4月","value":0.40098},{"date":"5月","value":0.41334},{"date":"6月","value":0.41266},{"date":"7月","value":0.41595},{"date":"8月","value":0.40891000000000005},{"date":"9月","value":0.41247},{"date":"10月","value":0.38927999999999996},{"date":"11月","value":0.38850999999999997},{"date":"12月","value":0.401}]},{"label":"2026","points":[{"date":"1月","value":0.34786},{"date":"2月","value":0.35945},{"date":"3月","value":0.33697000000000005},{"date":"4月","value":0.34452999999999995},{"date":"5月","value":0.34546},{"date":"6月","value":0.32176},{"date":"7月","value":0.30306},{"date":"8月","value":0.31399},{"date":"9月","value":0.30772000000000005},{"date":"10月","value":0.3256},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="山东代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">山东代理购电价</div><div class="power-chart-years"></div><div aria-label="山东代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"山东代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.38830000000000003},{"date":"2月","value":0.39},{"date":"3月","value":0.3922},{"date":"4月","value":0.38480000000000003},{"date":"5月","value":0.38580000000000003},{"date":"6月","value":0.3589},{"date":"7月","value":0.3775},{"date":"8月","value":0.3875},{"date":"9月","value":0.3991},{"date":"10月","value":0.3997},{"date":"11月","value":0.3984},{"date":"12月","value":0.391}]},{"label":"2024","points":[{"date":"1月","value":0.3916},{"date":"2月","value":0.3943},{"date":"3月","value":0.4014},{"date":"4月","value":0.4018},{"date":"5月","value":0.3956},{"date":"6月","value":0.3922},{"date":"7月","value":0.36769999999999997},{"date":"8月","value":0.36},{"date":"9月","value":0.38739999999999997},{"date":"10月","value":0.3895},{"date":"11月","value":0.3987},{"date":"12月","value":0.39230000000000004}]},{"label":"2025","points":[{"date":"1月","value":0.3992},{"date":"2月","value":0.4031},{"date":"3月","value":0.4071},{"date":"4月","value":0.393},{"date":"5月","value":0.381},{"date":"6月","value":0.3464},{"date":"7月","value":0.306},{"date":"8月","value":0.30739999999999995},{"date":"9月","value":0.3417},{"date":"10月","value":0.42819999999999997},{"date":"11月","value":0.4645},{"date":"12月","value":0.442}]},{"label":"2026","points":[{"date":"1月","value":0.3655},{"date":"2月","value":0.31839999999999996},{"date":"3月","value":0.267},{"date":"4月","value":0.241},{"date":"5月","value":0.2833},{"date":"6月","value":0.2686},{"date":"7月","value":0.2867},{"date":"8月","value":0.3325},{"date":"9月","value":0.3565},{"date":"10月","value":0.3645},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="山西代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">山西代理购电价</div><div class="power-chart-years"></div><div aria-label="山西代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"山西代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.487566},{"date":"2月","value":0.453971},{"date":"3月","value":0.419097},{"date":"4月","value":0.404588},{"date":"5月","value":0.36632400000000004},{"date":"6月","value":0.343866},{"date":"7月","value":0.373156},{"date":"8月","value":0.371282},{"date":"9月","value":0.361418},{"date":"10月","value":0.373683},{"date":"11月","value":0.39653},{"date":"12月","value":0.389632}]},{"label":"2024","points":[{"date":"1月","value":0.349974},{"date":"2月","value":0.36007},{"date":"3月","value":0.360214},{"date":"4月","value":0.34550400000000003},{"date":"5月","value":0.346644},{"date":"6月","value":0.36541500000000005},{"date":"7月","value":0.371094},{"date":"8月","value":0.35627600000000004},{"date":"9月","value":0.357659},{"date":"10月","value":0.357131},{"date":"11月","value":0.36626400000000003},{"date":"12月","value":0.382016}]},{"label":"2025","points":[{"date":"1月","value":0.396285},{"date":"2月","value":0.393398},{"date":"3月","value":0.38855},{"date":"4月","value":0.33955},{"date":"5月","value":0.34219099999999997},{"date":"6月","value":0.342265},{"date":"7月","value":0.338797},{"date":"8月","value":0.337286},{"date":"9月","value":0.34065300000000004},{"date":"10月","value":0.354694},{"date":"11月","value":0.38889},{"date":"12月","value":0.398827}]},{"label":"2026","points":[{"date":"1月","value":0.295868},{"date":"2月","value":0.305396},{"date":"3月","value":0.289594},{"date":"4月","value":0.322953},{"date":"5月","value":0.273332},{"date":"6月","value":0.28798399999999996},{"date":"7月","value":0.28610399999999997},{"date":"8月","value":0.32869400000000004},{"date":"9月","value":0.319002},{"date":"10月","value":0.331376},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="广东代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">广东代理购电价</div><div class="power-chart-years"></div><div aria-label="广东代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"广东代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.5599},{"date":"2月","value":0.5621},{"date":"3月","value":0.5612},{"date":"4月","value":0.5618},{"date":"5月","value":0.5839},{"date":"6月","value":0.5501},{"date":"7月","value":0.5659},{"date":"8月","value":0.5784},{"date":"9月","value":0.5628},{"date":"10月","value":0.5333},{"date":"11月","value":0.5302},{"date":"12月","value":0.5434}]},{"label":"2024","points":[{"date":"1月","value":0.5023},{"date":"2月","value":0.5075},{"date":"3月","value":0.5169},{"date":"4月","value":0.5143},{"date":"5月","value":0.5167},{"date":"6月","value":0.48969999999999997},{"date":"7月","value":0.49119999999999997},{"date":"8月","value":0.5075},{"date":"9月","value":0.5095},{"date":"10月","value":0.5098},{"date":"11月","value":0.49589999999999995},{"date":"12月","value":0.5086}]},{"label":"2025","points":[{"date":"1月","value":0.502},{"date":"2月","value":0.5113},{"date":"3月","value":0.49889999999999995},{"date":"4月","value":0.5021},{"date":"5月","value":0.5176000000000001},{"date":"6月","value":0.497},{"date":"7月","value":0.4795},{"date":"8月","value":0.5022},{"date":"9月","value":0.503},{"date":"10月","value":0.491},{"date":"11月","value":0.43289999999999995},{"date":"12月","value":0.45630000000000004}]},{"label":"2026","points":[{"date":"1月","value":0.37889999999999996},{"date":"2月","value":0.4128},{"date":"3月","value":0.4178},{"date":"4月","value":0.4043},{"date":"5月","value":0.4457},{"date":"6月","value":0.4708},{"date":"7月","value":0.4962},{"date":"8月","value":0.465},{"date":"9月","value":0.5058},{"date":"10月","value":0.48960000000000004},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="广西代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">广西代理购电价</div><div class="power-chart-years"></div><div aria-label="广西代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"广西代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.4587},{"date":"2月","value":0.4214},{"date":"3月","value":0.3433},{"date":"4月","value":0.437},{"date":"5月","value":0.4188},{"date":"6月","value":0.37560000000000004},{"date":"7月","value":0.4052},{"date":"8月","value":0.4707},{"date":"9月","value":0.5315},{"date":"10月","value":0.48569999999999997},{"date":"11月","value":0.3679},{"date":"12月","value":0.45489999999999997}]},{"label":"2024","points":[{"date":"1月","value":0.42160000000000003},{"date":"2月","value":0.485262},{"date":"3月","value":0.462214},{"date":"4月","value":0.44193400000000005},{"date":"5月","value":0.417987},{"date":"6月","value":0.345568},{"date":"7月","value":0.288054},{"date":"8月","value":0.318259},{"date":"9月","value":0.34850400000000004},{"date":"10月","value":0.386452},{"date":"11月","value":0.398521},{"date":"12月","value":0.41846}]},{"label":"2025","points":[{"date":"1月","value":0.406315},{"date":"2月","value":0.32119},{"date":"3月","value":0.33654199999999995},{"date":"4月","value":0.341024},{"date":"5月","value":0.341262},{"date":"6月","value":0.382772},{"date":"7月","value":0.411949},{"date":"8月","value":0.388721},{"date":"9月","value":0.374104},{"date":"10月","value":0.37199400000000005},{"date":"11月","value":0.398845},{"date":"12月","value":0.388898}]},{"label":"2026","points":[{"date":"1月","value":0.360177},{"date":"2月","value":0.37849},{"date":"3月","value":0.313386},{"date":"4月","value":0.334676},{"date":"5月","value":0.334061},{"date":"6月","value":0.395957},{"date":"7月","value":0.35408999999999996},{"date":"8月","value":0.342477},{"date":"9月","value":0.33152699999999996},{"date":"10月","value":0.333082},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="新疆代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">新疆代理购电价</div><div class="power-chart-years"></div><div aria-label="新疆代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"新疆代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.26617399999999997},{"date":"2月","value":0.264324},{"date":"3月","value":0.265807},{"date":"4月","value":0.258106},{"date":"5月","value":0.267032},{"date":"6月","value":0.263123},{"date":"7月","value":0.269429},{"date":"8月","value":0.26287099999999997},{"date":"9月","value":0.248027},{"date":"10月","value":0.252069},{"date":"11月","value":0.26184500000000005},{"date":"12月","value":0.279329}]},{"label":"2024","points":[{"date":"1月","value":0.26069099999999995},{"date":"2月","value":0.251712},{"date":"3月","value":0.248751},{"date":"4月","value":0.23109200000000002},{"date":"5月","value":0.227619},{"date":"6月","value":0.21993000000000001},{"date":"7月","value":0.25505099999999997},{"date":"8月","value":0.234974},{"date":"9月","value":0.233927},{"date":"10月","value":0.25681400000000004},{"date":"11月","value":0.261453},{"date":"12月","value":0.286695}]},{"label":"2025","points":[{"date":"1月","value":0.259947},{"date":"2月","value":0.234368},{"date":"3月","value":0.261875},{"date":"4月","value":0.263053},{"date":"5月","value":0.248592},{"date":"6月","value":0.26816500000000004},{"date":"7月","value":0.26037299999999997},{"date":"8月","value":0.267652},{"date":"9月","value":0.274249},{"date":"10月","value":0.274566},{"date":"11月","value":0.27105},{"date":"12月","value":0.273246}]},{"label":"2026","points":[{"date":"1月","value":0.23605199999999998},{"date":"2月","value":0.280966},{"date":"3月","value":0.321914},{"date":"4月","value":0.228721},{"date":"5月","value":0.237646},{"date":"6月","value":0.152292},{"date":"7月","value":0.116312},{"date":"8月","value":0.248484},{"date":"9月","value":0.132658},{"date":"10月","value":0.13808199999999998},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="江苏代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">江苏代理购电价</div><div class="power-chart-years"></div><div aria-label="江苏代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"江苏代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.4537},{"date":"2月","value":0.4679},{"date":"3月","value":0.4674},{"date":"4月","value":0.4683},{"date":"5月","value":0.4717},{"date":"6月","value":0.4378},{"date":"7月","value":0.4769},{"date":"8月","value":0.4738},{"date":"9月","value":0.4423},{"date":"10月","value":0.44010000000000005},{"date":"11月","value":0.4634},{"date":"12月","value":0.4641}]},{"label":"2024","points":[{"date":"1月","value":0.459},{"date":"2月","value":0.44730000000000003},{"date":"3月","value":0.4362},{"date":"4月","value":0.44},{"date":"5月","value":0.44339999999999996},{"date":"6月","value":0.455},{"date":"7月","value":0.45539999999999997},{"date":"8月","value":0.4557},{"date":"9月","value":0.44},{"date":"10月","value":0.4335},{"date":"11月","value":0.447},{"date":"12月","value":0.4586}]},{"label":"2025","points":[{"date":"1月","value":0.46},{"date":"2月","value":0.43889999999999996},{"date":"3月","value":0.43610000000000004},{"date":"4月","value":0.44310000000000005},{"date":"5月","value":0.42219999999999996},{"date":"6月","value":0.4275},{"date":"7月","value":0.4378},{"date":"8月","value":0.4274},{"date":"9月","value":0.424},{"date":"10月","value":0.43360000000000004},{"date":"11月","value":0.4393},{"date":"12月","value":0.4525}]},{"label":"2026","points":[{"date":"1月","value":0.3937},{"date":"2月","value":0.3102},{"date":"3月","value":0.3458},{"date":"4月","value":0.3715},{"date":"5月","value":0.3529},{"date":"6月","value":0.373},{"date":"7月","value":0.3949},{"date":"8月","value":0.3832},{"date":"9月","value":0.3967},{"date":"10月","value":0.3957},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="江西代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">江西代理购电价</div><div class="power-chart-years"></div><div aria-label="江西代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"江西代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.49557999999999996},{"date":"2月","value":0.50371},{"date":"3月","value":0.5307999999999999},{"date":"4月","value":0.51239},{"date":"5月","value":0.50512},{"date":"6月","value":0.49716000000000005},{"date":"7月","value":0.49716000000000005},{"date":"8月","value":0.49716000000000005},{"date":"9月","value":0.49716000000000005},{"date":"10月","value":0.49716000000000005},{"date":"11月","value":0.49716000000000005},{"date":"12月","value":0.49716000000000005}]},{"label":"2024","points":[{"date":"1月","value":0.48108},{"date":"2月","value":0.47535000000000005},{"date":"3月","value":0.47164999999999996},{"date":"4月","value":0.46497000000000005},{"date":"5月","value":0.46663},{"date":"6月","value":0.46635000000000004},{"date":"7月","value":0.47024},{"date":"8月","value":0.46838},{"date":"9月","value":0.46682999999999997},{"date":"10月","value":0.45888999999999996},{"date":"11月","value":0.46542},{"date":"12月","value":0.47432}]},{"label":"2025","points":[{"date":"1月","value":0.46694},{"date":"2月","value":0.47122},{"date":"3月","value":0.45161},{"date":"4月","value":0.45571},{"date":"5月","value":0.44272},{"date":"6月","value":0.44855},{"date":"7月","value":0.44933999999999996},{"date":"8月","value":0.45654},{"date":"9月","value":0.4537},{"date":"10月","value":0.453494},{"date":"11月","value":0.45567399999999997},{"date":"12月","value":0.441183}]},{"label":"2026","points":[{"date":"1月","value":0.362841},{"date":"2月","value":0.414615},{"date":"3月","value":0.410183},{"date":"4月","value":0.412085},{"date":"5月","value":0.37699900000000003},{"date":"6月","value":0.382739},{"date":"7月","value":0.365562},{"date":"8月","value":0.408914},{"date":"9月","value":0.439156},{"date":"10月","value":0.413605},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="河南代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">河南代理购电价</div><div class="power-chart-years"></div><div aria-label="河南代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"河南代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.49619},{"date":"2月","value":0.50231},{"date":"3月","value":0.50639},{"date":"4月","value":0.505},{"date":"5月","value":0.47564},{"date":"6月","value":0.45330000000000004},{"date":"7月","value":0.45330000000000004},{"date":"8月","value":0.45330000000000004},{"date":"9月","value":0.453},{"date":"10月","value":0.453},{"date":"11月","value":0.453},{"date":"12月","value":0.45376}]},{"label":"2024","points":[{"date":"1月","value":0.4123},{"date":"2月","value":0.409078},{"date":"3月","value":0.416755},{"date":"4月","value":0.41167000000000004},{"date":"5月","value":0.411324},{"date":"6月","value":0.411654},{"date":"7月","value":0.41168299999999997},{"date":"8月","value":0.411861},{"date":"9月","value":0.411422},{"date":"10月","value":0.41150200000000003},{"date":"11月","value":0.41785},{"date":"12月","value":0.406771}]},{"label":"2025","points":[{"date":"1月","value":0.40516800000000003},{"date":"2月","value":0.40517000000000003},{"date":"3月","value":0.409594},{"date":"4月","value":0.405706},{"date":"5月","value":0.405231},{"date":"6月","value":0.405094},{"date":"7月","value":0.405266},{"date":"8月","value":0.407414},{"date":"9月","value":0.40510199999999996},{"date":"10月","value":0.4054},{"date":"11月","value":0.37739999999999996},{"date":"12月","value":0.39872399999999997}]},{"label":"2026","points":[{"date":"1月","value":0.339764},{"date":"2月","value":0.385249},{"date":"3月","value":0.393173},{"date":"4月","value":0.352904},{"date":"5月","value":0.31223500000000004},{"date":"6月","value":0.318828},{"date":"7月","value":0.357879},{"date":"8月","value":0.45140499999999995},{"date":"9月","value":0.419794},{"date":"10月","value":0.388411},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="湖北代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">湖北代理购电价</div><div class="power-chart-years"></div><div aria-label="湖北代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"湖北代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.5656},{"date":"2月","value":0.562},{"date":"3月","value":0.5441},{"date":"4月","value":0.5122000000000001},{"date":"5月","value":0.505},{"date":"6月","value":0.4865},{"date":"7月","value":0.4899},{"date":"8月","value":0.4998},{"date":"9月","value":0.499},{"date":"10月","value":0.483},{"date":"11月","value":0.4801},{"date":"12月","value":0.5026}]},{"label":"2024","points":[{"date":"1月","value":0.4762},{"date":"2月","value":0.4658},{"date":"3月","value":0.4561},{"date":"4月","value":0.4555},{"date":"5月","value":0.4496},{"date":"6月","value":0.4465},{"date":"7月","value":0.4315},{"date":"8月","value":0.445},{"date":"9月","value":0.43210000000000004},{"date":"10月","value":0.4665},{"date":"11月","value":0.4685},{"date":"12月","value":0.4761}]},{"label":"2025","points":[{"date":"1月","value":0.41910000000000003},{"date":"2月","value":0.3777},{"date":"3月","value":0.4352},{"date":"4月","value":0.42019999999999996},{"date":"5月","value":0.4155},{"date":"6月","value":0.4071},{"date":"7月","value":0.4026},{"date":"8月","value":0.4165},{"date":"9月","value":0.4145},{"date":"10月","value":0.397236},{"date":"11月","value":0.42618900000000004},{"date":"12月","value":0.386994}]},{"label":"2026","points":[{"date":"1月","value":0.38447000000000003},{"date":"2月","value":0.34516199999999997},{"date":"3月","value":0.372957},{"date":"4月","value":0.37885599999999997},{"date":"5月","value":0.36007100000000003},{"date":"6月","value":0.364502},{"date":"7月","value":0.36419799999999997},{"date":"8月","value":0.36138},{"date":"9月","value":0.37093200000000004},{"date":"10月","value":0.36245499999999997},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="湖南代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">湖南代理购电价</div><div class="power-chart-years"></div><div aria-label="湖南代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"湖南代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.60981},{"date":"2月","value":0.59321},{"date":"3月","value":0.49589999999999995},{"date":"4月","value":0.5131},{"date":"5月","value":0.48246},{"date":"6月","value":0.45208},{"date":"7月","value":0.53561},{"date":"8月","value":0.53983},{"date":"9月","value":0.51117},{"date":"10月","value":0.49063},{"date":"11月","value":0.50024},{"date":"12月","value":0.52915}]},{"label":"2024","points":[{"date":"1月","value":0.45522},{"date":"2月","value":0.47936},{"date":"3月","value":0.47449},{"date":"4月","value":0.45306},{"date":"5月","value":0.45577},{"date":"6月","value":0.45396},{"date":"7月","value":0.47322000000000003},{"date":"8月","value":0.4776},{"date":"9月","value":0.47082999999999997},{"date":"10月","value":0.46191000000000004},{"date":"11月","value":0.45954},{"date":"12月","value":0.46638999999999997}]},{"label":"2025","points":[{"date":"1月","value":0.48086},{"date":"2月","value":0.46929000000000004},{"date":"3月","value":0.45597000000000004},{"date":"4月","value":0.43207},{"date":"5月","value":0.43947},{"date":"6月","value":0.46604},{"date":"7月","value":0.46538999999999997},{"date":"8月","value":0.41074},{"date":"9月","value":0.43667},{"date":"10月","value":0.503977},{"date":"11月","value":0.407314},{"date":"12月","value":0.43893099999999996}]},{"label":"2026","points":[{"date":"1月","value":0.439353},{"date":"2月","value":0.441534},{"date":"3月","value":0.437547},{"date":"4月","value":0.385865},{"date":"5月","value":0.374954},{"date":"6月","value":0.334046},{"date":"7月","value":0.34750400000000004},{"date":"8月","value":0.380321},{"date":"9月","value":0.331897},{"date":"10月","value":0.35301499999999997},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="甘肃代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">甘肃代理购电价</div><div class="power-chart-years"></div><div aria-label="甘肃代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"甘肃代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.3655},{"date":"2月","value":0.36510000000000004},{"date":"3月","value":0.36069999999999997},{"date":"4月","value":0.3414},{"date":"5月","value":0.3282},{"date":"6月","value":0.313487},{"date":"7月","value":0.319096},{"date":"8月","value":0.309713},{"date":"9月","value":0.30355200000000004},{"date":"10月","value":0.331967},{"date":"11月","value":0.316175},{"date":"12月","value":0.334842}]},{"label":"2024","points":[{"date":"1月","value":0.32192200000000004},{"date":"2月","value":0.35852300000000004},{"date":"3月","value":0.34847},{"date":"4月","value":0.318722},{"date":"5月","value":0.316769},{"date":"6月","value":0.282731},{"date":"7月","value":0.277308},{"date":"8月","value":0.27883300000000005},{"date":"9月","value":0.291045},{"date":"10月","value":0.28840899999999997},{"date":"11月","value":0.269717},{"date":"12月","value":0.32301100000000005}]},{"label":"2025","points":[{"date":"1月","value":0.335533},{"date":"2月","value":0.277082},{"date":"3月","value":0.289634},{"date":"4月","value":0.30325599999999997},{"date":"5月","value":0.297547},{"date":"6月","value":0.28217899999999996},{"date":"7月","value":0.25932799999999995},{"date":"8月","value":0.266832},{"date":"9月","value":0.27028800000000003},{"date":"10月","value":0.28758999999999996},{"date":"11月","value":0.281186},{"date":"12月","value":0.288472}]},{"label":"2026","points":[{"date":"1月","value":0.27619299999999997},{"date":"2月","value":0.29036700000000004},{"date":"3月","value":0.24343299999999998},{"date":"4月","value":0.201554},{"date":"5月","value":0.160227},{"date":"6月","value":0.149332},{"date":"7月","value":0.15967599999999998},{"date":"8月","value":0.195232},{"date":"9月","value":0.198353},{"date":"10月","value":0.207601},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="福建代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">福建代理购电价</div><div class="power-chart-years"></div><div aria-label="福建代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"福建代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.43789999999999996},{"date":"2月","value":0.4564},{"date":"3月","value":0.44010000000000005},{"date":"4月","value":0.4164},{"date":"5月","value":0.43439999999999995},{"date":"6月","value":0.4537},{"date":"7月","value":0.4579},{"date":"8月","value":0.4593},{"date":"9月","value":0.455},{"date":"10月","value":0.4567},{"date":"11月","value":0.4552},{"date":"12月","value":0.4567}]},{"label":"2024","points":[{"date":"1月","value":0.43860000000000005},{"date":"2月","value":0.42760000000000004},{"date":"3月","value":0.42960000000000004},{"date":"4月","value":0.44480000000000003},{"date":"5月","value":0.4412},{"date":"6月","value":0.45},{"date":"7月","value":0.44139999999999996},{"date":"8月","value":0.4452},{"date":"9月","value":0.43889999999999996},{"date":"10月","value":0.44239999999999996},{"date":"11月","value":0.42869999999999997},{"date":"12月","value":0.42560000000000003}]},{"label":"2025","points":[{"date":"1月","value":0.4183},{"date":"2月","value":0.405},{"date":"3月","value":0.3973},{"date":"4月","value":0.409},{"date":"5月","value":0.4293},{"date":"6月","value":0.43789999999999996},{"date":"7月","value":0.4049},{"date":"8月","value":0.37389999999999995},{"date":"9月","value":0.4092},{"date":"10月","value":0.408429},{"date":"11月","value":0.408658},{"date":"12月","value":0.414982}]},{"label":"2026","points":[{"date":"1月","value":0.386755},{"date":"2月","value":0.37949},{"date":"3月","value":0.366832},{"date":"4月","value":0.365616},{"date":"5月","value":0.370539},{"date":"6月","value":0.368627},{"date":"7月","value":0.372293},{"date":"8月","value":0.37614600000000004},{"date":"9月","value":0.373531},{"date":"10月","value":0.373612},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="贵州代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">贵州代理购电价</div><div class="power-chart-years"></div><div aria-label="贵州代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"贵州代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.4578},{"date":"2月","value":0.4669},{"date":"3月","value":0.466},{"date":"4月","value":0.4555},{"date":"5月","value":0.43210000000000004},{"date":"6月","value":0.4018},{"date":"7月","value":0.4198},{"date":"8月","value":0.42919999999999997},{"date":"9月","value":0.4145},{"date":"10月","value":0.4161},{"date":"11月","value":0.422137},{"date":"12月","value":0.420417}]},{"label":"2024","points":[{"date":"1月","value":0.418555},{"date":"2月","value":0.40852999999999995},{"date":"3月","value":0.40911200000000003},{"date":"4月","value":0.40904199999999996},{"date":"5月","value":0.40637599999999996},{"date":"6月","value":0.412565},{"date":"7月","value":0.411193},{"date":"8月","value":0.409908},{"date":"9月","value":0.410066},{"date":"10月","value":0.408081},{"date":"11月","value":0.400884},{"date":"12月","value":0.39841899999999997}]},{"label":"2025","points":[{"date":"1月","value":0.40462400000000004},{"date":"2月","value":0.397205},{"date":"3月","value":0.395459},{"date":"4月","value":0.39598500000000003},{"date":"5月","value":0.3956},{"date":"6月","value":0.39311599999999997},{"date":"7月","value":0.400862},{"date":"8月","value":0.40345800000000004},{"date":"9月","value":0.38661399999999996},{"date":"10月","value":0.38769600000000004},{"date":"11月","value":0.38903},{"date":"12月","value":0.38899700000000004}]},{"label":"2026","points":[{"date":"1月","value":0.37351799999999996},{"date":"2月","value":0.392746},{"date":"3月","value":0.384898},{"date":"4月","value":0.366384},{"date":"5月","value":0.38394799999999996},{"date":"6月","value":0.39726},{"date":"7月","value":0.388555},{"date":"8月","value":0.379863},{"date":"9月","value":0.39717399999999997},{"date":"10月","value":0.37856599999999996},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="辽宁代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">辽宁代理购电价</div><div class="power-chart-years"></div><div aria-label="辽宁代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"辽宁代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.41782100000000005},{"date":"2月","value":0.422361},{"date":"3月","value":0.42460899999999996},{"date":"4月","value":0.428022},{"date":"5月","value":0.410917},{"date":"6月","value":0.41789},{"date":"7月","value":0.41931999999999997},{"date":"8月","value":0.430606},{"date":"9月","value":0.434565},{"date":"10月","value":0.431125},{"date":"11月","value":0.41866899999999996},{"date":"12月","value":0.426444}]},{"label":"2024","points":[{"date":"1月","value":0.4245},{"date":"2月","value":0.44526699999999997},{"date":"3月","value":0.416978},{"date":"4月","value":0.421448},{"date":"5月","value":0.412801},{"date":"6月","value":0.415047},{"date":"7月","value":0.397822},{"date":"8月","value":0.438499},{"date":"9月","value":0.463972},{"date":"10月","value":0.454943},{"date":"11月","value":0.437384},{"date":"12月","value":0.41706400000000005}]},{"label":"2025","points":[{"date":"1月","value":0.42289299999999996},{"date":"2月","value":0.43043200000000004},{"date":"3月","value":0.424248},{"date":"4月","value":0.406789},{"date":"5月","value":0.431456},{"date":"6月","value":0.429164},{"date":"7月","value":0.416828},{"date":"8月","value":0.423075},{"date":"9月","value":0.44401100000000004},{"date":"10月","value":0.427419},{"date":"11月","value":0.41089299999999995},{"date":"12月","value":0.441921}]},{"label":"2026","points":[{"date":"1月","value":0.332847},{"date":"2月","value":0.331216},{"date":"3月","value":0.199096},{"date":"4月","value":0.28814999999999996},{"date":"5月","value":0.28463099999999997},{"date":"6月","value":0.284091},{"date":"7月","value":0.318004},{"date":"8月","value":0.316501},{"date":"9月","value":0.296695},{"date":"10月","value":0.249196},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="重庆代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">重庆代理购电价</div><div class="power-chart-years"></div><div aria-label="重庆代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"重庆代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.565704},{"date":"2月","value":0.550687},{"date":"3月","value":0.5151720000000001},{"date":"4月","value":0.453181},{"date":"5月","value":0.445935},{"date":"6月","value":0.44067700000000004},{"date":"7月","value":0.5299640000000001},{"date":"8月","value":0.530435},{"date":"9月","value":0.472757},{"date":"10月","value":0.440242},{"date":"11月","value":0.431534},{"date":"12月","value":0.44072300000000003}]},{"label":"2024","points":[{"date":"1月","value":0.483213},{"date":"2月","value":0.483437},{"date":"3月","value":0.43931400000000004},{"date":"4月","value":0.44474},{"date":"5月","value":0.44532},{"date":"6月","value":0.437338},{"date":"7月","value":0.46822},{"date":"8月","value":0.491582},{"date":"9月","value":0.43065499999999995},{"date":"10月","value":0.43338600000000005},{"date":"11月","value":0.5362250000000001},{"date":"12月","value":0.497365}]},{"label":"2025","points":[{"date":"1月","value":0.468123},{"date":"2月","value":0.465034},{"date":"3月","value":0.458482},{"date":"4月","value":0.431738},{"date":"5月","value":0.448488},{"date":"6月","value":0.455484},{"date":"7月","value":0.487871},{"date":"8月","value":0.49807799999999997},{"date":"9月","value":0.447622},{"date":"10月","value":0.403249},{"date":"11月","value":0.43732600000000005},{"date":"12月","value":0.425644}]},{"label":"2026","points":[{"date":"1月","value":0.431919},{"date":"2月","value":0.469529},{"date":"3月","value":0.45174200000000003},{"date":"4月","value":0.443278},{"date":"5月","value":0.46349900000000005},{"date":"6月","value":0.44264600000000004},{"date":"7月","value":0.479738},{"date":"8月","value":0.487445},{"date":"9月","value":0.432691},{"date":"10月","value":0.43333999999999995},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="陕西代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">陕西代理购电价</div><div class="power-chart-years"></div><div aria-label="陕西代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"陕西代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.4607},{"date":"2月","value":0.466},{"date":"3月","value":0.453},{"date":"4月","value":0.442},{"date":"5月","value":0.42719999999999997},{"date":"6月","value":0.407},{"date":"7月","value":0.3954},{"date":"8月","value":0.3992},{"date":"9月","value":0.385},{"date":"10月","value":0.4106},{"date":"11月","value":0.4501},{"date":"12月","value":0.4163}]},{"label":"2024","points":[{"date":"1月","value":0.3987},{"date":"2月","value":0.4033},{"date":"3月","value":0.4062},{"date":"4月","value":0.4047},{"date":"5月","value":0.39239999999999997},{"date":"6月","value":0.4055},{"date":"7月","value":0.4123},{"date":"8月","value":0.4132},{"date":"9月","value":0.3936},{"date":"10月","value":0.4031},{"date":"11月","value":0.4167},{"date":"12月","value":0.4075}]},{"label":"2025","points":[{"date":"1月","value":0.3885},{"date":"2月","value":0.3564},{"date":"3月","value":0.3441},{"date":"4月","value":0.3422},{"date":"5月","value":0.3382},{"date":"6月","value":0.3762},{"date":"7月","value":0.392},{"date":"8月","value":0.355},{"date":"9月","value":0.3404},{"date":"10月","value":0.3295},{"date":"11月","value":0.43489999999999995},{"date":"12月","value":0.41960000000000003}]},{"label":"2026","points":[{"date":"1月","value":0.38130000000000003},{"date":"2月","value":0.3987},{"date":"3月","value":0.3376},{"date":"4月","value":0.3232},{"date":"5月","value":0.2876},{"date":"6月","value":0.25660000000000005},{"date":"7月","value":0.25980000000000003},{"date":"8月","value":0.3048},{"date":"9月","value":0.3583},{"date":"10月","value":0.3366},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="青海代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">青海代理购电价</div><div class="power-chart-years"></div><div aria-label="青海代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"青海代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.2601},{"date":"2月","value":0.2622},{"date":"3月","value":0.2938},{"date":"4月","value":0.2848},{"date":"5月","value":0.2791},{"date":"6月","value":0.252},{"date":"7月","value":0.28702300000000003},{"date":"8月","value":0.2837},{"date":"9月","value":0.28890899999999997},{"date":"10月","value":0.30188600000000004},{"date":"11月","value":0.30224599999999996},{"date":"12月","value":0.28665300000000005}]},{"label":"2024","points":[{"date":"1月","value":0.299119},{"date":"2月","value":0.34016399999999997},{"date":"3月","value":0.283403},{"date":"4月","value":0.277796},{"date":"5月","value":0.242427},{"date":"6月","value":0.241763},{"date":"7月","value":0.21211000000000002},{"date":"8月","value":0.201054},{"date":"9月","value":0.2405},{"date":"10月","value":0.261799},{"date":"11月","value":0.307521},{"date":"12月","value":0.255792}]},{"label":"2025","points":[{"date":"1月","value":0.303695},{"date":"2月","value":0.31541699999999995},{"date":"3月","value":0.28016399999999997},{"date":"4月","value":0.284578},{"date":"5月","value":0.283824},{"date":"6月","value":0.22604400000000002},{"date":"7月","value":0.244727},{"date":"8月","value":0.273435},{"date":"9月","value":0.258549},{"date":"10月","value":0.31718599999999997},{"date":"11月","value":0.355196},{"date":"12月","value":0.284222}]},{"label":"2026","points":[{"date":"1月","value":0.259001},{"date":"2月","value":0.282908},{"date":"3月","value":0.284194},{"date":"4月","value":0.223956},{"date":"5月","value":0.21983000000000003},{"date":"6月","value":0.195972},{"date":"7月","value":0.21906299999999998},{"date":"8月","value":0.22018000000000001},{"date":"9月","value":0.22828800000000002},{"date":"10月","value":0.25306},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div><div class="power-chart-shell" data-chart-title="黑龙江代理购电价" style="--power-chart-height:280px"><div class="power-chart-title">黑龙江代理购电价</div><div class="power-chart-years"></div><div aria-label="黑龙江代理购电价" class="power-chart-canvas" role="img"></div><script class="power-chart-data" type="application/json">{"title":"黑龙江代理购电价","mode":"monthly","unit":"","digits":3,"series":[{"label":"2023","points":[{"date":"1月","value":0.428696},{"date":"2月","value":0.42866699999999996},{"date":"3月","value":0.428692},{"date":"4月","value":0.428691},{"date":"5月","value":0.428697},{"date":"6月","value":0.420745},{"date":"7月","value":0.420925},{"date":"8月","value":0.420745},{"date":"9月","value":0.420744},{"date":"10月","value":0.420744},{"date":"11月","value":0.420744},{"date":"12月","value":0.420745}]},{"label":"2024","points":[{"date":"1月","value":0.40442},{"date":"2月","value":0.404428},{"date":"3月","value":0.404428},{"date":"4月","value":0.404422},{"date":"5月","value":0.404413},{"date":"6月","value":0.40441699999999997},{"date":"7月","value":0.404416},{"date":"8月","value":0.404414},{"date":"9月","value":0.40442},{"date":"10月","value":0.417832},{"date":"11月","value":0.41056400000000004},{"date":"12月","value":0.40612200000000004}]},{"label":"2025","points":[{"date":"1月","value":0.38955900000000004},{"date":"2月","value":0.38855900000000004},{"date":"3月","value":0.38391699999999995},{"date":"4月","value":0.39206},{"date":"5月","value":0.399718},{"date":"6月","value":0.40184699999999995},{"date":"7月","value":0.390231},{"date":"8月","value":0.395988},{"date":"9月","value":0.389904},{"date":"10月","value":0.395473},{"date":"11月","value":0.40031700000000003},{"date":"12月","value":0.406385}]},{"label":"2026","points":[{"date":"1月","value":0.30771},{"date":"2月","value":0.29919999999999997},{"date":"3月","value":0.306661},{"date":"4月","value":0.30905099999999996},{"date":"5月","value":0.30087400000000003},{"date":"6月","value":0.296527},{"date":"7月","value":0.30757799999999996},{"date":"8月","value":0.307105},{"date":"9月","value":0.305728},{"date":"10月","value":0.308926},{"date":"11月","value":null},{"date":"12月","value":null}]}],"categories":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],"colors":null,"yearFilter":true}</script></div></div></div></div></div></section></section>
+
+
+
+
+
+</main>
+<div class="sources">
+<strong>源与口径：</strong>
+      现货电价来自“电力现货价格日度”；代理电价来自“代理电价月度钢联”；发电、用电来自“发电用电”；分地区发电来自“分类型分地区”；
+      累计装机来自“发电装机容量-wind”；新增装机来自“新增发电装机容量-ifind”；投资来自“电源电网投资”。
+      省份净输出来自“输出电量”和“输入电量”，按输出-输入计算；海外电价来自 pb/全球电价.xlsx 的图表公式对应序列。
+      储能装机和政策事件先来自项目内 JSON 底表；核电检修来源固定为生态环境部核电运行状态监测页面，后续接入日度/事件级抓取。
+      最新数据日期：发电 2026-09-30，总量用电 2026-08-31，分行业用电 2026-08-31，现货电价 2026-10-17，代理电价 2026-10-01，分地区发电 2026-08-31，装机 2026-08-31，交易 2026-08-01，输出/输入电量 2026-08-01/2026-08-01，投资 2026-08-31。
+    </div>
+</div>
+<div class="chart-tooltip global-chart-tooltip" id="global-chart-tooltip"></div>
+<script>
+  const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+  const panels = Array.from(document.querySelectorAll('.report-panel'));
+  function activatePanel(target) {
+    tabs.forEach((tab) => {
+      const active = tab.dataset.target === target;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    panels.forEach((panel) => panel.classList.toggle('active', panel.id === target));
+  }
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      activatePanel(tab.dataset.target);
+      history.replaceState(null, '', '#' + tab.dataset.target);
+    });
+  });
+  const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+  const tocTargetPanel = Object.fromEntries(tocLinks.map((link) => [link.getAttribute('href').replace('#', ''), link.dataset.panel]));
+  function jumpToSubpanel(targetId, panelId) {
+    if (!targetId || !panelId) return;
+    activatePanel(panelId);
+    requestAnimationFrame(() => {
+      const target = document.getElementById(targetId);
+      if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  }
+  tocLinks.forEach((link) => {
+    link.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const targetId = link.getAttribute('href').replace('#', '');
+      jumpToSubpanel(targetId, link.dataset.panel);
+      history.replaceState(null, '', '#' + targetId);
+    });
+  });
+  const initial = location.hash.replace('#', '');
+  if (['overview', 'price', 'supply', 'demand', 'trade'].includes(initial)) activatePanel(initial);
+  if (tocTargetPanel[initial]) jumpToSubpanel(initial, tocTargetPanel[initial]);
+  function summaryStorageKey(card) {
+    return 'power-dashboard-summary:' + (card.dataset.summaryKey || 'default');
+  }
+  function setSummaryStatus(card, text) {
+    const status = card.querySelector('.editable-summary-status');
+    if (status) status.textContent = text;
+  }
+  document.querySelectorAll('.editable-summary-card').forEach((card) => {
+    const body = card.querySelector('.editable-summary-body');
+    if (!body) return;
+    const key = summaryStorageKey(card);
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      body.innerHTML = saved;
+      setSummaryStatus(card, '已载入保存稿');
+    }
+    card.addEventListener('click', (ev) => {
+      const button = ev.target.closest ? ev.target.closest('[data-summary-action]') : null;
+      if (!button) return;
+      const action = button.dataset.summaryAction;
+      if (action === 'edit') {
+        const enabled = body.getAttribute('contenteditable') === 'true';
+        body.setAttribute('contenteditable', enabled ? 'false' : 'true');
+        button.textContent = enabled ? '编辑' : '完成编辑';
+        if (!enabled) {
+          body.focus();
+          setSummaryStatus(card, '编辑中');
+        } else {
+          setSummaryStatus(card, '待保存');
+        }
+      }
+      if (action === 'save') {
+        localStorage.setItem(key, body.innerHTML);
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已保存 ' + new Date().toLocaleTimeString('zh-CN', { hour12:false }));
+      }
+      if (action === 'reset') {
+        if (!confirm('恢复为本次数据自动生成的汇总文字？')) return;
+        localStorage.removeItem(key);
+        body.innerHTML = body.dataset.defaultHtml || '';
+        body.setAttribute('contenteditable', 'false');
+        const editButton = card.querySelector('[data-summary-action="edit"]');
+        if (editButton) editButton.textContent = '编辑';
+        setSummaryStatus(card, '已恢复生成稿');
+      }
+      if (action === 'export') {
+        const title = card.querySelector('.card-head h3')?.textContent || 'summary';
+        const html = '<!doctype html><meta charset="utf-8"><title>' + title + '</title><body>' + body.innerHTML + '</body>';
+        const blob = new Blob([html], { type:'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = '电力月报-汇总编辑稿.html';
+        link.click();
+        URL.revokeObjectURL(url);
+        setSummaryStatus(card, '已导出');
+      }
+    });
+  });
+  const globalTip = document.getElementById('global-chart-tooltip');
+  function showGlobalTip(ev, text) {
+    if (!globalTip || !text) return;
+    const rawText = String(text).replace(/\r?\n/g, '\n').replace(/\\n/g, '\n');
+    globalTip.innerHTML = rawText
+      .split('\n')
+      .map((line, idx) => {
+        const safe = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return idx === 0 ? `<div class="tip-date">${safe}</div>` : `<div>${safe}</div>`;
+      })
+      .join('');
+    globalTip.style.display = 'block';
+    const margin = 16;
+    const boxW = globalTip.offsetWidth || 240;
+    const boxH = globalTip.offsetHeight || 90;
+    let left = ev.clientX + 16;
+    let top = ev.clientY - Math.min(40, boxH / 2);
+    if (left + boxW + margin > window.innerWidth) left = ev.clientX - boxW - 16;
+    if (top + boxH + margin > window.innerHeight) top = window.innerHeight - boxH - margin;
+    if (top < margin) top = margin;
+    globalTip.style.left = left + 'px';
+    globalTip.style.top = top + 'px';
+  }
+  document.addEventListener('mousemove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    if (!target) {
+      if (globalTip) globalTip.style.display = 'none';
+      return;
+    }
+    showGlobalTip(ev, target.dataset.tip);
+  });
+  document.addEventListener('touchstart', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('touchmove', (ev) => {
+    const target = ev.target.closest ? ev.target.closest('.chart-point[data-tip]') : null;
+    const touch = ev.touches && ev.touches[0];
+    if (target && touch) showGlobalTip(touch, target.dataset.tip);
+  }, { passive:true });
+  document.addEventListener('mouseleave', () => {
+    if (globalTip) globalTip.style.display = 'none';
+  });
+</script>
+<script id="power-chart-upgrade-runtime">(() => {
+  'use strict';
+  const states = new Map();
+  const palette = ['#17366c','#dc3535','#2f9fb8','#3e9368','#bc833a','#8974b4','#6f7a85'];
+  const yearColors = {'2023':'#99a5b6','2024':'#399ccc','2025':'#17366c','2026':'#d93636'};
+  const numeric = value => value !== null && value !== '' && Number.isFinite(Number(value));
+  const safe = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const compact = value => Math.abs(value) >= 100000 ? (value / 10000).toFixed(0)+'万' : Number(value).toLocaleString('zh-CN', {maximumFractionDigits:2});
+
+  function payload(shell) {
+    return JSON.parse(shell.querySelector('.power-chart-data').textContent);
+  }
+
+  function addYearFilters(state) {
+    const box = state.shell.querySelector('.power-chart-years');
+    box.replaceChildren();
+    if (state.data.mode !== 'timeline' || state.data.yearFilter === false) return;
+    const years = [...new Set(state.data.series.flatMap(s => s.points.map(p => /^(\d{4})-/.exec(p.date)?.[1])).filter(Boolean))].sort();
+    if (years.length < 2) return;
+    state.years = new Set(years);
+    for (const year of years) {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'checkbox'; input.checked = true; input.value = year;
+      input.setAttribute('aria-label', '筛选'+year+'年');
+      input.addEventListener('change', () => {
+        if (input.checked) state.years.add(year); else state.years.delete(year);
+        state.saved = null;
+        if (state.chart) state.chart.setOption(option(state), {notMerge:true});
+      });
+      label.append(input, document.createTextNode(year)); box.append(label);
+    }
+  }
+
+  function option(state) {
+    const d = state.data;
+    const seasonal = d.mode !== 'timeline';
+    const cats = d.categories || [...new Set(d.series.flatMap(s => s.points.map(p => String(p.date))))].sort();
+    const categories = cats.filter(date => !state.years || state.years.has(date.slice(0,4)) || !/^\d{4}-/.test(date));
+    const narrow = state.shell.clientWidth < 520;
+    const colors = d.colors || d.series.map((s,i) => seasonal ? (yearColors[s.label] || palette[i%palette.length]) : palette[i%palette.length]);
+    const saved = state.saved;
+    const legend = {type:'scroll',top:5,left:8,right:60,icon:'roundRect',itemWidth:16,itemHeight:3,itemGap:12,
+      selected:saved?.legend?.[0]?.selected || {},textStyle:{fontSize:narrow?11:12,color:'#253a52'},
+      pageIconColor:'#17366c',pageIconSize:10,animation:false};
+    const series = d.series.map((s,i) => {
+      const points = new Map(s.points.map(p => [String(p.date),p.value]));
+      return {name:s.label,type:'line',connectNulls:false,smooth:false,showSymbol:false,symbolSize:4,
+        data:categories.map(date => numeric(points.get(date)) ? Number(points.get(date)) : null),
+        lineStyle:{width:seasonal && s.label === d.series.at(-1)?.label ? 2.8 : 1.8},
+        itemStyle:{color:colors[i]},emphasis:{focus:'series'},animation:false};
+    });
+    return {animation:false,color:colors,textStyle:{fontFamily:'Microsoft YaHei, sans-serif'},legend,
+      grid:{left:narrow?49:62,right:narrow?17:25,top:d.unit?52:44,bottom:69,containLabel:false},
+      toolbox:{right:4,top:1,itemSize:13,itemGap:9,feature:{restore:{title:'重置范围和筛选'},saveAsImage:{title:'下载图表',pixelRatio:2}}},
+      tooltip:{trigger:'axis',confine:true,appendToBody:false,backgroundColor:'rgba(255,255,255,.97)',borderColor:'#bac8d9',
+        textStyle:{fontSize:12,color:'#17304f'},axisPointer:{type:'line',lineStyle:{color:'#71849c',type:'dashed'}},
+        formatter(items) { return (items.length?safe(items[0].axisValueLabel):'')+items.filter(p=>numeric(p.data)).map(p=>
+          '<br>'+p.marker+safe(p.seriesName)+'：'+Number(p.data).toLocaleString('zh-CN',{minimumFractionDigits:d.digits,maximumFractionDigits:d.digits})+safe(d.unit||'')).join(''); }},
+      xAxis:{type:'category',data:categories,boundaryGap:false,axisLine:{lineStyle:{color:'#bac7d7'}},axisTick:{show:false},
+        axisLabel:{fontSize:narrow?10:11,color:'#65768c',hideOverlap:true,
+          formatter(value) {return d.mode==='daily' ? value.replace('-', '/') : value;}}},
+      yAxis:{type:'value',scale:true,name:d.unit||'',nameTextStyle:{fontSize:11,color:'#65768c',align:'left'},
+        splitNumber:4,axisLabel:{color:'#65768c',fontSize:narrow?10:11,formatter:compact},
+        splitLine:{lineStyle:{color:'#e4ebf3',type:'dashed'}},axisLine:{show:false}},
+      dataZoom:[{type:'inside',filterMode:'none',zoomOnMouseWheel:'ctrl',moveOnMouseWheel:false,preventDefaultMouseMove:false,
+        start:saved?.dataZoom?.[0]?.start??0,end:saved?.dataZoom?.[0]?.end??100},
+        {type:'slider',filterMode:'none',bottom:9,height:19,left:narrow?49:62,right:narrow?17:25,
+          start:saved?.dataZoom?.[1]?.start??0,end:saved?.dataZoom?.[1]?.end??100,
+          brushSelect:false,borderColor:'#ccd7e5',fillerColor:'rgba(63,120,177,.17)',
+          handleSize:'110%',handleStyle:{color:'#fff',borderColor:'#50769f'},textStyle:{fontSize:10,color:'#526b87'},
+          dataBackground:{lineStyle:{color:'#9dacc1'},areaStyle:{color:'#e8eef5'}},selectedDataBackground:{lineStyle:{color:'#4a80ac'},areaStyle:{color:'#dce8f3'}}}],series};
+  }
+
+  function near(shell) {
+    const box = shell.getBoundingClientRect();
+    return box.width > 0 && box.height > 0 && box.top < innerHeight+400 && box.bottom > -400;
+  }
+
+  function mount(state) {
+    if (state.chart || !near(state.shell) || !window.echarts) return;
+    state.chart = echarts.init(state.shell.querySelector('.power-chart-canvas'), null, {renderer:'canvas',useDirtyRect:true,devicePixelRatio:Math.min(devicePixelRatio||1,2)});
+    state.chart.setOption(option(state));
+    state.chart.on('restore', () => {
+      state.saved = null;
+      if (state.years) {
+        state.shell.querySelectorAll('.power-chart-years input').forEach(c=>{c.checked=true;state.years.add(c.value);});
+        state.chart.setOption(option(state),{notMerge:true});
+      }
+    });
+    state.shell.dataset.chartReady = 'true';
+  }
+
+  function release(state) {
+    if (!state.chart) return;
+    const o = state.chart.getOption();
+    state.saved = {legend:o.legend,dataZoom:o.dataZoom};
+    state.chart.dispose();state.chart=null;state.shell.dataset.chartReady='false';
+  }
+
+  let scheduled = false;
+  function schedule() {
+    if (scheduled) return;
+    scheduled=true;
+    requestAnimationFrame(()=>{
+      scheduled=false;
+      for (const state of states.values()) {
+        if (near(state.shell)) {mount(state);if(state.chart)state.chart.resize();}
+        else release(state);
+      }
+    });
+  }
+
+  function register(shell, data) {
+    const state={shell,data:data||payload(shell),chart:null,saved:null,years:null};
+    states.set(shell,state);addYearFilters(state);
+    return state;
+  }
+
+  function hydrology() {
+    const script=document.getElementById('hydro-data');
+    if (!script) return;
+    const data=JSON.parse(script.textContent),station=document.getElementById('hydro-station'),mode=document.getElementById('hydro-mode');
+    const years=[...new Set(data.dates.map(d=>d.slice(0,4)))].sort();
+    const controls=document.getElementById('hydro-years');controls.replaceChildren();
+    const chosen=new Set(years);
+    for (const year of years) {
+      const label=document.createElement('label'),input=document.createElement('input');
+      input.type='checkbox';input.checked=true;input.value=year;
+      input.addEventListener('change',()=>{if(input.checked)chosen.add(year);else chosen.delete(year);update();});
+      label.append(input,document.createTextNode(year));controls.append(label);
+    }
+    const plots=[...document.querySelectorAll('.hydro-plot')].map(plot=>{
+      plot.querySelector('canvas')?.remove();plot.querySelector('output')?.remove();
+      const shell=document.createElement('div');shell.className='power-chart-shell';shell.style.setProperty('--power-chart-height','300px');
+      shell.innerHTML='<div class="power-chart-years"></div><div class="power-chart-canvas" role="img"></div>';
+      plot.append(shell);return {plot,shell,metric:plot.querySelector('h4').textContent,state:null};
+    });
+    function update() {
+      for (const p of plots) {
+        if (p.state) {release(p.state);states.delete(p.shell);}
+        const metric=data.series.find(s=>s.station===station.value && s.metric===p.metric);
+        const seasonal=mode.value==='season';
+        const dates=seasonal?Array.from({length:366},(_,i)=>new Date(Date.UTC(2000,0,i+1)).toISOString().slice(5,10)):data.dates.slice(-90);
+        const groups=seasonal?years.filter(y=>chosen.has(y)):['近90天'];
+        const series=groups.map(year=>({label:year,points:dates.map(date=>{
+          const rawDate=seasonal?year+'-'+date:date,index=data.dates.indexOf(rawDate);
+          return {date,value:metric && index>=0?metric.values[index]:null};
+        })}));
+        const d={title:p.metric,mode:seasonal?'daily':'timeline',unit:metric?.unit||'',digits:1,categories:dates,series,yearFilter:false};
+        p.state=register(p.shell,d);
+      }
+      schedule();
+    }
+    station.addEventListener('change',update);mode.addEventListener('change',update);update();
+  }
+
+  function boot() {
+    if (!window.echarts) {
+      document.querySelectorAll('.power-chart-canvas').forEach(el=>el.textContent='图表资源未加载，请检查 assets/echarts.min.js');
+      return;
+    }
+    document.querySelectorAll('.power-chart-shell').forEach(shell=>register(shell));
+    hydrology();
+    const observer=new IntersectionObserver(schedule,{rootMargin:'400px'});
+    states.forEach(state=>observer.observe(state.shell));
+    new MutationObserver(schedule).observe(document.querySelector('main')||document.body,{subtree:true,attributes:true,attributeFilter:['class']});
+    window.addEventListener('resize',schedule);window.addEventListener('scroll',schedule,{passive:true});
+    document.addEventListener('click',event=>{if(event.target.closest('.panel-tabs,.side-toc,.subpanel-tabs'))schedule();});
+    window.powerCharts={states,refresh:schedule};schedule();
+  }
+  if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script></body>
+</html>
