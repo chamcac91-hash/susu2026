@@ -1,0 +1,307 @@
+{
+  "dashboard": "海外电力月报手机版",
+  "report_date": "20261022",
+  "generated_at": "2026-10-22T11:33:52",
+  "source_html": "D:\\all remain\\FangcloudV2\\太和致远\\AI-workspace\\html\\海外电力月度看板\\index.html",
+  "source_snapshot": "D:\\all remain\\FangcloudV2\\太和致远\\AI-workspace\\html\\海外电力月度看板\\outputs\\海外电力月报_data_snapshot.json",
+  "latest_dates": {
+    "iea_global_generation": "2027",
+    "iea_global_demand": "2027",
+    "ember_world_generation_annual": "2025",
+    "ember_world_generation_monthly": "2026-08",
+    "thailand_ember_generation_monthly": "2026-06",
+    "singapore_ember_generation_monthly": "2026-05",
+    "vietnam_ember_generation_monthly": "2025-10",
+    "mongolia_generation_annual": "2025",
+    "mongolia_balance_annual": "2025",
+    "vietnam_evn_domestic_generation_ytd": "2026-09",
+    "irena_world_capacity_annual": "2025",
+    "undata_sector_demand_annual": "2023",
+    "global_policy_events": "10",
+    "us_eia_retail_price_monthly": "2026-07",
+    "us_eia860m_capacity_monthly": "2026-08",
+    "us_power_price_daily": "2026-10-16"
+  },
+  "pages": [
+    {
+      "panel": "global",
+      "subpanel": "global-summary",
+      "label": "1.1 小结",
+      "filename": "index.html",
+      "bytes": 79739
+    },
+    {
+      "panel": "global",
+      "subpanel": "global-policy",
+      "label": "1.2 全球重点电力政策",
+      "filename": "global-policy.html",
+      "bytes": 83849
+    },
+    {
+      "panel": "global",
+      "subpanel": "global-supply",
+      "label": "1.3 全球电力供给",
+      "filename": "global-supply.html",
+      "bytes": 141843
+    },
+    {
+      "panel": "global",
+      "subpanel": "global-demand",
+      "label": "1.4 全球总用电",
+      "filename": "global-demand.html",
+      "bytes": 108642
+    },
+    {
+      "panel": "global",
+      "subpanel": "global-structure",
+      "label": "1.5 全球电力结构",
+      "filename": "global-structure.html",
+      "bytes": 84893
+    },
+    {
+      "panel": "global",
+      "subpanel": "global-capacity",
+      "label": "1.6 全球电力装机",
+      "filename": "global-capacity.html",
+      "bytes": 103235
+    },
+    {
+      "panel": "americas",
+      "subpanel": "americas-overview",
+      "label": "2.0 美洲地区电力市场小结",
+      "filename": "americas.html",
+      "bytes": 79264
+    },
+    {
+      "panel": "americas",
+      "subpanel": "americas-us",
+      "label": "2.1 美国",
+      "filename": "americas-us.html",
+      "bytes": 77581
+    },
+    {
+      "panel": "americas",
+      "subpanel": "us-power-balance",
+      "label": "2.1.1 美国总发电和总用电",
+      "filename": "us-power-balance.html",
+      "bytes": 84189
+    },
+    {
+      "panel": "americas",
+      "subpanel": "us-generation-structure",
+      "label": "2.1.2 美国月度发电电力结构",
+      "filename": "us-generation-structure.html",
+      "bytes": 104224
+    },
+    {
+      "panel": "americas",
+      "subpanel": "us-capacity",
+      "label": "2.1.3 美国电力装机",
+      "filename": "us-capacity.html",
+      "bytes": 80231
+    },
+    {
+      "panel": "americas",
+      "subpanel": "us-power-price",
+      "label": "2.1.4 美国电价",
+      "filename": "us-power-price.html",
+      "bytes": 86531
+    },
+    {
+      "panel": "americas",
+      "subpanel": "americas-canada",
+      "label": "2.2 加拿大",
+      "filename": "americas-canada.html",
+      "bytes": 103265
+    },
+    {
+      "panel": "americas",
+      "subpanel": "americas-brazil",
+      "label": "2.3 巴西",
+      "filename": "americas-brazil.html",
+      "bytes": 101349
+    },
+    {
+      "panel": "europe",
+      "subpanel": "europe-overview",
+      "label": "3. 欧洲电力",
+      "filename": "europe.html",
+      "bytes": 79141
+    },
+    {
+      "panel": "europe",
+      "subpanel": "europe-eu",
+      "label": "3.0 欧洲/欧盟整体",
+      "filename": "europe-eu.html",
+      "bytes": 103526
+    },
+    {
+      "panel": "europe",
+      "subpanel": "europe-germany",
+      "label": "3.1 德国",
+      "filename": "europe-germany.html",
+      "bytes": 101183
+    },
+    {
+      "panel": "europe",
+      "subpanel": "europe-france",
+      "label": "3.2 法国",
+      "filename": "europe-france.html",
+      "bytes": 100862
+    },
+    {
+      "panel": "europe",
+      "subpanel": "europe-uk",
+      "label": "3.3 英国",
+      "filename": "europe-uk.html",
+      "bytes": 99136
+    },
+    {
+      "panel": "europe",
+      "subpanel": "europe-spain",
+      "label": "3.4 西班牙",
+      "filename": "europe-spain.html",
+      "bytes": 103033
+    },
+    {
+      "panel": "europe",
+      "subpanel": "europe-italy",
+      "label": "3.5 意大利",
+      "filename": "europe-italy.html",
+      "bytes": 101160
+    },
+    {
+      "panel": "europe",
+      "subpanel": "europe-nordic",
+      "label": "3.6 北欧：挪威/瑞典",
+      "filename": "europe-nordic.html",
+      "bytes": 97450
+    },
+    {
+      "panel": "asia",
+      "subpanel": "asia-overview",
+      "label": "4. 亚洲电力",
+      "filename": "asia.html",
+      "bytes": 79701
+    },
+    {
+      "panel": "asia",
+      "subpanel": "asia-china",
+      "label": "4.1 中国",
+      "filename": "asia-china.html",
+      "bytes": 101801
+    },
+    {
+      "panel": "asia",
+      "subpanel": "asia-india",
+      "label": "4.2 印度",
+      "filename": "asia-india.html",
+      "bytes": 103644
+    },
+    {
+      "panel": "asia",
+      "subpanel": "asia-japan",
+      "label": "4.3 日本",
+      "filename": "asia-japan.html",
+      "bytes": 103173
+    },
+    {
+      "panel": "asia",
+      "subpanel": "asia-korea",
+      "label": "4.4 韩国",
+      "filename": "asia-korea.html",
+      "bytes": 103518
+    },
+    {
+      "panel": "asia",
+      "subpanel": "asia-sea",
+      "label": "4.5 东南亚（Ember ASEAN）",
+      "filename": "asia-sea.html",
+      "bytes": 101972
+    },
+    {
+      "panel": "asia",
+      "subpanel": "asia-thailand",
+      "label": "4.6 泰国",
+      "filename": "asia-thailand.html",
+      "bytes": 99684
+    },
+    {
+      "panel": "asia",
+      "subpanel": "asia-singapore",
+      "label": "4.7 新加坡",
+      "filename": "asia-singapore.html",
+      "bytes": 91890
+    },
+    {
+      "panel": "asia",
+      "subpanel": "asia-vietnam",
+      "label": "4.8 越南（Ember）",
+      "filename": "asia-vietnam.html",
+      "bytes": 97397
+    },
+    {
+      "panel": "asia",
+      "subpanel": "asia-vietnam-evn",
+      "label": "4.8.1 越南EVN官方数据",
+      "filename": "asia-vietnam-evn.html",
+      "bytes": 83348
+    },
+    {
+      "panel": "asia",
+      "subpanel": "asia-mongolia",
+      "label": "4.9 蒙古",
+      "filename": "asia-mongolia.html",
+      "bytes": 78987
+    },
+    {
+      "panel": "asia",
+      "subpanel": "asia-mongolia-balance",
+      "label": "4.9.1 蒙古总发电和总用电",
+      "filename": "asia-mongolia-balance.html",
+      "bytes": 83737
+    },
+    {
+      "panel": "asia",
+      "subpanel": "asia-mongolia-trade",
+      "label": "4.9.2 蒙古电力平衡与进出口",
+      "filename": "asia-mongolia-trade.html",
+      "bytes": 81481
+    },
+    {
+      "panel": "oceania",
+      "subpanel": "oceania-overview",
+      "label": "5. 大洋洲电力",
+      "filename": "oceania.html",
+      "bytes": 78757
+    },
+    {
+      "panel": "oceania",
+      "subpanel": "oceania-australia",
+      "label": "5.1 澳大利亚",
+      "filename": "oceania-australia.html",
+      "bytes": 98925
+    },
+    {
+      "panel": "oceania",
+      "subpanel": "oceania-new-zealand",
+      "label": "5.2 新西兰",
+      "filename": "oceania-new-zealand.html",
+      "bytes": 98768
+    },
+    {
+      "panel": "africa",
+      "subpanel": "africa-overview",
+      "label": "6. 非洲电力",
+      "filename": "africa.html",
+      "bytes": 78155
+    },
+    {
+      "panel": "africa",
+      "subpanel": "africa-south-africa",
+      "label": "6.1 南非",
+      "filename": "africa-south-africa.html",
+      "bytes": 100546
+    }
+  ]
+}
