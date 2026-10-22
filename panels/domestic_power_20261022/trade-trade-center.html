@@ -467,15 +467,15 @@
     const narrow = state.shell.clientWidth < 520;
     const colors = d.colors || d.series.map((s,i) => seasonal ? (yearColors[s.label] || palette[i%palette.length]) : palette[i%palette.length]);
     const saved = state.saved;
-    const legend = {type:'scroll',top:5,left:8,right:60,icon:'roundRect',itemWidth:16,itemHeight:3,itemGap:12,
-      selected:saved?.legend?.[0]?.selected || {},textStyle:{fontSize:narrow?11:12,color:'#253a52'},
+    const legend = {type:'scroll',selectedMode:'multiple',top:5,left:8,right:60,icon:'roundRect',itemWidth:16,itemHeight:3,itemGap:12,
+      selected:state.legendSelected || saved?.legend?.[0]?.selected || {},textStyle:{fontSize:narrow?11:12,color:'#253a52'},
       pageIconColor:'#17366c',pageIconSize:10,animation:false};
     const series = d.series.map((s,i) => {
       const points = new Map(s.points.map(p => [String(p.date),p.value]));
       return {name:s.label,type:'line',connectNulls:false,smooth:false,showSymbol:false,symbolSize:4,
         data:categories.map(date => numeric(points.get(date)) ? Number(points.get(date)) : null),
         lineStyle:{width:seasonal && s.label === d.series.at(-1)?.label ? 2.8 : 1.8},
-        itemStyle:{color:colors[i]},emphasis:{focus:'series'},animation:false};
+        itemStyle:{color:colors[i]},emphasis:{focus:'none'},blur:{lineStyle:{opacity:1},itemStyle:{opacity:1}},animation:false};
     });
     return {animation:false,color:colors,textStyle:{fontFamily:'Microsoft YaHei, sans-serif'},legend,
       grid:{left:narrow?49:62,right:narrow?17:25,top:d.unit?52:44,bottom:69,containLabel:false},
@@ -513,12 +513,14 @@
     if (state.chart || !near(state.shell) || !window.echarts) return;
     state.chart = echarts.init(state.shell.querySelector('.power-chart-canvas'), null, {renderer:'canvas',useDirtyRect:true,devicePixelRatio:Math.min(devicePixelRatio||1,2)});
     state.chart.setOption(option(state));
+    state.chart.on('legendselectchanged', event => {state.legendSelected={...event.selected};});
     state.chart.on('restore', () => {
       state.saved = null;
+      state.legendSelected = {};
       if (state.years) {
         state.shell.querySelectorAll('.power-chart-years input').forEach(c=>{c.checked=true;state.years.add(c.value);});
-        state.chart.setOption(option(state),{notMerge:true});
       }
+      state.chart.setOption(option(state),{notMerge:true});
     });
     state.shell.dataset.chartReady = 'true';
   }
@@ -527,6 +529,7 @@
     if (!state.chart) return;
     const o = state.chart.getOption();
     state.saved = {legend:o.legend,dataZoom:o.dataZoom};
+    state.legendSelected = {...o.legend?.[0]?.selected};
     state.chart.dispose();state.chart=null;state.shell.dataset.chartReady='false';
   }
 
@@ -544,7 +547,7 @@
   }
 
   function register(shell, data) {
-    const state={shell,data:data||payload(shell),chart:null,saved:null,years:null};
+    const state={shell,data:data||payload(shell),chart:null,saved:null,years:null,legendSelected:null};
     states.set(shell,state);addYearFilters(state);
     return state;
   }
