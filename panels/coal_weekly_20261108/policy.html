@@ -9,350 +9,696 @@
 <title>煤焦周报20261108 手机版｜政策</title>
 <style>
 
+
+
     :root { --ink:#0b2f66; --accent:#b4493f; --bg:#fffdf9; --panel:#fbfcff; --line:#d7dde8; --muted:#667085; --soft:#f2f5f9; --font:"Times New Roman","KaiTi","STKaiti","SimKai",serif; }
+
+
 
     * { box-sizing:border-box; }
 
+
+
     body { margin:0; font-family:var(--font); background:var(--bg); color:#1f2937; }
+
+
 
     .layout { display:grid; grid-template-columns:188px minmax(0,1fr); min-height:100vh; }
 
+
+
     .side-toc { position:sticky; top:0; height:100vh; overflow:auto; border-right:1px solid var(--line); background:#f5f7fb; padding:14px 8px; scrollbar-width:thin; }
+
+
 
     .side-toc .toc-title { color:var(--ink); font-size:17px; font-weight:800; margin:2px 4px 12px; line-height:1.25; }
 
+
+
     .side-toc a { display:block; color:#344054; text-decoration:none; padding:6px 6px 6px 8px; margin:1px 0; border-radius:4px; font-size:12.5px; line-height:1.24; border-left:2px solid transparent; word-break:break-word; }
+
+
 
     .side-toc a.toc-level-1 { padding-left:8px; font-size:13px; font-weight:850; color:var(--ink); margin-top:5px; }
 
+
+
     .side-toc a.toc-level-2 { padding-left:18px; }
+
+
 
     .side-toc a.toc-level-3 { padding-left:30px; font-size:12px; color:#475467; }
 
+
+
     .side-toc a.toc-level-4 { padding-left:42px; font-size:11.5px; color:#667085; }
+
+
 
     .side-toc a:hover, .side-toc a.active { background:#fff; color:var(--ink); border-left-color:var(--accent); box-shadow:0 1px 4px rgba(15,23,42,.06); }
 
+
+
     main { padding:0 24px 30px; min-width:0; }
+
+
 
     header { padding:18px 0 10px; border-bottom:1px solid var(--line); }
 
+
+
     h1 { color:var(--ink); font-size:28px; margin:0 0 6px; letter-spacing:0; }
+
+
 
     .subtitle { color:var(--muted); line-height:1.55; font-size:14px; }
 
+
+
     .panel-tabs { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:7px; padding:12px 0 9px; border-bottom:1px solid var(--line); background:rgba(255,253,249,.97); backdrop-filter:blur(8px); }
+
+
 
     .panel-tab { border:1px solid #cbd5e1; background:#f8fafc; color:#344054; padding:7px 15px; min-height:38px; border-radius:4px; font-family:inherit; font-size:16px; font-weight:750; cursor:pointer; }
 
+
+
     .panel-tab.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+
+
 
     .report-panel { display:none; padding:12px 0 22px; }
 
+
+
     .report-panel.active { display:block; }
+
+
 
     h2 { color:var(--ink); margin:10px 0 12px; font-size:23px; }
 
+
+
     .subpanel { scroll-margin-top:70px; margin:11px 0 16px; padding:12px 13px; border:1px solid var(--line); background:var(--panel); border-radius:4px; box-shadow:0 1px 6px rgba(15,23,42,.03); }
+
+
 
     .subpanel > h3 { margin:-12px -13px 10px; font-size:19px; color:var(--ink); background:#e7ecf4; border-left:4px solid var(--ink); border-bottom:1px solid #cbd5e1; padding:8px 12px 8px 14px; letter-spacing:0; }
 
+
+
     .node-meta { display:flex; flex-wrap:wrap; gap:7px; color:var(--muted); font-size:13px; margin:0 0 10px; line-height:1.5; }
+
+
 
     .tag { display:inline-flex; align-items:center; min-height:22px; padding:1px 7px; border-radius:3px; font-weight:700; color:#fff; }
 
+
+
     .tag.ok { background:#357f63; } .tag.data { background:#0b2f66; } .tag.report { background:#7a4b1f; } .tag.ppt { background:#b4493f; }
+
+
 
     .table-toolbar { display:flex; justify-content:flex-end; align-items:center; gap:8px; margin:4px 0 8px; color:var(--muted); }
 
+
+
     .table-toolbar span { display:none; }
+
+
 
     .table-toolbar button { border:1px solid var(--line); background:#fff; padding:6px 10px; border-radius:3px; cursor:pointer; }
 
+
+
     .table-scroll { overflow:auto; border:1px solid var(--line); background:#fff; margin:8px 0 12px; max-height:460px; border-radius:3px; }
+
+
 
     .editable-table-wrap { overflow:visible; border:1px solid #b9c4d6; background:#fff; margin:8px 0 12px; max-height:none; border-radius:3px; }
 
+
+
     table { border-collapse:collapse; min-width:720px; width:100%; font-size:13.5px; }
+
+
 
     th, td { border:1px solid #e2e8f0; padding:6px 8px; vertical-align:top; }
 
+
+
     th { background:#e9eef7; color:var(--ink); position:sticky; top:0; z-index:1; }
+
+
 
     .editable-table { min-width:0; table-layout:fixed; font-size:15px; line-height:1.6; }
 
+
+
     .editable-table th, .editable-table td { border-color:#cfd7e6; white-space:normal; overflow-wrap:anywhere; word-break:break-word; }
+
+
 
     .editable-table th { position:static; }
 
+
+
     .editable-table .editable-title th { background:#d8e0ef; color:var(--ink); text-align:center; font-size:18px; font-weight:800; padding:9px 10px 6px; }
+
+
 
     .editable-table .editable-head th { background:#edf2f8; color:var(--ink); text-align:center; font-weight:800; }
 
+
+
     .editable-table tr:not(.editable-title):not(.editable-head):not(.editable-merged-row) td:first-child { text-align:center; font-weight:800; color:#1f2937; vertical-align:middle; }
+
+
 
     .editable-table tr:not(.editable-title):not(.editable-head):not(.editable-merged-row) td:not(:last-child) { text-align:center; vertical-align:middle; }
 
+
+
     .editable-table .editable-merged-row td { background:#fffdf5; border-top:2px solid #9aa8bc; color:#1f2937; font-weight:700; }
+
+
 
     .thermal-summary-wrap { border:1px solid #b9c4d6; border-radius:3px; }
 
+
+
     .thermal-summary-table { font-size:15px; line-height:1.6; }
+
+
 
     .thermal-summary-table th, .thermal-summary-table td { border-color:#cfd7e6; padding:6px 8px; }
 
+
+
     .thermal-summary-table .thermal-summary-title th { background:#d8e0ef; color:var(--ink); text-align:center; font-size:18px; font-weight:800; padding:9px 10px 6px; }
+
+
 
     .thermal-summary-table .thermal-summary-head th { background:#edf2f8; color:var(--ink); text-align:center; font-size:15px; font-weight:800; }
 
+
+
     .thermal-summary-table .thermal-summary-metric { text-align:center; vertical-align:middle; font-weight:800; color:#1f2937; }
+
+
 
     .thermal-summary-table .thermal-summary-change { text-align:left; vertical-align:top; color:var(--ink); }
 
+
+
     .thermal-summary-table .thermal-summary-valuation td { background:#fffdf5; border-top:2px solid #9aa8bc; color:#1f2937; text-align:left; font-weight:700; }
+
+
 
     .thermal-summary-table .thermal-summary-valuation td mark { background:#ffff00; padding:0 3px; }
 
+
+
     .policy-table-scroll { overflow:auto; max-height:none; }
+
+
 
     .policy-workbook-table { border-collapse:collapse; table-layout:fixed; min-width:1160px; width:100%; line-height:1.45; }
 
+
+
     .policy-workbook-table td { overflow-wrap:anywhere; }
+
+
 
     .editable-table td:focus, .editable-table th:focus { outline:2px solid var(--accent); background:#fff7ed; }
 
+
+
     .edit-toolbar { position:fixed; z-index:180; display:none; align-items:center; gap:6px; padding:6px; border:1px solid #cbd5e1; background:#fff; box-shadow:0 8px 22px rgba(15,23,42,.16); border-radius:4px; }
+
+
 
     .edit-toolbar.active { display:flex; }
 
+
+
     .edit-toolbar button { border:1px solid #cbd5e1; background:#f8fafc; color:#0b2f66; padding:5px 9px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:13px; font-weight:800; }
+
+
 
     .edit-toolbar button:hover { background:#eef3fb; }
 
+
+
     .edit-toolbar .red-btn { color:#b00000; }
+
+
 
     .edit-toolbar .save-btn { color:#357f63; }
 
+
+
     .edit-save-hint { font-size:12px; color:#667085; padding:0 3px; }
+
+
 
     .data-block { border:1px solid var(--line); background:#fff; padding:10px; margin:9px 0; border-radius:4px; }
 
+
+
     .data-block.featured { border-color:#c98d4e; background:#fffaf3; }
+
+
 
     .data-block.missing { color:var(--muted); display:flex; gap:12px; }
 
+
+
     .interactive-data-block { border:1px solid #cfd7e6; background:#fff; padding:10px 11px; margin:9px 0 12px; border-radius:4px; }
+
+
 
     .interactive-data-block .table-scroll { max-height:none; overflow:visible; }
 
+
+
     .data-head { display:flex; justify-content:space-between; gap:12px; color:var(--ink); margin-bottom:8px; }
+
+
 
     .file-list { display:flex; flex-wrap:wrap; gap:6px; list-style:none; padding:0; margin:0 0 8px; }
 
+
+
     .file-list li { display:flex; gap:6px; align-items:center; border:1px solid #e2e8f0; background:#f8fafc; padding:4px 7px; border-radius:3px; color:var(--muted); font-size:12px; }
+
+
 
     .json-summary { display:flex; flex-wrap:wrap; gap:6px; }
 
+
+
     .json-summary span { background:#eef4ff; color:var(--ink); padding:4px 8px; border-radius:3px; }
+
+
 
     .svg-card, .freight-svg { width:100%; max-width:980px; display:block; margin:8px 0; background:#fff; border:1px solid #e5e7eb; }
 
+
+
     .svg-card svg { width:100%; display:block; }
+
+
 
     .chart-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:11px; margin:10px 0; }
 
+
+
     .chart-card { border:1px solid #dde5f0; background:#fff; border-radius:4px; padding:7px; min-width:0; }
+
+
 
     .chart-card svg { width:100%; display:block; }
 
+
+
     .chart-canvas { width:100%; height:auto; display:block; }
+
+
 
     .seasonal-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
 
+
+
     .aussie-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+
+
 
     .mongolian-grid, .overseas-profit-grid, .coal-jianghu-grid, .fenwei-inventory-grid, .fenwei-profit-grid, .available-days-grid, .coke-data-grid, .fenwei-coke-grid, .wuhai-coke-grid, .thermal-price-grid, .thermal-port-inventory-grid, .thermal-dispatch-grid, .thermal-power-grid, .thermal-demand-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
 
+
+
     .thermal-power-compact-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+
+
 
     .weather-temperature-grid, .thermal-building-grid, .thermal-origin-grid, .raw-coal-grid { grid-template-columns:repeat(4, minmax(0, 1fr)); }
 
+
+
     .hotmetal-grid, .offbalance-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+
+
 
     .seaborne-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
 
+
+
     .auction-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+
+
 
     .supply-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); }
 
+
+
     .auction-price-table { min-width:1180px; font-size:12.5px; }
+
+
 
     .auction-price-table-block .table-scroll { overflow:auto; max-height:620px; }
 
+
+
     .seasonal-card { padding:6px 7px; }
+
+
 
     .mongolian-subsection { margin:12px 0 16px; border:1px solid var(--line); background:#fff; border-radius:4px; overflow:hidden; }
 
+
+
     .mongolian-subsection > h4 { margin:0; padding:9px 13px; background:#e7ecf4; color:var(--ink); border-left:4px solid var(--ink); border-bottom:1px solid #cbd5e1; font-size:18px; font-weight:800; }
+
+
 
     .mongolian-subsection .interactive-data-block { border:0; border-radius:0; margin:0; }
 
+
+
     .chart-title { font-size:14px; font-weight:800; fill:var(--ink); }
+
+
 
     .hover-dot { cursor:crosshair; }
 
+
+
     .seasonal-hover-zone { fill:transparent; cursor:crosshair; }
+
+
 
     .seasonal-guide { display:none; stroke:#111827; stroke-width:1.2; stroke-dasharray:3 3; pointer-events:none; }
 
+
+
     .chart-tip { position:fixed; display:none; pointer-events:none; z-index:300; background:#0f172a; color:#fff; padding:7px 9px; border-radius:3px; font-size:12px; line-height:1.5; white-space:pre-line; max-width:320px; box-shadow:0 8px 22px rgba(15,23,42,.2); }
+
+
 
     .summary-table th, .summary-table td { text-align:center; vertical-align:middle; }
 
+
+
     .summary-table td:last-child { font-weight:800; }
+
+
 
     .grouped-category-table .category-cell { text-align:center; vertical-align:middle; font-weight:800; color:var(--ink); background:#f3f6fb; min-width:58px; }
 
+
+
     .grid { stroke:#d7dce5; stroke-dasharray:4 4; }
+
+
 
     .axis { font-size:11px; fill:#667085; }
 
+
+
     .legend { display:flex; flex-wrap:wrap; gap:5px 8px; color:#475467; font-size:10.5px; line-height:1.15; margin:2px 0 0; }
+
+
 
     .legend span { display:inline-flex; align-items:center; gap:3px; }
 
+
+
     .legend i { display:inline-block; width:8px; height:8px; }
+
+
 
     .chg-pos { background:#f6c7cd !important; color:#8b0000; font-weight:800; }
 
+
+
     .chg-neg { background:#c6efce !important; color:#006100; font-weight:800; }
+
+
 
     .slide-grid { display:grid; grid-template-columns:1fr; gap:14px; margin-top:10px; }
 
+
+
     .slide-card { margin:0; border:1px solid var(--line); background:#fff; border-radius:4px; overflow:hidden; }
+
+
 
     .slide-card figcaption { border-top:0; border-bottom:1px solid var(--line); background:#f2f5fa; color:var(--ink); font-size:15px; font-weight:750; }
 
+
+
     .slide-card button { display:block; border:0; padding:0; background:transparent; width:100%; cursor:zoom-in; }
+
+
 
     .slide-card img { display:block; width:100%; height:auto; }
 
+
+
     .report-image-list { display:grid; grid-template-columns:1fr; gap:12px; margin:10px 0 12px; }
+
+
 
     .asset-gallery.cols-2 { grid-template-columns:repeat(2, minmax(0, 1fr)); }
 
+
+
     .asset-gallery.cols-3 { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+
+
 
     .asset-gallery.cols-4 { grid-template-columns:repeat(4, minmax(0, 1fr)); }
 
+
+
     .lightweight-assets .data-head span { font-size:12px; color:#8a94a6; font-weight:400; }
+
+
 
     .section-note-line { margin:8px 0 4px; padding:8px 10px; border:1px solid #d9e1ec; background:#f8fafc; color:#475467; border-radius:4px; font-size:14px; line-height:1.6; }
 
+
+
     .report-card { margin:0; border:1px solid var(--line); background:#fff; border-radius:4px; overflow:hidden; }
+
+
 
     .report-card button { display:block; border:0; padding:0; background:transparent; width:100%; cursor:zoom-in; }
 
+
+
     .report-card img { display:block; width:100%; height:auto; }
+
+
 
     figcaption { display:flex; justify-content:space-between; gap:10px; padding:8px 10px; color:#475467; font-size:13px; border-top:1px solid var(--line); }
 
+
+
     figcaption span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+
 
     .source-note { display:none; }
 
+
+
     .empty { color:var(--muted); line-height:1.7; }
+
+
 
     .modal { position:fixed; inset:0; background:rgba(15,23,42,.82); z-index:200; display:none; align-items:center; justify-content:center; padding:22px; }
 
+
+
     .modal.active { display:flex; }
+
+
 
     .modal img { max-width:96vw; max-height:92vh; background:#fff; }
 
+
+
     .modal button { position:absolute; top:16px; right:18px; border:1px solid #fff; color:#fff; background:transparent; padding:8px 12px; font-size:16px; cursor:pointer; }
+
+
 
     @media (max-width: 1400px) { .auction-grid, .supply-grid, .seaborne-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
 
+
+
     @media (max-width: 1180px) { .seasonal-grid, .aussie-grid, .auction-grid, .supply-grid, .seaborne-grid, .mongolian-grid, .overseas-profit-grid, .coal-jianghu-grid, .fenwei-inventory-grid, .fenwei-profit-grid, .available-days-grid, .coke-data-grid, .fenwei-coke-grid, .wuhai-coke-grid, .thermal-price-grid, .thermal-building-grid, .thermal-origin-grid, .raw-coal-grid, .thermal-port-inventory-grid, .thermal-dispatch-grid, .thermal-power-grid, .thermal-demand-grid, .weather-temperature-grid, .hotmetal-grid, .offbalance-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+
+
 
     @media (max-width: 1180px) { .asset-gallery.cols-3, .asset-gallery.cols-4 { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
 
+
+
     @media (max-width: 900px) { .layout { grid-template-columns:1fr; } .side-toc { position:relative; height:auto; max-height:42vh; border-right:0; border-bottom:1px solid var(--line); } main { padding:0 12px 24px; } .panel-tab { flex:1 1 calc(50% - 8px); } .seasonal-grid, .auction-grid, .supply-grid, .seaborne-grid, .mongolian-grid, .overseas-profit-grid, .coal-jianghu-grid, .fenwei-inventory-grid, .fenwei-profit-grid, .available-days-grid, .coke-data-grid, .fenwei-coke-grid, .wuhai-coke-grid, .thermal-price-grid, .thermal-building-grid, .thermal-origin-grid, .raw-coal-grid, .thermal-port-inventory-grid, .thermal-dispatch-grid, .thermal-power-grid, .thermal-power-compact-grid, .thermal-demand-grid, .weather-temperature-grid, .hotmetal-grid, .offbalance-grid, .asset-gallery.cols-2, .asset-gallery.cols-3, .asset-gallery.cols-4 { grid-template-columns:1fr; } }
+
+
 
   </style>
 <style>
 
+
+
 .cjh-gallery, .cjh-gallery.cols-3, .raw-coal-static-block .cols-3, .ms-inventory-block .chart-grid-live { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+
 
 .thermal-power-compact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
+
+
 @media (max-width: 900px) { .thermal-power-compact-grid { grid-template-columns: 1fr; } }
+
+
 
 .cjh-card img { width: 100%; height: auto; display: block; }
 
+
+
 .full-width-image-card img { width: 100%; height: auto; display: block; }
+
+
 
 .shanxi-daily-tracker-block .full-width-image-card { margin: 0; }
 
+
+
     .auction-title-band { text-align: center; font-size: 24px; font-weight: 800; color: #0b2f66; background: #dbeaf7; padding: 12px 10px; margin: 18px 0 12px; }
+
+
 
     .auction-kpi-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
 
+
+
     .auction-kpi-card { border: 1px solid #d5dfed; border-radius: 6px; background: #fff; padding: 9px 12px; }
+
+
 
     .auction-kpi-card span { display: block; color: #5f6c7c; font-size: 13px; margin-bottom: 3px; }
 
+
+
     .auction-kpi-card strong { display: block; color: #0b2f66; font-size: 20px; line-height: 1.25; }
+
+
 
     .auction-kpi-card em { display: block; color: #6d7786; font-size: 12px; font-style: normal; margin-top: 2px; }
 
+
+
     .auction-daily-summary-wrap { margin: 10px 0 14px; }
+
+
 
     .auction-daily-summary th, .auction-daily-summary td { text-align: center; }
 
+
+
     .auction-source-gallery { margin-top: 12px; border: 1px solid #d5dfed; border-radius: 8px; background: #f8fbff; padding: 10px 12px; }
+
+
 
     .auction-source-gallery summary { cursor: pointer; color: #0b2f66; font-weight: 700; }
 
+
+
     .auction-source-gallery > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+
+
 
     .auction-source-shot { margin: 0; background: #fff; border: 1px solid #d5dfed; border-radius: 6px; padding: 6px; }
 
+
+
     .auction-source-shot img { width: 100%; height: auto; display: block; }
+
+
 
     .auction-source-shot figcaption { margin-top: 4px; color: #5f6c7c; font-size: 12px; text-align: center; }
 
+
+
     .zhangshang-weekly-auction-block .auction-price-table th, .zhangshang-weekly-auction-block .auction-price-table td { text-align: center; white-space: nowrap; }
+
+
 
     .zhangshang-weekly-auction-block .auction-price-table td:nth-child(5), .zhangshang-weekly-auction-block .auction-price-table td:nth-child(13) { text-align: left; white-space: normal; min-width: 150px; }
 
+
+
     .jm-spread-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+
 
     .freight-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
+
+
     .freight-subhead { margin-top: 22px; }
+
+
 
     .jm-spread-summary-table th, .jm-spread-summary-table td { text-align: center; }
 
+
+
 .jm-spread-summary-table .metric-name { font-weight: 700; color: #0b2f66; }
+
+
 
 .jm-spread-summary-table .latest-col { background: #e8f8e8; }
 
+
+
 .cjh-static-table th, .cjh-static-table td, .raw-coal-top5-table th, .raw-coal-top5-table td { text-align: center; }
+
+
 
 .cjh-static-table .divider td { border-top: 2px solid #9aa8bf; font-weight: 700; }
 
+
+
 .hotmetal-expectation-table th, .hotmetal-expectation-table td { text-align: center; white-space: nowrap; }
+
+
 
 .hotmetal-expectation-table .metric-name { font-weight: 700; color: #0b2f66; min-width: 120px; }
 
+
+
 .hotmetal-expectation-svg-wrap { margin-top: 14px; border: 1px solid #d8e0ee; border-radius: 10px; background: #fff; padding: 10px; }
+
+
 
 .hotmetal-expectation-chart { display: block; width: 100%; height: auto; }
 
+
+
 .weather-prompt-image-block img { display: block; width: min(100%, 1180px); height: auto; margin: 0 auto; border: 1px solid #d7dfea; }
 
+
+
 @media print { .side-toc, .tabs, .table-toolbar, .node-meta .tag.ok { display: none !important; } .subpanel, .shanxi-price-extra-block { break-inside: avoid; page-break-inside: avoid; } body { background: #fff; } }
+
+
 
 </style><style>.auction-detail-table{min-width:1450px;font-size:15px}.auction-day .table-scroll{max-height:none;overflow-x:auto}.auction-detail-table td,.auction-detail-table th{padding:7px 9px;white-space:nowrap}.auction-detail-table td:last-child{white-space:normal;min-width:250px;text-align:left}.auction-day{margin:12px 0}.auction-day summary{font-size:18px;font-weight:bold;color:#16365d;padding:10px;background:#e8eef7;cursor:pointer}</style><style id="weekly-desktop-grid-20261011">@media(min-width:1000px){.chart-grid,.seasonal-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}</style><style id="confirmed-four-chart-layout">#balance-weekly .balance-weekly-fourgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.weekly-balance-canvas{display:block}@media(max-width:700px){#balance-weekly .balance-weekly-fourgrid{grid-template-columns:1fr}}</style><style>#jm-supply > h3{margin-bottom:16px} #jm-supply > .subpanel{margin:16px 0} #jm-fw-monthly-supply .supply-monthly-table{font-size:14px;min-width:1120px} #jm-fw-monthly-supply .supply-monthly-table th,#jm-fw-monthly-supply .supply-monthly-table td{padding:8px 6px} #jm-fw-shutdown-daily .shutdown-commentary{font-family:KaiTi,STKaiti,serif}</style><style id="supply-interactive-repair-style">#jm-fw-shutdown-daily .shutdown-capacity-grid,#jm-fw-monthly-supply .chart-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px} #jm-fw-shutdown-daily .shutdown-capacity-canvas{display:block;width:100%;height:auto;aspect-ratio:760/280} #jm-fw-monthly-supply .chart-card{height:auto;min-height:0} #jm-fw-monthly-supply .chart-canvas{aspect-ratio:760/280!important;height:auto!important} @media(max-width:700px){#jm-fw-shutdown-daily .shutdown-capacity-grid,#jm-fw-monthly-supply .chart-grid{grid-template-columns:1fr}}</style><meta content="2026-11-01; user-supplied full summary text" name="coal-weekly-text-snapshot"/><style id="mobile-publish-overrides">
   html {
@@ -703,7 +1049,15 @@
 
 
 
+
+
+
+
 习近平强调，各地区各部门要汲取事故教训，时刻绷紧安全生产这根弦，深入排查整治各类风险隐患，坚决防范遏制重特大事故发生。当前正值汛期，要加强应急值守，扎实做好防汛救灾工作，切实维护人民群众生命财产安全。
+
+
+
+
 
 
 
@@ -711,11 +1065,23 @@
 
 
 
+
+
+
+
 除以上问题外，有矿工告诉记者，他们并非与煤矿直接签订劳务合同的“正式工”，而是“外包队”。</td></tr><tr style="height:28.5px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">9</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/5/24</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">陕西</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">钢联</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">报道</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">5月24日夜间起陕西延安子长市、宝塔区10座煤矿开始自检自查停产，停产时间预计3-5天，合计产能1685万吨。区域内主产低硫气煤，当地主流煤矿精煤出厂价940-1010元/吨现金含税。</td></tr><tr style="height:40.5px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">10</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/5/25</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西省能源局</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">会议</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">省能源局党组书记、局长张翔主持召开局党组（扩大）会议，传达学习习近平总书记对山西长治市沁源县一煤矿瓦斯爆炸事故重要指示、李强总理批示，认真贯彻落实中央领导同志现场指导要求和省安委会全体（扩大）会议精神，对全省能源行业安全生产工作进行安排部署。</td></tr><tr style="height:68.65px"><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">11</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/5/25</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西省应急管理厅</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">省委常委会召开会议</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">唐登杰主持：要全力做好救援救治、安抚善后等工作，全力配合国务院事故调查组开展事故调查，查清查透事故原因，查清查透属地管理、行业监管和企业责任，依法依规严厉惩处。要严格落实国务院安委会矿山安全“八条硬措施”，深入开展全省煤矿安全风险隐患专项整治，以“零容忍”态度精准排查、严厉打击隐蔽工作面、安全监控造假、超能力超强度超定员、超层越界私挖乱采、违规分包转包、重大灾害治理不落实等违法违规行为以及背后存在的渎职、腐败等问题，加强行刑纪衔接，形成“打非治违”的强大震慑，确保硬措施得到硬落实。</td></tr><tr style="height:83.25px"><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">12</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/5/27</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国务院</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国务院成立山西留神峪煤矿事故调查组</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国务院山西长治山西通洲集团留神峪煤业有限公司“5·22”特别重大瓦斯爆炸事故调查组召开第一次全体会议。国务院事故调查组组长、应急管理部部长张成中主持会议，通报调查安排、提出工作要求。会议强调，事故调查组要认真贯彻落实习近平总书记重要指示精神和党中央、国务院决策部署，较真碰硬开展事故调查，按照“科学严谨、依法依规、实事求是、注重实效”和“四不放过”的原则，查清查透事故原因和属地管理、行业监管和企业责任，依法依规严厉惩处。同时，会议要求深刻汲取教训，全面检视矿山安全“八条硬措施”落实情况，重拳出击重点行业领域安全生产“打非治违”，举一反三全面排查整治安全风险隐患，坚决防范遏制重特大事故。</td></tr><tr style="height:54.75px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">13</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/5/27</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">陕西</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家矿山安全监察局陕西局分管局</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">会议</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家矿山安全监察局陕西局分管局领导带领监察督导一组、监察执法四处对澄合矿业公司及所属煤矿主要负责人、有关负责人等进行警示约谈。会议通报了澄合矿业公司对照自查自改、安全基础提升重点工作及近期举报核查、安全监察发现的突出问题。会议要求，要正视重大违法违规行为自查“大起底”行动，举一反三，深入排查所属煤矿存在的深层次问题，下大力气解决制约煤矿安全管理、灾害治理、采掘接续和队伍建设等瓶颈问题。</td></tr><tr style="height:41.25px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">14</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/5/30</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">省督查组</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西省成立了11个检查组下来检查</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">是否存在超能力、超强度或者超定员组织生产。是否存在瓦斯超限作业。煤（岩）与瓦斯（二氧化碳）突出矿井是否按照规定实施防突措施。是否存在超层、越界开采行为。</td></tr><tr style="height:40.9px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">15</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/5/31</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">陕西</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">应急管理局</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">会议</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">5月31日，根据省委、省政府安排，全省矿山安全工作视频会召开，从严肃警示警醒、严格排查整治、严厉打击惩处、严实闭环治本、严防失责缺位、严明纪法约束、严密专群防线等方面，对矿山安全工作进行再安排再部署。省委常委、常务副省长王晓主持并讲话。</td></tr><tr style="height:54.4px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">16</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/6/1</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西省人民政府</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">报道</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">6月1日，省委副书记、省长卢东亮深入太原古交市检查煤矿安全生产工作。他强调，要深入学习贯彻习近平总书记关于安全生产的重要指示精神，坚决落实全国安全生产视频会议要求和省委工作部署，深刻汲取血的教训，严格落实企业责任，扎实开展煤矿安全风险隐患专项整治，在坚守安全底线中重塑山西煤炭产业生态。省委常委、太原市委书记林红玉参加有关活动。山西焦煤所属的西山煤电马兰矿，是古交一处典型的煤与瓦斯突出矿井。</td></tr><tr style="height:27.0px"><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">17</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/6/2</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西长治</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西省纪委监委网站</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">报道</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">长治市沁源县委书记赵永进涉嫌严重违纪违法，目前正接受省纪委监委纪律审查和
 
 
 
+
+
+
+
 监察调查。</td></tr><tr style="height:81.75px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">18</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/6/3</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西省常委会</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">会议</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">深入学习贯彻习近平总书记关于安全生产的重要指示和就推动哲学社会科学高质量发展作出的重要指示精神，传达贯彻全国安全生产视频会议和社科界学习贯彻习近平文化思想座谈会精神，安排部署高考、中考组织保障等工作。省委书记唐登杰主持会议。要深刻汲取长治市沁源县煤矿瓦斯爆炸事故教训，全力配合国务院事故调查组开展工作，以案为戒、举一反三抓好全省煤矿安全风险隐患专项整治，以零容忍态度严厉打击安全生产非法违法和弄虚作假等行为，有力发挥震慑遏制效果。要加强行刑纪衔接，依法严惩违法违规生产企业的实际控制人、最终受益人、幕后操控人，严厉整治安全监管执法“宽松软”问题，严肃查处以罚代管、只罚不管、一罚了之等失职渎职行为以及背后存在的腐败问题。</td></tr><tr style="height:20px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">19</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/6/4</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西临汾</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西省纪委监委网站</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">报道</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西省临汾市副市长吴勇涉嫌严重违纪违法，主动投案，目前正接受省纪委监委纪律审查和监察调查。</td></tr><tr style="height:70.5px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">20</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/6/5</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家发改委</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">新闻</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">【国家发改委：供应恢复节奏较缓，预计6月焦煤市场偏强运行】 据国家发改委价格检测中心，5月焦煤市场受供给收缩、需求支撑及市场情绪带动影响，价格以涨为主。展望6月，尽管进入建筑用钢需求淡季，铁水产量或阶段性见顶回落，但5月底煤矿事故影响还在延续，供应恢复节奏较缓，市场看好情绪较浓，焦煤市场价格或偏强运行。中心对全国主要焦煤生产企业、焦化企业调查，6月份焦煤价格预期指数为86.0%，较上月上涨7.2个百分点，继续位于50%分界线上方，市场多数继续看涨6月市场。</td></tr><tr style="height:27.75px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">21</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/6/10</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西省纪委监委网站</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">报道</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西省应急管理厅副厅长张和平涉嫌严重违纪违法，涉通洲集团留神峪煤业有限公司“5·22”特别重大瓦斯爆炸事故，目前正接受省纪委监委纪律审查和监察调查。</td></tr><tr style="height:42.0px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">22</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/6/13</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西能源局</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">会议</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">全省煤矿安全风险隐患专项整治行动推进会召开 卢东亮主持并讲话；要加强检查力量，紧盯重点煤矿重点问题重点线索，聚焦隐蔽工作面、安全监控造假、超层越界开采、不带卡下井、违规分包转包、安全主体责任不落实、重大灾害治理不到位等重大隐患问题。要坚持办案开路，加强“行刑纪”衔接。要压实各级党委政府属地责任。</td></tr><tr style="height:27.0px"><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">23</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/6/23</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家矿山安全监察局</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">政策</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家矿山安全监察局关于进一步加强矿山企业安全生产主体责任落实的指导意见从煤矿扩展到全部矿种；明确责任人，上级公司严禁超能力下达生产计划或经营指标；</td></tr><tr style="height:20px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">24</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/6/24</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西长治</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西省纪委监委网站</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">报道</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">长治市沁源县委原书记李丁夫涉嫌严重违纪违法，主动投案，目前正接受省纪委监委纪律审查和监察调查。</td></tr><tr style="height:20px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">25</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/6/25</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西长治</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西省纪委监委网站</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">报道</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西省长治市委原常委、市政府原副市长王玉圣涉嫌严重违纪违法，目前正接受山西省纪委监委纪律审查和监察调查。</td></tr><tr style="height:20px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">26</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/6/28</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">山西省纪委监委网站</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">报道</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">太原市人民检察院原党组书记、检察长赵安灵涉嫌严重违纪违法，目前正接受省纪委监委纪律审查和监察调查。</td></tr><tr style="height:71.25px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">27</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2026/7/6</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">内蒙古</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">内蒙古自治区矿山安全监管局与内蒙古自治区公安厅</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:700;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">报道</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">据了解，此次打非治违专项行动从2026年7月6日开始至2026年10月13日结束，历时100天，重点对矿山领域违规开采、越界开采、隐瞒采掘工作面等11项非法违法行为进行严厉打击。
+
+
+
+
 
 
 
@@ -727,6 +1093,14 @@
 
 
 
+
+
+
+
+
+
+
+
 国家矿山安全监察局陕西局（以下简称陕西局）监察督导二组针对神木市能源局安全监管工作存在问题，对该局开展煤矿安全生产工作约谈。会议听取了神木市能源局关于青草界煤矿存在的问题及处理情况的汇报。陕西局监察执法一处对神木市煤矿监察执法发现的十类突出问题进行了通报。
 
 
@@ -735,7 +1109,23 @@
 
 
 
+
+
+
+
+
+
+
+
 陕西局监察督导二组就加强和改善煤矿安全监管工作，对神木市能源局提出六点工作要求：一要切实提高政治站位，认清安全形势，深刻汲取山西通洲集团留神峪煤业有限公司“5·22”特别重大瓦斯爆炸事故教训，强化打非治违，保持监管高压态势；二要强化重大灾害治理，推进安全基础提升45项重点工作落地，全面促进煤矿安全生产水平整体提升；三要发挥驻矿安监员前沿哨点作用，紧盯井下现场动态变化，遇异常情况及时上报，强化考核结果运用，倒逼履职尽责；四要紧盯汛期“七下八上”防汛关键时段，强化雨情水情研判，落实应急值守、险情处置各项措施，抓实汛期应急管理工作；五要加强矿山救护队常态化开展应急实战演练，覆盖水害、瓦斯、顶板等各类灾害场景，组织多类型灾害应急处置演练，提升险情协同处置能力；六要加强监管监察沟通联动，保证信息互通共享，凝聚监管监察工作合力，筑牢煤矿安全生产防线。
+
+
+
+
+
+
+
+
 
 
 
@@ -747,7 +1137,15 @@
 
 
 
+
+
+
+
 习近平强调，各地区各部门要汲取事故教训，时刻绷紧安全生产这根弦，深入排查整治各类风险隐患，坚决防范遏制重特大事故发生。当前正值汛期，要加强应急值守，扎实做好防汛救灾工作，切实维护人民群众生命财产安全。
+
+
+
+
 
 
 
@@ -755,7 +1153,15 @@
 
 
 
+
+
+
+
 除以上问题外，有矿工告诉记者，他们并非与煤矿直接签订劳务合同的“正式工”，而是“外包队”。</dd></div></dl></article><article class="mobile-indicator-card"><h5>9</h5><dl><div><dt>时间</dt><dd>2026/5/24</dd></div><div><dt>层级</dt><dd>陕西</dd></div><div><dt>发布主体</dt><dd>钢联</dd></div><div><dt>类型</dt><dd>报道</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>5月24日夜间起陕西延安子长市、宝塔区10座煤矿开始自检自查停产，停产时间预计3-5天，合计产能1685万吨。区域内主产低硫气煤，当地主流煤矿精煤出厂价940-1010元/吨现金含税。</dd></div></dl></article><article class="mobile-indicator-card"><h5>10</h5><dl><div><dt>时间</dt><dd>2026/5/25</dd></div><div><dt>层级</dt><dd>山西</dd></div><div><dt>发布主体</dt><dd>山西省能源局</dd></div><div><dt>类型</dt><dd>会议</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>省能源局党组书记、局长张翔主持召开局党组（扩大）会议，传达学习习近平总书记对山西长治市沁源县一煤矿瓦斯爆炸事故重要指示、李强总理批示，认真贯彻落实中央领导同志现场指导要求和省安委会全体（扩大）会议精神，对全省能源行业安全生产工作进行安排部署。</dd></div></dl></article><article class="mobile-indicator-card"><h5>11</h5><dl><div><dt>时间</dt><dd>2026/5/25</dd></div><div><dt>层级</dt><dd>山西</dd></div><div><dt>发布主体</dt><dd>山西省应急管理厅</dd></div><div><dt>类型</dt><dd>省委常委会召开会议</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>唐登杰主持：要全力做好救援救治、安抚善后等工作，全力配合国务院事故调查组开展事故调查，查清查透事故原因，查清查透属地管理、行业监管和企业责任，依法依规严厉惩处。要严格落实国务院安委会矿山安全“八条硬措施”，深入开展全省煤矿安全风险隐患专项整治，以“零容忍”态度精准排查、严厉打击隐蔽工作面、安全监控造假、超能力超强度超定员、超层越界私挖乱采、违规分包转包、重大灾害治理不落实等违法违规行为以及背后存在的渎职、腐败等问题，加强行刑纪衔接，形成“打非治违”的强大震慑，确保硬措施得到硬落实。</dd></div></dl></article><article class="mobile-indicator-card"><h5>12</h5><dl><div><dt>时间</dt><dd>2026/5/27</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>国务院</dd></div><div><dt>类型</dt><dd>国务院成立山西留神峪煤矿事故调查组</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>国务院山西长治山西通洲集团留神峪煤业有限公司“5·22”特别重大瓦斯爆炸事故调查组召开第一次全体会议。国务院事故调查组组长、应急管理部部长张成中主持会议，通报调查安排、提出工作要求。会议强调，事故调查组要认真贯彻落实习近平总书记重要指示精神和党中央、国务院决策部署，较真碰硬开展事故调查，按照“科学严谨、依法依规、实事求是、注重实效”和“四不放过”的原则，查清查透事故原因和属地管理、行业监管和企业责任，依法依规严厉惩处。同时，会议要求深刻汲取教训，全面检视矿山安全“八条硬措施”落实情况，重拳出击重点行业领域安全生产“打非治违”，举一反三全面排查整治安全风险隐患，坚决防范遏制重特大事故。</dd></div></dl></article><article class="mobile-indicator-card"><h5>13</h5><dl><div><dt>时间</dt><dd>2026/5/27</dd></div><div><dt>层级</dt><dd>陕西</dd></div><div><dt>发布主体</dt><dd>国家矿山安全监察局陕西局分管局</dd></div><div><dt>类型</dt><dd>会议</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>国家矿山安全监察局陕西局分管局领导带领监察督导一组、监察执法四处对澄合矿业公司及所属煤矿主要负责人、有关负责人等进行警示约谈。会议通报了澄合矿业公司对照自查自改、安全基础提升重点工作及近期举报核查、安全监察发现的突出问题。会议要求，要正视重大违法违规行为自查“大起底”行动，举一反三，深入排查所属煤矿存在的深层次问题，下大力气解决制约煤矿安全管理、灾害治理、采掘接续和队伍建设等瓶颈问题。</dd></div></dl></article><article class="mobile-indicator-card"><h5>14</h5><dl><div><dt>时间</dt><dd>2026/5/30</dd></div><div><dt>层级</dt><dd>山西</dd></div><div><dt>发布主体</dt><dd>省督查组</dd></div><div><dt>类型</dt><dd>山西省成立了11个检查组下来检查</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>是否存在超能力、超强度或者超定员组织生产。是否存在瓦斯超限作业。煤（岩）与瓦斯（二氧化碳）突出矿井是否按照规定实施防突措施。是否存在超层、越界开采行为。</dd></div></dl></article><article class="mobile-indicator-card"><h5>15</h5><dl><div><dt>时间</dt><dd>2026/5/31</dd></div><div><dt>层级</dt><dd>陕西</dd></div><div><dt>发布主体</dt><dd>应急管理局</dd></div><div><dt>类型</dt><dd>会议</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>5月31日，根据省委、省政府安排，全省矿山安全工作视频会召开，从严肃警示警醒、严格排查整治、严厉打击惩处、严实闭环治本、严防失责缺位、严明纪法约束、严密专群防线等方面，对矿山安全工作进行再安排再部署。省委常委、常务副省长王晓主持并讲话。</dd></div></dl></article><article class="mobile-indicator-card"><h5>16</h5><dl><div><dt>时间</dt><dd>2026/6/1</dd></div><div><dt>层级</dt><dd>山西</dd></div><div><dt>发布主体</dt><dd>山西省人民政府</dd></div><div><dt>类型</dt><dd>报道</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>6月1日，省委副书记、省长卢东亮深入太原古交市检查煤矿安全生产工作。他强调，要深入学习贯彻习近平总书记关于安全生产的重要指示精神，坚决落实全国安全生产视频会议要求和省委工作部署，深刻汲取血的教训，严格落实企业责任，扎实开展煤矿安全风险隐患专项整治，在坚守安全底线中重塑山西煤炭产业生态。省委常委、太原市委书记林红玉参加有关活动。山西焦煤所属的西山煤电马兰矿，是古交一处典型的煤与瓦斯突出矿井。</dd></div></dl></article><article class="mobile-indicator-card"><h5>17</h5><dl><div><dt>时间</dt><dd>2026/6/2</dd></div><div><dt>层级</dt><dd>山西长治</dd></div><div><dt>发布主体</dt><dd>山西省纪委监委网站</dd></div><div><dt>类型</dt><dd>报道</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>长治市沁源县委书记赵永进涉嫌严重违纪违法，目前正接受省纪委监委纪律审查和
+
+
+
+
 
 
 
@@ -763,7 +1169,19 @@
 
 
 
+
+
+
+
 锡林郭勒盟8月14日印发通知，对所有正常生产、建设的媒矿实行全覆盖检查，按照先井工、后露天的顺序逐矿排查；伊金霍洛旗8月14日发布公告，面向社会公开征集矿山“打非治违”线索至年底，涵盖隐瞒工作面、非法开采、违规建设等5大类20项违法行为。</dd></div></dl></article><article class="mobile-indicator-card"><h5>28</h5><dl><div><dt>时间</dt><dd>2026/7/7</dd></div><div><dt>层级</dt><dd>山西</dd></div><div><dt>发布主体</dt><dd>山西省纪委监委网站</dd></div><div><dt>类型</dt><dd>报道</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>长治市人大常委会党组成员、副主任连树斌涉嫌严重违纪违法，目前正接受省纪委监委纪律审查和监察调查。</dd></div></dl></article><article class="mobile-indicator-card"><h5>29</h5><dl><div><dt>时间</dt><dd>2026/7/9</dd></div><div><dt>层级</dt><dd>山西</dd></div><div><dt>发布主体</dt><dd>山西省长宣讲</dd></div><div><dt>类型</dt><dd>报道</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>省委副书记、省长卢东亮到朔州市开展煤矿安全生产下基层宣传宣讲，并调研煤矿安全风险隐患专项整治和能源领域重大项目建设。要坚决铲除重大非法违法生产这个“毒瘤”，不清仓见底决不罢休。要持续推动煤炭采掘装备和安防系统更新升级，推进完成重大隐患整改、通过验收合格的停产煤矿有序复工复产。要进一步压实各方责任特别是企业主体责任，健全煤矿安全生产长效机制。</dd></div></dl></article><article class="mobile-indicator-card"><h5>30</h5><dl><div><dt>时间</dt><dd>2026/7/21</dd></div><div><dt>层级</dt><dd>山西</dd></div><div><dt>发布主体</dt><dd>山西省人民政府</dd></div><div><dt>类型</dt><dd>政策</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>1、确定522为全省安全生产警示教育日；2、彻底清理取缔隐蔽工作面；3、严禁监控系统数据造假；4、严格规范劳务和工程外包；5、严禁不带人员定位卡入井作业；6、全面压实煤矿企业第一责任人责任；7、严格落实“三管三必须”实施细则和煤矿安全管理职责清单；8、加强地方煤矿安全监管管理机构建设；9、改革煤矿安全监管人员驻派制度；10、强化“五量”数据贯通监测；11、常态化开展违法“四链”整治；12、健全煤矿安全生产巡查制度；13、创新强化审计监督和税务监管；14、完善“行刑纪”衔接贯通机制；15、分层分类加强安全教育培训；16、强化科技装备支撑；17、加强考核评价。</dd></div></dl></article><article class="mobile-indicator-card"><h5>31</h5><dl><div><dt>时间</dt><dd>2026/7/26</dd></div><div><dt>层级</dt><dd>山西</dd></div><div><dt>发布主体</dt><dd>山西省人民政府</dd></div><div><dt>类型</dt><dd>卢东亮</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>省长卢东亮主持召开市长例会暨上半年全省经济运行分析会，要在坚决同煤矿非法违法生产作斗争的同时，一矿一策推进临时停产煤矿整改验收、复工复产，有序推动煤炭产业核增产能、稳定生产。</dd></div></dl></article><article class="mobile-indicator-card"><h5>32</h5><dl><div><dt>时间</dt><dd>2026/7/30</dd></div><div><dt>层级</dt><dd>山西长治</dd></div><div><dt>发布主体</dt><dd>山西省纪委监委网站</dd></div><div><dt>类型</dt><dd>报道</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>长治市委原副书记，市政府原党组书记、市长陈向阳涉嫌严重违纪违法，目前正接受省纪委监委纪律审查和监察调查。</dd></div></dl></article><article class="mobile-indicator-card"><h5>33</h5><dl><div><dt>时间</dt><dd>2026/7/30</dd></div><div><dt>层级</dt><dd>山西长治</dd></div><div><dt>发布主体</dt><dd>长治市能源局</dd></div><div><dt>类型</dt><dd>文件</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>根据市政府工作安排，现对全市有核增意愿的煤矿开展摸底工作。各单位要立即安排部署，对照应急管理部等四部门《关于印发煤矿生产能力管理办法和核定标准的通知》(应急[2021]30号)，组织所属煤矿开展产能核增摸底工作。</dd></div></dl></article><article class="mobile-indicator-card"><h5>34</h5><dl><div><dt>时间</dt><dd>2026/8/2</dd></div><div><dt>层级</dt><dd>陕西</dd></div><div><dt>发布主体</dt><dd>应急管理部</dd></div><div><dt>类型</dt><dd>事故</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>2026年8月2日6时30分陕西 局电话报告、7时49分书面报告:8月2日4时12分左右，陕西榆林榆阳区陕西华电榆横煤电有限责任公司(小纪汗煤矿)1名工人在井下11210切眼使用单体锚杆机打锚索钻孔时，钻杆脱离单体锚杆机卡槽底座，甩出打伤左脸，5时22分送医抢救，7时00分经抢救无效遇难。『矿山安全监察局值班室』。8月3日-8月9日，国家能源局查2023-2025年生产（含联合试运转）煤矿超能力生产情况，8.3下午进驻魏墙煤矿，但是其他也会查。</dd></div></dl></article><article class="mobile-indicator-card"><h5>35</h5><dl><div><dt>时间</dt><dd>2026/8/6</dd></div><div><dt>层级</dt><dd>山西省能源局</dd></div><div><dt>发布主体</dt><dd>省委常委会会议</dd></div><div><dt>类型</dt><dd>会议</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>8月5日审议通过《山西省统筹煤炭行业发展和安全新规十七条》。要毫不放松抓好安全生产，持续强化各领域安全防范和防灾减灾工作，坚决遏制重特大事故发生。要纵深推进煤矿安全风险隐患专项整治，落实好《山西省统筹煤炭行业发展和安全新规十七条》，推动煤炭行业安全发展、高质量发展。</dd></div></dl></article><article class="mobile-indicator-card"><h5>36</h5><dl><div><dt>时间</dt><dd>2026/8/7</dd></div><div><dt>层级</dt><dd>陕西</dd></div><div><dt>发布主体</dt><dd>-</dd></div><div><dt>类型</dt><dd>事故</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>榆林榆阳区洗煤厂事故死三人</dd></div></dl></article><article class="mobile-indicator-card"><h5>37</h5><dl><div><dt>时间</dt><dd>2026/8/11</dd></div><div><dt>层级</dt><dd>湖南</dd></div><div><dt>发布主体</dt><dd>湖南应急管理部</dd></div><div><dt>类型</dt><dd>报道</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>湖南应急管理官微消息，经郴州市人民政府批准，永兴县新星煤矿恢复生产。截至目前，全省已有12家煤矿（其中8家省属煤矿、4家民营煤矿）经属地人民政府组织自然资源、公安、电力、应急、矿山安全监察等部门验收合格后批准复产，37家煤矿正在积极整改。全省煤矿企业复工复产工作正有力有序推进。</dd></div></dl></article><article class="mobile-indicator-card"><h5>38</h5><dl><div><dt>时间</dt><dd>2026/8/13</dd></div><div><dt>层级</dt><dd>陕西</dd></div><div><dt>发布主体</dt><dd>榆林市榆阳区煤矿安全生产委员会</dd></div><div><dt>类型</dt><dd>通知</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>关于开展全区洗选煤企业安全大排查的通知</dd></div></dl></article><article class="mobile-indicator-card"><h5>39</h5><dl><div><dt>时间</dt><dd>2026/8/14</dd></div><div><dt>层级</dt><dd>湖南</dd></div><div><dt>发布主体</dt><dd>央视新闻</dd></div><div><dt>类型</dt><dd>事故</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>【湖南涟源市杨梅山煤矿发生一起瓦斯突出事故 7人失联】2026年8月14日5时08分，湖南涟源市杨梅山煤矿发生一起瓦斯突出事故。初步查明，当班入井作业人员52人，安全出井44人，失联7人，1人正在抢救。目前，市县两级已组织应急、卫健等相关部门现场开展应急救援处置工作，事故原因正在进一步调查。</dd></div></dl></article><article class="mobile-indicator-card"><h5>40</h5><dl><div><dt>时间</dt><dd>2026/8/21</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>国家矿山安全检查局</dd></div><div><dt>类型</dt><dd>报道</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>国家矿山安全监察局陕西局对神木市能源局开展安全约谈
+
+
+
+
+
+
+
+
 
 
 
@@ -779,7 +1197,23 @@
 
 
 
+
+
+
+
+
+
+
+
 陕西局监察督导二组就加强和改善煤矿安全监管工作，对神木市能源局提出六点工作要求：一要切实提高政治站位，认清安全形势，深刻汲取山西通洲集团留神峪煤业有限公司“5·22”特别重大瓦斯爆炸事故教训，强化打非治违，保持监管高压态势；二要强化重大灾害治理，推进安全基础提升45项重点工作落地，全面促进煤矿安全生产水平整体提升；三要发挥驻矿安监员前沿哨点作用，紧盯井下现场动态变化，遇异常情况及时上报，强化考核结果运用，倒逼履职尽责；四要紧盯汛期“七下八上”防汛关键时段，强化雨情水情研判，落实应急值守、险情处置各项措施，抓实汛期应急管理工作；五要加强矿山救护队常态化开展应急实战演练，覆盖水害、瓦斯、顶板等各类灾害场景，组织多类型灾害应急处置演练，提升险情协同处置能力；六要加强监管监察沟通联动，保证信息互通共享，凝聚监管监察工作合力，筑牢煤矿安全生产防线。
+
+
+
+
+
+
+
+
 
 
 
@@ -791,7 +1225,15 @@
 
 
 
+
+
+
+
 打击非法违法：着力解决“看惯了、习惯了、干惯了”的问题，严厉打击超层越界、超能力超强度组织生产等行为 。</td></tr><tr style="height:111.0px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">4</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/1/5</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">生态环境部</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">双碳</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">《碳排放权交易管理办法（试行）》生态环境部发布了《碳排放权交易管理办法（试行）》（以下简称《办法》），该管理办法将于2月1日起开始实施。将温室气体重点排放单位单独列为一章（第二章），并做了细化。纳入重点排放单位名录的门槛为属于全国碳排放权交易市场覆盖行业且年度温室气体排放量达到2.6万吨二氧化碳当量的温室气体排放单位，不再考虑综合能源消费量约1万吨标准煤这个条件；补充了移出重点排放单位名录的情形规定：a)连续二年温室气体排放未达到2.6万吨二氧化碳当量的或因停业、关闭；b)其他原因不再从事生产经营活动，因而不再排放温室气体的温室气体排放单位，满足条件之一，确定名录的省级生态环境主管部门应当将其从重点排放单位名录中移出。</td></tr><tr style="height:27.0px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">5</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/1/15</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">发改委</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">保供</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">发改委：部署进一步做好生活物资和能源保供稳价工作，在确保安全的前提下按最大能力组织煤炭生产。</td></tr><tr style="height:20px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">6</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/1/31</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">发改委</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">保供</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">半月改革会议，提出有关部门全力组织煤炭、电力、天然气增产增供，煤炭日产量保持高位。</td></tr><tr style="height:108.0px"><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">7</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/2/2</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国务院</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">双碳</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">《关于加快建立健全绿色低碳循环发展经济体系的指导意见》推动能源体系绿色低碳转型。坚持节能优先，完善能源消费总量和强度双控制度。提升可再生能源利用比例，大力推动风电、光伏发电发展，因地制宜发展水能、地热能、海洋能、氢能、生物质能、光热发电。加快大容量储能技术研发推广，提升电网汇集和外送能力。增加农村清洁能源供应，推动农村发展生物质能。促进燃煤清洁高效开发转化利用，继续提升大容量、高参数、低污染煤电机组占煤电装机比例。在北方地区县城积极发展清洁热电联产集中供暖，稳步推进生物质耦合供热。严控新增煤电装机容量。提高能源输配效率。实施城乡配电网建设和智能升级计划，推进农村电网升级改造。加快天然气基础设施建设和互联互通。开展二氧化碳捕集、利用和封存试验示范。</td></tr><tr style="height:28.5px"><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">8</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/2/28</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">内蒙古</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">内蒙古纪委监委</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">倒查</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">内蒙古“2月28日贯彻总书记指示、倒查20年”复盘。截至2021年2月28日全区累计核查4030家涉煤企业发现问题企业2017家发现具体问题5261个。煤管票收紧。</td></tr><tr style="height:40.5px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">9</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/3/1</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">十三届全国人大四次会议</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">保供</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">定调'推动煤炭生产向资源富集地区集中''煤炭供应安全兜底'，强调化石能源清洁高效利用</td></tr><tr style="height:42.0px"><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">10</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/3/5</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">习近平总书记讲话</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">倒查</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">“这两天，我看到中共内蒙古自治区委员会给党中央的一个报告，就是《关于开展煤炭资源领域违规违法问题专项整治情况的报告》。内蒙古在反腐败方面有个很重要的领域，就是煤炭领域。当共产党的官，当人民的公仆，拿着国家资源去搞行贿受贿、去搞权钱交易，这个账总是要算的。”</td></tr><tr style="height:94.5px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">11</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/3/18</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">中国银行间市场交易商协会</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">双碳</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">《关于明确碳中和债相关机制的通知》碳中和债，是指募集资金专项用于具有碳减排效益的绿色项目的债务融资工具，需满足绿色债券募集资金用途、项目评估与遴选、募集资金管理和存续期信息披露等四大核心要素，属于绿色债务融资工具的子品种。通过专项产品持续引导资金流向绿色低碳循环领域，助力实现碳中和愿景。关于募集资金用途。碳中和债募集资金应全部专项用于清洁能源、清洁交通、可持续建筑、工业低碳改造等绿色项目的建设、运营、收购及偿还绿色项目的有息债务，募投项目应符合《绿色债券支持项目目录》或国际绿色产业分类标准，且聚焦于低碳减排领域。</td></tr><tr style="height:40.9px"><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">12</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/4/9</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">陕西</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">矿山安全监察局</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">安监</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">为深入贯彻落实国家矿山安全监察局局务会议精神，严厉打击严重超能力生产现象，经省局研究决定，在全省煤矿开展超能力生产专项监察。2021年4月中旬至5月中旬。以分局监察为主，省局抽查为辅。</td></tr><tr style="height:28.5px"><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">13</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/4/10</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">新疆</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">乌鲁木齐</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">事故</td><td style="background:#00FFFF;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021年4月10日18时11分，新疆昌吉州呼图壁县白杨沟丰源煤矿（以下简称丰源煤矿）发生重大透水事故，造成21人死亡，直接经济损失7067.2万元。</td></tr><tr style="height:149.25px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">14</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/4/17</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">新疆</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">新疆发改委</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">事故</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">4月15日联合下发《自治区发展改革委新疆煤矿安全监察局关于立即开展煤矿安全生产大检查活动的紧急通知》。各地、各部门、各有关企业要以对党和人民高度负责的态度，牢牢绷紧安全生产这根弦，深刻吸取事故教训，落实安全生产责任，紧紧围绕自治区重点工作部署，立即组织开展安全生产大检查，全面排查管控重大安全风险、治理重大事故隐患，严格防范煤矿安全生产事故发生。全面排查治理，切实做到隐患排查治理横到边、竖到底，不留死角、不留盲区、不留后患、不走过场。重点检查煤矿企业贯彻落国家和自治区有关法律法规情况，安全生产责任制、安全生产管理制度建立和落实情况，安全投入、安全培训情况，安全风险分级管控及隐患排查治理情况等；重点检查重大灾害防治工作；重点检查建设、改造项目管理工作；重点检查矿井托管情况以及长期停产停建矿井和依法关停矿井情况。各煤矿企业主要负责人要落实第一责任人的责任，对煤矿各系统、各环节开展全面自查自改，着力完善煤矿安全专项整治三年行动方案，着力排查整治深层次问题和突出问题。</td></tr><tr style="height:96.4px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">15</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/4/21</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">湖北省</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">政府</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">保供</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">《湖北省国民经济和社会发展第十四个五年规划和2035年远景目标纲要》提出，“十四五”期间要补齐能源储备短板，提升能源运行调节和风险防范能力。在煤炭方面，要打造“两湖一江”煤炭物流枢纽，建设以荆州江陵为重点的大型煤炭储配基地，建立华中地区煤炭交易中心，改扩建企业现有储煤场地和设施，煤炭储备能力达到1600万吨。事故发生后，党中央、国务院高度重视。李克强总理作出重要批示，刘鹤副总理、王勇国务委员、赵克志国务委员等中央领导同志先后提出要求。应急管理部党委书记、部长黄明、副部长宋元明持续视频调度指导救援处置工作，为科学救援、精准救援、高效救援指明了方向。</td></tr><tr style="height:55.9px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">16</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/4/23</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家发改委</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">保供</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家发改委下发关于2021年煤炭储备能力建设的通知，并附2021年煤炭储备能力分省任务，其中(陕西新增300万吨、内蒙新增300万吨、山西新增300万吨)。并提出严格落实最低库存制度，实行淡旺季差别化存煤标准，电厂存煤可用天数淡季保持在20天以上，力争达到30天，有特殊困难的企业也要保持在15天以上;旺季存煤可用天数要保持在15天以上，确有困难的也不得低于7天。</td></tr><tr style="height:40.9px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">17</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/4/27</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">辽宁省</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">政府</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">保供</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">《辽宁省国民经济和社会发展第十四个五年规划和二〇三五年远景目标纲要》提出，要着力推进能源供给多元化，加快形成煤、油、气和清洁能源多轮驱动、协调发展的能源供应体系。
+
+
+
+
 
 
 
@@ -799,7 +1241,15 @@
 
 
 
+
+
+
+
 核心红线：明确将“超能力、超强度、超定员”（简称“三超”）列为重点打击对象，严禁下达超能力生产计划 。
+
+
+
+
 
 
 
@@ -807,11 +1257,23 @@
 
 
 
+
+
+
+
 会议指出，今年以来，煤炭等大宗商品价格快速上涨，部分品种价格创历史新高，加重了下游行业负担，对实体经济健康发展产生不利影响，社会各方面反响较大。会议提出，将密切监测煤炭等大宗商品价格走势，认真做好价格预测预警工作，及时了解有关市场主体经营情况，排查异常交易和恶意炒作，严厉打击囤积居奇、哄抬价格等违法违规行为，维护正常市场秩序。</td></tr><tr style="height:69.0px"><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">29</td><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/7/15</td><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">发改委</td><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">保供</td><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">今年以来，国家根据煤炭供需形势需要，先后4次向市场投放超过500万吨国家煤炭储备。为做好迎峰度夏煤炭供应保障工作，根据监测分析情况，国家发改委已提前制定储备投放预案，本次准备投放规模超过1000万吨，主要分布在全国各地的几十个储煤基地和有关港口，能够根据需要随时投放市场。下一步，将根据供需形势变化再分批次组织煤炭储备资源有序投向市场，保障煤炭稳定供应。目前，全国已建成超过1亿吨政府可调度煤炭储备能力，储备基地现有存煤4000万吨左右。</td></tr><tr style="height:70.5px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">30</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/7/19</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">发改委</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">保供</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">今年上半年，全国通过在建煤矿投产、在产煤矿产能核增、煤矿智能化改造扩产、煤矿产能衰减接续项目达产等多种方式，合计新增优质先进产能1.4亿吨/年以上，其中在建煤矿投产9000万吨/年左右，在产煤矿核增产能约3000万吨/年，内蒙古自治区鄂尔多斯市批复露天煤矿临时用地，恢复产能1800万吨/年。目前，已完成产能置换、正在办理核增批复的煤矿产能4000万吨/年以上，加上还有7000万吨/年的在建煤矿陆续建成投产，下半年还将新增优质产能近1.1亿吨/年。</td></tr><tr style="height:138.75px"><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">31</td><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/7/21</td><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">发改委</td><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">保供</td><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家正在推进煤炭储备能力建设，总的目标是在全国形成相当于年煤炭消费量15%、约6亿吨的煤炭储备能力，其中政府可调度煤炭储备不少于2亿吨，接受国家和地方政府直接调度，另外4亿吨是企业库存，通过最低最高库存制度进行调节。
 
 
 
+
+
+
+
 经过多年建设，目前已形成1亿吨政府可调度储备能力，布局上，储煤基地主要分布在煤炭生产集散地、消费集中地、主要铁路运输节点和接卸港口。政策上，国家每年安排中央预算内投资10亿元支持储备设施建设，加上其他支持政策，充分调动各方建设煤炭储备的积极性。管理上，建立储备管理信息系统和储备动用投放机制，实现储备基地动态监测和调度管理“全国一张网”，确保在重点时段、关键节点能够及时有效发挥增加供应、平抑价格、保障急需的作用。
+
+
+
+
 
 
 
@@ -819,7 +1281,15 @@
 
 
 
+
+
+
+
 据了解，截至7月29日，鄂尔多斯全市煤炭日产量在177.75万吨，较上月同期减少53.32万吨，目前当地煤矿价格整体高位趋稳，个别煤矿价格仍有上下调整，其中伊旗地区某煤矿Q5500大卡粉煤坑口含税价格上涨至853元/吨；另有个别煤矿表示今日下游用户拉运节奏较前期有所放缓。榆林方面，目前榆林地区煤矿产销平衡，多采取线上竞拍销售模式，部分煤矿价格较前期有明显上涨。</td></tr><tr style="height:108.75px"><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">37</td><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/8/2</td><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">发改委</td><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">保供</td><td style="background:#FFFF00;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">运行局负责同志带队赴陕西省榆林市开展保供稳价蹲点调研，评督司有关同志参加调研。调研组与榆林市发改委、能源局、市场监管局等单位开展座谈交流，现场考察了榆林煤炭交易中心，深入了解榆林地区增产增供情况、煤炭市场运行态势和产地价格情况，督促陕西省和榆林市进一步采取有力措施，保障全国煤炭稳定供应、市场平稳运行。
+
+
+
+
 
 
 
@@ -827,7 +1297,15 @@
 
 
 
+
+
+
+
   报来《关于上报内蒙古胜利矿区胜利西三号露天矿建设方案变更的报告》（内能煤开字〔2021〕318号）及相关材料收悉。经委托咨询机构评估，现就有关事项函复如下：
+
+
+
+
 
 
 
@@ -835,7 +1313,15 @@
 
 
 
+
+
+
+
   二、建设方案变更后，胜利西三号露天矿总投资为23.83亿元（不含矿业权费用），其中，资本金7.15亿元，占总投资的30%，由项目单位以企业自有资金出资；资本金以外的16.68亿元，申请银行贷款。
+
+
+
+
 
 
 
@@ -843,11 +1329,23 @@
 
 
 
+
+
+
+
 煤炭产能加快释放。经严格安全评估，已核增一批生产煤矿，加快恢复煤炭市场供应。煤炭日产量创今年新高。近日全国煤炭日产量超过1150万吨，比9月中旬增加120万吨以上，其中晋陕蒙日均产量860万吨，创今年以来新高。随着煤矿核增产能进一步释放、建设煤矿逐步投产、临时停产煤矿复产，煤炭产量有望进一步增长，发电供热和民生用煤需求将得到有效保障。</td></tr><tr style="height:151.9px"><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">54</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">2021/10/18</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">国家</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">发改委</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">保供</td><td style="background:#ffffff;color:#111827;text-align:center;vertical-align:center;font-family:Times New Roman;font-size:11.0pt;font-weight:400;font-style:normal;border:1px solid #cfd7e6;white-space:pre-wrap;word-break:break-word;padding:5px 7px;">为贯彻落实党中央、国务院决策部署，确保今冬明春煤炭供应，近期国家发展改革委会同有关方面多措并举，在保障安全生产的前提下，大力推动具备增产潜力的煤矿尽快释放产能，煤炭增产增供取得明显成效。
 
 
 
+
+
+
+
 　　煤炭产能加快释放。经严格安全评估，9月份以来允许153座煤矿核增产能2.2亿吨/年，相关煤矿已陆续按核定产能生产，四季度可增产5000万吨以上。将具备安全生产条件的38座建设煤矿列入应急保供煤矿，允许阶段性释放产能，合计产能1亿吨/年。为60余座煤矿办理接续用地手续，确保1.5亿吨/年以上产能稳定释放。积极推动符合条件的临时停产停工煤矿复工复产，加快恢复煤炭市场供应。
+
+
+
+
 
 
 
@@ -855,7 +1353,15 @@
 
 
 
+
+
+
+
 打击非法违法：着力解决“看惯了、习惯了、干惯了”的问题，严厉打击超层越界、超能力超强度组织生产等行为 。</dd></div></dl></article><article class="mobile-indicator-card"><h5>4</h5><dl><div><dt>时间</dt><dd>2021/1/5</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>生态环境部</dd></div><div><dt>类型</dt><dd>双碳</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>《碳排放权交易管理办法（试行）》生态环境部发布了《碳排放权交易管理办法（试行）》（以下简称《办法》），该管理办法将于2月1日起开始实施。将温室气体重点排放单位单独列为一章（第二章），并做了细化。纳入重点排放单位名录的门槛为属于全国碳排放权交易市场覆盖行业且年度温室气体排放量达到2.6万吨二氧化碳当量的温室气体排放单位，不再考虑综合能源消费量约1万吨标准煤这个条件；补充了移出重点排放单位名录的情形规定：a)连续二年温室气体排放未达到2.6万吨二氧化碳当量的或因停业、关闭；b)其他原因不再从事生产经营活动，因而不再排放温室气体的温室气体排放单位，满足条件之一，确定名录的省级生态环境主管部门应当将其从重点排放单位名录中移出。</dd></div></dl></article><article class="mobile-indicator-card"><h5>5</h5><dl><div><dt>时间</dt><dd>2021/1/15</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>发改委：部署进一步做好生活物资和能源保供稳价工作，在确保安全的前提下按最大能力组织煤炭生产。</dd></div></dl></article><article class="mobile-indicator-card"><h5>6</h5><dl><div><dt>时间</dt><dd>2021/1/31</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>半月改革会议，提出有关部门全力组织煤炭、电力、天然气增产增供，煤炭日产量保持高位。</dd></div></dl></article><article class="mobile-indicator-card"><h5>7</h5><dl><div><dt>时间</dt><dd>2021/2/2</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>国务院</dd></div><div><dt>类型</dt><dd>双碳</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>《关于加快建立健全绿色低碳循环发展经济体系的指导意见》推动能源体系绿色低碳转型。坚持节能优先，完善能源消费总量和强度双控制度。提升可再生能源利用比例，大力推动风电、光伏发电发展，因地制宜发展水能、地热能、海洋能、氢能、生物质能、光热发电。加快大容量储能技术研发推广，提升电网汇集和外送能力。增加农村清洁能源供应，推动农村发展生物质能。促进燃煤清洁高效开发转化利用，继续提升大容量、高参数、低污染煤电机组占煤电装机比例。在北方地区县城积极发展清洁热电联产集中供暖，稳步推进生物质耦合供热。严控新增煤电装机容量。提高能源输配效率。实施城乡配电网建设和智能升级计划，推进农村电网升级改造。加快天然气基础设施建设和互联互通。开展二氧化碳捕集、利用和封存试验示范。</dd></div></dl></article><article class="mobile-indicator-card"><h5>8</h5><dl><div><dt>时间</dt><dd>2021/2/28</dd></div><div><dt>层级</dt><dd>内蒙古</dd></div><div><dt>发布主体</dt><dd>内蒙古纪委监委</dd></div><div><dt>类型</dt><dd>倒查</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>内蒙古“2月28日贯彻总书记指示、倒查20年”复盘。截至2021年2月28日全区累计核查4030家涉煤企业发现问题企业2017家发现具体问题5261个。煤管票收紧。</dd></div></dl></article><article class="mobile-indicator-card"><h5>9</h5><dl><div><dt>时间</dt><dd>2021/3/1</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>十三届全国人大四次会议</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>定调'推动煤炭生产向资源富集地区集中''煤炭供应安全兜底'，强调化石能源清洁高效利用</dd></div></dl></article><article class="mobile-indicator-card"><h5>10</h5><dl><div><dt>时间</dt><dd>2021/3/5</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>习近平总书记讲话</dd></div><div><dt>类型</dt><dd>倒查</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>“这两天，我看到中共内蒙古自治区委员会给党中央的一个报告，就是《关于开展煤炭资源领域违规违法问题专项整治情况的报告》。内蒙古在反腐败方面有个很重要的领域，就是煤炭领域。当共产党的官，当人民的公仆，拿着国家资源去搞行贿受贿、去搞权钱交易，这个账总是要算的。”</dd></div></dl></article><article class="mobile-indicator-card"><h5>11</h5><dl><div><dt>时间</dt><dd>2021/3/18</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>中国银行间市场交易商协会</dd></div><div><dt>类型</dt><dd>双碳</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>《关于明确碳中和债相关机制的通知》碳中和债，是指募集资金专项用于具有碳减排效益的绿色项目的债务融资工具，需满足绿色债券募集资金用途、项目评估与遴选、募集资金管理和存续期信息披露等四大核心要素，属于绿色债务融资工具的子品种。通过专项产品持续引导资金流向绿色低碳循环领域，助力实现碳中和愿景。关于募集资金用途。碳中和债募集资金应全部专项用于清洁能源、清洁交通、可持续建筑、工业低碳改造等绿色项目的建设、运营、收购及偿还绿色项目的有息债务，募投项目应符合《绿色债券支持项目目录》或国际绿色产业分类标准，且聚焦于低碳减排领域。</dd></div></dl></article><article class="mobile-indicator-card"><h5>12</h5><dl><div><dt>时间</dt><dd>2021/4/9</dd></div><div><dt>层级</dt><dd>陕西</dd></div><div><dt>发布主体</dt><dd>矿山安全监察局</dd></div><div><dt>类型</dt><dd>安监</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>为深入贯彻落实国家矿山安全监察局局务会议精神，严厉打击严重超能力生产现象，经省局研究决定，在全省煤矿开展超能力生产专项监察。2021年4月中旬至5月中旬。以分局监察为主，省局抽查为辅。</dd></div></dl></article><article class="mobile-indicator-card"><h5>13</h5><dl><div><dt>时间</dt><dd>2021/4/10</dd></div><div><dt>层级</dt><dd>新疆</dd></div><div><dt>发布主体</dt><dd>乌鲁木齐</dd></div><div><dt>类型</dt><dd>事故</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>2021年4月10日18时11分，新疆昌吉州呼图壁县白杨沟丰源煤矿（以下简称丰源煤矿）发生重大透水事故，造成21人死亡，直接经济损失7067.2万元。</dd></div></dl></article><article class="mobile-indicator-card"><h5>14</h5><dl><div><dt>时间</dt><dd>2021/4/17</dd></div><div><dt>层级</dt><dd>新疆</dd></div><div><dt>发布主体</dt><dd>新疆发改委</dd></div><div><dt>类型</dt><dd>事故</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>4月15日联合下发《自治区发展改革委新疆煤矿安全监察局关于立即开展煤矿安全生产大检查活动的紧急通知》。各地、各部门、各有关企业要以对党和人民高度负责的态度，牢牢绷紧安全生产这根弦，深刻吸取事故教训，落实安全生产责任，紧紧围绕自治区重点工作部署，立即组织开展安全生产大检查，全面排查管控重大安全风险、治理重大事故隐患，严格防范煤矿安全生产事故发生。全面排查治理，切实做到隐患排查治理横到边、竖到底，不留死角、不留盲区、不留后患、不走过场。重点检查煤矿企业贯彻落国家和自治区有关法律法规情况，安全生产责任制、安全生产管理制度建立和落实情况，安全投入、安全培训情况，安全风险分级管控及隐患排查治理情况等；重点检查重大灾害防治工作；重点检查建设、改造项目管理工作；重点检查矿井托管情况以及长期停产停建矿井和依法关停矿井情况。各煤矿企业主要负责人要落实第一责任人的责任，对煤矿各系统、各环节开展全面自查自改，着力完善煤矿安全专项整治三年行动方案，着力排查整治深层次问题和突出问题。</dd></div></dl></article><article class="mobile-indicator-card"><h5>15</h5><dl><div><dt>时间</dt><dd>2021/4/21</dd></div><div><dt>层级</dt><dd>湖北省</dd></div><div><dt>发布主体</dt><dd>政府</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>《湖北省国民经济和社会发展第十四个五年规划和2035年远景目标纲要》提出，“十四五”期间要补齐能源储备短板，提升能源运行调节和风险防范能力。在煤炭方面，要打造“两湖一江”煤炭物流枢纽，建设以荆州江陵为重点的大型煤炭储配基地，建立华中地区煤炭交易中心，改扩建企业现有储煤场地和设施，煤炭储备能力达到1600万吨。事故发生后，党中央、国务院高度重视。李克强总理作出重要批示，刘鹤副总理、王勇国务委员、赵克志国务委员等中央领导同志先后提出要求。应急管理部党委书记、部长黄明、副部长宋元明持续视频调度指导救援处置工作，为科学救援、精准救援、高效救援指明了方向。</dd></div></dl></article><article class="mobile-indicator-card"><h5>16</h5><dl><div><dt>时间</dt><dd>2021/4/23</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>国家发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>国家发改委下发关于2021年煤炭储备能力建设的通知，并附2021年煤炭储备能力分省任务，其中(陕西新增300万吨、内蒙新增300万吨、山西新增300万吨)。并提出严格落实最低库存制度，实行淡旺季差别化存煤标准，电厂存煤可用天数淡季保持在20天以上，力争达到30天，有特殊困难的企业也要保持在15天以上;旺季存煤可用天数要保持在15天以上，确有困难的也不得低于7天。</dd></div></dl></article><article class="mobile-indicator-card"><h5>17</h5><dl><div><dt>时间</dt><dd>2021/4/27</dd></div><div><dt>层级</dt><dd>辽宁省</dd></div><div><dt>发布主体</dt><dd>政府</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>《辽宁省国民经济和社会发展第十四个五年规划和二〇三五年远景目标纲要》提出，要着力推进能源供给多元化，加快形成煤、油、气和清洁能源多轮驱动、协调发展的能源供应体系。
+
+
+
+
 
 
 
@@ -863,7 +1369,15 @@
 
 
 
+
+
+
+
 核心红线：明确将“超能力、超强度、超定员”（简称“三超”）列为重点打击对象，严禁下达超能力生产计划 。
+
+
+
+
 
 
 
@@ -871,7 +1385,15 @@
 
 
 
+
+
+
+
 会议指出，今年以来，煤炭等大宗商品价格快速上涨，部分品种价格创历史新高，加重了下游行业负担，对实体经济健康发展产生不利影响，社会各方面反响较大。会议提出，将密切监测煤炭等大宗商品价格走势，认真做好价格预测预警工作，及时了解有关市场主体经营情况，排查异常交易和恶意炒作，严厉打击囤积居奇、哄抬价格等违法违规行为，维护正常市场秩序。</dd></div></dl></article><article class="mobile-indicator-card"><h5>29</h5><dl><div><dt>时间</dt><dd>2021/7/15</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>今年以来，国家根据煤炭供需形势需要，先后4次向市场投放超过500万吨国家煤炭储备。为做好迎峰度夏煤炭供应保障工作，根据监测分析情况，国家发改委已提前制定储备投放预案，本次准备投放规模超过1000万吨，主要分布在全国各地的几十个储煤基地和有关港口，能够根据需要随时投放市场。下一步，将根据供需形势变化再分批次组织煤炭储备资源有序投向市场，保障煤炭稳定供应。目前，全国已建成超过1亿吨政府可调度煤炭储备能力，储备基地现有存煤4000万吨左右。</dd></div></dl></article><article class="mobile-indicator-card"><h5>30</h5><dl><div><dt>时间</dt><dd>2021/7/19</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>今年上半年，全国通过在建煤矿投产、在产煤矿产能核增、煤矿智能化改造扩产、煤矿产能衰减接续项目达产等多种方式，合计新增优质先进产能1.4亿吨/年以上，其中在建煤矿投产9000万吨/年左右，在产煤矿核增产能约3000万吨/年，内蒙古自治区鄂尔多斯市批复露天煤矿临时用地，恢复产能1800万吨/年。目前，已完成产能置换、正在办理核增批复的煤矿产能4000万吨/年以上，加上还有7000万吨/年的在建煤矿陆续建成投产，下半年还将新增优质产能近1.1亿吨/年。</dd></div></dl></article><article class="mobile-indicator-card"><h5>31</h5><dl><div><dt>时间</dt><dd>2021/7/21</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>国家正在推进煤炭储备能力建设，总的目标是在全国形成相当于年煤炭消费量15%、约6亿吨的煤炭储备能力，其中政府可调度煤炭储备不少于2亿吨，接受国家和地方政府直接调度，另外4亿吨是企业库存，通过最低最高库存制度进行调节。
+
+
+
+
 
 
 
@@ -879,7 +1401,15 @@
 
 
 
+
+
+
+
 下一步，还将加快建设1亿吨以上储备能力，同时推动已投入运行的储备设施增加存煤，加强管理，加快周转，确保煤炭储备能够及时有效发挥作用。</dd></div></dl></article><article class="mobile-indicator-card"><h5>32</h5><dl><div><dt>时间</dt><dd>2021/7/23</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>国家发展改革委关于做好2021年能源迎峰度夏工作的通知发改运行〔2021〕1058号</dd></div></dl></article><article class="mobile-indicator-card"><h5>33</h5><dl><div><dt>时间</dt><dd>2021/7/23</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>国家发改委运行局赴鄂尔多斯、榆林开展增产增供调研，保障迎峰度夏电力稳定供应。调研组现场考察煤矿迎峰度夏期间增产增供情况，与地方有关部门和企业负责同志进行座谈，了解煤矿稳产增产存在的制约和障碍，听取短期内快速增加产量的措施建议，分析后续市场运行走势，督促有关方面进一步做好煤炭增产保供工作。</dd></div></dl></article><article class="mobile-indicator-card"><h5>34</h5><dl><div><dt>时间</dt><dd>2021/7/26</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>国家发展改革委关于做好2021年能源迎峰度夏工作的通知</dd></div></dl></article><article class="mobile-indicator-card"><h5>35</h5><dl><div><dt>时间</dt><dd>2021/7/30</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>《关于实行核增产能置换承诺加快释放优质产能的通知》（发改办运行〔2021〕583号）国家发展改革委办公厅、国家能源局综合司、国家矿山安全监察局综合司联合印发通知，鼓励符合条件的煤矿核增生产能力，对煤矿产能核增实行产能置换承诺制。《通知》明确，2022年3月31日前提出核增申请的煤矿，不需要提前落实产能置换指标，可采用承诺的方式进行产能置换，取得产能核增批复后，在3个月内完成产能置换方案。</dd></div></dl></article><article class="mobile-indicator-card"><h5>36</h5><dl><div><dt>时间</dt><dd>2021/7/30</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>国家发改委网站消息称，为贯彻落实国务院常务会关于煤炭增产增供和稳定价格的有关部署，7月份，内蒙古自治区对鄂尔多斯市38处前期因用地手续不全停产的露天煤矿批复了用地手续，涉及产能6670万吨/年。目前这部分煤矿已全部复产，正在加快进行剥离作业，预计8月初即可形成实际产量，达产后日可稳定增加产量20万吨。
+
+
+
+
 
 
 
@@ -887,7 +1417,15 @@
 
 
 
+
+
+
+
 近日，运行局负责同志带队赴内蒙古自治区鄂尔多斯市开展专题调研，评督司有关同志参加调研。调研组现场考察煤矿迎峰度夏期间增产增供情况，与地方有关部门和企业负责同志进行座谈，了解煤矿稳产增产存在的制约和障碍，听取短期内快速增加产量的措施建议，分析后续市场运行走势，督促有关方面进一步做好煤炭增产保供工作。</dd></div></dl></article><article class="mobile-indicator-card"><h5>38</h5><dl><div><dt>时间</dt><dd>2021/8/3</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>近日，运行局赴河北省唐山市、秦皇岛市开展煤炭保供稳价专题调研。调研组与地方有关部门和港口相关企业分别开展座谈交流，实地调研港口码头煤炭中转、堆场存煤情况，了解港口下水煤炭市场交易情况。督促有关方面加快流通效率，保障电煤供应，及时报告交易信息，积极配合煤炭价格指数编制单位，客观真实反映煤炭交易情况，杜绝囤积居奇、哄抬价格，促进煤炭市场平稳运行。</dd></div></dl></article><article class="mobile-indicator-card"><h5>39</h5><dl><div><dt>时间</dt><dd>2021/8/4</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>家发展改革委、国家能源局联合印发通知，明确允许联合试运转到期煤矿延期，延长期限原则上为1年。通知同时要求，地方有关部门要指导支持企业加快煤矿证照办理，对符合条件的煤矿尽快审批进入联合试运转；对证照办理齐全的联合试运转煤矿，要及时为其办理竣工验收手续，依法依规转入正式生产。</dd></div></dl></article><article class="mobile-indicator-card"><h5>40</h5><dl><div><dt>时间</dt><dd>2021/8/11</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>近日，内蒙古自治区已将7处露天煤矿的永久用地已按程序上报，总产能约1.2亿吨/年。这部分煤矿永久用地批复后，生产将恢复到正常水平，月可增产增供350万吨左右。</dd></div></dl></article><article class="mobile-indicator-card"><h5>41</h5><dl><div><dt>时间</dt><dd>2021/8/13</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>根据国家发展改革委、国家能源局联合印发的通知要求，内蒙古、山西、陕西、宁夏、新疆等5省区已对15座联合试运转到期处于停产状态的煤矿办理延期手续，同意联合试运转时间再延长1年，在确保安全的前提下增产增供。15座煤矿涉及产能合计4350万吨/年，已全部复产，预计每日可稳定增加产量15万吨。</dd></div></dl></article><article class="mobile-indicator-card"><h5>42</h5><dl><div><dt>时间</dt><dd>2021/8/25</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>为加快释放煤炭先进产能，国家有关部门和内蒙古自治区积极推动露天煤矿接续用地办理，尽快恢复正常生产。继上月20多座露天煤矿取得接续用地批复后，近日又有16座鄂尔多斯露天煤矿取得接续用地批复，涉及产能2500万吨/年左右，还有产能近5000万吨/年露天煤矿将于9月中旬陆续取得接续用地批复。全部正常生产后，月可增加产量700万吨以上。</dd></div></dl></article><article class="mobile-indicator-card"><h5>43</h5><dl><div><dt>时间</dt><dd>2021/9/8</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>国家矿山安全监察局</dd></div><div><dt>类型</dt><dd>安监</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>《国家矿山安全监察局综合司关于组织开展矿山外包工程和资源整合煤矿安全生产专项整治异地督导检查的通知》按照《国家矿山安全监察局关于开展矿山外包工程和资源整合煤矿安全生产专项整治的通知》（以下简称《通知》）要求，结合落实《煤矿整体托管安全管理办法（试行）》和《关于加强金属非金属地下矿山外包工程安全管理的若干规定》等相关规定，深入查找矿山外包工程和资源整合煤矿安全生产专项整治（以下简称专项整治）中存在的问题，严肃查处矿山转包、违规分包和煤矿假整合假重组等行为，督导检查地方政府落实矿山安全监管职责情况，推进矿山安全高质量发展。</dd></div></dl></article><article class="mobile-indicator-card"><h5>44</h5><dl><div><dt>时间</dt><dd>2021/9/11</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>国务院</dd></div><div><dt>类型</dt><dd>双碳</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>《完善能源消费强度和总量双控制度方案》进一步强化了能耗双控制度的导向性。围绕统筹处理发展和减排、整体和局部、激励和约束三个关系提出了相关要求。《方案》进一步强化了能耗双控制度的执行力。提出了一系列深化能耗双控机制改革的举措，包括推行用能指标市场化交易、建立用能预算管理体系、深化节能审查制度改革等，释放了强烈的政策信号。在新形势下，能耗双控制度将会发挥更加积极的作用，进一步促进各地区各部门深入推进节能降耗工作，助力实现碳达峰、碳中和目标，加快推动生态文明建设和高质量发展。</dd></div></dl></article><article class="mobile-indicator-card"><h5>45</h5><dl><div><dt>时间</dt><dd>2021/9/21</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>国家发改委、国家能源局</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>9月21日，国家发改委发布消息称，近期，国家发改委、国家能源局联合派出督导组开展能源保供稳价工作督导，重点督导有关省区、企业煤炭增产增供政策落实情况，核增和释放先进产能情况，有关项目建设投产手续办理情况，发电供热用煤中长期合同全覆盖落实情况，中长期合同履约情况，煤炭生产、运输、交易、销售环节价格政策执行情况，燃煤发电“基准价＋上下浮动”市场化价格机制落实情况。发改委、能源局已建立电煤保供工作专班，将实行淡旺季差别化存煤制度的电厂纳入重点保障范围，确保牢牢守住电厂7天安全存煤底线。</dd></div></dl></article><article class="mobile-indicator-card"><h5>46</h5><dl><div><dt>时间</dt><dd>2021/9/28</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>内蒙古自治区能源局：
+
+
+
+
 
 
 
@@ -895,7 +1433,15 @@
 
 
 
+
+
+
+
   一、同意胜利西三号露天矿由3个采区调整为2个采区。原三采区北部与原首采区合并，作为变更后的首采区。原三采区南部与原二采区合并，作为变更后的二采区。双回路电源引自锡林热源厂35千伏变电站10千伏侧的不同母线段。
+
+
+
+
 
 
 
@@ -903,7 +1449,15 @@
 
 
 
+
+
+
+
   三、除作上述调整外，其余事项仍按我委发改能源〔2019〕287号文核准的内容执行。</dd></div></dl></article><article class="mobile-indicator-card"><h5>47</h5><dl><div><dt>时间</dt><dd>2021/9/28</dd></div><div><dt>层级</dt><dd>东北</dd></div><div><dt>发布主体</dt><dd>政府</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>东北地区“拉闸限电”的话题受到广泛关注，特别是在没有提前通知的情况下，部分社区居民用电被拉闸断电，引发当地百姓的议论。</dd></div></dl></article><article class="mobile-indicator-card"><h5>48</h5><dl><div><dt>时间</dt><dd>2021/9/29</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>近日一些地方拉闸限电，引发社会对冬季能源保供的担心，发展改革委准备采取哪些措施保障冬季能源供应？党中央、国务院高度重视供暖季能源保供工作，作出了系统部署和安排。针对近期能源供需偏紧的情况，国家发展改革委正会同有关方面坚持以人民为中心，坚持系统观念，坚持问题导向，坚持底线思维，多措并举加强供需调节，重点从六个方面采取措施，确保今冬明春能源稳定供应，确保居民用能安全。一是多渠道增加能源保供资源。依法依规释放煤炭先进产能，有序增加煤炭进口，尽力增加国内天然气产量，保持中亚管道气进口稳定，压实责任保障煤电气电机组应发尽发。二是发挥好中长期合同“压舱石”作用。推动发电供热用煤中长期合同直保全覆盖，全面签订年度和供暖季供气合同，及早锁定资源。三是进一步做好有序用能工作。指导地方科学合理制定有序用能方案，完善动态调整机制，切实做到用户知情、合同约定，确保方案可执行、可操作，科学实施。坚守民生用能保供底线，坚决避免压限居民用能的情况发生。四是发挥好能源储备和应急保障能力的重要作用。督促电厂在供暖季前将存煤提高到安全水平之上，加快推进应急备用和调峰电源能力建设，严格落实储气设施注气进度，确保入冬前注满。五是合理疏导用能成本。在确保民生、农业、公益性领域用能价格稳定的情况下，严格按价格政策合理疏导能源企业生产运行成本。六是有效控制不合理能源需求。坚决遏制“两高”项目不合理用能需求，推动主要耗煤行业节煤限煤。</dd></div></dl></article><article class="mobile-indicator-card"><h5>49</h5><dl><div><dt>时间</dt><dd>2021/9/30</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>国家矿山安全监察局</dd></div><div><dt>类型</dt><dd>安监</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>为贯彻落实《国务院关于深化“证照分离”改革进一步激发市场主体发展活力的通知》（国发〔2021〕7号）要求，国家矿山安全监察局研究制定了《矿山安全生产领域“证照分离”改革实施方案》,现印发给你们，请认真贯彻执行。</dd></div></dl></article><article class="mobile-indicator-card"><h5>50</h5><dl><div><dt>时间</dt><dd>2021/9/30</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>税务总局</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>税务总局制发《关于做好今冬明春能源电力保供 实施支持煤电企业纾困解难税收措施的通知》，对煤电供热企业实施“减、退、缓”税：税费优惠应享尽享、增值税留抵退税应退尽退、困难缓税应缓尽缓。10月起按日跟踪，至11月4日已办理“减退缓”税150.7亿元（其中缓退税92.9亿元）。</dd></div></dl></article><article class="mobile-indicator-card"><h5>51</h5><dl><div><dt>时间</dt><dd>2021/10/8</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>国务院（李克强）</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>李克强主持召开国务院常务会议：国常会进一步部署今冬明春电力和煤炭供应，从六方面部署：民生优先保东北取暖用煤用电；推动具备增产潜力煤矿尽快释放产能、加快已核准露天煤矿投产达产、优先保障煤炭运输；对煤电企业实施阶段性税收缓缴、引导金融机构合理融资；市场交易电价上下浮动由10%/15%调整为均不超过20%，高耗能行业不受20%上限限制；加快沙漠戈壁荒漠大型风光基地建设；遏制“两高”盲目发展。明确纠正地方“一刀切”停产限产、“运动式”减碳，反对不作为乱作为。</dd></div></dl></article><article class="mobile-indicator-card"><h5>52</h5><dl><div><dt>时间</dt><dd>2021/10/12</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>国家发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>印发《关于进一步深化燃煤发电上网电价市场化改革的通知》（发改价格〔2021〕1439号）：有序放开全部燃煤发电电量上网电价，市场交易电价上下浮动范围扩大为均不超过20%，高耗能企业市场交易电价不受20%上浮限制，推动工商业用户全部进入市场、取消工商业目录销售电价。同日召开专题发布会解读。</dd></div></dl></article><article class="mobile-indicator-card"><h5>53</h5><dl><div><dt>时间</dt><dd>2021/10/18</dd></div><div><dt>层级</dt><dd>国家</dd></div><div><dt>发布主体</dt><dd>国家发改委</dd></div><div><dt>类型</dt><dd>保供</dd></div><div style="grid-column:1 / -1"><dt>主要内容</dt><dd>为贯彻落实党中央、国务院决策部署，确保今冬明春煤炭供应，近期国家发展改革委会同有关方面多措并举，在保障安全生产的前提下，大力推动具备增产潜力的煤矿尽快释放产能，煤炭增产增供取得明显成效。
+
+
+
+
 
 
 
@@ -911,7 +1465,15 @@
 
 
 
+
+
+
+
 　　煤炭产能加快释放。经严格安全评估，9月份以来允许153座煤矿核增产能2.2亿吨/年，相关煤矿已陆续按核定产能生产，四季度可增产5000万吨以上。将具备安全生产条件的38座建设煤矿列入应急保供煤矿，允许阶段性释放产能，合计产能1亿吨/年。为60余座煤矿办理接续用地手续，确保1.5亿吨/年以上产能稳定释放。积极推动符合条件的临时停产停工煤矿复工复产，加快恢复煤炭市场供应。
+
+
+
+
 
 
 
@@ -943,7 +1505,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const tabs = Array.from(document.querySelectorAll('.panel-tab'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -975,7 +1569,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const tocLinks = Array.from(document.querySelectorAll('.side-toc a[data-panel]'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1007,7 +1633,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.target === target));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1039,7 +1697,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1071,7 +1761,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       activatePanel(tab.dataset.target);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1103,7 +1825,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1135,7 +1889,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       event.preventDefault();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1167,7 +1953,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       activatePanel(link.dataset.panel);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1199,7 +2017,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       history.replaceState(null, '', '#' + id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1231,7 +2081,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1263,7 +2145,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const initialLink = tocLinks.find(link => link.getAttribute('href') === '#' + initial);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1295,7 +2209,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       activatePanel(initialLink.dataset.panel);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1327,7 +2273,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     } else if (tabs.some(tab => tab.dataset.target === initial)) activatePanel(initial);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1359,7 +2337,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       const table = button.closest('.subpanel').querySelector('table');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1391,7 +2401,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       navigator.clipboard?.writeText(text);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1423,6 +2465,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       setTimeout(() => button.textContent = '复制表格', 1200);
 
 
@@ -1439,7 +2497,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1471,7 +2561,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const editStoragePrefix = 'coal-weekly-confirmed-20261108-user-screenshots-v1:';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1503,7 +2625,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     function positionEditToolbar(target) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1535,7 +2689,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       editToolbar.style.left = Math.min(window.innerWidth - 280, Math.max(8, rect.left)) + 'px';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1567,6 +2753,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       editToolbar.classList.add('active');
 
 
@@ -1583,7 +2785,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1615,6 +2849,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       if (!target?.dataset?.editId) return;
 
 
@@ -1631,7 +2881,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       try {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1663,6 +2945,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       } catch (err) {}
 
 
@@ -1679,7 +2977,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1711,7 +3041,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       const section = el.closest('section[id]');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1743,7 +3105,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       const row = el.closest('tr');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1775,7 +3169,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       const rowIndex = row ? Array.from(row.parentElement.children).indexOf(row) : -1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1807,7 +3233,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       const tag = el.tagName.toLowerCase();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1839,7 +3297,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1871,7 +3361,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       document.querySelectorAll('[contenteditable="true"]').forEach(el => persistEditable(el));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1903,7 +3425,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       if (btn) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1935,7 +3489,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         setTimeout(() => btn.textContent = '保存文字', 1200);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1967,7 +3553,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1999,7 +3617,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       el.dataset.editId = el.dataset.editId || stableEditId(el, idx);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2031,7 +3681,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         const saved = localStorage.getItem(editStoragePrefix + el.dataset.editId);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2063,7 +3745,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       } catch (err) {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2095,7 +3809,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         activeEditable = el;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2127,7 +3873,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2159,7 +3937,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       el.addEventListener('mouseup', () => positionEditToolbar(el));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2191,7 +4001,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2223,7 +4065,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       event.preventDefault();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2255,7 +4129,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       activeEditable.focus();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2287,6 +4193,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       persistEditable(activeEditable);
 
 
@@ -2303,7 +4225,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2335,7 +4289,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       event.preventDefault();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2367,7 +4353,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2399,7 +4417,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       if (event.target.closest('[contenteditable="true"]') || event.target.closest('#edit-toolbar')) return;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2431,7 +4481,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2463,7 +4545,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       if (activeEditable && document.activeElement === activeEditable) positionEditToolbar(activeEditable);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2495,7 +4609,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const modal = document.getElementById('image-modal');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2527,7 +4673,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     document.querySelectorAll('.image-zoom').forEach(btn => btn.addEventListener('click', () => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2559,7 +4737,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       modalImg.src = embeddedImg?.currentSrc || embeddedImg?.src || btn.dataset.src;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2591,7 +4801,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2623,7 +4865,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     modal.addEventListener('click', event => { if (event.target === modal) modal.classList.remove('active'); });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2655,6 +4929,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     function fmtChartValue(value) {
 
 
@@ -2671,7 +4961,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       if (!Number.isFinite(value)) return '';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2703,7 +5025,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       if (Math.abs(value) >= 10) return value.toFixed(1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2735,7 +5089,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2753,7 +5139,25 @@
 
     function fmtDisplayValue(value, format) {
 
+
+
       if (format === 'missing') return '#N/A';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2785,7 +5189,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       if (format === 'percent') {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2817,7 +5253,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         const label = Math.abs(percentValue - Math.round(percentValue)) < 1e-9 ? String(Math.round(percentValue)) : percentValue.toFixed(1).replace(/\.0$/, '');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2849,7 +5317,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2881,7 +5381,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2913,7 +5445,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       if (format === 'percent') return `${Math.round(value * 100)}%`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2945,7 +5509,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2977,39 +5573,105 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       const data = JSON.parse(canvas.dataset.chart || '{}');
+
+
 
       // Display window only: preserve the complete data-chart and canonical history.
 
+
+
       if (data.type === 'seasonal') {
+
+
 
         const endYear = Number(data.displayYearEnd || 2026);
 
+
+
         const startYear = endYear - 4;
+
+
 
         data.series = (data.series || []).filter(series => Number(series.year) >= startYear && Number(series.year) <= endYear);
 
+
+
         canvas.dataset.visibleSeasonalYears = `${startYear}-${endYear}`;
+
+
 
         const card = typeof canvas.closest === 'function' ? canvas.closest('.chart-card') : null;
 
+
+
         if (card) card.querySelectorAll('.legend > span').forEach(item => {
+
+
 
           const year = Number(item.textContent.trim());
 
+
+
           if (Number.isInteger(year) && year >= 1900 && year <= 2200) {
+
+
 
             const visible = year >= startYear && year <= endYear;
 
+
+
             item.hidden = !visible;
+
+
 
             item.style.display = visible ? '' : 'none';
 
+
+
           }
+
+
 
         });
 
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3043,7 +5705,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       const w = Number(canvas.dataset.logicalWidth || canvas.getAttribute('width')) || 760; canvas.dataset.logicalWidth = w;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3075,7 +5769,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3107,7 +5833,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       canvas.height = Math.round(h * dpr);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3139,7 +5897,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3171,7 +5961,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       ctx.lineCap = 'round';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3203,7 +6025,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       const left = data.type === 'seasonal' ? 66 : 56;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3235,7 +6089,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       const right = 24;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3267,7 +6153,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       const pw = w - left - right;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3299,7 +6217,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       ctx.fillStyle = '#0b2f66';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3331,11 +6281,47 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       if (data.type === 'dated-line' && data.fontScale) {
+
+
 
         let line='',row=0;for (const ch of (data.title||'')) {if (ctx.measureText(line+ch).width>pw && line) {ctx.fillText(line,left,25+row*26);line='';row++;}line+=ch;}ctx.fillText(line,left,25+row*26);
 
+
+
       } else {ctx.font = '700 21px KaiTi'; ctx.fillText(data.title || '', left, 23, w - left - 18);}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3367,7 +6353,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       ctx.strokeStyle = '#d7dce5';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3399,7 +6417,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       ctx.fillStyle = '#667085';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3431,7 +6481,31 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       if (data.type === 'timeline-bar') {
+
+
+
+
+
+
+
+
 
 
 
@@ -3447,7 +6521,23 @@
 
 
 
+
+
+
+
+
+
+
+
         const start = Date.parse(data.dateStart), end = Date.parse(data.dateEnd);
+
+
+
+
+
+
+
+
 
 
 
@@ -3463,7 +6553,23 @@
 
 
 
+
+
+
+
+
+
+
+
         const xpos = d => left + pw * (Date.parse(d)-start) / span;
+
+
+
+
+
+
+
+
 
 
 
@@ -3479,7 +6585,23 @@
 
 
 
+
+
+
+
+
+
+
+
           const y=top+ph*(1-v);ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-right,y);ctx.stroke();
+
+
+
+
+
+
+
+
 
 
 
@@ -3495,7 +6617,23 @@
 
 
 
+
+
+
+
+
+
+
+
         });
+
+
+
+
+
+
+
+
 
 
 
@@ -3511,7 +6649,23 @@
 
 
 
+
+
+
+
+
+
+
+
           const x=xpos(d);ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,top+ph);ctx.stroke();
+
+
+
+
+
+
+
+
 
 
 
@@ -3527,7 +6681,23 @@
 
 
 
+
+
+
+
+
+
+
+
         });
+
+
+
+
+
+
+
+
 
 
 
@@ -3543,7 +6713,23 @@
 
 
 
+
+
+
+
+
+
+
+
         pairs.forEach(p=>{
+
+
+
+
+
+
+
+
 
 
 
@@ -3559,7 +6745,23 @@
 
 
 
+
+
+
+
+
+
+
+
           ctx.fillStyle='#c9271c';ctx.fillRect(x-barWidth/2,y,barWidth,Math.max(1,top+ph-y));
+
+
+
+
+
+
+
+
 
 
 
@@ -3575,7 +6777,23 @@
 
 
 
+
+
+
+
+
+
+
+
         });
+
+
+
+
+
+
+
+
 
 
 
@@ -3591,7 +6809,31 @@
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3609,39 +6851,89 @@
 
       if (data.type === 'dated-line') {
 
+
+
         const pairs=(data.pairs||[]).filter(p=>p[1]!==null&&Number.isFinite(Number(p[1])));
+
+
 
         const a=Date.parse(pairs[0][0]),b=Date.parse(pairs[pairs.length-1][0]),mn=data.axisMin,mx=data.axisMax;
 
+
+
         const xpos=d=>left+pw*(Date.parse(d)-a)/Math.max(86400000,b-a),ypos=v=>top+ph*(mx-v)/(mx-mn);
+
+
 
         (data.ticks||[]).forEach(v=>{const y=ypos(v);ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-right,y);ctx.stroke();ctx.fillText(cleanTick(v),left-45,y+4)});
 
+
+
         for(let k=0;k<=4;k++){const t=a+(b-a)*k/4,x=xpos(new Date(t).toISOString().slice(0,10));ctx.textAlign='center';ctx.fillText(new Date(t).toISOString().slice(5,10).replace('-','/'),x,h-16)}ctx.textAlign='left';ctx.setLineDash([]);
+
+
 
         ctx.strokeStyle=data.color||'#1f77b4';ctx.fillStyle=ctx.strokeStyle;ctx.lineWidth=2.6;ctx.beginPath();
 
+
+
         pairs.forEach((p,i)=>{const x=xpos(p[0]),y=ypos(Number(p[1]));i?ctx.lineTo(x,y):ctx.moveTo(x,y);hoverPoints.push({type:'line',date:p[0],value:Number(p[1]),x,y,title:data.title})});ctx.stroke();
+
+
 
         pairs.forEach(p=>{ctx.beginPath();ctx.arc(xpos(p[0]),ypos(p[1]),2.1,0,Math.PI*2);ctx.fill()});const last=pairs[pairs.length-1];ctx.beginPath();ctx.arc(xpos(last[0]),ypos(last[1]),4,0,Math.PI*2);ctx.fill();ctx.textAlign='right';ctx.fillText(last[1].toFixed(0),w-right-6,ypos(last[1])-9);ctx.textAlign='left';canvas._hoverPoints=hoverPoints;return;
 
+
+
       }
+
+
+
+
 
 
 
       if (data.type === 'category-bar') {
 
+
+
         const rows=data.categories||[],mn=data.axisMin,mx=data.axisMax,plotBottom=h-95,ch=plotBottom-top,step=pw/Math.max(1,rows.length),yp=v=>top+ch*(mx-v)/(mx-mn),zero=yp(0);
+
+
 
         (data.ticks||[]).forEach(v=>{const y=yp(v);ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-right,y);ctx.stroke();ctx.fillText(cleanTick(v),left-50,y+4)});ctx.setLineDash([]);ctx.strokeStyle='#143e75';ctx.beginPath();ctx.moveTo(left,zero);ctx.lineTo(w-right,zero);ctx.stroke();
 
+
+
         rows.forEach((r,i)=>{const x=left+step*(i+.5),valid=r.value!==null&&Number.isFinite(Number(r.value)),v=valid?Number(r.value):null,y=valid?yp(v):zero;if(valid){ctx.fillStyle=v>=0?'#c00000':'#008000';ctx.fillRect(x-step*.29,Math.min(y,zero),step*.58,Math.max(1,Math.abs(y-zero)))}ctx.save();ctx.translate(x,plotBottom+18);ctx.rotate(-Math.PI/4);ctx.textAlign='right';ctx.fillStyle='#334155';ctx.fillText(r.category,0,0);ctx.restore();hoverPoints.push({type:'category-bar',title:data.title,date:r.category,value:v,format:valid?'':'missing',x,y})});canvas._hoverPoints=hoverPoints;return;
+
+
 
       }
 
 
 
+
+
+
+
       if (data.type === 'seasonal') {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3673,7 +6965,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         const mx = Number(data.axisMax);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3705,7 +7029,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         const chartKind = data.chartKind || 'line';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3737,7 +7093,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           const y = top + ph * (mx - value) / (mx - mn);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3769,7 +7157,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.moveTo(left, y);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3801,7 +7221,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.stroke();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3833,7 +7285,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3865,6 +7349,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           const y0 = top + ph * mx / (mx - mn);
 
 
@@ -3881,7 +7381,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.save();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3913,7 +7445,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.strokeStyle = '#475467';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3945,7 +7509,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.beginPath();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3977,7 +7573,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.lineTo(w - right, y0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4009,7 +7637,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.restore();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4041,6 +7701,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.setLineDash([4, 4]);
 
 
@@ -4057,7 +7733,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4089,6 +7797,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           const x = left + pw * day / 364;
 
 
@@ -4105,7 +7829,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.beginPath();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4137,6 +7893,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.lineTo(x, top + ph);
 
 
@@ -4153,7 +7925,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.stroke();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4185,7 +7989,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.fillText(label, x, h - 18);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4217,7 +8053,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4249,11 +8117,47 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         if (data.plotClip) {ctx.save();ctx.beginPath();ctx.rect(left,top,pw,ph);ctx.clip();}
 
 
 
+
+
+
+
         const seriesList = data.series || [];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4285,7 +8189,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           const pts = (s.points || []).filter(p => p[2] !== null && p[2] !== '' && Number.isFinite(Number(p[2])));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4317,7 +8253,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           if (chartKind === 'bar') {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4349,7 +8317,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             const slot = Math.max(3, Math.min(8, pw / 140));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4381,7 +8381,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             const baseValue = Math.max(mn, Math.min(mx, 0));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4413,7 +8445,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             ctx.fillStyle = s.color || '#0b2f66';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4445,7 +8509,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               const x = left + pw * Number(p[0]) / 364 + (seriesIdx - (count - 1) / 2) * slot;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4477,7 +8573,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               const cappedValue = Math.max(mn, Math.min(mx, rawValue));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4509,7 +8637,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               const barTop = Math.min(y, baseY);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4541,7 +8701,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               ctx.globalAlpha = Number(s.year) === Number((seriesList[seriesList.length - 1] || {}).year) ? 0.9 : 0.45;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4573,7 +8765,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               ctx.globalAlpha = 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4605,6 +8829,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             });
 
 
@@ -4621,7 +8861,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           } else {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4653,6 +8925,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             ctx.lineWidth = Number(s.width) || 2.2;
 
 
@@ -4669,7 +8957,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             ctx.beginPath();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4701,7 +9021,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               const x = left + pw * Number(p[0]) / 364;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4733,7 +9085,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               if (idx === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4765,7 +9149,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4797,7 +9213,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             const last = pts[pts.length - 1];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4829,7 +9277,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             const ly = top + ph * (mx - Number(last[2])) / (mx - mn);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4861,7 +9341,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             ctx.beginPath();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4893,7 +9405,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             ctx.fill();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4925,7 +9469,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4945,7 +9521,27 @@
 
 
 
+
+
+
+
         ctx.restore();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4977,6 +9573,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.save();
 
 
@@ -4993,7 +9605,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.textAlign = 'right';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5025,7 +9669,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.font = '700 17px KaiTi, "Microsoft YaHei", sans-serif';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5057,6 +9733,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.restore();
 
 
@@ -5073,7 +9765,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5105,7 +9829,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         const pairs = (data.pairs || []).filter(p => Number.isFinite(Number(p[1])));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5137,7 +9893,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         let mn = Math.min(...vals);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5169,7 +9957,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         if (Math.abs(mx - mn) < 1e-9) { mn -= 1; mx += 1; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5201,7 +10021,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         mn -= pad; mx += pad;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5233,7 +10085,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           const y = top + ph * t / 4;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5265,7 +10149,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.beginPath();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5297,7 +10213,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.lineTo(w - right, y);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5329,6 +10277,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.fillText(cleanTick(val), left - 42, y + 4);
 
 
@@ -5345,7 +10309,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5377,7 +10373,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         ctx.strokeStyle = data.color || '#0b2f66';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5409,7 +10437,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         ctx.beginPath();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5441,7 +10501,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           const x = left + pw * idx / Math.max(1, pairs.length - 1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5473,7 +10565,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           if (idx === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5505,7 +10629,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5537,7 +10693,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         ctx.fillStyle = data.color || '#0b2f66';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5569,7 +10757,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         if (last) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5601,7 +10821,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.arc(last.x, last.y, 4.5, 0, Math.PI * 2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5633,7 +10885,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5665,7 +10949,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         if (pairs[0]) ctx.fillText(pairs[0][0], left, h - 10);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5697,7 +11013,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.textAlign = 'right';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5729,7 +11077,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           ctx.textAlign = 'left';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5761,7 +11141,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5793,7 +11205,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5825,7 +11269,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       root.querySelectorAll('.chart-canvas:not([data-rendered])').forEach(canvas => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5857,7 +11333,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         drawCanvasChart(canvas);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5889,7 +11397,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           const rect = canvas.getBoundingClientRect();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5921,7 +11461,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           const x = (event.clientX - rect.left) * w / rect.width;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5953,7 +11525,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           if (!points.length) return;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5985,7 +11589,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             const grouped = new Map();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6017,7 +11653,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               if (!grouped.has(point.year)) grouped.set(point.year, []);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6049,7 +11717,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6081,7 +11781,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             const anchorYear = years[0];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6113,7 +11845,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             let anchor = anchorCandidates[0];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6145,7 +11909,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               if (!anchor || Math.abs(point.x - x) < Math.abs(anchor.x - x)) anchor = point;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6177,7 +11973,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             const anchorX = anchor ? anchor.x : x;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6209,7 +12037,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               if (point.format === 'percent') {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6241,7 +12101,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 return `${Number.isInteger(pct) ? pct.toFixed(0) : pct.toFixed(1)}%`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6273,7 +12165,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               return fmtChartValue(point.value);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6305,7 +12229,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             const lines = years.map(year => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6337,7 +12293,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               let nearest = yearPoints[0];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6369,7 +12357,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 if (!nearest || Math.abs(point.x - anchorX) < Math.abs(nearest.x - anchorX)) nearest = point;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6401,7 +12421,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               return nearest ? `${nearest.year} ${nearest.date}：${formatPointValue(nearest)}` : '';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6433,7 +12485,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             chartTip.textContent = [points[0].title || '', ...lines].filter(Boolean).join('\n');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6465,7 +12549,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             let nearest = points[0];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6497,7 +12613,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             chartTip.textContent = `${nearest.title} ${nearest.date}：${fmtChartValue(nearest.value)}`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6529,7 +12677,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           chartTip.style.display = 'block';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6561,6 +12741,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           chartTip.style.top = (event.clientY + 12) + 'px';
 
 
@@ -6577,7 +12773,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6609,6 +12837,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       });
 
 
@@ -6625,7 +12869,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6657,7 +12933,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       bindCanvasCharts(root);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6689,7 +12997,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         dot.dataset.bound = '1';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6721,7 +13061,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           chartTip.textContent = dot.dataset.tip || '';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6753,7 +13125,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6785,7 +13189,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           chartTip.style.left = Math.min(window.innerWidth - 280, event.clientX + 12) + 'px';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6817,7 +13253,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6849,7 +13317,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6881,7 +13381,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         zone.dataset.bound = '1';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6913,7 +13445,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           const svg = zone.closest('svg');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6945,7 +13509,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           const rect = svg.getBoundingClientRect();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6977,7 +13573,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           const x = (event.clientX - rect.left) * viewBox.width / rect.width;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7009,7 +13637,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             guide.setAttribute('x1', x.toFixed(1));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7041,7 +13701,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             guide.style.display = 'block';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7073,7 +13765,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           const points = zone._points || (zone._points = JSON.parse(zone.dataset.points || '[]'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7105,7 +13829,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           points.forEach(point => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7137,7 +13893,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             if (!prev || Math.abs(point.x - x) < Math.abs(prev.x - x)) byYear.set(point.year, point);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7169,7 +13957,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           const lines = Array.from(byYear.values())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7201,7 +14021,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             .map(point => `${point.year} ${point.date}：${point.value}`);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7233,7 +14085,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           chartTip.style.display = 'block';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7265,6 +14149,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           chartTip.style.top = (event.clientY + 12) + 'px';
 
 
@@ -7281,7 +14181,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7313,7 +14245,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           const guide = zone.closest('svg')?.querySelector('.seasonal-guide');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7345,7 +14309,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           chartTip.style.display = 'none';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7377,7 +14373,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7409,7 +14437,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Mobile lazy chart rendering.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7442,7 +14502,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   if(window.__coalAxisInteraction)return;window.__coalAxisInteraction=true;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7474,7 +14566,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   tip.id='coal-axis-tooltip';line.id='coal-axis-line';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7506,7 +14630,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   line.style.cssText='position:fixed;display:none;z-index:10001;pointer-events:none;border-left:1px dashed #728aa7';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7538,7 +14694,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function hide(){tip.style.display=line.style.display='none';}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7570,7 +14758,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function show(e){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7602,7 +14822,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const pos=e.touches?.[0]||e,rect=c.getBoundingClientRect();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7634,7 +14886,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const data=JSON.parse(c.dataset.chart||'{}'),w=Number(c.dataset.logicalWidth)||500,h=Number(c.dataset.logicalHeight)||320;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7666,7 +14950,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const x=(pos.clientX-rect.left)*w/rect.width;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7698,7 +15014,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const pts=c._hoverPoints||[];if(!pts.length){hide();return;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7730,7 +15078,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const anchor=pts.reduce((a,p)=>Math.abs(p.x-x)<Math.abs(a.x-x)?p:a,pts[0]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7762,7 +15142,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if(data.type==='seasonal'){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7794,7 +15206,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         const arr=pts.filter(p=>String(p.year)===String(s.year));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7826,7 +15270,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         const near=arr.reduce((a,p)=>Math.abs(p.x-anchor.x)<Math.abs(a.x-anchor.x)?p:a,arr[0]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7858,7 +15334,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         const tolerance=Math.max(1,(gaps[Math.floor(gaps.length/2)]||1)/2+.5);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7890,7 +15398,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         return {year:s.year,color:s.color,point:near,missing};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7922,7 +15462,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }else entries=[{year:'',point:anchor,color:'#17345b'}];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7954,7 +15526,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const date=document.createElement('div');date.textContent=`对应位置：${anchor.date}`;date.style.color='#728198';tip.append(date);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7986,7 +15590,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       const label=document.createElement('span'),dot=document.createElement('span');dot.textContent='● ';dot.style.color=v.color||'#17345b';label.append(dot,`${v.year}${v.missing?'':`  ${v.point.date}`}`);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8018,7 +15654,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8050,7 +15718,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     tip.style.display='block';const tr=tip.getBoundingClientRect();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8082,7 +15782,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     tip.style.top=Math.max(8,Math.min(innerHeight-tr.height-8,pos.clientY+14))+'px';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8114,7 +15846,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   document.addEventListener('mousemove',show,true);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8146,7 +15910,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   document.addEventListener('touchmove',show,{capture:true,passive:true});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8178,6 +15974,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   window.addEventListener('scroll',hide,true);window.addEventListener('resize',hide);
 
 
@@ -8194,7 +16006,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8226,7 +16070,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  const tip=document.createElement('div');tip.id='weekly-balance-tooltip';Object.assign(tip.style,{position:'fixed',display:'none',zIndex:20000,background:'#fff',border:'1px solid #b5c8df',padding:'9px',color:'#17376b',pointerEvents:'none',boxShadow:'0 2px 8px #0002',fontFamily:'Times New Roman, KaiTi'});document.body.append(tip);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8258,7 +16134,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  const all=q.lines.flatMap(l=>l.pairs.map(p=>[Date.parse(p[0]),p[1]]));if(!all.length)return;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8290,7 +16198,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  for(let i=0;i<=5;i++){const v=ymin+(ymax-ymin)*i/5,yy=y(v);g.strokeStyle='#dbe2ec';g.beginPath();g.moveTo(L,yy);g.lineTo(w-R,yy);g.stroke();g.fillStyle='#667488';g.fillText(v.toFixed(0),8,yy+3);}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8322,7 +16262,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  if(q.bars.length){const bound=Math.max(1,...q.bars.map(p=>Math.abs(p[1])))*1.15,yy=v=>T+(bound-v)/(2*bound)*(h-T-B);g.fillStyle='#bbb';for(const p of q.bars){const xx=x(Date.parse(p[0])),zero=yy(0),v=yy(p[1]);g.fillRect(xx-1.5,Math.min(zero,v),3,Math.max(1,Math.abs(zero-v)));}g.fillStyle='#667488';for(let i=0;i<=4;i++){const v=-bound+i*bound/2;g.fillText(v.toFixed(0),w-R+6,yy(v)+3);}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8354,7 +16326,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  if(cursor){g.strokeStyle='#6984a6';g.setLineDash([3,3]);g.beginPath();g.moveTo(x(cursor),T);g.lineTo(x(cursor),h-B);g.stroke();g.setLineDash([])}state={box,xmin,xmax,L,R,w};}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8386,7 +16390,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  c.addEventListener('pointermove',e=>{if(!state)return;const {box,xmin,xmax,L,R,w}=state,at=xmin+(e.clientX-box.left-L)/(w-L-R)*(xmax-xmin),dates=[...new Set(all.map(p=>p[0]))],nearest=dates.reduce((a,b)=>Math.abs(b-at)<Math.abs(a-at)?b:a);draw(nearest);const d=new Date(nearest).toISOString().slice(0,10);tip.textContent=q.title+'\n'+d+'\n'+q.lines.map(l=>{const p=l.pairs.find(p=>p[0]===d);return l.name+'：'+(p?p[1].toFixed(2):'#N/A')}).join('\n');if(q.bars.length){const p=q.bars.find(p=>p[0]===d);tip.textContent+='\n'+q.barName+'：'+(p?p[1].toFixed(2):'#N/A')}tip.style.whiteSpace='pre-line';tip.style.display='block';tip.style.left=Math.min(e.clientX+12,innerWidth-tip.offsetWidth-8)+'px';tip.style.top=Math.min(e.clientY+12,innerHeight-tip.offsetHeight-8)+'px'});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8418,7 +16454,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  }document.querySelectorAll('canvas[data-balance]').forEach(setup);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8450,7 +16518,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script><script id="shutdown-capacity-interactive-renderer">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8482,7 +16582,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  const cards=[...document.querySelectorAll('#jm-fw-shutdown-daily .shutdown-capacity-canvas')];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8514,7 +16646,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  function draw(c){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8546,7 +16710,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const L=64,R=62,T=37,B=40,pw=w-L-R,ph=h-T-B,all=q.lines.flatMap(l=>l.pairs.map(p=>[Date.parse(p[0]),p[1]]));if(!all.length)return;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8578,7 +16774,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const x=t=>L+pw*(t-a)/Math.max(1,b-a),y=v=>T+ph*(mx-v)/(mx-mn);g.font='700 17px "Times New Roman",KaiTi,serif';g.fillStyle='#0b2f66';g.fillText(q.title,L,22);g.font='18px "Times New Roman",KaiTi,serif';g.fillStyle='#667085';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8610,7 +16838,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   for(let k=0;k<=4;k++){let t=a+(b-a)*k/4,xx=x(t);g.textAlign='center';g.fillText(new Date(t).toISOString().slice(5,10).replace('-','/'),xx,h-13)}g.textAlign='left';g.setLineDash([]);c._shutdownPoints=[];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8642,7 +16902,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8674,7 +16966,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  window.addEventListener('resize',()=>cards.forEach(draw));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
